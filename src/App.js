@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './datafiles/all_WotC_pub_UA.js';
 
 class App extends Component {
   render() {
@@ -15,6 +16,23 @@ class App extends Component {
         </p>
       </div>
     );
+  }
+}
+
+class DnDList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ArmourList:  {}
+    }
+  }
+
+  render() {
+    return (
+      <div className="DnDList">
+        <h2 >list goes here</h2>
+      </div>
+    )
   }
 }
 
