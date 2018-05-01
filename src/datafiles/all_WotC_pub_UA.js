@@ -1,100 +1,137 @@
+
 var iFileName = "all_WotC_pub+UA.js";
 var iFileName = "all_WotC_published.js";
 var iFileName = "pub_20140818_PHB.js";
 // This file adds all material from the Player's Handbook to MPMB's Character Record Sheet
-function AddBackgroundVariant(baseBackgroundName, variantBackgroundName, backgroundObj) {
+
+////////////////////////////////
+// Beginning of handles added //
+// facilitate the Manual-style//
+// output. Paste this into    //
+// the top of any updated data//
+// file. Also make sure to    //
+// wrap the data file in an  	//
+// exported function called   //
+// importData()               //
+////////////////////////////////
+export var app = '';
+export var AmmoList = {};
+export var ArmourList = {};
+export const AtHigherLevels = "At Higher Levels: ";
+export var levels = [];
+export var BackgroundFeatureList = {};
+export var BackgroundList = {};
+export var Base_ClassList = {};
+export var ClassList = {};
+export var ClassSubList = {};
+export var CreatureList = {};
+export var FeatsList = {};
+export var FightingStyles = {};
+export var GearList = {};
+export var PacksList = {};
+export var PsychicFocus = {};
+export var PsionicsList = {};
+//export const RequiredSheetVersion = 12.999;
+export var RaceList = {};
+export var RaceSubList = {};
+export var sheetVersion = 13;
+export var SourceList = {};
+export var SpellsList = {};
+export var tDoc = { getField: {} };
+export var typePF = true;
+export var WeaponsList = {};
+var queue = [];
+
+export function AddBackgroundVariant(baseBackgroundName, variantBackgroundName, backgroundObj) {
 
 }
-function AddFightingStyle(listOfClasses, styleName, styleObject) {
+export function AddFightingStyle(listOfClasses, styleName, styleObject) {
 
 }
 
-function AddRacialVariant(raceName, attributeType, attributeObject) {
+export function AddRacialVariant(raceName, attributeType, attributeObject) {
 
 }
 
-function AddSubClass(className, subclassName, subclassAttributes) {
+export function AddSubClass(className, subclassName, subclassAttributes) {
 	// this looks like one of the workhorses.
 }
 
-function AddToNotes(target, textToAdd) {
+export function AddToNotes(target, textToAdd) {
 	// example target: ClassSubList['sorcerer-wild magic'].features.subclassfeature1.wmsurgetable1
 	// example textToAdd: "Wild Mage's Wild Magic Surge table, part 1"
 }
 
-function AddWarlockInvocation(invocationName, invocationObject) {
+export function AddWarlockInvocation(invocationName, invocationObject) {
 
 }
-function ConvertToMetric(noteStr, roundingValue) {
+export function ConvertToMetric(noteStr, roundingValue) {
 	// roundingValue is passed in as a float
 }
 
-function desc(descriptions) {
+export function desc(descriptions) {
 	// Don't know what to do with this yet.
 }
 
-function DoTemplate(s1, s2) {
+export function DoTemplate(s1, s2) {
 	// seems to always be DoTemplate("ASnotes", "Add");
 }
 
-function isTemplVis(templName) {
+export function isTemplVis(templName) {
 	// appears to return a boolean.
 	return true;
 }
 
-function newObj(objName) {
+export function newObj(objName) {
 	// This api is not at all clear yet. It seems to set up attributes in an object.
 }
 
-function parseSource(tbd) {
+export function parseSource(tbd) {
 	// do something with aDomain.features["subclassfeature1"].source
 }
 
-function ReplaceString(noteFld, noteStr, trueFalseVar, oldNoteStr) {
+export function ReplaceString(noteFld, noteStr, trueFalseVar, oldNoteStr) {
 
 }
 
-function RunFunctionAtEnd(passedFunction) {
+export function RequiredSheetVersion(version) {
+	// code passes in 12.999
+	// maybe you need to do something with it
+	// maybe not.
+}
+
+export function RunFunctionAtEnd(passedFunction) {
 	//ensure that the functions passed into this are run last.
+	try {
+		queue.push(passedFunction);
+	} catch(error) {
+  	console.error(error);
+	}
+	console.log("hoping to skip function");
 }
 
-function toUni(someString) {
+export function toUni(someString) {
 	// No idea what's going on here yet
 }
 
-function What(setting) {
+export function What(setting) {
 	if (setting === "Unit System") {
 		return "metric" // Or non metric I guess?
 	}
 }
 
-function importData() {
-	var app = '';
-	var AmmoList = {};
-	var ArmourList = {};
-	const AtHigherLevels = "At Higher Levels: ";
-	var levels = [];
-	var BackgroundFeatureList = {};
-	var BackgroundList = {};
-	var Base_ClassList = {};
-	var ClassList = {};
-	var ClassSubList = {};
-	var CreatureList = {};
-	var FeatsList = {};
-	var FightingStyles = {};
-	var GearList = {};
-	var PacksList = {};
-	var PsychicFocus = {};
-	var PsionicsList = {};
-	const RequiredSheetVersion = 12.999;
-	var RaceList = {};
-	var RaceSubList = {};
-	var sheetVersion = 13;
-	var SourceList = {};
-	var SpellsList = {};
-	var tDoc = { getField: {} };
-	var typePF = true;
-	var WeaponsList = {};
+function processQueue(q) {
+	for (var i=0; i<q.length;i++) {
+		console.log("Would have run function");
+		//q[i]();
+	}
+}
+////////////////////////////////
+// End of handles //////////////
+////////////////////////////////
+
+// Don't forget to put this in the next update!
+export function importData() {
 
 	// Define the source
 	SourceList.P={
@@ -299,7 +336,7 @@ function importData() {
 				name : "Spirit Seeker",
 				source : ["P", 50],
 				minlevel : 3,
-				description : "\n   " + "I can cast Beast Sense and Speak with Animals as rituals (PHB 217 \u0026 277)",
+				description : "\n   I can cast Beast Sense and Speak with Animals as rituals (PHB 217 \u0026 277)",
 				spellcastingBonus : [{
 					name : "Spirit Seeker",
 					spells : ["beast sense"],
@@ -314,51 +351,51 @@ function importData() {
 				name : "Totem Spirit",
 				source : ["P", 50],
 				minlevel : 3,
-				description : "\n   " + "Choose Bear, Eagle, Elk, Wolf, or Tiger Spirit using the \"Choose Feature\" button above",
+				description : "\n   Choose Bear, Eagle, Elk, Wolf, or Tiger Spirit using the \"Choose Feature\" button above",
 				choices : ["Bear", "Eagle", "Wolf"],
 				"bear" : {
 					name : "Bear Spirit",
-					description : "\n   " + "While raging, I have resistance to all damage types except psychic",
+					description : "\n   While raging, I have resistance to all damage types except psychic",
 					dmgres : [["All -Psychic", "All -Psychic (rage)"]],
 					eval : "SetProf('resistance', false, 'Bludgeoning', 'Barbarian: Rage', 'Bludgeon. (in Rage)'); SetProf('resistance', false, 'Piercing', 'Barbarian: Rage', 'Piercing (in Rage)'); SetProf('resistance', false, 'Slashing', 'Barbarian: Rage', 'Slashing (in Rage)');",
 					removeeval : "SetProf('resistance', true, 'Bludgeoning', 'Barbarian: Rage', 'Bludgeon. (in Rage)'); SetProf('resistance', true, 'Piercing', 'Barbarian: Rage', 'Piercing (in Rage)'); SetProf('resistance', true, 'Slashing', 'Barbarian: Rage', 'Slashing (in Rage)');"
 				},
 				"eagle" : {
 					name : "Eagle Spirit",
-					description : "\n   " + "While raging without heavy armor, others have disadv. on opportunity attacks vs. me" + "\n   " + "I can use the Dash action as a bonus action",
+					description : "\n   While raging without heavy armor, others have disadv. on opportunity attacks vs. me\n   I can use the Dash action as a bonus action",
 					action : ["bonus action", " (Dash)"]
 				},
 				"wolf" : {
 					name : "Wolf Spirit",
-					description : "\n   " + "While raging, friends have advantage on melee attacks vs. hostiles within 5 ft of me"
+					description : "\n   While raging, friends have advantage on melee attacks vs. hostiles within 5 ft of me"
 				}
 			},
 			"subclassfeature6" : {
 				name : "Aspect of the Beast",
 				source : ["P", 50],
 				minlevel : 6,
-				description : "\n   " + "Choose Bear, Eagle, Elk, Wolf, or Tiger Aspect using the \"Choose Feature\" button above",
+				description : "\n   Choose Bear, Eagle, Elk, Wolf, or Tiger Aspect using the \"Choose Feature\" button above",
 				choices : ["Bear", "Eagle", "Wolf"],
 				"bear" : {
 					name : "Aspect of the Bear",
-					description : "\n   " + "Advantage on Strength checks to push/pull/lift/break; Carrying capacity is doubled",
+					description : "\n   Advantage on Strength checks to push/pull/lift/break; Carrying capacity is doubled",
 					eval : "tDoc.getField('Carrying Capacity Multiplier').value *= 2;",
 					removeeval : "tDoc.getField('Carrying Capacity Multiplier').value /= 2;"
 				},
 				"eagle" : {
 					name : "Aspect of the Eagle",
-					description : "\n   " + "I can see up to 1 mile away perfectly; No disadvantage on Perception from dim light"
+					description : "\n   I can see up to 1 mile away perfectly; No disadvantage on Perception from dim light"
 				},
 				"wolf" : {
 					name : "Aspect of the Wolf",
-					description : "\n   " + "I can track while traveling at a fast pace; I can move stealthily at a normal pace"
+					description : "\n   I can track while traveling at a fast pace; I can move stealthily at a normal pace"
 				}
 			},
 			"subclassfeature10" : {
 				name : "Spirit Walker",
 				source : ["P", 50],
 				minlevel : 10,
-				description : "\n   " + "I can cast Commune with Nature as a ritual (PHB 224)",
+				description : "\n   I can cast Commune with Nature as a ritual (PHB 224)",
 				spellcastingBonus : {
 					name : "Spirit Walker",
 					spells : ["commune with nature"],
@@ -369,19 +406,19 @@ function importData() {
 				name : "Totemic Attunement",
 				source : ["P", 50],
 				minlevel : 14,
-				description : "\n   " + "Choose Bear, Eagle, Elk, Wolf, or Tiger Attunement using the \"Choose Feature\" button",
+				description : "\n   Choose Bear, Eagle, Elk, Wolf, or Tiger Attunement using the \"Choose Feature\" button",
 				choices : ["Bear", "Eagle", "Wolf"],
 				"bear" : {
 					name : "Bear Attunement",
-					description : "\n   " + "While raging, any creature that sees me within 5 ft has disadv. on attacks vs. others" + "\n   " + "Enemies that can't perceive me or be frightened are immune"
+					description : "\n   While raging, any creature that sees me within 5 ft has disadv. on attacks vs. others\n   Enemies that can't perceive me or be frightened are immune"
 				},
 				"eagle" : {
 					name : "Eagle Attunement",
-					description : "\n   " + "While raging, I can fly at my current speed, but I can only stay aloft during my turn"
+					description : "\n   While raging, I can fly at my current speed, but I can only stay aloft during my turn"
 				},
 				"wolf" : {
 					name : "Wolf Attunement",
-					description : "\n   " + "If my melee attack hits while raging, I can knock prone as a bonus action (up to Large)",
+					description : "\n   If my melee attack hits while raging, I can knock prone as a bonus action (up to Large)",
 					action : ["bonus action", " (raging: knock prone)"]
 				}
 			}
@@ -397,7 +434,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["P", 55],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with medium armor, shields, and martial weapons",
+				description : "\n   I gain proficiency with medium armor, shields, and martial weapons",
 				armor : [false, true, false, true],
 				weapons : [false, true]
 			},
@@ -405,13 +442,13 @@ function importData() {
 				name : "Combat Inspiration",
 				source : ["P", 55],
 				minlevel : 3,
-				description : "\n   " + "My Bardic Inspiration can also be used to add the die to a weapon damage roll" + "\n   " + "Alternatively, it can be used as a reaction to add the die to AC against one attack"
+				description : "\n   My Bardic Inspiration can also be used to add the die to a weapon damage roll\n   Alternatively, it can be used as a reaction to add the die to AC against one attack"
 			},
 			"subclassfeature14" : {
 				name : "Battle Magic",
 				source : ["P", 55],
 				minlevel : 14,
-				description : "\n   " + "When I use my action to cast a Bard spell, I can make one bonus action weapon attack",
+				description : "\n   When I use my action to cast a Bard spell, I can make one bonus action weapon attack",
 				action : ["bonus action", " (with Bard spell)"]
 			}
 		}
@@ -426,7 +463,7 @@ function importData() {
 				name : "Blessings of Knowledge",
 				source : ["P", 59],
 				minlevel : 1,
-				description : "\n   " + "I learn two languages and gain proficiency and expertise with two skills" + "\n   " + "I can choose from the following: Arcana, History, Nature, or Religion",
+				description : "\n   I learn two languages and gain proficiency and expertise with two skills\n   I can choose from the following: Arcana, History, Nature, or Religion",
 				skillstxt : "\n\n" + toUni("Knowledge Domain") + ": Choose two from Arcana, History, Nature, and Religion. You also gain expertise with these skills.",
 				languageProfs : [2]
 			},
@@ -434,21 +471,21 @@ function importData() {
 				name : "Channel Divinity: Knowledge of Ages",
 				source : ["P", 59],
 				minlevel : 2,
-				description : "\n   " + "As an action, I gain proficiency with a chosen skill or tool for 10 minutes",
+				description : "\n   As an action, I gain proficiency with a chosen skill or tool for 10 minutes",
 				action : ["action", ""]
 			},
 			"subclassfeature6" : {
 				name : "Channel Divinity: Read Thoughts",
 				source : ["P", 59],
 				minlevel : 6,
-				description : "\n   " + "As an action, one creature within 60 ft I can see must make a Wisdom save" + "\n   " + "If it fails, I can read its surface thoughts for 1 min, as long as it's within 60 ft of me" + "\n   " + "As an action, I can end this and cast Suggestion on it (it fails its save automatically)" + "\n   " + "If it succeeded on its save, I can't use this feature again on it until I finish a long rest",
+				description : "\n   As an action, one creature within 60 ft I can see must make a Wisdom save\n   If it fails, I can read its surface thoughts for 1 min, as long as it's within 60 ft of me\n   As an action, I can end this and cast Suggestion on it (it fails its save automatically)\n   If it succeeded on its save, I can't use this feature again on it until I finish a long rest",
 				action : ["action", ""]
 			},
 			"subclassfeature8" : {
 				name : "Potent Spellcasting",
 				source : ["P", 60],
 				minlevel : 8,
-				description : "\n   " + "I can add my Wisdom modifier to the damage I deal with my cleric cantrips",
+				description : "\n   I can add my Wisdom modifier to the damage I deal with my cleric cantrips",
 				calcChanges : {
 					atkCalc : ["if (classes.known.cleric && classes.known.cleric.level > 7 && thisWeapon[4].indexOf('cleric') !== -1 && thisWeapon[3] && SpellsList[thisWeapon[3]].level === 0) { output.extraDmg += What('Wis Mod'); }; ", "My cleric cantrips get my Wisdom modifier added to their damage."]
 				}
@@ -457,7 +494,7 @@ function importData() {
 				name : "Visions of the Past",
 				source : ["P", 60],
 				minlevel : 17,
-				description : "\n   " + "I can see recent events of an object or area by concentrating and praying for 1 min" + "\n   " + "I can meditate this way for up to a number of minutes equal to my Wisdom score" + "\n   - " + "Object Reading (after meditating for 1 minute per owner):" + "\n      " + "If an owner owned it in the last Wis score in days, I learn how that owner got/lost it" + "\n      " + "I also learn the most recent significant event involving the object and the owner" + "\n   - " + "Area Reading (my immediate surroundings, up to a 50-foot cube):" + "\n      " + "Going back my Wisdom score in days, per minute I meditate, I learn about one event" + "\n      " + "This starts with the most recent event; It can be significant or just important to me",
+				description : "\n   I can see recent events of an object or area by concentrating and praying for 1 min\n   I can meditate this way for up to a number of minutes equal to my Wisdom score\n   - Object Reading (after meditating for 1 minute per owner):\n      If an owner owned it in the last Wis score in days, I learn how that owner got/lost it\n      I also learn the most recent significant event involving the object and the owner\n   - Area Reading (my immediate surroundings, up to a 50-foot cube):\n      Going back my Wisdom score in days, per minute I meditate, I learn about one event\n      This starts with the most recent event; It can be significant or just important to me",
 				usages : 1,
 				recovery : "short rest"
 			}
@@ -473,7 +510,7 @@ function importData() {
 				name : "Bonus Cantrip",
 				source : ["P", 61],
 				minlevel : 1,
-				description : "\n   " + "I learn the Light cantrip if I didn't already know it",
+				description : "\n   I learn the Light cantrip if I didn't already know it",
 				spellcastingBonus : {
 					name : "Bonus Cantrip (Light)",
 					spells : ["light"],
@@ -497,7 +534,7 @@ function importData() {
 				name : "Channel Divinity: Radiance of the Dawn",
 				source : ["P", 61],
 				minlevel : 2,
-				description : "\n   " + "As an action, in 30 ft, magical darkness is dispelled and hostiles must make a Con save" + "\n   " + "Each takes radiant damage, saves for half, and negates with total cover",
+				description : "\n   As an action, in 30 ft, magical darkness is dispelled and hostiles must make a Con save\n   Each takes radiant damage, saves for half, and negates with total cover",
 				additional : ["", "2d10 + 2 damage", "2d10 + 3 damage", "2d10 + 4 damage", "2d10 + 5 damage", "2d10 + 6 damage", "2d10 + 7 damage", "2d10 + 8 damage", "2d10 + 9 damage", "2d10 + 10 dmg", "2d10 + 11 dmg", "2d10 + 12 dmg", "2d10 + 13 dmg", "2d10 + 14 dmg", "2d10 + 15 dmg", "2d10 + 16 dmg", "2d10 + 17 dmg", "2d10 + 18 dmg", "2d10 + 19 dmg", "2d10 + 20 dmg"],
 				action : ["action", ""]
 			},
@@ -505,13 +542,13 @@ function importData() {
 				name : "Improved Flame",
 				source : ["P", 61],
 				minlevel : 6,
-				description : "\n   " + "I can also use my Warding Flare if another is attacked by a creature within 30 ft of me"
+				description : "\n   I can also use my Warding Flare if another is attacked by a creature within 30 ft of me"
 			},
 			"subclassfeature8" : {
 				name : "Potent Spellcasting",
 				source : ["P", 61],
 				minlevel : 8,
-				description : "\n   " + "I can add my Wisdom modifier to the damage I deal with my cleric cantrips",
+				description : "\n   I can add my Wisdom modifier to the damage I deal with my cleric cantrips",
 				calcChanges : {
 					atkCalc : ["if (classes.known.cleric && classes.known.cleric.level > 7 && thisWeapon[4].indexOf('cleric') !== -1 && thisWeapon[3] && SpellsList[thisWeapon[3]].level === 0) { output.extraDmg += What('Wis Mod'); }; ", "My cleric cantrips get my Wisdom modifier added to their damage."]
 				}
@@ -520,7 +557,7 @@ function importData() {
 				name : "Corona of Light",
 				source : ["P", 61],
 				minlevel : 17,
-				description : "\n   " + "As an action, I have an aura of 60 ft sunlight and 30 ft dim light for 1 min" + "\n   " + "Enemies in the sunlight have disadv. on saves vs. spells that deal fire or radiant damage",
+				description : "\n   As an action, I have an aura of 60 ft sunlight and 30 ft dim light for 1 min\n   Enemies in the sunlight have disadv. on saves vs. spells that deal fire or radiant damage",
 				action : ["action", " (start/stop)"]
 			}
 		}
@@ -535,14 +572,14 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["P", 62],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with heavy armor",
+				description : "\n   I gain proficiency with heavy armor",
 				armor : [false, false, true, false]
 			},
 			"subclassfeature1.1" : {
 				name : "Acolyte of Nature",
 				source : ["P", 62],
 				minlevel : 1,
-				description : "\n   " + "I learn a druid cantrip and proficiency with a skill: Animal Handling, Nature, Survival",
+				description : "\n   I learn a druid cantrip and proficiency with a skill: Animal Handling, Nature, Survival",
 				skillstxt : "\n\n" + toUni("Nature Domain") + ": Choose one from Animal Handling, Nature, and Survival.",
 				spellcastingBonus : {
 					name : "Acolyte of Nature",
@@ -554,21 +591,21 @@ function importData() {
 				name : "Channel Divinity: Charm Animals and Plants",
 				source : ["P", 62],
 				minlevel : 2,
-				description : "\n   " + "As an action, all beasts and plants within 30 ft that I can see must make a Wis save" + "\n   " + "If failed, each is charmed and friendly to allies and me for 1 min or until damaged",
+				description : "\n   As an action, all beasts and plants within 30 ft that I can see must make a Wis save\n   If failed, each is charmed and friendly to allies and me for 1 min or until damaged",
 				action : ["action", ""]
 			},
 			"subclassfeature6" : {
 				name : "Dampen Elements",
 				source : ["P", 62],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, if an ally in 30 ft or I takes acid/cold/fire/lightning/thunder damage," + "\n   " + "I can grant resistance against that instance of damage",
+				description : "\n   As a reaction, if an ally in 30 ft or I takes acid/cold/fire/lightning/thunder damage,\n   I can grant resistance against that instance of damage",
 				action : ["reaction", ""]
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["P", 62],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 cold/fire/lightning damage (choice)";
@@ -581,7 +618,7 @@ function importData() {
 				name : "Master of Nature",
 				source : ["P", 62],
 				minlevel : 17,
-				description : "\n   " + "As a bonus action, I can command creatures that are charmed by my Channel Divinity",
+				description : "\n   As a bonus action, I can command creatures that are charmed by my Channel Divinity",
 				action : ["bonus action", ""]
 			}
 		}
@@ -596,7 +633,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["P", 62],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with martial weapons and heavy armor",
+				description : "\n   I gain proficiency with martial weapons and heavy armor",
 				armor : [false, false, true, false],
 				weapons : [false, true]
 			},
@@ -604,7 +641,7 @@ function importData() {
 				name : "Wrath of the Storm",
 				source : ["P", 62],
 				minlevel : 1,
-				description : "\n   " + "As a reaction, when a creature I can see within 5 ft hits me, I can thunderously rebuke" + "\n   " + "It takes 2d8 lightning or thunder damage (my choice) that a Dex save can halve",
+				description : "\n   As a reaction, when a creature I can see within 5 ft hits me, I can thunderously rebuke\n   It takes 2d8 lightning or thunder damage (my choice) that a Dex save can halve",
 				usages : "Wisdom modifier per ",
 				usagescalc : "event.value = Math.max(1, What('Wis Mod'));",
 				recovery : "long rest",
@@ -614,19 +651,19 @@ function importData() {
 				name : "Channel Divinity: Destructive Wrath",
 				source : ["P", 62],
 				minlevel : 2,
-				description : "\n   " + "Instead of rolling, I can do maximum damage when I do lightning or thunder damage"
+				description : "\n   Instead of rolling, I can do maximum damage when I do lightning or thunder damage"
 			},
 			"subclassfeature6" : {
 				name : "Thunderbolt Strike",
 				source : ["P", 62],
 				minlevel : 6,
-				description : "\n   " + "When I deal lightning damage to a Large or smaller foe, I can push it up to 10 ft away"
+				description : "\n   When I deal lightning damage to a Large or smaller foe, I can push it up to 10 ft away"
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["P", 62],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 thunder damage";
@@ -639,7 +676,7 @@ function importData() {
 				name : "Stormborn",
 				source : ["P", 62],
 				minlevel : 17,
-				description : "\n   " + "Whenever I'm not underground or indoors, I have a fly speed equal to my current speed",
+				description : "\n   Whenever I'm not underground or indoors, I have a fly speed equal to my current speed",
 				speed : { fly : { spd : "walk", enc : "walk" } }
 			}
 		}
@@ -654,7 +691,7 @@ function importData() {
 				name : "Blessing of the Trickster",
 				source : ["P", 63],
 				minlevel : 1,
-				description : "\n   " + "As an action, a willing creature I touch (not me) has adv. on Dex (Stealth) checks" + "\n   " + "This lasts for 1 hour or until I use it again",
+				description : "\n   As an action, a willing creature I touch (not me) has adv. on Dex (Stealth) checks\n   This lasts for 1 hour or until I use it again",
 				action : ["action", ""]
 			},
 			"subclassfeature2" : {
@@ -676,14 +713,14 @@ function importData() {
 				name : "Channel Divinity: Cloak of Shadows",
 				source : ["P", 63],
 				minlevel : 6,
-				description : "\n   " + "As an action, I become invisible until the end of my next turn or I attack/cast a spell",
+				description : "\n   As an action, I become invisible until the end of my next turn or I attack/cast a spell",
 				action : ["action", ""]
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["P", 63],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) { return n < 8 ? "" : "+" + (n < 14 ? 1 : 2) + "d8 poison damage"; }),
 				calcChanges : {
 					atkAdd : ["if (classes.known.cleric && classes.known.cleric.level > 7 && !isSpell) {fields.Description += (fields.Description ? '; ' : '') + 'Once per turn +' + (classes.known.cleric.level < 14 ? 1 : 2) + 'd8 poison damage'; }; ", "Once per turn, I can have one of my weapon attacks that hit do extra poison damage."]
@@ -710,7 +747,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["P", 63],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with martial weapons and heavy armor",
+				description : "\n   I gain proficiency with martial weapons and heavy armor",
 				armor : [false, false, true, false],
 				weapons : [false, true]
 			},
@@ -718,7 +755,7 @@ function importData() {
 				name : "War Priest",
 				source : ["P", 63],
 				minlevel : 1,
-				description : "\n   " + "When I use the Attack action, I can make a weapon attack as a bonus action",
+				description : "\n   When I use the Attack action, I can make a weapon attack as a bonus action",
 				usages : "Wisdom modifier per ",
 				usagescalc : "event.value = Math.max(1, What('Wis Mod'));",
 				recovery : "long rest",
@@ -728,7 +765,7 @@ function importData() {
 				name : "Channel Divinity: Guided Strike",
 				source : ["P", 63],
 				minlevel : 2,
-				description : "\n   " + "When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
+				description : "\n   When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
 			},
 			"subclassfeature6" : {
 				name : "Channel Divinity: War God's Blessing",
@@ -744,7 +781,7 @@ function importData() {
 				name : "Divine Strike",
 				source : ["P", 63],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 damage of the weapon's type";
@@ -757,7 +794,7 @@ function importData() {
 				name : "Avatar of Battle",
 				source : ["P", 63],
 				minlevel : 17,
-				description : "\n   " + "I have resistance to bludgeoning/piercing/slashing damage from nonmagical weapons",
+				description : "\n   I have resistance to bludgeoning/piercing/slashing damage from nonmagical weapons",
 				dmgres : [["Bludgeoning", "Bludg. (nonmagical)"], ["Piercing", "Pierc. (nonmagical)"], ["Slashing", "Slash. (nonmagical)"]]
 			}
 		}
@@ -771,13 +808,13 @@ function importData() {
 				name : "Circle Forms",
 				source : ["P", 69],
 				minlevel : 2,
-				description : "\n   " + "I am able to transform into more dangerous animal forms when using Wild Shape"
+				description : "\n   I am able to transform into more dangerous animal forms when using Wild Shape"
 			},
 			"subclassfeature2.wild shape" : {
 				name : "Wild Shape",
 				source : ["P", 66],
 				minlevel : 2,
-				description : "\n   " + "As a bonus action, I assume the shape of a beast I have seen before with these rules:" + "\n    - " + "I gain all its game statistics except Intelligence, Wisdom, or Charisma" + "\n    - " + "I get its skill/saving throw prof. while keeping my own, using whichever is higher" + "\n    - " + "I assume the beast's HP and HD; I get mine back when I revert back" + "\n    - " + "I can't cast spells in beast form, but transforming doesn't break concentration" + "\n    - " + "I retain features from class, race, etc., but I don't retain special senses" + "\n    - " + "I can choose whether equipment falls to the ground, merges, or stays worn" + "\n    - " + "I revert if out of time or unconscious; if KOd by damage, excess damage carries over",
+				description : "\n   As a bonus action, I assume the shape of a beast I have seen before with these rules:\n    - I gain all its game statistics except Intelligence, Wisdom, or Charisma\n    - I get its skill/saving throw prof. while keeping my own, using whichever is higher\n    - I assume the beast's HP and HD; I get mine back when I revert back\n    - I can't cast spells in beast form, but transforming doesn't break concentration\n    - I retain features from class, race, etc., but I don't retain special senses\n    - I can choose whether equipment falls to the ground, merges, or stays worn\n    - I revert if out of time or unconscious; if KOd by damage, excess damage carries over",
 				usages : [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "\u221E\u00D7 per "],
 				recovery : "short rest",
 				additional : ["", "CR 1, no fly/swim; 1 hour", "CR 1, no fly/swim; 1 hour", "CR 1, no fly; 2 hours", "CR 1, no fly; 2 hours", "CR 2, no fly; 3 hours", "CR 2, no fly; 3 hours", "CR 2; 4 hours", "CR 3; 4 hours", "CR 3; 5 hours", "CR 3; 5 hours", "CR 4; 6 hours", "CR 4; 6 hours", "CR 4; 7 hours", "CR 5; 7 hours", "CR 5; 8 hours", "CR 5; 8 hours", "CR 6; 9 hours", "CR 6; 9 hours", "CR 6; 10 hours"],
@@ -788,7 +825,7 @@ function importData() {
 				name : "Combat Wild Shape",
 				source : ["P", 69],
 				minlevel : 2,
-				description : "\n   " + "As a bonus action while in Wild Shape, I can expend spell slots to heal myself" + "\n   " + "I regain 1d8 HP per expended spell slot level; I can use Wild Shape as a bonus action",
+				description : "\n   As a bonus action while in Wild Shape, I can expend spell slots to heal myself\n   I regain 1d8 HP per expended spell slot level; I can use Wild Shape as a bonus action",
 				action : ["bonus action", " (heal)"],
 				removeeval : "AddAction('action', 'Wild Shape (start)', 'Druid'); AddAction('bonus action', 'Wild Shape (end)', 'Druid');"
 
@@ -797,19 +834,19 @@ function importData() {
 				name : "Primal Strike",
 				source : ["P", 69],
 				minlevel : 6,
-				description : "\n   " + "My attacks count as magical while in Wild Shape"
+				description : "\n   My attacks count as magical while in Wild Shape"
 			},
 			"subclassfeature10" : {
 				name : "Elemental Wild Shape",
 				source : ["P", 69],
 				minlevel : 10,
-				description : "\n   " + "I can transform into an air/earth/fire/water elemental by expending 2 Wild Shape uses"
+				description : "\n   I can transform into an air/earth/fire/water elemental by expending 2 Wild Shape uses"
 			},
 			"subclassfeature14" : {
 				name : "Thousand Forms",
 				source : ["P", 69],
 				minlevel : 14,
-				description : "\n   " + "I can cast Alter Self at will without using spell slots (PHB 211)"
+				description : "\n   I can cast Alter Self at will without using spell slots (PHB 211)"
 			}
 		}
 
@@ -826,7 +863,7 @@ function importData() {
 				name : "Combat Superiority",
 				source : ["P", 73],
 				minlevel : 3,
-				description : "\n   " + "I gain a number of superiority dice that I can use to fuel special Maneuvers" + "\n   " + "I regain all superiority dice after a short rest",
+				description : "\n   I gain a number of superiority dice that I can use to fuel special Maneuvers\n   I regain all superiority dice after a short rest",
 				additional : ["", "", "d8", "d8", "d8", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d12", "d12", "d12"],
 				usages : [0, 0, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6],
 				recovery : "short rest"
@@ -835,121 +872,121 @@ function importData() {
 				name : "Maneuvers",
 				source : ["P", 73],
 				minlevel : 3,
-				description : "\n   " + "Use the \"Choose Feature\" button above to add a Maneuver to the third page" + "\n   " + "I can use a Maneuver by expending a superiority die (only one Maneuver per attack)",
+				description : "\n   Use the \"Choose Feature\" button above to add a Maneuver to the third page\n   I can use a Maneuver by expending a superiority die (only one Maneuver per attack)",
 				additional : ["", "", "3 known", "3 known", "3 known", "3 known", "5 known", "5 known", "5 known", "7 known", "7 known", "7 known", "7 known", "7 known", "9 known", "9 known", "9 known", "9 known", "9 known", "9 known"],
 				extraname : "Maneuver",
 				extrachoices : ["Commander's Strike", "Disarming Attack", "Distracting Strike", "Evasive Footwork", "Feinting Attack", "Goading Attack", "Lunging Attack", "Maneuvering Attack", "Menacing Attack", "Parry", "Precision Attack", "Pushing Attack", "Rally", "Riposte", "Sweeping Attack", "Trip Attack"],
 				"commander's strike" : {
 					name : "Commander's Strike",
 					source : ["P", 74],
-					description : "\n   " + "I forgo one attack of my Attack action to use a bonus action to direct an ally I see/hear" + "\n   " + "The ally can use a reaction to make an attack, adding the superiority die to damage",
+					description : "\n   I forgo one attack of my Attack action to use a bonus action to direct an ally I see/hear\n   The ally can use a reaction to make an attack, adding the superiority die to damage",
 					action : ["bonus action", " (with Attack action)"]
 				},
 				"disarming attack" : {
 					name : "Disarming Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Strength save or drops a held object of my choice to its feet"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Strength save or drops a held object of my choice to its feet"
 				},
 				"distracting strike" : {
 					name : "Distracting Strike",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "The next attack of an ally before my next turn has adv. against the creature"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   The next attack of an ally before my next turn has adv. against the creature"
 				},
 				"evasive footwork" : {
 					name : "Evasive Footwork",
 					source : ["P", 74],
-					description : "\n   " + "Use when moving; I add the superiority die to my AC until I stop moving"
+					description : "\n   Use when moving; I add the superiority die to my AC until I stop moving"
 				},
 				"feinting attack" : {
 					name : "Feinting Attack",
 					source : ["P", 74],
-					description : "\n   " + "As a bonus action, I can feint to gain adv. on my next attack against a target within 5 ft" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage",
+					description : "\n   As a bonus action, I can feint to gain adv. on my next attack against a target within 5 ft\n   If the attack hits, I add the superiority die to my attack's damage",
 					action : ["bonus action", ""]
 				},
 				"goading attack" : {
 					name : "Goading Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Wis save or has disadv. vs. other targets until the end of my next turn"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Wis save or has disadv. vs. other targets until the end of my next turn"
 				},
 				"lunging attack" : {
 					name : "Lunging Attack",
 					source : ["P", 74],
-					description : "\n   " + "I can spend a superiority die to increase the reach of a melee weapon attack by 5 ft" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage"
+					description : "\n   I can spend a superiority die to increase the reach of a melee weapon attack by 5 ft\n   If the attack hits, I add the superiority die to my attack's damage"
 				},
 				"maneuvering attack" : {
 					name : "Maneuvering Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Ally can use reaction to move half speed without opportunity attack from the target"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Ally can use reaction to move half speed without opportunity attack from the target"
 
 				},
 				"menacing attack" : {
 					name : "Menacing Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Wisdom save or is frightened of me until the end of my next turn"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Wisdom save or is frightened of me until the end of my next turn"
 				},
 				"parry" : {
 					name : "Parry",
 					source : ["P", 74],
-					description : "\n   " + "When damaged in melee, I can use a reaction to reduce it by superiority die + Dex mod",
+					description : "\n   When damaged in melee, I can use a reaction to reduce it by superiority die + Dex mod",
 					action : ["reaction", " (when damaged in melee)"]
 				},
 				"precision attack" : {
 					name : "Precision Attack",
 					source : ["P", 74],
-					description : "\n   " + "I add the superiority die to my attack roll, either before or after rolling"
+					description : "\n   I add the superiority die to my attack roll, either before or after rolling"
 				},
 				"pushing attack" : {
 					name : "Pushing Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to the attack's damage" + "\n   " + "If target is Large or smaller, it must make a Strength save or be pushed up to 15 ft away"
+					description : "\n   Use after hitting a creature; I add the superiority die to the attack's damage\n   If target is Large or smaller, it must make a Strength save or be pushed up to 15 ft away"
 				},
 				"rally" : {
 					name : "Rally",
 					source : ["P", 74],
-					description : "\n   " + "Ally that can see/hear me gets temporary HP equal to superiority die + Charisma mod",
+					description : "\n   Ally that can see/hear me gets temporary HP equal to superiority die + Charisma mod",
 					action : ["bonus action", ""]
 				},
 				"riposte" : {
 					name : "Riposte",
 					source : ["P", 74],
-					description : "\n   " + "When missed in melee, I can use my reaction to make one melee attack vs. the attacker" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage",
+					description : "\n   When missed in melee, I can use my reaction to make one melee attack vs. the attacker\n   If the attack hits, I add the superiority die to my attack's damage",
 					action : ["reaction", " (after missed in melee)"]
 				},
 				"sweeping attack" : {
 					name : "Sweeping Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature and a second creature is within 5 ft of the first" + "\n   " + "If the original attack roll hits this second creature, it takes the superiority die in damage"
+					description : "\n   Use after hitting a creature and a second creature is within 5 ft of the first\n   If the original attack roll hits this second creature, it takes the superiority die in damage"
 				},
 				"trip attack" : {
 					name : "Trip Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to the attack's damage" + "\n   " + "If target is Large or smaller, it must make a Strength save or be knocked prone"
+					description : "\n   Use after hitting a creature; I add the superiority die to the attack's damage\n   If target is Large or smaller, it must make a Strength save or be knocked prone"
 				}
 			},
 			"subclassfeature3.2" : {
 				name : "Student of War",
 				source : ["P", 73],
 				minlevel : 3,
-				description : "\n   " + "I have proficiency with one artisan's tool set of my choice",
+				description : "\n   I have proficiency with one artisan's tool set of my choice",
 				toolProfs : [["Artisan's tools", 1]]
 			},
 			"subclassfeature7" : {
 				name : "Know Your Enemy",
 				source : ["P", 73],
 				minlevel : 7,
-				description : "\n   " + "If I spend 1 min studying someone, the DM will tell me info about him/her"
+				description : "\n   If I spend 1 min studying someone, the DM will tell me info about him/her"
 			},
 			"subclassfeature10" : {
 				name : "Improved Combat Superiority",
 				source : ["P", 74],
 				minlevel : 10,
-				description : "\n   " + "My superiority dice turn into d10s at 10th level and into d12s at 18th level"
+				description : "\n   My superiority dice turn into d10s at 10th level and into d12s at 18th level"
 			},
 			"subclassfeature15" : {
 				name : "Relentless",
 				source : ["P", 74],
 				minlevel : 15,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -974,7 +1011,7 @@ function importData() {
 				name : "Action Surge",
 				source : ["P", 72],
 				minlevel : 2,
-				description : "\n   " + "I can take one additional action on my turn on top of my normally allowed actions",
+				description : "\n   I can take one additional action on my turn on top of my normally allowed actions",
 				usages : [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
 				recovery : "short rest",
 				additional : ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "30 ft teleport", "30 ft teleport", "30 ft teleport", "30 ft teleport", "30 ft teleport", "30 ft teleport"]
@@ -983,7 +1020,7 @@ function importData() {
 				name : "Spellcasting",
 				source : ["P", 75],
 				minlevel : 3,
-				description : "\n   " + "I can cast known wizard cantrips/spells, using Intelligence as my spellcasting ability",
+				description : "\n   I can cast known wizard cantrips/spells, using Intelligence as my spellcasting ability",
 				additional : ["2 cantrips known", "2 cantrips known", "2 cantrips \u0026 3 spells known", "2 cantrips \u0026 4 spells known", "2 cantrips \u0026 4 spells known", "2 cantrips \u0026 4 spells known", "2 cantrips \u0026 5 spells known", "2 cantrips \u0026 6 spells known", "2 cantrips \u0026 6 spells known", "3 cantrips \u0026 7 spells known", "3 cantrips \u0026 8 spells known", "3 cantrips \u0026 8 spells known", "3 cantrips \u0026 9 spells known", "3 cantrips \u0026 10 spells known", "3 cantrips \u0026 10 spells known", "3 cantrips \u0026 11 spells known", "3 cantrips \u0026 11 spells known", "3 cantrips \u0026 11 spells known", "3 cantrips \u0026 12 spells known", "3 cantrips \u0026 13 spells known"],
 				spellcastingBonus : { //for the spells gained at level 3, 8, 14, 20
 					name : "From any School",
@@ -996,33 +1033,33 @@ function importData() {
 				name : "Weapon Bond",
 				source : ["P", 75],
 				minlevel : 3,
-				description : "\n   " + "I can bond with up to two weapons by spending a short rest with each" + "\n   " + "I can't be disarmed of a bonded weapon and I can summon one as a bonus action",
+				description : "\n   I can bond with up to two weapons by spending a short rest with each\n   I can't be disarmed of a bonded weapon and I can summon one as a bonus action",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature7" : {
 				name : "War Magic",
 				source : ["P", 75],
 				minlevel : 7,
-				description : "\n   " + "When I use my action to cast a cantrip, I can make a weapon attack as a bonus action",
+				description : "\n   When I use my action to cast a cantrip, I can make a weapon attack as a bonus action",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature10" : {
 				name : "Eldritch Strike",
 				source : ["P", 75],
 				minlevel : 10,
-				description : "\n   " + "A creature hit by my weapon attack has disadv. on the save vs. the next spell I cast" + "\n   " + "This lasts until the end of my next turn"
+				description : "\n   A creature hit by my weapon attack has disadv. on the save vs. the next spell I cast\n   This lasts until the end of my next turn"
 			},
 			"subclassfeature15" : {
 				name : "Arcane Charge",
 				source : ["P", 75],
 				minlevel : 15,
-				description : "\n   " + "When I use Action Surge, I can also teleport up to 30 ft to an empty space I can see" + "\n   " + "I can do so before or after the extra action"
+				description : "\n   When I use Action Surge, I can also teleport up to 30 ft to an empty space I can see\n   I can do so before or after the extra action"
 			},
 			"subclassfeature18" : {
 				name : "Improved War Magic",
 				source : ["P", 75],
 				minlevel : 18,
-				description : "\n   " + "When I use my action to cast a spell, I can make a weapon attack as a bonus action",
+				description : "\n   When I use my action to cast a spell, I can make a weapon attack as a bonus action",
 				action : ["bonus action", ""]
 			}
 		}
@@ -1036,7 +1073,7 @@ function importData() {
 				name : "Disciple of the Elements",
 				source : ["P", 80],
 				minlevel : 3,
-				description : "\n   " + "I know Elemental Attunement and additional Elemental Disciplines, depending on level" + "\n   " + "Use the \"Choose Feature\" button above to add Elemental Disciplines to the third page" + "\n   " + "From 5th level onward, I can use additional ki points to increase their spell slot level" + "\n   " + "I can trade known Elemental Disciplines for others when I gain new ones",
+				description : "\n   I know Elemental Attunement and additional Elemental Disciplines, depending on level\n   Use the \"Choose Feature\" button above to add Elemental Disciplines to the third page\n   From 5th level onward, I can use additional ki points to increase their spell slot level\n   I can trade known Elemental Disciplines for others when I gain new ones",
 				additional : ["", "", "2 known", "2 known", "2 known; 3 max ki", "3 known; 3 max ki", "3 known; 3 max ki", "3 known; 3 max ki", "3 known; 4 max ki", "3 known; 4 max ki", "4 known; 4 max ki", "4 known; 4 max ki", "4 known; 5 max ki", "4 known; 5 max ki", "4 known; 5 max ki", "4 known; 5 max ki", "5 known; 6 max ki", "5 known; 6 max ki", "5 known; 6 max ki", "5 known; 6 max ki"],
 				extraname : "Elemental Discipline",
 				extrachoices : ["Breath of Winter (prereq: level 17 monk)", "Clench of the North Wind (prereq: level 6 monk)", "Eternal Mountain Defense (prereq: level 17 monk)", "Fangs of the Fire Snake", "Fist of Four Thunders", "Fist of Unbroken Air", "Flames of the Phoenix (prereq: level 11 monk)", "Gong of the Summit (prereq: level 6 monk)", "Mist Stance (prereq: level 11 monk)", "Ride the Wind (prereq: level 11 monk)", "Rive of Hungry Flame (prereq: level 17 monk)", "Rush of the Gale Spirits", "Shape the Flowing River", "Sweeping Cinder Strike", "Water Whip", "Wave of Rolling Earth (prereq: level 17 monk)"],
@@ -1045,13 +1082,13 @@ function importData() {
 				"elemental attunement" : {
 					name : "Elemental Attunement",
 					source : ["P", 81],
-					description : "\n   " + "As an action, I can briefly control elemental forces nearby" + "\n   " + "I can make a harmless sensory effect, light/snuff light, chill/warm 1 lb for 1 hour," + "\n   " + "or I cause earth/fire/water/mist in a 1 ft cube to shape itself into a form for 1 minute",
+					description : "\n   As an action, I can briefly control elemental forces nearby\n   I can make a harmless sensory effect, light/snuff light, chill/warm 1 lb for 1 hour,\n   or I cause earth/fire/water/mist in a 1 ft cube to shape itself into a form for 1 minute",
 					action : ["action", ""]
 				},
 				"breath of winter (prereq: level 17 monk)" : {
 					name : "Breath of Winter",
 					source : ["P", 81],
-					description : " [6 ki points]" + "\n   " + "As an action, I can cast Cone of Cold without material components (PHB 224)",
+					description : " [6 ki points]\n   As an action, I can cast Cone of Cold without material components (PHB 224)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Breath of Winter",
@@ -1065,7 +1102,7 @@ function importData() {
 				"clench of the north wind (prereq: level 6 monk)" : {
 					name : "Clench of the North Wind",
 					source : ["P", 81],
-					description : " [3 ki points]" + "\n   " + "As an action, I can cast Hold Person without material components (PHB 251)",
+					description : " [3 ki points]\n   As an action, I can cast Hold Person without material components (PHB 251)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Clench of the North Wind",
@@ -1079,7 +1116,7 @@ function importData() {
 				"eternal mountain defense (prereq: level 17 monk)" : { // errata from level 11 to level 17
 					name : "Eternal Mountain Defense",
 					source : ["P", 81],
-					description : " [5 ki points]" + "\n   " + "As an action, I can cast Stoneskin on myself without material components (PHB 278)",
+					description : " [5 ki points]\n   As an action, I can cast Stoneskin on myself without material components (PHB 278)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Eternal Mountain Defense",
@@ -1093,7 +1130,7 @@ function importData() {
 				"fangs of the fire snake" : {
 					name : "Fangs of the Fire Snake",
 					source : ["P", 81],
-					description : " [1 ki point]" + "\n   " + "With Attack action, my unarmed strikes +10 ft reach and deal fire damage this turn" + "\n   " + "Also, I can spent an additional 1 ki point to cause an attack to deal +1d10 fire damage",
+					description : " [1 ki point]\n   With Attack action, my unarmed strikes +10 ft reach and deal fire damage this turn\n   Also, I can spent an additional 1 ki point to cause an attack to deal +1d10 fire damage",
 					calcChanges : {
 						atkAdd : ["if ((/unarmed strike/i).test(WeaponName) && (/^(?=.*fire)(?=.*snake).*$/i).test(WeaponText)) {fields.Description += (fields.Description ? '; ' : '') + 'After hit, spend 1 ki point for +1d10 fire damage'; fields.Range = 'Melee (15 ft reach)'; fields.Damage_Type = 'fire'; }; ", "If I include the words 'Fire Snake' in the name of an unarmed strike, it gets +10 ft reach, does fire damage, and gains the option to deal +1d10 fire damage by spending 1 additional ki point."]
 					}
@@ -1101,7 +1138,7 @@ function importData() {
 				"fist of four thunders" : {
 					name : "Fist of Four Thunders",
 					source : ["P", 81],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Thunderwave (PHB 282)",
+					description : " [2 ki points]\n   As an action, I can cast Thunderwave (PHB 282)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Fist of Four Thunders",
@@ -1114,13 +1151,13 @@ function importData() {
 				"fist of unbroken air" : {
 					name : "Fist of Unbroken Air",
 					source : ["P", 81],
-					description : " [2 ki points; +1d10/extra ki point]" + "\n   " + "As an action, target within 30 ft takes 3d10 bludgeoning damage (spend ki for more)" + "\n   " + "It is also pushed up to 20 ft away from me and knocked prone" + "\n   " + "It can make a Strength save to halve damage and avoid being pushed and knocked prone",
+					description : " [2 ki points; +1d10/extra ki point]\n   As an action, target within 30 ft takes 3d10 bludgeoning damage (spend ki for more)\n   It is also pushed up to 20 ft away from me and knocked prone\n   It can make a Strength save to halve damage and avoid being pushed and knocked prone",
 					action : ["action", ""]
 				},
 				"flames of the phoenix (prereq: level 11 monk)" : {
 					name : "Flames of the Phoenix",
 					source : ["P", 81],
-					description : " [4 ki points]" + "\n   " + "As an action, I can cast Fireball without material components (PHB 241)",
+					description : " [4 ki points]\n   As an action, I can cast Fireball without material components (PHB 241)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Flames of the Phoenix",
@@ -1134,7 +1171,7 @@ function importData() {
 				"gong of the summit (prereq: level 6 monk)" : {
 					name : "Gong of the Summit",
 					source : ["P", 81],
-					description : " [3 ki points]" + "\n   " + "As an action, I can cast Shatter without material components (PHB 275)",
+					description : " [3 ki points]\n   As an action, I can cast Shatter without material components (PHB 275)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Gong of the Summit",
@@ -1148,7 +1185,7 @@ function importData() {
 				"mist stance (prereq: level 11 monk)" : {
 					name : "Mist Stance",
 					source : ["P", 81],
-					description : " [4 ki points]" + "\n   " + "As an action, I can cast Gaseous Form on myself without material components (PHB 244)",
+					description : " [4 ki points]\n   As an action, I can cast Gaseous Form on myself without material components (PHB 244)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Mist Stance",
@@ -1162,7 +1199,7 @@ function importData() {
 				"ride the wind (prereq: level 11 monk)" : {
 					name : "Ride the Wind",
 					source : ["P", 81],
-					description : " [4 ki points]" + "\n   " + "As an action, I can cast Fly on myself without material components (PHB 243)",
+					description : " [4 ki points]\n   As an action, I can cast Fly on myself without material components (PHB 243)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Ride the Wind",
@@ -1176,7 +1213,7 @@ function importData() {
 				"rive of hungry flame (prereq: level 17 monk)" : {
 					name : "Rive of Hungry Flame",
 					source : ["P", 81],
-					description : " [5 ki points]" + "\n   " + "As an action, I can cast Wall of Fire without material components (PHB 285)",
+					description : " [5 ki points]\n   As an action, I can cast Wall of Fire without material components (PHB 285)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Rive of Hungry Flame",
@@ -1190,7 +1227,7 @@ function importData() {
 				"rush of the gale spirits" : {
 					name : "Rush of the Gale Spirits",
 					source : ["P", 81],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Gust of Wind without material components (PHB 248)",
+					description : " [2 ki points]\n   As an action, I can cast Gust of Wind without material components (PHB 248)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Rush of the Gale Spirits",
@@ -1203,13 +1240,13 @@ function importData() {
 				"shape the flowing river" : {
 					name : "Shape the Flowing River",
 					source : ["P", 81],
-					description : " [1 ki point]" + "\n   " + "As an action, I can affect ice/water up to a 30-foot cube within 120 ft" + "\n   " + "I can switch it between water/ice states and reshape ice up to half its largest dimension",
+					description : " [1 ki point]\n   As an action, I can affect ice/water up to a 30-foot cube within 120 ft\n   I can switch it between water/ice states and reshape ice up to half its largest dimension",
 					action : ["action", ""]
 				},
 				"sweeping cinder strike" : {
 					name : "Sweeping Cinder Strike",
 					source : ["P", 81],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Burning Hands (PHB 220)",
+					description : " [2 ki points]\n   As an action, I can cast Burning Hands (PHB 220)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Sweeping Cinder Strike",
@@ -1222,13 +1259,13 @@ function importData() {
 				"water whip" : {
 					name : "Water Whip",
 					source : ["P", 81],
-					description : " [2 ki points; +1d10/extra ki point]" + "\n   " + "As an action, a creature within 30 ft takes 3d10 bludgeoning damage (spend ki for more)" + "\n   " + "It is also knocked prone or pulled up to 25 ft closer to me (my choice)" + "\n   " + "It can make a Dexterity save to halve damage and avoid being pulled or knocked prone",
+					description : " [2 ki points; +1d10/extra ki point]\n   As an action, a creature within 30 ft takes 3d10 bludgeoning damage (spend ki for more)\n   It is also knocked prone or pulled up to 25 ft closer to me (my choice)\n   It can make a Dexterity save to halve damage and avoid being pulled or knocked prone",
 					action : ["action", ""]
 				},
 				"wave of rolling earth (prereq: level 17 monk)" : {
 					name : "Wave of Rolling Earth",
 					source : ["P", 81],
-					description : " [6 ki points]" + "\n   " + "As an action, I can cast Wall of Stone without material components (PHB 287)",
+					description : " [6 ki points]\n   As an action, I can cast Wall of Stone without material components (PHB 287)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Wave of Rolling Earth",
@@ -1251,7 +1288,7 @@ function importData() {
 				name : "Shadow Arts",
 				source : ["P", 80],
 				minlevel : 3,
-				description : "\n   " + "I know the Minor Illusion cantrip and can cast certain spells by using ki (see page 3)",
+				description : "\n   I know the Minor Illusion cantrip and can cast certain spells by using ki (see page 3)",
 				spellcastingBonus : {
 					name : "Shadow Arts",
 					spells : ["minor illusion"],
@@ -1264,7 +1301,7 @@ function importData() {
 				"darkness" : {
 					name : "Darkness",
 					source : ["P", 80],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Darkness without material components (PHB 230)",
+					description : " [2 ki points]\n   As an action, I can cast Darkness without material components (PHB 230)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Darkness",
@@ -1277,7 +1314,7 @@ function importData() {
 				"darkvision" : {
 					name : "Darkvision",
 					source : ["P", 80],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Darkvision without material components (PHB 230)",
+					description : " [2 ki points]\n   As an action, I can cast Darkvision without material components (PHB 230)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Darkvision",
@@ -1290,7 +1327,7 @@ function importData() {
 				"pass without trace" : {
 					name : "Pass Without Trace",
 					source : ["P", 80],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Pass without Trace without material components (PHB 264)",
+					description : " [2 ki points]\n   As an action, I can cast Pass without Trace without material components (PHB 264)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Pass Without Trace",
@@ -1303,7 +1340,7 @@ function importData() {
 				"silence" : {
 					name : "Silence",
 					source : ["P", 80],
-					description : " [2 ki points]" + "\n   " + "As an action, I can cast Silence (PHB 275)",
+					description : " [2 ki points]\n   As an action, I can cast Silence (PHB 275)",
 					action : ["action", ""],
 					spellcastingBonus : {
 						name : "Silence",
@@ -1318,21 +1355,21 @@ function importData() {
 				name : "Shadow Step",
 				source : ["P", 80],
 				minlevel : 6,
-				description : "\n   " + "As a bonus action, I can teleport from and into dim light or darkness within 60 ft" + "\n   " + "After I do this, I have adv. on the next melee attack I make before the end of my turn",
+				description : "\n   As a bonus action, I can teleport from and into dim light or darkness within 60 ft\n   After I do this, I have adv. on the next melee attack I make before the end of my turn",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature11" : {
 				name : "Cloak of Shadows",
 				source : ["P", 80],
 				minlevel : 11,
-				description : "\n   " + "As an action, I can become invisible in dim light or darkness until I attack/cast",
+				description : "\n   As an action, I can become invisible in dim light or darkness until I attack/cast",
 				action : ["action", ""]
 			},
 			"subclassfeature17" : {
 				name : "Opportunist",
 				source : ["P", 80],
 				minlevel : 17,
-				description : "\n   " + "As a reaction, if a creature in 5 ft is hit by another, I can make a melee attack vs. it",
+				description : "\n   As a reaction, if a creature in 5 ft is hit by another, I can make a melee attack vs. it",
 				action : ["reaction", ""]
 			}
 		}
@@ -1347,21 +1384,21 @@ function importData() {
 				name : "Channel Divinity: Nature's Wrath",
 				source : ["P", 87],
 				minlevel : 3,
-				description : "\n   " + "As an action, a creature I can see within 10 ft must make a Str/Dex save (its choice)" + "\n   " + "If it fails this save, it is restrained until it succeeds on a save at the end of its turn",
+				description : "\n   As an action, a creature I can see within 10 ft must make a Str/Dex save (its choice)\n   If it fails this save, it is restrained until it succeeds on a save at the end of its turn",
 				action : ["action", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Turn the Faithless",
 				source : ["P", 87],
 				minlevel : 3,
-				description : "\n   " + "As an action, all fey/fiends within 30 ft that can hear me must make a Wisdom save" + "\n   " + "If one fails, it is turned for 1 minute or until it takes damage and must show true form" + "\n   " + "Turned: move away, never within 30 ft of me, no reactions or actions other than Dash" + "\n   " + "Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds",
+				description : "\n   As an action, all fey/fiends within 30 ft that can hear me must make a Wisdom save\n   If one fails, it is turned for 1 minute or until it takes damage and must show true form\n   Turned: move away, never within 30 ft of me, no reactions or actions other than Dash\n   Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds",
 				action : ["action", ""]
 			},
 			"subclassfeature7" : {
 				name : "Aura of Warding",
 				source : ["P", 87],
 				minlevel : 7,
-				description : "\n   " + "Allies within range and I have resistance to damage from spells",
+				description : "\n   Allies within range and I have resistance to damage from spells",
 				additional : ["", "", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"],
 				dmgres : ["Spells"]
 			},
@@ -1369,7 +1406,7 @@ function importData() {
 				name : "Undying Sentinel",
 				source : ["P", 87],
 				minlevel : 15,
-				description : "\n   " + "If dropped to 0 hit points and not killed outright, I can choose to stay at 1 hit point" + "\n   " + "Additionally, I suffer no drawbacks of old age and can't be aged magically",
+				description : "\n   If dropped to 0 hit points and not killed outright, I can choose to stay at 1 hit point\n   Additionally, I suffer no drawbacks of old age and can't be aged magically",
 				recovery : "long rest",
 				usages : 1
 			},
@@ -1377,7 +1414,7 @@ function importData() {
 				name : "Elder Champion",
 				source : ["P", 87],
 				minlevel : 20,
-				description : "\n   " + "As an action, I assume the form of a force of nature for 1 minute and gain benefits:" + "\n    - " + "At the start of each of my turns, I regain 10 hit points" + "\n    - " + "I can cast paladin spells with a casting time of 1 action as a bonus action instead" + "\n    - " + "Enemies within 10 ft have disadv. on saves vs. my paladin spells and channel divinity",
+				description : "\n   As an action, I assume the form of a force of nature for 1 minute and gain benefits:\n    - At the start of each of my turns, I regain 10 hit points\n    - I can cast paladin spells with a casting time of 1 action as a bonus action instead\n    - Enemies within 10 ft have disadv. on saves vs. my paladin spells and channel divinity",
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""]
@@ -1394,34 +1431,34 @@ function importData() {
 				name : "Channel Divinity: Abjure Enemy",
 				source : ["P", 88],
 				minlevel : 3,
-				description : "\n   " + "As an action, one creature within 60 ft that I can see me must make a Wisdom save" + "\n   " + "If failed, it is frightened and its speed is 0 despite bonuses; if success, its speed is halved" + "\n   " + "This lasts for 1 minute or until it takes damage; Undead/fiends have disadv. on save",
+				description : "\n   As an action, one creature within 60 ft that I can see me must make a Wisdom save\n   If failed, it is frightened and its speed is 0 despite bonuses; if success, its speed is halved\n   This lasts for 1 minute or until it takes damage; Undead/fiends have disadv. on save",
 				action : ["action", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Vow of Enmity",
 				source : ["P", 88],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I utter a vow against a creature I can see within 10 ft" + "\n   " + "I have advantage on attack rolls against it for 1 minute or until it is at 0 HP/unconscious",
+				description : "\n   As a bonus action, I utter a vow against a creature I can see within 10 ft\n   I have advantage on attack rolls against it for 1 minute or until it is at 0 HP/unconscious",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature7" : {
 				name : "Relentless Avenger",
 				source : ["P", 88],
 				minlevel : 7,
-				description : "\n   " + "After I hit with an opportunity attack, I can move 1/2 my speed in the same reaction" + "\n   " + "This movement doesn't provoke opportunity attacks"
+				description : "\n   After I hit with an opportunity attack, I can move 1/2 my speed in the same reaction\n   This movement doesn't provoke opportunity attacks"
 			},
 			"subclassfeature15" : {
 				name : "Soul of Vengeance",
 				source : ["P", 88],
 				minlevel : 15,
-				description : "\n   " + "When an enemy I have an active Vow of Enmity against makes an attack, I can react" + "\n   " + "As a reaction, I can make a melee weapon attack against it if it is within range",
+				description : "\n   When an enemy I have an active Vow of Enmity against makes an attack, I can react\n   As a reaction, I can make a melee weapon attack against it if it is within range",
 				action : ["reaction", " (with Vow of Enmity"]
 			},
 			"subclassfeature20" : {
 				name : "Avenging Angel",
 				source : ["P", 88],
 				minlevel : 20,
-				description : "\n   " + "As an action, I gain a flying speed of 60 ft and a 30 ft aura of menace for 1 hour" + "\n   " + "When a creature first enters or starts its turn in the aura, it must make a Wis save" + "\n   " + "If failed, for 1 min or until it takes damage, it is frightened and attacks vs. it have adv.",
+				description : "\n   As an action, I gain a flying speed of 60 ft and a 30 ft aura of menace for 1 hour\n   When a creature first enters or starts its turn in the aura, it must make a Wis save\n   If failed, for 1 min or until it takes damage, it is frightened and attacks vs. it have adv.",
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""]
@@ -1438,7 +1475,7 @@ function importData() {
 				name : "Ranger's Companion",
 				source : ["P", 93],
 				minlevel : 3,
-				description : "\n   " + "It adds my proficiency bonus to AC, attacks, damage, and save/skill proficiencies" + "\n   " + "Its Hit Point maximum equals four times my ranger level if higher than its normal HP" + "\n   " + "It takes a turn on my initiative; It only takes an action if I command it to" + "\n   " + "As an action, I can have it do an Attack/Dash/Disengage/Dodge/Help action on its turn" + "\n   " + "Can attack while commanding with Extra Attack; Order movement at no action cost",
+				description : "\n   It adds my proficiency bonus to AC, attacks, damage, and save/skill proficiencies\n   Its Hit Point maximum equals four times my ranger level if higher than its normal HP\n   It takes a turn on my initiative; It only takes an action if I command it to\n   As an action, I can have it do an Attack/Dash/Disengage/Dodge/Help action on its turn\n   Can attack while commanding with Extra Attack; Order movement at no action cost",
 				additional : "1/4 CR up to medium sized beast",
 				action : ["action", " (Command)"]
 			},
@@ -1446,20 +1483,20 @@ function importData() {
 				name : "Exceptional Training",
 				source : ["P", 93],
 				minlevel : 7,
-				description : "\n   " + "As a bonus action, I can have my beast Dash/Disengage/Dodge/Help on its turn",
+				description : "\n   As a bonus action, I can have my beast Dash/Disengage/Dodge/Help on its turn",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature11" : {
 				name : "Bestial Fury",
 				source : ["P", 93],
 				minlevel : 11,
-				description : "\n   " + "When I command my beast to use the Attack action, it can attack twice on its turn"
+				description : "\n   When I command my beast to use the Attack action, it can attack twice on its turn"
 			},
 			"subclassfeature15" : {
 				name : "Share Spells",
 				source : ["P", 93],
 				minlevel : 15,
-				description : "\n   " + "When I cast a spell on myself, I can have it also affect my beast if it is within 30 ft"
+				description : "\n   When I cast a spell on myself, I can have it also affect my beast if it is within 30 ft"
 			}
 		}
 	});
@@ -1484,7 +1521,7 @@ function importData() {
 				name : "Spellcasting",
 				source : ["P", 98],
 				minlevel : 3,
-				description : "\n   " + "I can cast known wizard cantrips/spells, using Intelligence as my spellcasting ability",
+				description : "\n   I can cast known wizard cantrips/spells, using Intelligence as my spellcasting ability",
 				additional : ["", "", "3 cantrips \u0026 3 spells known", "3 cantrips \u0026 4 spells known", "3 cantrips \u0026 4 spells known", "3 cantrips \u0026 4 spells known", "3 cantrips \u0026 5 spells known", "3 cantrips \u0026 6 spells known", "3 cantrips \u0026 6 spells known", "4 cantrips \u0026 7 spells known", "4 cantrips \u0026 8 spells known", "4 cantrips \u0026 8 spells known", "4 cantrips \u0026 9 spells known", "4 cantrips \u0026 10 spells known", "4 cantrips \u0026 10 spells known", "4 cantrips \u0026 11 spells known", "4 cantrips \u0026 11 spells known", "4 cantrips \u0026 11 spells known", "4 cantrips \u0026 12 spells known", "4 cantrips \u0026 13 spells known"],
 				spellcastingBonus : [{//for the Mage Hand cantrip gained at level 1
 					name : "Mage Hand cantrip",
@@ -1501,27 +1538,27 @@ function importData() {
 				name : "Mage Hand Legerdemain",
 				source : ["P", 98],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I can direct my Mage Hand" + "\n   " + "With a Dex (Sleight of Hand) vs. Wis (Perception) checks, I can do so discreetly" + "\n   " + "I can make it invisible and perform the following tasks:" + "\n    - " + "Stow/retrieve an object the hand is holding in a container worn/carried by another" + "\n    - " + "Use thieves' tools to pick locks and disarm traps at range",
+				description : "\n   As a bonus action, I can direct my Mage Hand\n   With a Dex (Sleight of Hand) vs. Wis (Perception) checks, I can do so discreetly\n   I can make it invisible and perform the following tasks:\n    - Stow/retrieve an object the hand is holding in a container worn/carried by another\n    - Use thieves' tools to pick locks and disarm traps at range",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature9" : {
 				name : "Magical Ambush",
 				source : ["P", 98],
 				minlevel : 9,
-				description : "\n   " + "When I cast a spell while hidden, the target(s) have disadvantage against that spell"
+				description : "\n   When I cast a spell while hidden, the target(s) have disadvantage against that spell"
 			},
 			"subclassfeature13" : {
 				name : "Versatile Trickster",
 				source : ["P", 98],
 				minlevel : 13,
-				description : "\n   " + "As a bonus action, gain adv. on attacks this turn on creature within 5 ft of Mage Hand",
+				description : "\n   As a bonus action, gain adv. on attacks this turn on creature within 5 ft of Mage Hand",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature17" : {
 				name : "Spell Thief",
 				source : ["P", 98],
 				minlevel : 17,
-				description : "\n   " + "As a reaction, after a spell is cast at me, I can try to negate and steal it" + "\n   " + "The caster makes a save against my spell DC with his/her spellcasting ability" + "\n   " + "On failure, the caster forgets how to cast that spell for eight hours" + "\n   " + "If I have a spell slot of a high enough level for it, I learn how to cast it during this time",
+				description : "\n   As a reaction, after a spell is cast at me, I can try to negate and steal it\n   The caster makes a save against my spell DC with his/her spellcasting ability\n   On failure, the caster forgets how to cast that spell for eight hours\n   If I have a spell slot of a high enough level for it, I learn how to cast it during this time",
 				action : ["reaction", ""],
 				recovery : "long rest",
 				usages : 1
@@ -1539,32 +1576,32 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["P", 97],
 				minlevel : 3,
-				description : "\n   " + "I am proficient with disguise kits and poisoner's kits",
+				description : "\n   I am proficient with disguise kits and poisoner's kits",
 				toolProfs : ["Disguise kit", "Poisoner's kit"]
 			},
 			"subclassfeature3.1" : {
 				name : "Assassinate",
 				source : ["P", 97],
 				minlevel : 3,
-				description : "\n   " + "I have adv. on attack rolls against creatures that have not taken a turn in combat yet" + "\n   " + "Any hit I score against a creature that is surprised is a critical hit"
+				description : "\n   I have adv. on attack rolls against creatures that have not taken a turn in combat yet\n   Any hit I score against a creature that is surprised is a critical hit"
 			},
 			"subclassfeature9" : {
 				name : "Infiltration Expertise",
 				source : ["P", 97],
 				minlevel : 9,
-				description : "\n   " + "I can create false identities in 7 days for 25 gp"
+				description : "\n   I can create false identities in 7 days for 25 gp"
 			},
 			"subclassfeature13" : {
 				name : "Imposter",
 				source : ["P", 97],
 				minlevel : 13,
-				description : "\n   " + "After 3 hours of studying a person, I can mimic speech, writing, and behavior" + "\n   " + "I have advantage on Charisma (Deception) checks to maintain this ruse"
+				description : "\n   After 3 hours of studying a person, I can mimic speech, writing, and behavior\n   I have advantage on Charisma (Deception) checks to maintain this ruse"
 			},
 			"subclassfeature17" : {
 				name : "Death Strike",
 				source : ["P", 97],
 				minlevel : 17,
-				description : "\n   " + "When I hit a surprised creature, it must make a Con save or take double damage",
+				description : "\n   When I hit a surprised creature, it must make a Con save or take double damage",
 				additional : "Save DC: 8 + Dex mod + Proficiency bonus"
 			}
 		}
@@ -1647,7 +1684,7 @@ function importData() {
 				name : "Tides of Chaos",
 				source : ["P", 103],
 				minlevel : 1,
-				description : "\n   " + "I can gain advantage on either one attack roll, ability check, or saving throw" + "\n   " + "After I cast a 1st-level or higher sorcerer spell, the DM can impose a Wild Magic Surge" + "\n   " + "After I roll on the Wild Magic Surge table, I regain my use of Tides of Chaos",
+				description : "\n   I can gain advantage on either one attack roll, ability check, or saving throw\n   After I cast a 1st-level or higher sorcerer spell, the DM can impose a Wild Magic Surge\n   After I roll on the Wild Magic Surge table, I regain my use of Tides of Chaos",
 				recovery : "long rest",
 				usages : 1
 			},
@@ -1655,7 +1692,7 @@ function importData() {
 				name : "Bend Luck",
 				source : ["P", 103],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, I can add/subtract 1d4 from another's attack roll, ability check, or save",
+				description : "\n   As a reaction, I can add/subtract 1d4 from another's attack roll, ability check, or save",
 				action : ["reaction", " (2 sorcery points)"],
 				additional : "2 sorcery points"
 			},
@@ -1663,13 +1700,13 @@ function importData() {
 				name : "Controlled Chaos",
 				source : ["P", 103],
 				minlevel : 14,
-				description : "\n   " + "Whenever I roll on the Wild Magic Surge table, I can roll twice and use either result"
+				description : "\n   Whenever I roll on the Wild Magic Surge table, I can roll twice and use either result"
 			},
 			"subclassfeature18" : {
 				name : "Spell Bombardment",
 				source : ["P", 103],
 				minlevel : 18,
-				description : "\n   " + "Once per turn, when I roll spell damage, I can take one damage die that rolled max" + "\n   " + "I can then roll this die again and add it to the spell's damage"
+				description : "\n   Once per turn, when I roll spell damage, I can take one damage die that rolled max\n   I can then roll this die again and add it to the spell's damage"
 			}
 		}
 	});
@@ -1683,7 +1720,7 @@ function importData() {
 				name : "Fey Presence",
 				source : ["P", 109],
 				minlevel : 1,
-				description : "\n   " + "As an action, all creatures in a 10-ft cube around me must make a Wisdom save" + "\n   " + "If failed, they're all charmed or frightened (my choice) until the end of my next turn",
+				description : "\n   As an action, all creatures in a 10-ft cube around me must make a Wisdom save\n   If failed, they're all charmed or frightened (my choice) until the end of my next turn",
 				recovery : "short rest",
 				usages : 1,
 				action : ["action", ""]
@@ -1692,7 +1729,7 @@ function importData() {
 				name : "Misty Escape",
 				source : ["P", 109],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, when I take damage, I can turn invisible and teleport up to 60 ft" + "\n   " + "I stay invisible until the start of my next turn or until I attack or cast a spell",
+				description : "\n   As a reaction, when I take damage, I can turn invisible and teleport up to 60 ft\n   I stay invisible until the start of my next turn or until I attack or cast a spell",
 				action : ["reaction", " (taking damage)"],
 				recovery : "short rest",
 				usages : 1
@@ -1701,7 +1738,7 @@ function importData() {
 				name : "Beguiling Defenses",
 				source : ["P", 109],
 				minlevel : 10,
-				description : "\n   " + "As a reaction, when a creature tries to charm me, I can turn the charm back on it" + "\n   " + "It must make a Wis save or be charmed by me for 1 minute or until taking damage" + "\n   " + "I am immune to being charmed",
+				description : "\n   As a reaction, when a creature tries to charm me, I can turn the charm back on it\n   It must make a Wis save or be charmed by me for 1 minute or until taking damage\n   I am immune to being charmed",
 				action : ["reaction", " (when charmed)"],
 				savetxt : { immune : ["charmed"] }
 			},
@@ -1709,7 +1746,7 @@ function importData() {
 				name : "Dark Delirium",
 				source : ["P", 109],
 				minlevel : 14,
-				description : "\n   " + "As an action, a creature within 60 ft must make a Wis save or be charmed/frightened" + "\n   " + "This lasts for 1 minute or until my concentration is broken or it takes damage" + "\n   " + "During this time, it can't see or hear anything but the illusion, me, and itself",
+				description : "\n   As an action, a creature within 60 ft must make a Wis save or be charmed/frightened\n   This lasts for 1 minute or until my concentration is broken or it takes damage\n   During this time, it can't see or hear anything but the illusion, me, and itself",
 				recovery : "short rest",
 				usages : 1,
 				action : ["action", ""]
@@ -1726,13 +1763,13 @@ function importData() {
 				name : "Awakened Mind",
 				source : ["P", 110],
 				minlevel : 1,
-				description : "\n   " + "I can telepathically speak to creatures I can see within 30 ft if they know a language" // 'to' not 'with', so one-way
+				description : "\n   I can telepathically speak to creatures I can see within 30 ft if they know a language" // 'to' not 'with', so one-way
 			},
 			"subclassfeature6" : {
 				name : "Entropic Ward",
 				source : ["P", 110],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, when I'm attacked, I can impose disadvantage to that attack roll" + "\n   " + "If it misses me, I have adv. on my next attack vs. the attacker during my next turn",
+				description : "\n   As a reaction, when I'm attacked, I can impose disadvantage to that attack roll\n   If it misses me, I have adv. on my next attack vs. the attacker during my next turn",
 				action : ["reaction", " (when attacked)"],
 				recovery : "short rest",
 				usages : 1
@@ -1741,14 +1778,14 @@ function importData() {
 				name : "Thought Shield",
 				source : ["P", 110],
 				minlevel : 10,
-				description : "\n   " + "No one can read my mind unless I allow it; I have resistance to psychic damage" + "\n   " + "When I take psychic damage, the dealer of the psychic damage takes the same amount",
+				description : "\n   No one can read my mind unless I allow it; I have resistance to psychic damage\n   When I take psychic damage, the dealer of the psychic damage takes the same amount",
 				dmgres : ["Psychic"]
 			},
 			"subclassfeature14" : {
 				name : "Create Thrall",
 				source : ["P", 110],
 				minlevel : 14,
-				description : "\n   " + "As an action, I can charm an incapacitated humanoid by touch" + "\n   " + "While it is charmed, I can communicate with it telepathically if it is on the same plane" + "\n   " + "This lasts until the charm is removed (can be by Remove Curse) or I use this again",
+				description : "\n   As an action, I can charm an incapacitated humanoid by touch\n   While it is charmed, I can communicate with it telepathically if it is on the same plane\n   This lasts until the charm is removed (can be by Remove Curse) or I use this again",
 				action : ["action", ""]
 			}
 		}
@@ -1763,13 +1800,13 @@ function importData() {
 				name : "Abjuration Savant",
 				source : ["P", 115],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy abjuration spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy abjuration spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Arcane Ward",
 				source : ["P", 115],
 				minlevel : 2,
-				description : "\n   " + "Whenever I cast an 1st-level or higher abjuration spell, I make/heal a ward" + "\n   " + "I make it at max HP; When I cast again, it heals two HP per spell level" + "\n   " + "It stays active at 0 HP and doesn't go away until my next long rest" + "\n   " + "If I take damage, the ward takes the damage instead, but excess damage carries over",
+				description : "\n   Whenever I cast an 1st-level or higher abjuration spell, I make/heal a ward\n   I make it at max HP; When I cast again, it heals two HP per spell level\n   It stays active at 0 HP and doesn't go away until my next long rest\n   If I take damage, the ward takes the damage instead, but excess damage carries over",
 				additional : levels.map( function(n) {
 					if (n < 2) return "";
 					return "Ward max HP: " + (n * 2) + "+Int mod";
@@ -1781,20 +1818,20 @@ function importData() {
 				name : "Protected Ward",
 				source : ["P", 115],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, my Arcane Ward can absorb damage done to a creature within 30 ft",
+				description : "\n   As a reaction, my Arcane Ward can absorb damage done to a creature within 30 ft",
 				action : ["reaction", ""]
 			},
 			"subclassfeature10" : {
 				name : "Improved Abjuration",
 				source : ["P", 115],
 				minlevel : 10,
-				description : "\n   " + "When I cast an abjuration spell requiring an ability check, I add my proficiency bonus"
+				description : "\n   When I cast an abjuration spell requiring an ability check, I add my proficiency bonus"
 			},
 			"subclassfeature14" : {
 				name : "Spell Resistance",
 				source : ["P", 116],
 				minlevel : 14,
-				description : "\n   " + "I have adv. on spell saves and resistance to damaging spells",
+				description : "\n   I have adv. on spell saves and resistance to damaging spells",
 				dmgres : ["Spells"],
 				savetxt : { adv_vs : ["spells"] }
 			}
@@ -1810,20 +1847,20 @@ function importData() {
 				name : "Conjuration Savant",
 				source : ["P", 116],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy conjuration spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy conjuration spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Minor Conjuration",
 				source : ["P", 116],
 				minlevel : 2,
-				description : "\n   " + "As an action, I can conjure an object up to 3 ft on each side and no more than 10 lbs" + "\n   " + "It must be of a form of a nonmagical object I have seen and is created within 10 ft" + "\n   " + "The object disappears after 1 hour, if it takes or deals damage, or when I use this again",
+				description : "\n   As an action, I can conjure an object up to 3 ft on each side and no more than 10 lbs\n   It must be of a form of a nonmagical object I have seen and is created within 10 ft\n   The object disappears after 1 hour, if it takes or deals damage, or when I use this again",
 				action : ["action", ""]
 			},
 			"subclassfeature6" : {
 				name : "Benign Transposition",
 				source : ["P", 116],
 				minlevel : 6,
-				description : "\n   " + "As an action, I can teleport to a place within 30 ft that I can see" + "\n   " + "Instead, I can swap places with a willing Small/Medium creature in 30 ft that I can see" + "\n   " + "I can do this again after a long rest or casting a 1st-level or higher conjuration spell",
+				description : "\n   As an action, I can teleport to a place within 30 ft that I can see\n   Instead, I can swap places with a willing Small/Medium creature in 30 ft that I can see\n   I can do this again after a long rest or casting a 1st-level or higher conjuration spell",
 				usages : 1,
 				recovery : "long rest",
 				action : ["action", ""]
@@ -1832,13 +1869,13 @@ function importData() {
 				name : "Focused Conjuration",
 				source : ["P", 116],
 				minlevel : 10,
-				description : "\n   " + "While I am concentrating on a conjuration spell, it can't be broken by taking damage"
+				description : "\n   While I am concentrating on a conjuration spell, it can't be broken by taking damage"
 			},
 			"subclassfeature14" : {
 				name : "Durable Summons",
 				source : ["P", 116],
 				minlevel : 14,
-				description : "\n   " + "Any creature I summon or create with a conjuration spell has 30 temporary hit points"
+				description : "\n   Any creature I summon or create with a conjuration spell has 30 temporary hit points"
 			}
 		}
 	});
@@ -1852,27 +1889,27 @@ function importData() {
 				name : "Divination Savant",
 				source : ["P", 116],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy divination spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy divination spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Portent",
 				source : ["P", 116],
 				minlevel : 2,
-				description : "\n   " + "After a long rest, I roll dice and keep the results to be used before my next rest" + "\n   " + "A result can replace an attack/save/ability check made by me or a creature I can see" + "\n   " + "I choose to switch them before the dice to be replaced are rolled; Max once per turn",
+				description : "\n   After a long rest, I roll dice and keep the results to be used before my next rest\n   A result can replace an attack/save/ability check made by me or a creature I can see\n   I choose to switch them before the dice to be replaced are rolled; Max once per turn",
 				additional : ["", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "2d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest", "3d20 after a long rest"]
 			},
 			"subclassfeature6" : {
 				name : "Expert Divination",
 				source : ["P", 116],
 				minlevel : 6,
-				description : "\n   " + "When I cast a divination spell, I recover a spell slot of a lower level than the one I cast",
+				description : "\n   When I cast a divination spell, I recover a spell slot of a lower level than the one I cast",
 				additional : "Spell slot < 6th-level"
 			},
 			"subclassfeature10" : {
 				name : "The Third Eye",
 				source : ["P", 116],
 				minlevel : 10,
-				description : "\n   " + "As an action, I gain one of the following until my next short or long rest:" + "\n   " + "Darkvision 60ft, see the Ethereal Plane 60ft, read any language, or see invisibility 10ft",
+				description : "\n   As an action, I gain one of the following until my next short or long rest:\n   Darkvision 60ft, see the Ethereal Plane 60ft, read any language, or see invisibility 10ft",
 				recovery : "short rest",
 				usages : 1,
 				action : ["action", ""]
@@ -1881,7 +1918,7 @@ function importData() {
 				name : "Greater Portent",
 				source : ["P", 117],
 				minlevel : 14,
-				description : "\n   " + "I can roll 3d20 instead of 2d20 when using my Portent feature"
+				description : "\n   I can roll 3d20 instead of 2d20 when using my Portent feature"
 			}
 		}
 	});
@@ -1895,20 +1932,20 @@ function importData() {
 				name : "Enchantment Savant",
 				source : ["P", 117],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy enchantment spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy enchantment spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Hypnotic Gaze",
 				source : ["P", 117],
 				minlevel : 2,
-				description : "\n   " + "As an action, a seen enemy within 5 ft must make a Wis save or be charmed" + "\n   " + "This doesn't work if it can't see/hear me; It's also incapacitated and reduced to 0 speed" + "\n   " + "This lasts until the end of my next turn, but I can use an action to extend the duration" + "\n   " + "It also ends if it takes damage, can't see or hear me, or is more than 5 ft from me" + "\n   " + "On success or once it ends, I can't use this on it again until after a long rest",
+				description : "\n   As an action, a seen enemy within 5 ft must make a Wis save or be charmed\n   This doesn't work if it can't see/hear me; It's also incapacitated and reduced to 0 speed\n   This lasts until the end of my next turn, but I can use an action to extend the duration\n   It also ends if it takes damage, can't see or hear me, or is more than 5 ft from me\n   On success or once it ends, I can't use this on it again until after a long rest",
 				action : ["action", ""]
 			},
 			"subclassfeature6" : {
 				name : "Instinctive Charm",
 				source : ["P", 117],
 				minlevel : 6,
-				description : "\n   " + "As a reaction, when someone I can see in 30 ft attacks me, it must make a Wis save" + "\n   " + "If failed, it must instead attack the closest creature within range (not me or self)" + "\n   " + "On success, I can't use it again until after a long rest; This is a charm effect",
+				description : "\n   As a reaction, when someone I can see in 30 ft attacks me, it must make a Wis save\n   If failed, it must instead attack the closest creature within range (not me or self)\n   On success, I can't use it again until after a long rest; This is a charm effect",
 				usages : 1,
 				recovery : "long rest",
 				action : ["reaction", " (when attacked)"]
@@ -1917,13 +1954,13 @@ function importData() {
 				name : "Split Enchantment",
 				source : ["P", 117],
 				minlevel : 10,
-				description : "\n   " + "When I cast an enchantment spell with only one target, I can target a second in range" + "\n   " + "This does not apply to cantrips"
+				description : "\n   When I cast an enchantment spell with only one target, I can target a second in range\n   This does not apply to cantrips"
 			},
 			"subclassfeature14" : {
 				name : "Alter Memories",
 				source : ["P", 117],
 				minlevel : 14,
-				description : "\n   " + "When I cast an enchantment spell that charms, I can have one target be unaware of it" + "\n   " + "Also, once before that spell ends, I can have that target forget time while affected" + "\n   " + "It must make an Intelligence save or lose up to 1 + Charisma modifier hours of memory"
+				description : "\n   When I cast an enchantment spell that charms, I can have one target be unaware of it\n   Also, once before that spell ends, I can have that target forget time while affected\n   It must make an Intelligence save or lose up to 1 + Charisma modifier hours of memory"
 			}
 		}
 	});
@@ -1937,13 +1974,13 @@ function importData() {
 				name : "Illusion Savant",
 				source : ["P", 118],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy illusion spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy illusion spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Improved Minor Illusion",
 				source : ["P", 118],
 				minlevel : 2,
-				description : "\n   " + "I gain the knowledge of the Minor Illusion cantrip (or another if I already knew it)" + "\n   " + "When I cast it, I can create both a sound and an image with a single casting",
+				description : "\n   I gain the knowledge of the Minor Illusion cantrip (or another if I already knew it)\n   When I cast it, I can create both a sound and an image with a single casting",
 				spellcastingBonus : {
 					name : "Minor Illusion cantrip",
 					spells : ["minor illusion"],
@@ -1954,14 +1991,14 @@ function importData() {
 				name : "Malleable Illusion",
 				source : ["P", 118],
 				minlevel : 6,
-				description : "\n   " + "After I cast an illusion spell that lasts 1 min or longer, I can use an action to change it",
+				description : "\n   After I cast an illusion spell that lasts 1 min or longer, I can use an action to change it",
 				action : ["action", ""]
 			},
 			"subclassfeature10" : {
 				name : "Illusory Self",
 				source : ["P", 118],
 				minlevel : 10,
-				description : "\n   " + "As a reaction, when I'm attacked, I can impose an illusion that makes the attack miss",
+				description : "\n   As a reaction, when I'm attacked, I can impose an illusion that makes the attack miss",
 				action : ["reaction", ""],
 				recovery : "short rest",
 				usages : 1
@@ -1970,7 +2007,7 @@ function importData() {
 				name : "Illusory Reality",
 				source : ["P", 118],
 				minlevel : 14,
-				description : "\n   " + "As a bonus action, after I cast a 1st-level or higher illusion spell, I can make it real" + "\n   " + "One inanimate, nonmagical object that is part of the illusion becomes real for 1 minute" + "\n   " + "The object can't be something that directly harms someone",
+				description : "\n   As a bonus action, after I cast a 1st-level or higher illusion spell, I can make it real\n   One inanimate, nonmagical object that is part of the illusion becomes real for 1 minute\n   The object can't be something that directly harms someone",
 				action : ["bonus action", ""]
 			}
 		}
@@ -1985,25 +2022,25 @@ function importData() {
 				name : "Necromancy Savant",
 				source : ["P", 118],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy necromancy spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy necromancy spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Grim Harvest",
 				source : ["P", 118],
 				minlevel : 2,
-				description : "\n   " + "Once per turn, when I kill something with a 1st-level or higher spell, I regain hit points" + "\n   " + "The number of hit points regained is 2\u00D7 the spell's level (or 3\u00D7 with necromancy spells)" + "\n   " + "This doesn't occur for constructs/undead"
+				description : "\n   Once per turn, when I kill something with a 1st-level or higher spell, I regain hit points\n   The number of hit points regained is 2\u00D7 the spell's level (or 3\u00D7 with necromancy spells)\n   This doesn't occur for constructs/undead"
 			},
 			"subclassfeature6" : {
 				name : "Undead Thralls",
 				source : ["P", 119],
 				minlevel : 6,
-				description : "\n   " + "I add Animate Dead to my spellbook and can have an additional target when casting it" + "\n   " + "Undead created by my necromancy spells have the following benefits:" + "\n   " + "They add my proficiency bonus to damage and my wizard level to their HP maximums"
+				description : "\n   I add Animate Dead to my spellbook and can have an additional target when casting it\n   Undead created by my necromancy spells have the following benefits:\n   They add my proficiency bonus to damage and my wizard level to their HP maximums"
 			},
 			"subclassfeature10" : {
 				name : "Inured to Undead",
 				source : ["P", 119],
 				minlevel : 10,
-				description : "\n   " + "I have resistance to necrotic damage and my hit point maximum can't be reduced",
+				description : "\n   I have resistance to necrotic damage and my hit point maximum can't be reduced",
 				dmgres : ["Necrotic"]
 
 			},
@@ -2011,7 +2048,7 @@ function importData() {
 				name : "Command Undead",
 				source : ["P", 11],
 				minlevel : 14,
-				description : "\n   " + "As an action, an undead within 60 ft that I can see must make a Charisma save" + "\n   " + "If its Int is > 7, it has adv. on the save; If its Int is > 11, it repeats the save every hour" + "\n   " + "If failed, it becomes friendly to me and obeys my commands until I use this on another" + "\n   " + "On success, it becomes permanently immune to my further attempts",
+				description : "\n   As an action, an undead within 60 ft that I can see must make a Charisma save\n   If its Int is > 7, it has adv. on the save; If its Int is > 11, it repeats the save every hour\n   If failed, it becomes friendly to me and obeys my commands until I use this on another\n   On success, it becomes permanently immune to my further attempts",
 				action : ["action", ""]
 			}
 		}
@@ -2026,25 +2063,25 @@ function importData() {
 				name : "Transmutation Savant",
 				source : ["P", 119],
 				minlevel : 2,
-				description : "\n   " + "I halve the gp and time needed to copy transmutation spells into my spellbook"
+				description : "\n   I halve the gp and time needed to copy transmutation spells into my spellbook"
 			},
 			"subclassfeature2.1" : {
 				name : "Minor Alchemy",
 				source : ["P", 119],
 				minlevel : 2,
-				description : "\n   " + "I can transform an object of wood/stone/iron/copper/silver into another of those" + "\n   " + "For each 10 min I spend, I can transform up to 1 cubic foot of the material" + "\n   " + "It reverts back when I lose concentration or after 1 hour"
+				description : "\n   I can transform an object of wood/stone/iron/copper/silver into another of those\n   For each 10 min I spend, I can transform up to 1 cubic foot of the material\n   It reverts back when I lose concentration or after 1 hour"
 			},
 			"subclassfeature6" : {
 				name : "Transmuter's Stone",
 				source : ["P", 119],
 				minlevel : 6,
-				description : "\n   " + "In 8 hours, I can create a transmuter's stone that gives its wielder one of the following:" + "\n    - " + "Darkvision 60 ft" + "\n    - " + "10 ft increase to speed while unencumbered" + "\n    - " + "Proficiency in Constitution saving throws" + "\n    - " + "Resistance to either acid, cold, fire, lightning, or thunder damage" + "\n   " + "The benefit is chosen at creation; I can have only one active stone at a time" + "\n   " + "I can change the benefit when I cast a 1st-level or higher transmutation spell with it"
+				description : "\n   In 8 hours, I can create a transmuter's stone that gives its wielder one of the following:\n    - Darkvision 60 ft\n    - 10 ft increase to speed while unencumbered\n    - Proficiency in Constitution saving throws\n    - Resistance to either acid, cold, fire, lightning, or thunder damage\n   The benefit is chosen at creation; I can have only one active stone at a time\n   I can change the benefit when I cast a 1st-level or higher transmutation spell with it"
 			},
 			"subclassfeature10" : {
 				name : "Shapechanger",
 				source : ["P", 119],
 				minlevel : 10,
-				description : "\n   " + "I add Polymorph to my spellbook; I can cast it on myself without using a spell slot" + "\n   " + "When I do that, I can only transform into a beast with a challenge rating of 1 or lower",
+				description : "\n   I add Polymorph to my spellbook; I can cast it on myself without using a spell slot\n   When I do that, I can only transform into a beast with a challenge rating of 1 or lower",
 				recovery : "short rest",
 				usages : 1
 			},
@@ -2052,7 +2089,7 @@ function importData() {
 				name : "Master Transmuter",
 				source : ["P", 119],
 				minlevel : 14,
-				description : "\n   " + "As an action, I can destroy my transmuter's stone and do one of the four following:" + "\n    " + "1) Major Transformation" + "\n      " + "In 10 minutes, I transmute one nonmagical object up to 5 cubic foot into another" + "\n      " + "This new, nonmagical object must be of similar size and mass and equal or less value" + "\n    " + "2) Panacea" + "\n      " + "One touched has all curses, diseases, and poisons removed and is healed to max HP" + "\n    " + "3) Restore Life" + "\n      " + "I cast Raise Dead without using spell slots or needing to have it in my spellbook" + "\n    " + "4) Restore Youth" + "\n      " + "A touched creature's apparent age is reduced by 3d10 years (to a minimum of 13)",
+				description : "\n   As an action, I can destroy my transmuter's stone and do one of the four following:\n    1) Major Transformation\n      In 10 minutes, I transmute one nonmagical object up to 5 cubic foot into another\n      This new, nonmagical object must be of similar size and mass and equal or less value\n    2) Panacea\n      One touched has all curses, diseases, and poisons removed and is healed to max HP\n    3) Restore Life\n      I cast Raise Dead without using spell slots or needing to have it in my spellbook\n    4) Restore Youth\n      A touched creature's apparent age is reduced by 3d10 years (to a minimum of 13)",
 				action : ["action", ""]
 			}
 		}
@@ -3606,7 +3643,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 10 min",
 		description : "Two portals, up to 500 ft apart, teleport any to other side; portals are filled with opaque mist",
-		descriptionFull : "You create linked teleportation portals that remain open for the duration. Choose two points on the ground that you can see, one point within 10 feet of you and one point within 500 feet of you. A circular portal, 10 feet in diameter, opens over each point. If the portal would open in the space occupied by a creature, the spell fails, and the casting is lost." + "\n   " + "The portals are two-dimensional glowing rings filled with mist, hovering inches from the ground and perpendicular to it at the points you choose. A ring is visible only from one side (your choice), which is the side that functions as a portal." + "\n   " + "Any creature or object entering the portal exits from the other portal as if the two were adjacent to each other, passing through a portal from the non-portal side has no effect. The mist that fills each portal is opaque and blocks vision through it. On your turn, you can rotate the rings as a bonus action so that the active side faces in a different direction."
+		descriptionFull : "You create linked teleportation portals that remain open for the duration. Choose two points on the ground that you can see, one point within 10 feet of you and one point within 500 feet of you. A circular portal, 10 feet in diameter, opens over each point. If the portal would open in the space occupied by a creature, the spell fails, and the casting is lost.\n   The portals are two-dimensional glowing rings filled with mist, hovering inches from the ground and perpendicular to it at the points you choose. A ring is visible only from one side (your choice), which is the side that functions as a portal.\n   Any creature or object entering the portal exits from the other portal as if the two were adjacent to each other, passing through a portal from the non-portal side has no effect. The mist that fills each portal is opaque and blocks vision through it. On your turn, you can rotate the rings as a bonus action so that the active side faces in a different direction."
 	};
 	SpellsList["armor of agathys"] = {
 		name : "Armor of Agathys",
@@ -3727,7 +3764,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Con",
 		description : "Next melee hit +3d8 Radiant dmg; save or blinded; extra save at end of every turn",
-		descriptionFull : "The next time you hit a creature with a melee weapon attack during this spell's duration, you weapon flares with a bright light, and the attack deals an extra 3d8 radiant damage to the target. Additionally, the target must succeed on a Constitution saving throw or be blinded until the spell ends." + "\n   " + "A creature blinded by this spell makes another Constitution saving throw at the end of each of its turns. On a successful save, it is no longer blinded."
+		descriptionFull : "The next time you hit a creature with a melee weapon attack during this spell's duration, you weapon flares with a bright light, and the attack deals an extra 3d8 radiant damage to the target. Additionally, the target must succeed on a Constitution saving throw or be blinded until the spell ends.\n   A creature blinded by this spell makes another Constitution saving throw at the end of each of its turns. On a successful save, it is no longer blinded."
 	};
 	SpellsList["chromatic orb"] = {
 		name : "Chromatic Orb",
@@ -3782,7 +3819,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Wis",
 		description : "1 crea save or dis. on attacks vs. not-you and save if moving more than 30 ft away",
-		descriptionFull : "You attempt to compel a creature into a duel. One creature that you can see within range must make a Wisdom saving throw. On a failed save, the creature is drawn to you, compelled by your divine demand. For the duration, it has disadvantage on attack rolls against creatures other than you, and must make a Wisdom saving throw each time it attempts to move to a space that is more than 30 feet away from you, if it succeeds on this saving throw, this spell doesn't restrict the target's movement for that turn." + "\n   " + "The spell ends if you attack any other creature, if you cast a spell that targets a hostile creature other than the target, if a creature friendly to you damages the target or casts a harmful spell on it, or if you end your turn more than 30 feet away from the target."
+		descriptionFull : "You attempt to compel a creature into a duel. One creature that you can see within range must make a Wisdom saving throw. On a failed save, the creature is drawn to you, compelled by your divine demand. For the duration, it has disadvantage on attack rolls against creatures other than you, and must make a Wisdom saving throw each time it attempts to move to a space that is more than 30 feet away from you, if it succeeds on this saving throw, this spell doesn't restrict the target's movement for that turn.\n   The spell ends if you attack any other creature, if you cast a spell that targets a hostile creature other than the target, if a creature friendly to you damages the target or casts a harmful spell on it, or if you end your turn more than 30 feet away from the target."
 	};
 	SpellsList["conjure barrage"] = {
 		name : "Conjure Barrage",
@@ -3827,7 +3864,7 @@ function importData() {
 		duration : "8 h",
 		save : "Dex",
 		description : "4+2/SL arrows/bolts attack first crea in 30 ft one at a time for 1d6 Piercing dmg; save halves",
-		descriptionFull : "You plant four pieces of nonmagical ammunition - arrows or crossbow bolts - in the ground within range and lay magic upon them to protect an area. Until the spell ends, whenever a creature other than you comes within 30 feet of the ammunition for the first time on a turn or ends its turn there, one piece of ammunition flies up to strike it. The creature must succeed on a Dexterity saving throw or take 1d6 piercing damage. The piece of ammunition is then destroyed. The spell ends when no ammunition remains." + "\n   " + "When you cast this spell, you can designate any creatures you choose, and the spell ignores them." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the amount of ammunition that can be affected increases by two for each slot level above 2nd."
+		descriptionFull : "You plant four pieces of nonmagical ammunition - arrows or crossbow bolts - in the ground within range and lay magic upon them to protect an area. Until the spell ends, whenever a creature other than you comes within 30 feet of the ammunition for the first time on a turn or ends its turn there, one piece of ammunition flies up to strike it. The creature must succeed on a Dexterity saving throw or take 1d6 piercing damage. The piece of ammunition is then destroyed. The spell ends when no ammunition remains.\n   When you cast this spell, you can designate any creatures you choose, and the spell ignores them." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the amount of ammunition that can be affected increases by two for each slot level above 2nd."
 	};
 	SpellsList["crown of madness"] = {
 		name : "Crown of Madness",
@@ -3841,7 +3878,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Wis",
 		description : "1 humanoid save or charmed and must melee attack against crea chosen by you; extra save/rnd",
-		descriptionFull : "One humanoid of your choice that you can see within range must succeed on a Wisdom saving throw or become charmed by you for the duration. While the target is charmed in this way, a twisted crown of jagged iron appears on its head, and a madness glows in its eyes." + "\n   " + "The charmed target must use its action before moving on each of its turns to make a melee attack against a creature other than itself that you mentally choose. The target can act normally on its turn if you choose no creature or if none are within its reach." + "\n   " + "On your subsequent turns, you must use your action to maintain control over the target, or the spell ends. Also, the target can make a Wisdom saving throw at the end of each of its turns. On a success, the spell ends."
+		descriptionFull : "One humanoid of your choice that you can see within range must succeed on a Wisdom saving throw or become charmed by you for the duration. While the target is charmed in this way, a twisted crown of jagged iron appears on its head, and a madness glows in its eyes.\n   The charmed target must use its action before moving on each of its turns to make a melee attack against a creature other than itself that you mentally choose. The target can act normally on its turn if you choose no creature or if none are within its reach.\n   On your subsequent turns, you must use your action to maintain control over the target, or the spell ends. Also, the target can make a Wisdom saving throw at the end of each of its turns. On a success, the spell ends."
 	};
 	SpellsList["crusader's mantle"] = {
 		name : "Crusader's Mantle",
@@ -3909,7 +3946,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Str",
 		description : "Next crea hit save (Large adv.) or restrained, 1d6+1d6/SL Piercing dmg/rnd; Str check to escape",
-		descriptionFull : "The next time you hit a creature with a weapon attack before this spell ends, a writhing mass of thorny vines appears at the point of impact, and the target must succeed on a Strength saving throw or be restrained by the magical vines until the spell ends. A Large or larger creature has advantage on this saving throw. If the target succeeds on the save, the vines shrivel away." + "\n   " + "While restrained by this spell, the target takes 1d6 piercing damage at the start of each of its turns. A creature restrained by the vines or one that can touch the creature can use its action to make a Strength check against your spell save DC. On a success, the target is freed." + AtHigherLevels + "If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st."
+		descriptionFull : "The next time you hit a creature with a weapon attack before this spell ends, a writhing mass of thorny vines appears at the point of impact, and the target must succeed on a Strength saving throw or be restrained by the magical vines until the spell ends. A Large or larger creature has advantage on this saving throw. If the target succeeds on the save, the vines shrivel away.\n   While restrained by this spell, the target takes 1d6 piercing damage at the start of each of its turns. A creature restrained by the vines or one that can touch the creature can use its action to make a Strength check against your spell save DC. On a success, the target is freed." + AtHigherLevels + "If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st."
 	};
 	SpellsList["feign death"] = {
 		name : "Feign Death",
@@ -3924,7 +3961,7 @@ function importData() {
 		compMaterial : "A pinch of graveyard dirt",
 		duration : "1 h (D)",
 		description : "Willing creature appears dead; it is blinded, incapacitated, has dmg resist. all but Psychic, and speed 0",
-		descriptionFull : "You touch a willing creature and put it into a cataleptic state that is indistinguishable from death." + "\n   " + "For the spell's duration, or until you use an action to touch the target and dismiss the spell, the target appears dead to all outward inspection and to spells used to determine the target's status. The target is blinded and incapacitated, and its speed drops to 0. The target has resistance to all damage except psychic damage. If the target is diseased or poisoned when you cast the spell, or becomes diseased or poisoned while under the spell's effect, the disease and poison have no effect until the spell ends."
+		descriptionFull : "You touch a willing creature and put it into a cataleptic state that is indistinguishable from death.\n   For the spell's duration, or until you use an action to touch the target and dismiss the spell, the target appears dead to all outward inspection and to spells used to determine the target's status. The target is blinded and incapacitated, and its speed drops to 0. The target has resistance to all damage except psychic damage. If the target is diseased or poisoned when you cast the spell, or becomes diseased or poisoned while under the spell's effect, the disease and poison have no effect until the spell ends."
 	};
 	SpellsList["friends"] = {
 		name : "Friends",
@@ -3952,7 +3989,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "Conjure vine with 30 ft reach; bns a to direct to 1 crea save or pulled 20 ft to vine",
-		descriptionFull : "You conjure a vine that sprouts from the ground in an unoccupied space of your choice that you can see within range. When you cast this spell, you can direct the vine to lash out at a creature within 30 feet of it that you can see. That creature must succeed on a Dexterity saving throw or be pulled 20 feet directly toward the vine." + "\n   " + "Until the spell ends, you can direct the vine to lash out at the same creature or another one as a bonus action on each of your turns."
+		descriptionFull : "You conjure a vine that sprouts from the ground in an unoccupied space of your choice that you can see within range. When you cast this spell, you can direct the vine to lash out at a creature within 30 feet of it that you can see. That creature must succeed on a Dexterity saving throw or be pulled 20 feet directly toward the vine.\n   Until the spell ends, you can direct the vine to lash out at the same creature or another one as a bonus action on each of your turns."
 	};
 	SpellsList["hail of thorns"] = {
 		name : "Hail of Thorns",
@@ -3980,7 +4017,7 @@ function importData() {
 		compMaterial : "The petrified eye of a newt",
 		duration : "Conc, 1 h",
 		description : "1 crea +1d6 Necrotic dmg from your atks; dis. on chosen ability checks; SL3: conc, 8h; SL5: conc, 24h",
-		descriptionFull : "You place a curse on a creature that you can see within range. Until the spell ends, you deal an extra 1d6 necrotic damage to the target whenever you hit it with an attack. Also, choose one ability when you cast the spell. The target has disadvantage on ability checks made with the chosen ability." + "\n   " + "If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to curse a new creature." + "\n   " + "A remove curse cast on the target ends this spell early." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd or 4th level, you can maintain your concentration on the spell for up to 8 hours. When you use a spell slot of 5th level or higher, you can maintain your concentration on the spell for up to 24 hours."
+		descriptionFull : "You place a curse on a creature that you can see within range. Until the spell ends, you deal an extra 1d6 necrotic damage to the target whenever you hit it with an attack. Also, choose one ability when you cast the spell. The target has disadvantage on ability checks made with the chosen ability.\n   If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to curse a new creature.\n   A remove curse cast on the target ends this spell early." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd or 4th level, you can maintain your concentration on the spell for up to 8 hours. When you use a spell slot of 5th level or higher, you can maintain your concentration on the spell for up to 24 hours."
 	};
 	SpellsList["hunger of hadar"] = {
 		name : "Hunger of Hadar",
@@ -3995,7 +4032,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "20-ft rad blinds all while in; all start turn in 2d6 Cold dmg; all end turn in save or 2d6 Acid dmg",
-		descriptionFull : "You open a gateway to the dark between the stars, a region infested with unknown horrors. A 20-foot-radius sphere of blackness and bitter cold appears, centered on a point with range and lasting for the duration. This void is filled with a cacophony of soft whispers and slurping noises that can be heard up to 30 feet away. No light, magical or otherwise, can illuminate the area, and creatures fully within the area are blinded." + "\n   " + "The void creates a warp in the fabric of space, and the area is difficult terrain. Any creature that starts its turn in the area takes 2d6 cold damage. Any creature that ends its turn in the area must succeed on a Dexterity saving throw or take 2d6 acid damage as milky, otherworldly tentacles rub against it."
+		descriptionFull : "You open a gateway to the dark between the stars, a region infested with unknown horrors. A 20-foot-radius sphere of blackness and bitter cold appears, centered on a point with range and lasting for the duration. This void is filled with a cacophony of soft whispers and slurping noises that can be heard up to 30 feet away. No light, magical or otherwise, can illuminate the area, and creatures fully within the area are blinded.\n   The void creates a warp in the fabric of space, and the area is difficult terrain. Any creature that starts its turn in the area takes 2d6 cold damage. Any creature that ends its turn in the area must succeed on a Dexterity saving throw or take 2d6 acid damage as milky, otherworldly tentacles rub against it."
 	};
 	SpellsList["lightning arrow"] = {
 		name : "Lightning Arrow",
@@ -4009,7 +4046,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "Next rngd wea atk +4d8+1d8/SL Lightn. dmg, miss half; 10 ft all 2d8+1d8/SL Lightn. dmg, save half",
-		descriptionFull : "The next time you make a ranged weapon attack during the spell's duration, the weapon's ammunition, or the weapon itself if it's a thrown weapon, transforms into a bolt of lightning. Make the attack roll as normal. The target takes 4d8 lightning damage on a hit, or half as much damage on a miss, instead of the weapon's normal damage." + "\n   " + "Whether you hit or miss, each creature within 10 feet of the target must make a Dexterity saving throw. Each of these creatures takes 2d8 lightning damage on a failed save, or half as much damage on a successful one." + "\n   " + "The piece of ammunition or weapon then returns to its normal form." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the damage for both effects of the spell increases by 1d8 for each slot level above 3rd."
+		descriptionFull : "The next time you make a ranged weapon attack during the spell's duration, the weapon's ammunition, or the weapon itself if it's a thrown weapon, transforms into a bolt of lightning. Make the attack roll as normal. The target takes 4d8 lightning damage on a hit, or half as much damage on a miss, instead of the weapon's normal damage.\n   Whether you hit or miss, each creature within 10 feet of the target must make a Dexterity saving throw. Each of these creatures takes 2d8 lightning damage on a failed save, or half as much damage on a successful one.\n   The piece of ammunition or weapon then returns to its normal form." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the damage for both effects of the spell increases by 1d8 for each slot level above 3rd."
 	};
 	SpellsList["phantasmal force"] = {
 		name : "Phantasmal Force",
@@ -4024,7 +4061,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Int",
 		description : "1 crea save or sees 10 ft cube illusion that does 1d6 Psychic dmg/rnd; Int(Investigation) vs. Spell DC",
-		descriptionFull : "You craft an illusion that takes root in the mind of a creature that you can see within range. The target must make an Intelligence saving throw. On a failed save, you create a phantasmal object, creature, or other visible phenomenon of your choice that is no larger than a 10-foot cube and that is perceivable only to the target for the duration. This spell has no effect on undead or constructs." + "\n   " + "The phantasm includes sound, temperature, and other stimuli, also evident only to the creature." + "\n   " + "The target can use its action to examine the phantasm with an Intelligence (Investigation) check against your spell save DC. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends." + "\n   " + "While a target is affected by the spell, the target treats the phantasm as if it were real. The target rationalizes any illogical outcomes from interacting with the phantasm. For example, a target attempting to walk across a phantasmal bridge that spans a chasm falls once it steps onto the bridge. If the target survives the fall, it still believes that the bridge exists and comes up with some other explanation for its fall - it was pushed, it slipped, or a strong wind might have knocked it off." + "\n   " + "An affected target is so convinced of the phantasm's reality that it can even take damage from the illusion. A phantasm created to appear as a creature can attack the target. Similarly, a phantasm created to appear as fire, a pool of acid, or lava can burn the target. Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm's area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking. The target perceives the damage as a type appropriate to the illusion."
+		descriptionFull : "You craft an illusion that takes root in the mind of a creature that you can see within range. The target must make an Intelligence saving throw. On a failed save, you create a phantasmal object, creature, or other visible phenomenon of your choice that is no larger than a 10-foot cube and that is perceivable only to the target for the duration. This spell has no effect on undead or constructs.\n   The phantasm includes sound, temperature, and other stimuli, also evident only to the creature.\n   The target can use its action to examine the phantasm with an Intelligence (Investigation) check against your spell save DC. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends.\n   While a target is affected by the spell, the target treats the phantasm as if it were real. The target rationalizes any illogical outcomes from interacting with the phantasm. For example, a target attempting to walk across a phantasmal bridge that spans a chasm falls once it steps onto the bridge. If the target survives the fall, it still believes that the bridge exists and comes up with some other explanation for its fall - it was pushed, it slipped, or a strong wind might have knocked it off.\n   An affected target is so convinced of the phantasm's reality that it can even take damage from the illusion. A phantasm created to appear as a creature can attack the target. Similarly, a phantasm created to appear as fire, a pool of acid, or lava can burn the target. Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm's area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking. The target perceives the damage as a type appropriate to the illusion."
 	};
 	SpellsList["power word heal"] = {
 		name : "Power Word Heal",
@@ -4093,7 +4130,7 @@ function importData() {
 		compMaterial : "A quiver containing at least one piece of ammunition",
 		duration : "Conc, 1 min",
 		description : "Quiver gives nonmagical ammo; bns a to make 2 atks with weapon that uses ammo from that quiver",
-		descriptionFull : "You transmute your quiver so it produces an endless supply of nonmagical ammunition, which seems to leap into your hand when you reach for it." + "\n   " + "On each of your turns until the spell ends, you can use a bonus action to make two attacks with a weapon that uses ammunition from the quiver. Each time you make such a ranged attack, your quiver magically replaces the piece of ammunition you used with a similar piece of nonmagical ammunition. Any pieces of ammunition created by this spell disintegrate when the spell ends. If the quiver leaves your possession, the spell ends."
+		descriptionFull : "You transmute your quiver so it produces an endless supply of nonmagical ammunition, which seems to leap into your hand when you reach for it.\n   On each of your turns until the spell ends, you can use a bonus action to make two attacks with a weapon that uses ammunition from the quiver. Each time you make such a ranged attack, your quiver magically replaces the piece of ammunition you used with a similar piece of nonmagical ammunition. Any pieces of ammunition created by this spell disintegrate when the spell ends. If the quiver leaves your possession, the spell ends."
 	};
 	SpellsList["telepathy"] = {
 		name : "Telepathy",
@@ -4107,7 +4144,7 @@ function importData() {
 		compMaterial : "A pair of linked silver rings",
 		duration : "24 h",
 		description : "1 willing crea Int>0 and you telepathic link; share words, sensory information if on same plane",
-		descriptionFull : "You create a telepathic link between yourself and a willing creature with which you are familiar. The creature can be anywhere on the same plane of existence as you. The spell ends if you or the target are no longer on the same plane." + "\n   " + "Until the spell ends, you and the target can instantaneously share words, images, sounds, and other sensory messages with one another through the link, and the target recognizes you as the creature it is communicating with. The spell enables a creature with an Intelligence score of at least 1 to understand the meaning of your words and take in the scope of any sensory messages you send to it."
+		descriptionFull : "You create a telepathic link between yourself and a willing creature with which you are familiar. The creature can be anywhere on the same plane of existence as you. The spell ends if you or the target are no longer on the same plane.\n   Until the spell ends, you and the target can instantaneously share words, images, sounds, and other sensory messages with one another through the link, and the target recognizes you as the creature it is communicating with. The spell enables a creature with an Intelligence score of at least 1 to understand the meaning of your words and take in the scope of any sensory messages you send to it."
 	};
 	SpellsList["thorn whip"] = {
 		name : "Thorn Whip",
@@ -4121,7 +4158,7 @@ function importData() {
 		compMaterial : "The stem of a plant with thorns",
 		duration : "Instantaneous",
 		description : "Melee spell attack for 1d6 Piercing dmg and pull crea 10 ft to you; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You create a long, vine-like whip covered in thorns that lashes out at your command toward a creature in range. Make a melee spell attack against the target. If the attack hits, the creature takes 1d6 piercing damage, and if the creature is Large or smaller, you pull the creature up to 10 feet closer to you." + "\n   " + "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You create a long, vine-like whip covered in thorns that lashes out at your command toward a creature in range. Make a melee spell attack against the target. If the attack hits, the creature takes 1d6 piercing damage, and if the creature is Large or smaller, you pull the creature up to 10 feet closer to you.\n   This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["thunderous smite"] = {
 		name : "Thunderous Smite",
@@ -4150,7 +4187,7 @@ function importData() {
 		save : "Str",
 		description : "300\u00D750\u00D7300ft (l\u00D7w\u00D7h) wall of water moves away at 50 ft/rnd; 6d10 Bludg. dmg; save halves; see B",
 		descriptionMetric : "90\u00D715\u00D790m (l\u00D7w\u00D7h) wall of water moves away at 15 m/rnd; 6d10 Bludg. dmg; save halves; see B",
-		descriptionFull : "A wall of water springs into existence at a point you choose within range. You can make the wall up to 300 feet long, 300 feet high, and 50 feet thick. The wall lasts for the duration." + "\n   " + "When the wall appears, each creature within its area must make a Strength saving throw. On a failed save, a creature takes 6d10 bludgeoning damage, or half as much damage on a successful save." + "\n   " + "At the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any Huge or smaller creature inside the wall or whose space the wall enters when it moves must succeed on a Strength saving throw or take 5d10 bludgeoning damage. A creature can take this damage only once per round. At the end of the turn, the wall's height is reduced by 50 feet, and the damage creatures take from the spell on subsequent rounds is reduced by 1d10. When the wall reaches 0 feet in height, the spell ends." + "\n   " + "A creature caught in the wall can move by swimming. Because of the force of the wave, though, the creature must make a successful Strength (Athletics) check against your spell save DC in order to move at all. If it fails the check, it can't move. A creature that moves out of the area falls to the ground."
+		descriptionFull : "A wall of water springs into existence at a point you choose within range. You can make the wall up to 300 feet long, 300 feet high, and 50 feet thick. The wall lasts for the duration.\n   When the wall appears, each creature within its area must make a Strength saving throw. On a failed save, a creature takes 6d10 bludgeoning damage, or half as much damage on a successful save.\n   At the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any Huge or smaller creature inside the wall or whose space the wall enters when it moves must succeed on a Strength saving throw or take 5d10 bludgeoning damage. A creature can take this damage only once per round. At the end of the turn, the wall's height is reduced by 50 feet, and the damage creatures take from the spell on subsequent rounds is reduced by 1d10. When the wall reaches 0 feet in height, the spell ends.\n   A creature caught in the wall can move by swimming. Because of the force of the wave, though, the creature must make a successful Strength (Athletics) check against your spell save DC in order to move at all. If it fails the check, it can't move. A creature that moves out of the area falls to the ground."
 	};
 	SpellsList["witch bolt"] = {
 		name : "Witch Bolt",
@@ -4805,14 +4842,14 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["D", 96],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with martial weapons",
+				description : "\n   I gain proficiency with martial weapons",
 				weapons : [false, true]
 			},
 			"subclassfeature1.1" : {
 				name : "Reaper",
 				source : ["D", 96],
 				minlevel : 1,
-				description : "\n   " + "I learn one necromancy cantrip of my choice from any spell list" + "\n   " + "My necromancy, single-target cantrips can affect two targets within 5 ft of each other",
+				description : "\n   I learn one necromancy cantrip of my choice from any spell list\n   My necromancy, single-target cantrips can affect two targets within 5 ft of each other",
 				spellcastingBonus : {
 					name : "Reaper",
 					"class" : "any",
@@ -4824,20 +4861,20 @@ function importData() {
 				name : "Channel Divinity: Touch of Death",
 				source : ["D", 97],
 				minlevel : 2,
-				description : "\n   " + "When I hit a creature with a melee attack, I can deal extra necrotic damage",
+				description : "\n   When I hit a creature with a melee attack, I can deal extra necrotic damage",
 				additional : ["", "+9 damage", "+11 damage", "+13 damage", "+15 damage", "+17 damage", "+19 damage", "+21 damage", "+23 damage", "+25 damage", "+27 damage", "+29 damage", "+31 damage", "+33 damage", "+35 damage", "+37 damage", "+39 damage", "+41 damage", "+43 damage", "+45 damage"]
 			},
 			"subclassfeature6" : {
 				name : "Inescapable Destruction",
 				source : ["D", 97],
 				minlevel : 6,
-				description : "\n   " + "When I deal necrotic damage with spells or Channel Divinity, I ignore resistance to it"
+				description : "\n   When I deal necrotic damage with spells or Channel Divinity, I ignore resistance to it"
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["D", 97],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 necrotic damage";
@@ -4850,7 +4887,7 @@ function importData() {
 				name : "Improved Reaper",
 				source : ["D", 97],
 				minlevel : 17,
-				description : "\n   " + "If I cast a 5th-level or lower necromancy spell that has one target, I can target two" + "\n   " + "They need to be within 5 ft of each other; I have to provide material comp. for both"
+				description : "\n   If I cast a 5th-level or lower necromancy spell that has one target, I can target two\n   They need to be within 5 ft of each other; I have to provide material comp. for both"
 			}
 		}
 	});
@@ -4864,35 +4901,35 @@ function importData() {
 				name : "Channel Divinity: Control Undead",
 				source : ["D", 97],
 				minlevel : 3,
-				description : "\n   " + "As an action, one undead (CR < paladin level) I can see in 30 ft must make a Wis save" + "\n   " + "If failed, it must obey my commands for 24 hours or until I use this on another",
+				description : "\n   As an action, one undead (CR < paladin level) I can see in 30 ft must make a Wis save\n   If failed, it must obey my commands for 24 hours or until I use this on another",
 				action : ["action", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Dreadful Aspect",
 				source : ["D", 97],
 				minlevel : 3,
-				description : "\n   " + "As an action, anyone I choose within 30 ft that can see me must make a Wisdom save" + "\n   " + "If failed, it is frightened for 1 min or until it succeeds a save at the end of its turns" + "\n   " + "It can't save at the end of its turn if it's still within 30 ft of me",
+				description : "\n   As an action, anyone I choose within 30 ft that can see me must make a Wisdom save\n   If failed, it is frightened for 1 min or until it succeeds a save at the end of its turns\n   It can't save at the end of its turn if it's still within 30 ft of me",
 				action : ["action", ""]
 			},
 			"subclassfeature7" : {
 				name : "Aura of Hate",
 				source : ["D", 97],
 				minlevel : 7,
-				description : "\n   " + "Fiends/undead within range and I add my Cha mod as bonus on melee weapon damage" + "\n   " + "Multiple Auras of Hate don't stack; only the strongest applies",
+				description : "\n   Fiends/undead within range and I add my Cha mod as bonus on melee weapon damage\n   Multiple Auras of Hate don't stack; only the strongest applies",
 				additional : ["", "", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"]
 			},
 			"subclassfeature15" : {
 				name : "Supernatural Resistance",
 				source : ["P", 97],
 				minlevel : 15,
-				description : "\n   " + "I have resistance to bludgeoning/piercing/slashing damage from nonmagical weapons",
+				description : "\n   I have resistance to bludgeoning/piercing/slashing damage from nonmagical weapons",
 				dmgres : [["Bludgeoning", "Bludg. (nonmagical)"], ["Piercing", "Pierc. (nonmagical)"], ["Slashing", "Slash. (nonmagical)"]]
 			},
 			"subclassfeature20" : {
 				name : "Dread Lord",
 				source : ["D", 97],
 				minlevel : 20,
-				description : "\n   " + "As an action, I gain a 30-ft aura of gloom that reduces bright light to dim for 1 min" + "\n   " + "If frightened of me, foes starting their turn in the aura take 4d10 psychic damage" + "\n   " + "Attacks vs. my allies and me inside the aura have disadvantage if attackers need sight" + "\n   " + "As a bonus action, I can make a melee spell attack vs. a target inside the aura" + "\n   " + "If this attack hits, it does 3d10 + Charisma modifier necrotic damage",
+				description : "\n   As an action, I gain a 30-ft aura of gloom that reduces bright light to dim for 1 min\n   If frightened of me, foes starting their turn in the aura take 4d10 psychic damage\n   Attacks vs. my allies and me inside the aura have disadvantage if attackers need sight\n   As a bonus action, I can make a melee spell attack vs. a target inside the aura\n   If this attack hits, it does 3d10 + Charisma modifier necrotic damage",
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""]
@@ -5734,7 +5771,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "30-ft cube all crea 12d8 Necrotic dmg; save halves; plants/water elem. dis. const/undead immune",
-		descriptionFull : "You draw the moisture from every creature in a 30-foot cube centered on a point you choose within range. Each creature in that area must make a Constitution saving throw. Constructs and undead aren't affected, and plants and water elementals make this saving throw with disadvantage. A creature takes 12d8 necrotic damage on a failed save, or half as much damage on a successful one." + "\n   " + "Nonmagical plants in the area that aren't creatures, such as trees and shrubs, wither and die instantly."
+		descriptionFull : "You draw the moisture from every creature in a 30-foot cube centered on a point you choose within range. Each creature in that area must make a Constitution saving throw. Constructs and undead aren't affected, and plants and water elementals make this saving throw with disadvantage. A creature takes 12d8 necrotic damage on a failed save, or half as much damage on a successful one.\n   Nonmagical plants in the area that aren't creatures, such as trees and shrubs, wither and die instantly."
 	};
 	SpellsList["absorb elements"] = {
 		name : "Absorb Elements",
@@ -5791,7 +5828,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Dex",
 		description : "6+2/SL 2.5-ft rad ground burst up 30-ft, \u2265 Med. creas save or lifted, 6d6 bludg. dmg if ceiling; see B",
-		descriptionFull : "You cause up to six pillars of stone to burst from places on the ground that you can see within range. Each pillar is a cylinder that has a diameter of 5 feet and a height of up to 30 feet. The ground where a pillar appears must be wide enough for its diameter, and you can target the ground under a creature if that creature is Medium or smaller. Each pillar has AC 5 and 30 hit points. When reduced to 0 hit points, a pillar crumbles into rubble, which creates an area of difficult terrain with a 10-foot radius that lasts until the rubble is cleared. Each 5-foot-diameter portion of the area requires at least 1 minute to clear by hand." + "\n   " + "If a pillar is created under a creature, that creature must succeed on a Dexterity saving throw or be lifted by the pillar. A creature can choose to fail the save." + "\n   " + "If a pillar is prevented from reaching its full height because of a ceiling or other obstacle, a creature on the pillar takes 6d6 bludgeoning damage and is restrained, pinched between the pillar and the obstacle. The restrained creature can use an action to make a Strength or Dexterity check (the creature's choice) against the spell's save DC. On a success, the creature is no longer restrained and must either move off the pillar or fall off it." + AtHigherLevels + "When you cast this spell using a spell slot of 7th level or higher, you can create."
+		descriptionFull : "You cause up to six pillars of stone to burst from places on the ground that you can see within range. Each pillar is a cylinder that has a diameter of 5 feet and a height of up to 30 feet. The ground where a pillar appears must be wide enough for its diameter, and you can target the ground under a creature if that creature is Medium or smaller. Each pillar has AC 5 and 30 hit points. When reduced to 0 hit points, a pillar crumbles into rubble, which creates an area of difficult terrain with a 10-foot radius that lasts until the rubble is cleared. Each 5-foot-diameter portion of the area requires at least 1 minute to clear by hand.\n   If a pillar is created under a creature, that creature must succeed on a Dexterity saving throw or be lifted by the pillar. A creature can choose to fail the save.\n   If a pillar is prevented from reaching its full height because of a ceiling or other obstacle, a creature on the pillar takes 6d6 bludgeoning damage and is restrained, pinched between the pillar and the obstacle. The restrained creature can use an action to make a Strength or Dexterity check (the creature's choice) against the spell's save DC. On a success, the creature is no longer restrained and must either move off the pillar or fall off it." + AtHigherLevels + "When you cast this spell using a spell slot of 7th level or higher, you can create."
 	};
 	SpellsList["catapult"] = {
 		name : "Catapult",
@@ -5818,7 +5855,7 @@ function importData() {
 		components : "S",
 		duration : "Instant. or 1 h",
 		description : "Nonmagical flame up to 5 cu ft; instant: expand/exinguish, 1h: brighten/dim/color/create shapes",
-		descriptionFull : "You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways." + "\n \u2022 " + "You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location." + "\n \u2022 " + "You instantaneously extinguish the flames within the cube." + "\n \u2022 " + "You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour." + "\n \u2022 " + "You cause simple shapes-such as the vague form of a creature, an inanimate object, or a location-to appear within the flames and animate as you like. The shapes last for 1 hour." + "\n   " + "If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+		descriptionFull : "You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways.\n \u2022 You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location.\n \u2022 You instantaneously extinguish the flames within the cube.\n \u2022 You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour.\n \u2022 You cause simple shapes-such as the vague form of a creature, an inanimate object, or a location-to appear within the flames and animate as you like. The shapes last for 1 hour.\n   If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 	};
 	SpellsList["control winds"] = {
 		name : "Control Winds",
@@ -5831,7 +5868,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 h",
 		description : "100-ft cube of air either gusts, downdraft, or updraft; affects flying/jump/ranged; 1 a change; see B",
-		descriptionFull : "You take control of the air in a 100-foot cube that you can see within range. Choose one of the following effects when you cast the spell. The effect lasts for the spell's duration, unless you use your action on a later turn to switch to a different effect. You can also use your action to temporarily halt the effect or to restart one you've halted." + "\n   " + toUni("Gusts") + ": A wind picks up within the cube, continually blowing in a horizontal direction you designate. You choose the intensity of the wind: calm, moderate, or strong. If the wind is moderate or strong, ranged weapon attacks that enter or leave the cube or pass through it have disadvantage on their attack rolls. If the wind is strong, any creature moving against the wind must spend 1 extra foot of movement for each foot moved." + "\n   " + toUni("Downdraft") + ": You cause a sustained blast of strong wind to blow downward from the top of the cube. Ranged weapon attacks that pass through the cube or that are made against targets within it have disadvantage on their attack rolls. A creature must make a Strength saving throw if it flies into the cube for the first time on a turn or starts its turn there flying. On a failed save, the creature is knocked prone." + "\n   " + toUni("Updraft") + ": You cause a sustained updraft within the cube, rising upward from the cube's bottom side. Creatures that end a fall within the cube take only half damage from the fall. When a creature in the cube makes a vertical jump, the creature can jump up to 10 feet higher than normal."
+		descriptionFull : "You take control of the air in a 100-foot cube that you can see within range. Choose one of the following effects when you cast the spell. The effect lasts for the spell's duration, unless you use your action on a later turn to switch to a different effect. You can also use your action to temporarily halt the effect or to restart one you've halted.\n   " + toUni("Gusts") + ": A wind picks up within the cube, continually blowing in a horizontal direction you designate. You choose the intensity of the wind: calm, moderate, or strong. If the wind is moderate or strong, ranged weapon attacks that enter or leave the cube or pass through it have disadvantage on their attack rolls. If the wind is strong, any creature moving against the wind must spend 1 extra foot of movement for each foot moved.\n   " + toUni("Downdraft") + ": You cause a sustained blast of strong wind to blow downward from the top of the cube. Ranged weapon attacks that pass through the cube or that are made against targets within it have disadvantage on their attack rolls. A creature must make a Strength saving throw if it flies into the cube for the first time on a turn or starts its turn there flying. On a failed save, the creature is knocked prone.\n   " + toUni("Updraft") + ": You cause a sustained updraft within the cube, rising upward from the cube's bottom side. Creatures that end a fall within the cube take only half damage from the fall. When a creature in the cube makes a vertical jump, the creature can jump up to 10 feet higher than normal."
 	};
 	SpellsList["create bonfire"] = {
 		name : "Create Bonfire",
@@ -5845,7 +5882,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "5-ft cube all crea at casting or entering save or 1d8 Fire dmg; ignites flammable; +1d8 at CL 5/11/17",
-		descriptionFull : "You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there." + "\n   " + "The bonfire ignites flammable objects in its area that aren't being worn or carried." + "\n   " + "The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		descriptionFull : "You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there.\n   The bonfire ignites flammable objects in its area that aren't being worn or carried.\n   The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
 	};
 	SpellsList["dust devil"] = {
 		name : "Dust Devil",
@@ -5860,7 +5897,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Str",
 		description : "5-ft cube; all in 5-ft 1d8+1d8/SL Bludg. dmg and pushed 10 ft away; save halves, no push; see book",
-		descriptionFull : "Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell's duration." + "\n   " + "Any creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away from the dust devil. On a successful save, the creature takes half as much damage and isn't pushed." + "\n   " + "As a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or light gravel, it sucks up the material and forms a 10-foot-radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd."
+		descriptionFull : "Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell's duration.\n   Any creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away from the dust devil. On a successful save, the creature takes half as much damage and isn't pushed.\n   As a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or light gravel, it sucks up the material and forms a 10-foot-radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd."
 	};
 	SpellsList["earthbind"] = {
 		name : "Earthbind",
@@ -5944,7 +5981,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "1 crea save or 1d6 Cold dmg and dis. on next weapon attack roll; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["gust"] = {
 		name : "Gust",
@@ -5958,7 +5995,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Str",
 		description : "Med. or smaller crea save or push 5 ft; or push unattended 5 lb obj 10 ft; or harmless sensory effect",
-		descriptionFull : "You seize the air and compel it to create one of the following effects at a point you can see within range." + "\n " + "\u2022 One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you." + "\n " + "\u2022 You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn't pushed with enough force to cause damage." + "\n " + "\u2022 You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze."
+		descriptionFull : "You seize the air and compel it to create one of the following effects at a point you can see within range.\n \u2022 One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you.\n \u2022 You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn't pushed with enough force to cause damage.\n \u2022 You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze."
 	};
 	SpellsList["ice knife"] = {
 		name : "Ice Knife",
@@ -5987,7 +6024,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "1 crea save or 8d6 Fire dmg and burns for 4d6 Fire dmg/rnd; save each rnd to end; half dmg on save",
-		descriptionFull : "Flames wreathe one creature you can see within range. The target must make a Dexterity saving throw. It takes 8d6 fire damage on a failed save, or half as much damage on a successful one. On a failed save, the target also burns for the spell's duration. The burning target sheds bright light in a 30-foot radius and dim light for an additional 30 feet. At the end of each of its turns, the target repeats the saving throw. It takes 4d6 fire damage on a failed save, and the spell ends on a successful one. These magical flames can't be extinguished by nonmagical means." + "\n   " + "If damage from this spell kills a target, the target is turned to ash."
+		descriptionFull : "Flames wreathe one creature you can see within range. The target must make a Dexterity saving throw. It takes 8d6 fire damage on a failed save, or half as much damage on a successful one. On a failed save, the target also burns for the spell's duration. The burning target sheds bright light in a 30-foot radius and dim light for an additional 30 feet. At the end of each of its turns, the target repeats the saving throw. It takes 4d6 fire damage on a failed save, and the spell ends on a successful one. These magical flames can't be extinguished by nonmagical means.\n   If damage from this spell kills a target, the target is turned to ash."
 	};
 	SpellsList["investiture of flame"] = {
 		name : "Investiture of Flame",
@@ -6001,7 +6038,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Dex",
 		description : "Fire immune; Cold res.; 1d10 Fire dmg in 5 ft; 1 a 15-ft long 5-ft wide all crea 4d8 Fire dmg, save half",
-		descriptionFull : "Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet for the spell's duration. The flames don't harm you. Until the spell ends, you gain the following benefits." + "\n " + "\u2022 You are immune to fire damage and have resistance to cold damage." + "\n " + "\u2022 Any creature that moves within 5 feet of you for the first time on a turn or ends its turn there takes 1d10 fire damage." + "\n " + "\u2022 You can use your action to create a line of fire 15 feet long and 5 feet wide extending from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 4d8 fire damage on a failed save, or half as much damage on a successful one."
+		descriptionFull : "Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet for the spell's duration. The flames don't harm you. Until the spell ends, you gain the following benefits.\n \u2022 You are immune to fire damage and have resistance to cold damage.\n \u2022 Any creature that moves within 5 feet of you for the first time on a turn or ends its turn there takes 1d10 fire damage.\n \u2022 You can use your action to create a line of fire 15 feet long and 5 feet wide extending from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 4d8 fire damage on a failed save, or half as much damage on a successful one."
 	};
 	SpellsList["investiture of ice"] = {
 		name : "Investiture of Ice",
@@ -6015,7 +6052,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Con",
 		description : "Cold immune; Fire resist; 10-ft rad dif. ter.; 1 a 15-ft cone all crea 4d6 Cold dmg, half speed, save half",
-		descriptionFull : "Until the spell ends, ice rimes your body, and you gain the following benefits." + "\n " + "\u2022 You are immune to cold damage and have resistance to fire damage." + "\n " + "\u2022 You can move across difficult terrain created by ice or snow without spending extra movement." + "\n " + "\u2022 The ground in a 10-foot radius around you is icy and is difficult terrain for creatures other than you. The radius moves with you." + "\n " + "\u2022 You can use your action to create a 15-foot cone of freezing wind extending from your outstretched hand in a direction you choose. Each creature in the cone must make a Constitution saving throw. A creature takes 4d6 cold damage on a failed save, or half as much damage on a successful one. A creature that fails its save against this effect has its speed halved until the start of your next turn."
+		descriptionFull : "Until the spell ends, ice rimes your body, and you gain the following benefits.\n \u2022 You are immune to cold damage and have resistance to fire damage.\n \u2022 You can move across difficult terrain created by ice or snow without spending extra movement.\n \u2022 The ground in a 10-foot radius around you is icy and is difficult terrain for creatures other than you. The radius moves with you.\n \u2022 You can use your action to create a 15-foot cone of freezing wind extending from your outstretched hand in a direction you choose. Each creature in the cone must make a Constitution saving throw. A creature takes 4d6 cold damage on a failed save, or half as much damage on a successful one. A creature that fails its save against this effect has its speed halved until the start of your next turn."
 	};
 	SpellsList["investiture of stone"] = {
 		name : "Investiture of Stone",
@@ -6029,7 +6066,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Dex",
 		description : "Nonmagical Bludg/Pierc/Slash resist.; 1 a 15-ft rad all crea save or prone; move through earth/stone",
-		descriptionFull : "Until the spell ends, bits of rock spread across your body, and you gain the following benefits:" + "\n \u2022 " + "You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks." + "\n \u2022 " + "You can use your action to create a small earthquake on the ground in a 15-foot radius centered on you. Other creatures on that ground must succeed on a Dexterity saving throw or be knocked prone." + "\n \u2022 " + "You can move across difficult terrain made of earth or stone without spending extra movement. You can move through solid earth or stone as if it was air and without destabilizing it, but you can't end your movement there. If you do so, you are ejected to the nearest unoccupied space, this spell ends, and you are stunned until the end of your next turn."
+		descriptionFull : "Until the spell ends, bits of rock spread across your body, and you gain the following benefits:\n \u2022 You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks.\n \u2022 You can use your action to create a small earthquake on the ground in a 15-foot radius centered on you. Other creatures on that ground must succeed on a Dexterity saving throw or be knocked prone.\n \u2022 You can move across difficult terrain made of earth or stone without spending extra movement. You can move through solid earth or stone as if it was air and without destabilizing it, but you can't end your movement there. If you do so, you are ejected to the nearest unoccupied space, this spell ends, and you are stunned until the end of your next turn."
 	};
 	SpellsList["investiture of wind"] = {
 		name : "Investiture of Wind",
@@ -6043,7 +6080,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Con",
 		description : "Rngd wea atks dis. vs. you; fly 60 ft; 1 a 15-ft cube in 60 ft all 2d10 Bludg. dmg, push 10 ft, save half",
-		descriptionFull : "Until the spell ends, wind whirls around you, and you gain the following benefits." + "\n " + "\u2022 Ranged weapon attacks made against you have disadvantage on the attack roll." + "\n " + "\u2022 You gain a flying speed of 60 feet. If you are still flying when the spell ends, you fall, unless you can somehow prevent it." + "\n " + "\u2022 You can use your action to create a 15-foot cube of swirling wind centered on a point you can see within 60 feet of you. Each creature in that area must make a Constitution saving throw. A creature takes 2d10 bludgeoning damage on a failed save, or half as much damage on a successful one. If a Large or smaller creature fails the save, that creature is also pushed up to 10 feet away from the center of the cube."
+		descriptionFull : "Until the spell ends, wind whirls around you, and you gain the following benefits.\n \u2022 Ranged weapon attacks made against you have disadvantage on the attack roll.\n \u2022 You gain a flying speed of 60 feet. If you are still flying when the spell ends, you fall, unless you can somehow prevent it.\n \u2022 You can use your action to create a 15-foot cube of swirling wind centered on a point you can see within 60 feet of you. Each creature in that area must make a Constitution saving throw. A creature takes 2d10 bludgeoning damage on a failed save, or half as much damage on a successful one. If a Large or smaller creature fails the save, that creature is also pushed up to 10 feet away from the center of the cube."
 	};
 	SpellsList["maelstrom"] = {
 		name : "Maelstrom",
@@ -6071,7 +6108,7 @@ function importData() {
 		components : "V,S",
 		duration : "1 min",
 		description : "Imbue 3 pebbles for spell attacks, thrown 60 ft or with sling, do 1d6+spellcasting mod Bludg. dmg",
-		descriptionFull : "You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, it has a range of 60 feet. If someone else attacks with the pebble, that attacker adds your spellcasting ability modifier, not the attacker's, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Hit or miss, the spell then ends on the stone." + "\n   " + "If you cast this spell again, the spell ends early on any pebbles still affected by it."
+		descriptionFull : "You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, it has a range of 60 feet. If someone else attacks with the pebble, that attacker adds your spellcasting ability modifier, not the attacker's, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Hit or miss, the spell then ends on the stone.\n   If you cast this spell again, the spell ends early on any pebbles still affected by it."
 	};
 	SpellsList["maximilian's earthen grasp"] = {
 		name : "Maximilian's Earthen Grasp",
@@ -6088,7 +6125,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Str",
 		description : "Medium hand atks 1 crea: save or 2d6 Bludg. dmg \u0026 restrained; 1 a hand moves/atks, releases; see B",
-		descriptionFull : "You choose a 5-foot-square unoccupied space on the ground that you can see within range. A Medium hand made from compacted soil rises there and reaches for one creature you can see within 5 feet of it. The target must make a Strength saving throw. On a failed save, the target takes 2d6 bludgeoning damage and is restrained for the spell's duration." + "\n   " + "As an action, you can cause the hand to crush the restrained target, which must make a Strength saving throw. The target takes 2d6 bludgeoning damage on a failed save, or half as much damage on a successful one." + "\n   " + "To break out, the restrained target can use its action to make a Strength check against your spell save DC. On a success, the target escapes and is no longer restrained by the hand." + "\n   " + "As an action, you can cause the hand to reach for a different creature or to move to a different unoccupied space within range. The hand releases a restrained target if you do either."
+		descriptionFull : "You choose a 5-foot-square unoccupied space on the ground that you can see within range. A Medium hand made from compacted soil rises there and reaches for one creature you can see within 5 feet of it. The target must make a Strength saving throw. On a failed save, the target takes 2d6 bludgeoning damage and is restrained for the spell's duration.\n   As an action, you can cause the hand to crush the restrained target, which must make a Strength saving throw. The target takes 2d6 bludgeoning damage on a failed save, or half as much damage on a successful one.\n   To break out, the restrained target can use its action to make a Strength check against your spell save DC. On a success, the target escapes and is no longer restrained by the hand.\n   As an action, you can cause the hand to reach for a different creature or to move to a different unoccupied space within range. The hand releases a restrained target if you do either."
 	};
 	SpellsList["melf's minute meteors"] = {
 		name : "Melf's Minute Meteors",
@@ -6117,7 +6154,7 @@ function importData() {
 		components : "S",
 		duration : "Instant. or 1 h",
 		description : "5 cu ft earth; instant.: excavate; 1h: change to difficult or normal terrain, or change shape and color",
-		descriptionFull : "You choose a portion of dirt or stone that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways." + "\n " + "\u2022 If you target an area of loose earth, you can instantaneously excavate it, move it along the ground, and deposit it up to 5 feet away. This movement doesn't have enough force to cause damage." + "\n " + "\u2022 You cause shapes, colors, or both to appear on the dirt or stone, spelling out words, creating images, or shaping patterns. The changes last for 1 hour." + "\n " + "\u2022 If the dirt or stone you target is on the ground, you cause it to become difficult terrain. Alternatively, you can cause the ground to become normal terrain if it is already difficult terrain. This change lasts for 1 hour." + "\n\n" + "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+		descriptionFull : "You choose a portion of dirt or stone that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways.\n \u2022 If you target an area of loose earth, you can instantaneously excavate it, move it along the ground, and deposit it up to 5 feet away. This movement doesn't have enough force to cause damage.\n \u2022 You cause shapes, colors, or both to appear on the dirt or stone, spelling out words, creating images, or shaping patterns. The changes last for 1 hour.\n \u2022 If the dirt or stone you target is on the ground, you cause it to become difficult terrain. Alternatively, you can cause the ground to become normal terrain if it is already difficult terrain. This change lasts for 1 hour.\n\nIf you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 	};
 	SpellsList["primordial ward"] = {
 		name : "Primordial Ward",
@@ -6130,7 +6167,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 min",
 		description : "Acid, Cold, Fire, Lightning, and Thunder resistance; use rea to gain 1 immunity for 1 rnd, spell ends",
-		descriptionFull : "You have resistance to acid, cold, fire, lightning, and thunder damage for the spell's duration." + "\n   " + "When you take damage of one of those types, you can use your reaction to gain immunity to that type of damage, including against the triggering damage. If you do so, the resistances end, and you have the immunity until the end of your next turn, at which time the spell ends."
+		descriptionFull : "You have resistance to acid, cold, fire, lightning, and thunder damage for the spell's duration.\n   When you take damage of one of those types, you can use your reaction to gain immunity to that type of damage, including against the triggering damage. If you do so, the resistances end, and you have the immunity until the end of your next turn, at which time the spell ends."
 	};
 	SpellsList["pyrotechnics"] = {
 		name : "Pyrotechnics",
@@ -6144,7 +6181,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "5 cu ft nonma. flame extinguish, or 10-ft rad all crea save or blind 1 rnd, or 20-ft rad hvy obsc. 1 min",
-		descriptionFull : "Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke when you do so." + "\n   " + toUni("Fireworks") + ": The target explodes with a dazzling display of colors. Each creature within 10 feet of the target must succeed on a Constitution saving throw or become blinded until the end of your next turn." + "\n   " + toUni("Smoke") + ": Thick black smoke spreads out from the target in a 20-foot radius, moving around corners. The area of the smoke is heavily obscured. The smoke persists for 1 minute or until a strong wind disperses it."
+		descriptionFull : "Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke when you do so.\n   " + toUni("Fireworks") + ": The target explodes with a dazzling display of colors. Each creature within 10 feet of the target must succeed on a Constitution saving throw or become blinded until the end of your next turn.\n   " + toUni("Smoke") + ": Thick black smoke spreads out from the target in a 20-foot radius, moving around corners. The area of the smoke is heavily obscured. The smoke persists for 1 minute or until a strong wind disperses it."
 	};
 	SpellsList["shape water"] = {
 		name : "Shape Water",
@@ -6157,7 +6194,7 @@ function importData() {
 		components : "S",
 		duration : "Instant. or 1 h",
 		description : "5 cu ft water; instant: move/change flow; 1h: simple shapes/change color or opacity/freeze",
-		descriptionFull : "You choose an area of water that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways." + "\n " + "\u2022 You instantaneously move or otherwise change the flow of the water as you direct, up to 5 feet in any direction. This movement doesn't have enough force to cause damage." + "\n " + "\u2022 You cause the water to form into simple shapes and animate at your direction. This change lasts for 1 hour." + "\n " + "\u2022 You change the water's color or opacity. The water must be changed in the same way throughout. This change lasts for 1 hour." + "\n " + "\u2022 You freeze the water, provided that there are no creatures in it. The water unfreezes in 1 hour." + "\n\n" + "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+		descriptionFull : "You choose an area of water that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways.\n \u2022 You instantaneously move or otherwise change the flow of the water as you direct, up to 5 feet in any direction. This movement doesn't have enough force to cause damage.\n \u2022 You cause the water to form into simple shapes and animate at your direction. This change lasts for 1 hour.\n \u2022 You change the water's color or opacity. The water must be changed in the same way throughout. This change lasts for 1 hour.\n \u2022 You freeze the water, provided that there are no creatures in it. The water unfreezes in 1 hour.\n\nIf you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 	};
 	SpellsList["skywrite"] = {
 		name : "Skywrite",
@@ -6200,7 +6237,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Str",
 		description : "20-ft rad dif. ter.; all crea + end turn save or 2d6+1d6/SL Bludg.; bns a 60 ft spell atk 4d6 Lightning",
-		descriptionFull : "A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. The sphere remains for the spell's duration. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage. The sphere's space is difficult terrain." + "\n   " + "Until the spell ends, you can use a bonus action on each of your turns to cause a bolt of lightning to leap from the center of the sphere toward one creature you choose within 60 feet of the center. Make a ranged spell attack. You have advantage on the attack roll if the target is in the sphere. On a hit, the target takes 4d6 lightning damage." + "\n   " + "Creatures within 30 feet of the sphere have disadvantage on Wisdom (Perception) checks made to listen." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the damage increases for each of its effects by 1d6 for each slot level above 4th."
+		descriptionFull : "A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. The sphere remains for the spell's duration. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage. The sphere's space is difficult terrain.\n   Until the spell ends, you can use a bonus action on each of your turns to cause a bolt of lightning to leap from the center of the sphere toward one creature you choose within 60 feet of the center. Make a ranged spell attack. You have advantage on the attack roll if the target is in the sphere. On a hit, the target takes 4d6 lightning damage.\n   Creatures within 30 feet of the sphere have disadvantage on Wisdom (Perception) checks made to listen." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the damage increases for each of its effects by 1d6 for each slot level above 4th."
 	};
 	SpellsList["thunderclap"] = {
 		name : "Thunderclap",
@@ -6214,7 +6251,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "100-ft rad audible; all crea but you in area save or 1d6 Thunder dmg; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You create a burst of thunderous sound that can be heard up to 100 feet away. Each creature within range, other than you, must succeed on a Constitution saving throw or take 1d6 thunder damage." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You create a burst of thunderous sound that can be heard up to 100 feet away. Each creature within range, other than you, must succeed on a Constitution saving throw or take 1d6 thunder damage.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["tidal wave"] = {
 		name : "Tidal Wave",
@@ -6243,7 +6280,7 @@ function importData() {
 		compMaterial : "Clay and water",
 		duration : "Until dispelled",
 		description : "40 cu ft stone to mud or mud to stone; mud and stone restrains; mud from ceiling falls; see book",
-		descriptionFull : "You choose an area of stone or mud that you can see that fits within a 40-foot cube and is within range, and choose one of the following effects." + "\n   " + toUni("Transmute Rock to Mud") + ": Nonmagical rock of any sort in the area becomes an equal volume of thick, flowing mud that remains for the spell's duration." + "\n   " + "The ground in the spell's area becomes muddy enough that creatures can sink into it. Each foot that a creature moves through the mud costs 4 feet of movement, and any creature on the ground when you cast the spell must make a Strength saving throw. A creature must also make the saving throw when it moves into the area for the first time on a turn or ends its turn there. On a failed save, a creature sinks into the mud and is restrained, though it can use an action to end the restrained condition on itself by pulling itself free of the mud." + "\n   " + "If you cast the spell on a ceiling, the mud falls. Any creature under the mud when it falls must make a Dexterity saving throw. A creature takes 4d8 bludgeoning damage on a failed save, or half as much damage on a successful one." + "\n   " + toUni("Transmute Mud to Rock") + ": Nonmagical mud or quicksand in the area no more than 10 feet deep transforms into soft stone for the spell's duration. Any creature in the mud when it transforms must make a Dexterity saving throw. On a successful save, a creature is shunted safely to the surface in an unoccupied space. On a failed save, a creature becomes restrained by the rock. A restrained creature, or another creature within reach, can use an action to try to break the rock by succeeding on a DC 20 Strength check or by dealing damage to it. The rock has AC 15 and 25 hit points, and it is immune to poison and psychic damage."
+		descriptionFull : "You choose an area of stone or mud that you can see that fits within a 40-foot cube and is within range, and choose one of the following effects.\n   " + toUni("Transmute Rock to Mud") + ": Nonmagical rock of any sort in the area becomes an equal volume of thick, flowing mud that remains for the spell's duration.\n   The ground in the spell's area becomes muddy enough that creatures can sink into it. Each foot that a creature moves through the mud costs 4 feet of movement, and any creature on the ground when you cast the spell must make a Strength saving throw. A creature must also make the saving throw when it moves into the area for the first time on a turn or ends its turn there. On a failed save, a creature sinks into the mud and is restrained, though it can use an action to end the restrained condition on itself by pulling itself free of the mud.\n   If you cast the spell on a ceiling, the mud falls. Any creature under the mud when it falls must make a Dexterity saving throw. A creature takes 4d8 bludgeoning damage on a failed save, or half as much damage on a successful one.\n   " + toUni("Transmute Mud to Rock") + ": Nonmagical mud or quicksand in the area no more than 10 feet deep transforms into soft stone for the spell's duration. Any creature in the mud when it transforms must make a Dexterity saving throw. On a successful save, a creature is shunted safely to the surface in an unoccupied space. On a failed save, a creature becomes restrained by the rock. A restrained creature, or another creature within reach, can use an action to try to break the rock by succeeding on a DC 20 Strength check or by dealing damage to it. The rock has AC 15 and 25 hit points, and it is immune to poison and psychic damage."
 	};
 	SpellsList["vitriolic sphere"] = {
 		name : "Vitriolic Sphere",
@@ -6288,7 +6325,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		description : "30\u00D71\u00D710ft (l\u00D7w\u00D7h) or 20-ft rad 20-ft high; dif. ter.; range wea dis.; Fire dmg half; Cold dmg freezes",
 		descriptionMetric : "9\u00D70,3\u00D73m (l\u00D7w\u00D7h) or 6-m rad 6-m high; dif. ter.; ranged wea dis.; Fire dmg half; Cold dmg freezes",
-		descriptionFull : "You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or you can make a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall vanishes when the spell ends. The wall's space is difficult terrain." + "\n   " + "Any ranged weapon attack that enters the wall's space has disadvantage on the attack roll, and fire damage is halved if the fire effect passes through the wall to reach its target. Spells that deal cold damage that pass through the wall cause the area of the wall they pass through to freeze solid (at least a 5-foot square section is frozen). Each 5-foot-square frozen section has AC 5 and 15 hit points. Reducing a frozen section to 0 hit points destroys it. When a section is destroyed, the wall's water doesn't fill it."
+		descriptionFull : "You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or you can make a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall vanishes when the spell ends. The wall's space is difficult terrain.\n   Any ranged weapon attack that enters the wall's space has disadvantage on the attack roll, and fire damage is halved if the fire effect passes through the wall to reach its target. Spells that deal cold damage that pass through the wall cause the area of the wall they pass through to freeze solid (at least a 5-foot square section is frozen). Each 5-foot-square frozen section has AC 5 and 15 hit points. Reducing a frozen section to 0 hit points destroys it. When a section is destroyed, the wall's water doesn't fill it."
 	};
 	SpellsList["warding wind"] = {
 		name : "Warding Wind",
@@ -6301,7 +6338,7 @@ function importData() {
 		components : "V",
 		duration : "Conc, 10 min",
 		description : "Strong (20 mph) wind in area deafens/extinguishes unprotected flames/dif. ter./ranged wea have dis",
-		descriptionFull : "A strong wind (20 miles per hour) blows around you in a 10-foot radius and moves with you, remaining centered on you. The wind lasts for the spell's duration." + "\n   " + "The wind has the following effects." + "\n " + "\u2022 It deafens you and other creatures in its area." + "\n " + "\u2022 It extinguishes unprotected flames in its area that are torch-sized or smaller." + "\n " + "\u2022 The area is difficult terrain for creatures other than you." + "\n " + "\u2022 The attack rolls of ranged weapon attacks have disadvantage if they pass in or out of the wind." + "\n " + "\u2022 It hedges out vapor, gas, and fog that can be dispersed by strong wind."
+		descriptionFull : "A strong wind (20 miles per hour) blows around you in a 10-foot radius and moves with you, remaining centered on you. The wind lasts for the spell's duration.\n   The wind has the following effects.\n \u2022 It deafens you and other creatures in its area.\n \u2022 It extinguishes unprotected flames in its area that are torch-sized or smaller.\n \u2022 The area is difficult terrain for creatures other than you.\n \u2022 The attack rolls of ranged weapon attacks have disadvantage if they pass in or out of the wind.\n \u2022 It hedges out vapor, gas, and fog that can be dispersed by strong wind."
 	};
 	SpellsList["watery sphere"] = {
 		name : "Watery Sphere",
@@ -6316,7 +6353,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Str",
 		description : "5-ft rad all crea < Huge save or restrained; on save ejected; save each rnd; 1 a move sphere 30 ft",
-		descriptionFull : "You conjure up a sphere of water with a 5-foot radius at a point you can see within range. The sphere can hover but no more than 10 feet off the ground. The sphere remains for the spell's duration." + "\n   " + "Any creature in the sphere's space must make a Strength saving throw. On a successful save, a creature is ejected from that space to the nearest unoccupied space of the creature's choice outside the sphere. A Huge or larger creature succeeds on the saving throw automatically, and a Large or smaller creature can choose to fail it. On a failed save, a creature is restrained by the sphere and is engulfed by the water. At the end of each of its turns, a restrained target can repeat the saving throw, ending the effect on itself on a success." + "\n   " + "The sphere can restrain as many as four Medium or smaller creatures or one Large creature. If the sphere restrains a creature that causes it to exceed this capacity, a random creature that was already restrained by the sphere falls out of it and lands prone in a space within 5 feet of it." + "\n   " + "As an action, you can move the sphere up to 30 feet in a straight line. If it moves over a pit, a cliff, or other drop-off, it safely descends until it is hovering 10 feet above the ground. Any creature restrained by the sphere moves with it. You can ram the sphere into creatures, forcing them to make the saving throw." + "\n   " + "When the spell ends, the sphere falls to the ground and extinguishes all normal flames within 30 feet of it. Any creature restrained by the sphere is knocked prone in the space where it falls. The water then vanishes."
+		descriptionFull : "You conjure up a sphere of water with a 5-foot radius at a point you can see within range. The sphere can hover but no more than 10 feet off the ground. The sphere remains for the spell's duration.\n   Any creature in the sphere's space must make a Strength saving throw. On a successful save, a creature is ejected from that space to the nearest unoccupied space of the creature's choice outside the sphere. A Huge or larger creature succeeds on the saving throw automatically, and a Large or smaller creature can choose to fail it. On a failed save, a creature is restrained by the sphere and is engulfed by the water. At the end of each of its turns, a restrained target can repeat the saving throw, ending the effect on itself on a success.\n   The sphere can restrain as many as four Medium or smaller creatures or one Large creature. If the sphere restrains a creature that causes it to exceed this capacity, a random creature that was already restrained by the sphere falls out of it and lands prone in a space within 5 feet of it.\n   As an action, you can move the sphere up to 30 feet in a straight line. If it moves over a pit, a cliff, or other drop-off, it safely descends until it is hovering 10 feet above the ground. Any creature restrained by the sphere moves with it. You can ram the sphere into creatures, forcing them to make the saving throw.\n   When the spell ends, the sphere falls to the ground and extinguishes all normal flames within 30 feet of it. Any creature restrained by the sphere is knocked prone in the space where it falls. The water then vanishes."
 	};
 	SpellsList["whirlwind"] = {
 		name : "Whirlwind",
@@ -6331,7 +6368,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "10-ft rad 30-ft high all crea 10d6 Bludg. dmg; save halves; restrains; 1 a move 30 ft; see book",
-		descriptionFull : "A whirlwind howls down to a point that you can see on the ground within range. The whirlwind is a 10-foot-radius, 30-foot-high cylinder centered on that point. Until the spell ends, you can use your action to move the whirlwind up to 30 feet in any direction along the ground. The whirlwind sucks up any Medium or smaller objects that aren't secured to anything and that aren't worn or carried by anyone." + "\n   " + "A creature must make a Dexterity saving throw the first time on a turn that it enters the whirlwind or that the whirlwind enters its space, including when the whirlwind first appears. A creature takes 10d6 bludgeoning damage on a failed save, or half as much damage on a successful one. In addition, a Large or smaller creature that fails the save must succeed on a Strength saving throw or become restrained in the whirlwind until the spell ends. When a creature starts its turn restrained by the whirlwind, the creature is pulled 5 feet higher inside it, unless the creature is at the top. A restrained creature moves with the whirlwind and falls when the spell ends, unless the creature has some means to stay aloft." + "\n   " + "A restrained creature can use an action to make a Strength or Dexterity check against your spell save DC. If successful, the creature is no longer restrained by the whirlwind and is hurled 3d6 \u00D7 10 feet away from it in a random direction."
+		descriptionFull : "A whirlwind howls down to a point that you can see on the ground within range. The whirlwind is a 10-foot-radius, 30-foot-high cylinder centered on that point. Until the spell ends, you can use your action to move the whirlwind up to 30 feet in any direction along the ground. The whirlwind sucks up any Medium or smaller objects that aren't secured to anything and that aren't worn or carried by anyone.\n   A creature must make a Dexterity saving throw the first time on a turn that it enters the whirlwind or that the whirlwind enters its space, including when the whirlwind first appears. A creature takes 10d6 bludgeoning damage on a failed save, or half as much damage on a successful one. In addition, a Large or smaller creature that fails the save must succeed on a Strength saving throw or become restrained in the whirlwind until the spell ends. When a creature starts its turn restrained by the whirlwind, the creature is pulled 5 feet higher inside it, unless the creature is at the top. A restrained creature moves with the whirlwind and falls when the spell ends, unless the creature has some means to stay aloft.\n   A restrained creature can use an action to make a Strength or Dexterity check against your spell save DC. If successful, the creature is no longer restrained by the whirlwind and is hurled 3d6 \u00D7 10 feet away from it in a random direction."
 	};
 
 	// Weapons (attack cantrips)
@@ -7359,7 +7396,7 @@ function importData() {
 				name : "Battlerager Armor",
 				source : ["S", 121],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with spiked armor as a weapon" + "\n   " + "As a bonus action while raging, I can attack once with my armor spikes",
+				description : "\n   I gain proficiency with spiked armor as a weapon\n   As a bonus action while raging, I can attack once with my armor spikes",
 				action : ["bonus action", " attack (in rage)"],
 				weapons : [false, false, ["armor spikes"]],
 				eval : "AddString('Proficiency Armor Other Description', 'Spiked Armor', ', '); AddWeapon('Armor Spikes');",
@@ -7369,20 +7406,20 @@ function importData() {
 				name : "Reckless Abandon",
 				source : ["S", 121],
 				minlevel : 6,
-				description : "\n   " + "If I use Reckless Attack during rage, I also gain temporary HP equal to my Con mod"
+				description : "\n   If I use Reckless Attack during rage, I also gain temporary HP equal to my Con mod"
 			},
 			"subclassfeature10" : {
 				name : "Battlerager Charge",
 				source : ["S", 121],
 				minlevel : 10,
-				description : "\n   " + "As a bonus action while raging, I can use the Dash action",
+				description : "\n   As a bonus action while raging, I can use the Dash action",
 				action : ["bonus action", " (in rage)"]
 			},
 			"subclassfeature14" : {
 				name : "Spiked Retribution",
 				source : ["S", 121],
 				minlevel : 14,
-				description : "\n   " + "When I'm hit in melee by an attacker within 5 ft, it takes 3 piercing damage" + "\n   " + "This only works while I'm wearing spiked armor, in rage, and I'm not incapacitated"
+				description : "\n   When I'm hit in melee by an attacker within 5 ft, it takes 3 piercing damage\n   This only works while I'm wearing spiked armor, in rage, and I'm not incapacitated"
 			}
 		}
 	});
@@ -7396,7 +7433,7 @@ function importData() {
 				name : "Arcane Initiate",
 				source : ["S", 125],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with Arcana and two wizard cantrips that count as cleric cantrips",
+				description : "\n   I gain proficiency with Arcana and two wizard cantrips that count as cleric cantrips",
 				skills : ["Arcana"],
 				skillstxt : "\n\n" + toUni("Arcane Domain") + ": Arcana.",
 				spellcastingBonus : {
@@ -7410,7 +7447,7 @@ function importData() {
 				name : "Channel Divinity: Arcane Abjuration",
 				source : ["S", 125],
 				minlevel : 2,
-				description : "\n   " + "As an action, one celestial, elemental, fey, or fiend within 30 ft must make a Wis save" + "\n   " + "If it fails and is able to see/hear me, it is turned for 1 min or until it takes damage" + "\n   " + "Turned: move away, never within 30 ft of me, no reactions or actions other than Dash" + "\n   " + "Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds" + "\n   " + "If its CR is low enough and it is not on its home plane, it is banished for 1 min instead" + "\n   " + "Banished: sent to home plane, reappearing where it was if the effect ends before 1 min",
+				description : "\n   As an action, one celestial, elemental, fey, or fiend within 30 ft must make a Wis save\n   If it fails and is able to see/hear me, it is turned for 1 min or until it takes damage\n   Turned: move away, never within 30 ft of me, no reactions or actions other than Dash\n   Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds\n   If its CR is low enough and it is not on its home plane, it is banished for 1 min instead\n   Banished: sent to home plane, reappearing where it was if the effect ends before 1 min",
 				additional : ["", "", "", "", "CR 1/2 or lower", "CR 1/2 or lower", "CR 1/2 or lower", "CR 1 or lower", "CR 1 or lower", "CR 1 or lower", "CR 2 or lower", "CR 2 or lower", "CR 2 or lower", "CR 3 or lower", "CR 3 or lower", "CR 3 or lower", "CR 4 or lower", "CR 4 or lower", "CR 4 or lower", "CR 4 or lower"],
 				action : ["action", ""]
 			},
@@ -7418,13 +7455,13 @@ function importData() {
 				name : "Spell Breaker",
 				source : ["S", 126],
 				minlevel : 6,
-				description : "\n   " + "When I restore HP to an ally with a 1st-level or higher spell, I can also end one spell" + "\n   " + "The chosen spell on the ally ends if it is equal or lower level to the spell slot level used"
+				description : "\n   When I restore HP to an ally with a 1st-level or higher spell, I can also end one spell\n   The chosen spell on the ally ends if it is equal or lower level to the spell slot level used"
 			},
 			"subclassfeature8" : {
 				name : "Potent Spellcasting",
 				source : ["S", 126],
 				minlevel : 8,
-				description : "\n   " + "I add my Wisdom modifier to the damage I deal with my cleric cantrips",
+				description : "\n   I add my Wisdom modifier to the damage I deal with my cleric cantrips",
 				calcChanges : {
 					atkCalc : ["if (classes.known.cleric && classes.known.cleric.level > 7 && thisWeapon[4].indexOf('cleric') !== -1 && thisWeapon[3] && SpellsList[thisWeapon[3]].level === 0) { output.extraDmg += What('Wis Mod'); }; ", "My cleric cantrips get my Wisdom modifier added to their damage."]
 				}
@@ -7433,7 +7470,7 @@ function importData() {
 				name : "Arcane Mastery",
 				source : ["S", 126],
 				minlevel : 17,
-				description : "\n   " + "I add four wizards spells, a 6th, 7th, 8th, and 9th-level spell, to my domain spells" + "\n   " + "As any domain spell, these spells are automatically prepared and count as cleric spells",
+				description : "\n   I add four wizards spells, a 6th, 7th, 8th, and 9th-level spell, to my domain spells\n   As any domain spell, these spells are automatically prepared and count as cleric spells",
 				spellcastingBonus : [{
 					name : "Arcane Mastery (6)",
 					"class" : "wizard",
@@ -7468,7 +7505,7 @@ function importData() {
 				name : "Rallying Cry",
 				source : ["S", 128],
 				minlevel : 3,
-				description : "\n   " + "When I use Second Wind, I also heal three allies within 60 ft that can see or hear me",
+				description : "\n   When I use Second Wind, I also heal three allies within 60 ft that can see or hear me",
 				additional : ["", "", "3 HP", "4 HP", "5 HP", "6 HP", "7 HP", "8 HP", "9 HP", "10 HP", "11 HP", "12 HP", "13 HP", "14 HP", "15 HP", "16 HP", "17 HP", "18 HP", "19 HP", "20 HP"],
 				eval : "RemoveAction('bonus action', 'Second Wind'); AddAction('bonus action', 'Second Wind (+ Rallying Cry)', 'Purple Dragon Knight')",
 				removeeval : "RemoveAction('bonus action', 'Second Wind (+ Rallying Cry)'); AddAction('bonus action', 'Second Wind', 'Fighter')"
@@ -7477,7 +7514,7 @@ function importData() {
 				name : "Royal Envoy",
 				source : ["S", 128],
 				minlevel : 7,
-				description : "\n   " + "I gain proficiency with the Persuasion skill and I gain expertise with the Persuasion skill" + "\n   " + "If already proficient, I can choose Animal Handling, Insight, Intimidation, or Perform",
+				description : "\n   I gain proficiency with the Persuasion skill and I gain expertise with the Persuasion skill\n   If already proficient, I can choose Animal Handling, Insight, Intimidation, or Perform",
 				skillstxt : "\n\n" + toUni("Purple Dragon Knight (Royal Envoy)") + ": Persuasion proficiency and expertise; if already proficient, choose one from Animal Handling, Insight, Intimidation, and Performance.",
 				eval : "AddSkillProf('Persuasion', true, true);",
 				removeeval : "AddSkillProf('Persuasion', false, true);"
@@ -7486,14 +7523,14 @@ function importData() {
 				name : "Inspiring Surge",
 				source : ["S", 128],
 				minlevel : 10,
-				description : "\n   " + "When I use my Action Surge, I can inspire an ally within 60 ft that can see or hear me" + "\n   " + "The ally can then use its reaction to make one melee or ranged weapon attack",
+				description : "\n   When I use my Action Surge, I can inspire an ally within 60 ft that can see or hear me\n   The ally can then use its reaction to make one melee or ranged weapon attack",
 				additional : ["", "", "", "", "", "", "", "", "", "1 ally", "1 ally", "1 ally", "1 ally", "1 ally", "1 ally", "1 ally", "1 ally", "2 allies", "2 allies", "2 allies"]
 			},
 			"subclassfeature15" : {
 				name : "Bulwark",
 				source : ["S", 128],
 				minlevel : 15,
-				description : "\n   " + "When I use Indomitable to reroll a Int, Wis, or Cha save, I can extend it to an ally" + "\n   " + "The ally can reroll its failed saving throw against the same effect and take the result" + "\n   " + "It only works if not incapacitated and the ally is within 60 ft and can see or hear me"
+				description : "\n   When I use Indomitable to reroll a Int, Wis, or Cha save, I can extend it to an ally\n   The ally can reroll its failed saving throw against the same effect and take the result\n   It only works if not incapacitated and the ally is within 60 ft and can see or hear me"
 			}
 		}
 	});
@@ -7506,13 +7543,13 @@ function importData() {
 				name : "Touch of Death",
 				source : ["S", 130],
 				minlevel : 3,
-				description : "\n   " + "If I reduce someone within 5 ft to 0 HP, I gain Wis mod + monk level temporary HP"
+				description : "\n   If I reduce someone within 5 ft to 0 HP, I gain Wis mod + monk level temporary HP"
 			},
 			"subclassfeature6" : {
 				name : "Hour of Reaping",
 				source : ["S", 130],
 				minlevel : 6,
-				description : "\n   " + "As an action, all creatures within 30 feet of me must make a Wisdom saving throw" + "\n   " + "On a failed save the creature is frightened until the end of my next turn",
+				description : "\n   As an action, all creatures within 30 feet of me must make a Wisdom saving throw\n   On a failed save the creature is frightened until the end of my next turn",
 				action : ["action", ""]
 			},
 			"subclassfeature11" : {
@@ -7520,13 +7557,13 @@ function importData() {
 				source : ["S", 131],
 				minlevel : 11,
 				additional : "1 ki point",
-				description : "\n   " + "When I'm reduced to 0 HP, I can expend 1 ki point to have 1 HP instead",
+				description : "\n   When I'm reduced to 0 HP, I can expend 1 ki point to have 1 HP instead",
 				extraname : "Way of the Long Death 17",
 				changeeval : "if (newClassLvl.monk >= 17 && (What('Extra.Notes') + What('Class Features')).toLowerCase().indexOf('touch of the long death') === -1) {ClassFeatureOptions(['monk', 'subclassfeature11', 'touch of the long death', 'extra'])} else if (newClassLvl.monk < 17 && oldClassLvl.monk >= 17) {ClassFeatureOptions(['monk', 'subclassfeature11', 'touch of the long death', 'extra'], 'remove')};",
 				"touch of the long death" : {
 					name : "Touch of the Long Death",
 					source : ["S", 131],
-					description : " [1-10 ki points]" + "\n   " + "As an action, a target within 5 ft takes 2d10 necrotic damage per ki point I spent" + "\n   " + "It can make a Constitution saving throw to half the damage",
+					description : " [1-10 ki points]\n   As an action, a target within 5 ft takes 2d10 necrotic damage per ki point I spent\n   It can make a Constitution saving throw to half the damage",
 					action : ["action", ""]
 				}
 			}
@@ -7603,35 +7640,35 @@ function importData() {
 				name : "Channel Divinity: Champion Challenge",
 				source : ["S", 133],
 				minlevel : 3,
-				description : "\n   " + "I can compel any chosen creatures within 30 ft of me to make a Wisdom save" + "\n   " + "If failed, a target is unable to willingly move more than 30 ft away from me" + "\n   " + "The effect ends if I'm incapacitated, die, or it is moved more than 30 ft away from me",
+				description : "\n   I can compel any chosen creatures within 30 ft of me to make a Wisdom save\n   If failed, a target is unable to willingly move more than 30 ft away from me\n   The effect ends if I'm incapacitated, die, or it is moved more than 30 ft away from me",
 				action : ["action", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Turn the Tide",
 				source : ["S", 133],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, any chosen creatures within 30 ft that can hear me regain HP" + "\n   " + "Each regain 1d6 + my Charisma modifier HP, up to half of its total HP",
+				description : "\n   As a bonus action, any chosen creatures within 30 ft that can hear me regain HP\n   Each regain 1d6 + my Charisma modifier HP, up to half of its total HP",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature7" : {
 				name : "Divine Allegiance",
 				source : ["S", 133],
 				minlevel : 7,
-				description : "\n   " + "When a creature within 5 feet of me takes damage, I can substitute my HP for it" + "\n   " + "The creature takes no damage and I take all of it; this damage can't be prevented",
+				description : "\n   When a creature within 5 feet of me takes damage, I can substitute my HP for it\n   The creature takes no damage and I take all of it; this damage can't be prevented",
 				action : ["reaction", ""]
 			},
 			"subclassfeature15" : {
 				name : "Unyielding Spirit",
 				source : ["S", 133],
 				minlevel : 15,
-				description : "\n   " + "I have advantage on saving throws against effects that paralyze or stun",
+				description : "\n   I have advantage on saving throws against effects that paralyze or stun",
 				savetxt : { adv_vs : ["paralyzed", "stunned"] }
 			},
 			"subclassfeature20" : {
 				name : "Exalted Champion",
 				source : ["S", 133],
 				minlevel : 20,
-				description : "\n   " + "As an action, I gain the following benefits for 1 hour or until I'm incapacitated:" + "\n    - " + "Resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons" + "\n    - " + "My allies within 30 ft of me and I have advantage on Wisdom and Death saves",
+				description : "\n   As an action, I gain the following benefits for 1 hour or until I'm incapacitated:\n    - Resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons\n    - My allies within 30 ft of me and I have advantage on Wisdom and Death saves",
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""]
@@ -7740,14 +7777,14 @@ function importData() {
 				name : "Elegant Maneuver",
 				source : [["S", 136], ["X", 47]],
 				minlevel : 13,
-				description : "\n   " + "As a bonus action, I can gain adv. on my next Dex (Acrobatics) or Str (Athletics) check",
+				description : "\n   As a bonus action, I can gain adv. on my next Dex (Acrobatics) or Str (Athletics) check",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature17" : {
 				name : "Master Duelist",
 				source : [["S", 136], ["X", 47]],
 				minlevel : 17,
-				description : "\n   " + "Once per short rest, when I miss with an attack roll, I can roll again with advantage",
+				description : "\n   Once per short rest, when I miss with an attack roll, I can roll again with advantage",
 				recovery : "short rest",
 				usages : 1
 			}
@@ -7763,7 +7800,7 @@ function importData() {
 				name : "Wind Speaker",
 				source : [["S", 137], ["X", 52]],
 				minlevel : 1,
-				description : "\n   " + "I can speak, read, and write Primordial (and its dialects Aquan, Auran, Ignan, Terran)",
+				description : "\n   I can speak, read, and write Primordial (and its dialects Aquan, Auran, Ignan, Terran)",
 				languageProfs : ["Primordial"]
 			},
 			"subclassfeature1.1" : {
@@ -7837,7 +7874,7 @@ function importData() {
 				name : "Among the Dead",
 				source : ["S", 139],
 				minlevel : 1,
-				description : "\n   " + "I learn the Spare the Dying cantrip and gain advantage on saving throws vs. diseases" + "\n   " + "If an undead targets me directly with an attack or spell, it must make a Wisdom save" + "\n   " + "On a fail, it must choose a new target or forfeit its attack or harmful spell" + "\n   " + "On a success or if I attack or cast a harmful spell on it, it is immune for 24 hours",
+				description : "\n   I learn the Spare the Dying cantrip and gain advantage on saving throws vs. diseases\n   If an undead targets me directly with an attack or spell, it must make a Wisdom save\n   On a fail, it must choose a new target or forfeit its attack or harmful spell\n   On a success or if I attack or cast a harmful spell on it, it is immune for 24 hours",
 				savetxt : { adv_vs : ["disease"] },
 				spellcastingBonus : {
 					name : "Among the Dead",
@@ -7849,7 +7886,7 @@ function importData() {
 				name : "Defy Death",
 				source : ["S", 140],
 				minlevel : 6,
-				description : "\n   " + "I regain 1d8 + my Constitution modifier in HP when I succeed on a Death saving throw" + "\n   " + "I also regain this amount whenever I use Spare the Dying to stabilize a creature",
+				description : "\n   I regain 1d8 + my Constitution modifier in HP when I succeed on a Death saving throw\n   I also regain this amount whenever I use Spare the Dying to stabilize a creature",
 				recovery : "long rest",
 				usages : 1
 			},
@@ -7857,13 +7894,13 @@ function importData() {
 				name : "Undying Nature",
 				source : ["S", 140],
 				minlevel : 10,
-				description : "\n   " + "I can hold my breath indefinitely; I don't require food, water, or sleep (I still need rest)" + "\n   " + "I age more slowly, only 1 year for every 10 years that pass; I can't be magically aged"
+				description : "\n   I can hold my breath indefinitely; I don't require food, water, or sleep (I still need rest)\n   I age more slowly, only 1 year for every 10 years that pass; I can't be magically aged"
 			},
 			"subclassfeature14" : {
 				name : "Indestructible Life",
 				source : ["S", 140],
 				minlevel : 14,
-				description : "\n   " + "As a bonus action, I can regain HP and reattach severed body parts",
+				description : "\n   As a bonus action, I can regain HP and reattach severed body parts",
 				action : ["bonus action", ""],
 				recovery : "short rest",
 				usages : 1,
@@ -7882,7 +7919,7 @@ function importData() {
 				name : "Training in War and Song",
 				source : ["S", 142],
 				minlevel : 2,
-				description : "\n   " + "I gain proficiency with light armor, a one-handed melee weapon, and Performance",
+				description : "\n   I gain proficiency with light armor, a one-handed melee weapon, and Performance",
 				armor : [true, false, false, false],
 				skills : ["Performance"],
 				skillstxt : "\n\n" + toUni("Bladesinger") + ": Performance"
@@ -7891,7 +7928,7 @@ function importData() {
 				name : "Bladesong",
 				source : ["S", 142],
 				minlevel : 2,
-				description : "\n   " + "As a bonus action, I can start the bladesong for 1 minute; I can dismiss it at any time" + "\n   " + "It stops when I wear a shield, medium or heavy armor, or attack with two hands" + "\n   " + "While the bladesong is active I have the following benefits:" + "\n    - " + "Intelligence modifier (min 1) to AC" + "\n    - " + "Base walking speed increases by 10 foot" + "\n    - " + "Advantage on Dexterity (Acrobatics) checks" + "\n    - " + "Intelligence modifier (min 1) to concentration saves for maintaining conc. on a spell",
+				description : "\n   As a bonus action, I can start the bladesong for 1 minute; I can dismiss it at any time\n   It stops when I wear a shield, medium or heavy armor, or attack with two hands\n   While the bladesong is active I have the following benefits:\n    - Intelligence modifier (min 1) to AC\n    - Base walking speed increases by 10 foot\n    - Advantage on Dexterity (Acrobatics) checks\n    - Intelligence modifier (min 1) to concentration saves for maintaining conc. on a spell",
 				action : ["bonus action", " (start)"],
 				recovery : "short rest",
 				usages : 2
@@ -7900,7 +7937,7 @@ function importData() {
 				name : "Song of Defense",
 				source : ["S", 142],
 				minlevel : 10,
-				description : "\n   " + "As a reaction while my bladesong is active, I can expand a spell slot to reduce damage" + "\n   " + "The damage I take is reduced by 5 for every level of the spell slot I expand",
+				description : "\n   As a reaction while my bladesong is active, I can expand a spell slot to reduce damage\n   The damage I take is reduced by 5 for every level of the spell slot I expand",
 				action : ["reaction", " (in bladesong)"]
 
 			},
@@ -7908,7 +7945,7 @@ function importData() {
 				name : "Song of Victory",
 				source : ["S", 142],
 				minlevel : 14,
-				description : "\n   " + "While my bladesong is active, I can add my Int mod to melee weapon attack damage",
+				description : "\n   While my bladesong is active, I can add my Int mod to melee weapon attack damage",
 				calcChanges : {
 					atkCalc : ["if (classes.known.wizard && classes.known.wizard.level > 13 && isMeleeWeapon && (/blade.?song/i).test(WeaponText)) { output.extraDmg += What('Int Mod'); }; ", "If I include the word 'Bladesong' in the name or description of a melee weapon, it gets my Intelligence modifier added to its Damage."]
 				}
@@ -7925,7 +7962,7 @@ function importData() {
 			feature : {
 				name : "Elk Spirit",
 				source : ["S", 122],
-				description : "\n   " + "While raging without heavy armor, my base walking speed increases with 15 foot"
+				description : "\n   While raging without heavy armor, my base walking speed increases with 15 foot"
 			}
 		}, {
 			name : "Tiger",
@@ -7933,7 +7970,7 @@ function importData() {
 			feature : {
 				name : "Tiger Spirit",
 				source : ["S", 122],
-				description : "\n   " + "While raging, I can add 10 feet to my long jump and 3 feet to my high jump distance"
+				description : "\n   While raging, I can add 10 feet to my long jump and 3 feet to my high jump distance"
 			}
 		}, {
 			name : "Elk",
@@ -7941,7 +7978,7 @@ function importData() {
 			feature : {
 				name : "Aspect of the Elk",
 				source : ["S", 122],
-				description : "\n   " + "While mounted or on foot and not incapacitated, my travel pace is doubled" + "\n   " + "I can extend this benefit to up to ten companions, while they are within 60 ft of me"
+				description : "\n   While mounted or on foot and not incapacitated, my travel pace is doubled\n   I can extend this benefit to up to ten companions, while they are within 60 ft of me"
 			}
 		}, {
 			name : "Tiger",
@@ -7949,7 +7986,7 @@ function importData() {
 			feature : {
 				name : "Aspect of the Tiger",
 				source : ["S", 122],
-				description : "\n   " + "I gain proficiency with two skills chosen from: Athletics, Acrobatics, Stealth, or Survival",
+				description : "\n   I gain proficiency with two skills chosen from: Athletics, Acrobatics, Stealth, or Survival",
 				skillstxt : "\n\n" + toUni("Aspect of the Tiger") + ": Choose two from Athletics, Acrobatics, Stealth, and Survival."
 			}
 		}, {
@@ -7958,7 +7995,7 @@ function importData() {
 			feature : {
 				name : "Elk Attunement",
 				source : ["S", 122],
-				description : "\n   " + "As a bonus action while raging, I can move through Large or smaller creature's space" + "\n   " + "It must make a Strength save of DC 8 + Strength modifier + Proficiency bonus" + "\n   " + "If failed, it is knocked prone and takes 1d12 + Strength modifier bludgeoning damage",
+				description : "\n   As a bonus action while raging, I can move through Large or smaller creature's space\n   It must make a Strength save of DC 8 + Strength modifier + Proficiency bonus\n   If failed, it is knocked prone and takes 1d12 + Strength modifier bludgeoning damage",
 				action : ["bonus action", " (in rage)"]
 			}
 		}, {
@@ -7967,7 +8004,7 @@ function importData() {
 			feature : {
 				name : "Tiger Attunement",
 				source : ["S", 122],
-				description : "\n   " + "As a bonus action while raging, I can make a melee weapon attack on these conditions:" + "\n    - " + "I move at least 20 ft in a straight line towards the target that is Large or smaller" + "\n    - " + "I make a melee weapon attack against it after the bonus action",
+				description : "\n   As a bonus action while raging, I can make a melee weapon attack on these conditions:\n    - I move at least 20 ft in a straight line towards the target that is Large or smaller\n    - I make a melee weapon attack against it after the bonus action",
 				action : ["bonus action", " (in rage)"]
 			}
 		}]
@@ -8476,7 +8513,7 @@ function importData() {
 		compMaterial : "A weapon",
 		duration : "Instantaneous",
 		description : "Melee wea atk with cast; if hit, it 0d8, crea in 5 ft 0d8+spell mod Fire dmg; +1d8 at CL 5, 11, and 17",
-		descriptionFull : "As part of the action used to cast this spell, you must make a melee attack with a weapon against one creature within the spell's range, otherwise the spell fails. On a hit, the target suffers the attack's normal effects, and green fire leaps from the target to a different creature of your choice that you can see within 5 feet of it. The second creature takes fire damage equal to your spellcasting ability modifier." + "\n   " + "This spell's damage increases when you reach higher levels. At 5th level, the melee attack deals an extra 1d8 fire damage to the target, and the fire damage to the second creature increases to 1d8 + your spellcasting ability modifier. Both damage rolls increase by 1d8 at 11th level and 17th level."
+		descriptionFull : "As part of the action used to cast this spell, you must make a melee attack with a weapon against one creature within the spell's range, otherwise the spell fails. On a hit, the target suffers the attack's normal effects, and green fire leaps from the target to a different creature of your choice that you can see within 5 feet of it. The second creature takes fire damage equal to your spellcasting ability modifier.\n   This spell's damage increases when you reach higher levels. At 5th level, the melee attack deals an extra 1d8 fire damage to the target, and the fire damage to the second creature increases to 1d8 + your spellcasting ability modifier. Both damage rolls increase by 1d8 at 11th level and 17th level."
 	};
 	SpellsList["lightning lure"] = {
 		name : "Lightning Lure",
@@ -8490,7 +8527,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Str",
 		description : "1 crea you see save or pull 10 ft to you; if end in 5 ft, 1d8 Lightning dmg; +1d8 at CL 5, 11, and 17",
-		descriptionFull : "You create a lash of lightning energy that strikes at one creature of your choice that you can see within range. The target must succeed on a Strength saving throw or be pulled up to 10 feet in a straight line toward you and then take 1d8 lightning damage if it is within 5 feet of you." + "\n   " + "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+		descriptionFull : "You create a lash of lightning energy that strikes at one creature of your choice that you can see within range. The target must succeed on a Strength saving throw or be pulled up to 10 feet in a straight line toward you and then take 1d8 lightning damage if it is within 5 feet of you.\n   This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
 	};
 	SpellsList["sword burst"] = {
 		name : "Sword Burst",
@@ -8504,7 +8541,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Dex",
 		description : "All crea in range save or 1d6 Force damage; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You create a momentary circle of spectral blades that sweep around you. Each creature within range, other than you, must succeed on a Dexterity saving throw or take 1d6 force damage." + "\n   " + "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You create a momentary circle of spectral blades that sweep around you. Each creature within range, other than you, must succeed on a Dexterity saving throw or take 1d6 force damage.\n   This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	var iFileName = "pub_20160315_CoS.js";
 	RequiredSheetVersion(12.999);
@@ -11382,7 +11419,7 @@ function importData() {
 				name : "Vengeful Ancestors",
 				source : ["X", 10],
 				minlevel : 14,
-				description : "\n   " + "When using Spirit Shield, the attacker takes the reduced amount as force damage"
+				description : "\n   When using Spirit Shield, the attacker takes the reduced amount as force damage"
 			}
 		}
 	});
@@ -11440,7 +11477,7 @@ function importData() {
 				name : "Storm Soul",
 				source : ["X", 10],
 				minlevel : 6,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select the effect",
+				description : "\n   Use the \"Choose Feature\" button above to select the effect",
 				choices : ["desert", "sea", "tundra"],
 				choicesNotInMenu : true,
 				"desert" : {
@@ -11479,20 +11516,20 @@ function importData() {
 				name : "Shielding Storm",
 				source : ["X", 10],
 				minlevel : 10,
-				description : "\n   " + "In rage, creatures of my choice within my Storm Aura also gain Storm Soul resistance",
+				description : "\n   In rage, creatures of my choice within my Storm Aura also gain Storm Soul resistance",
 				choices : ["desert", "sea", "tundra"],
 				choicesNotInMenu : true,
 				"desert" : {
 					name : "Shielding Storm: Desert",
-					description : "\n   " + "While raging, creatures of my choice within my Storm Aura also gain resistance to fire"
+					description : "\n   While raging, creatures of my choice within my Storm Aura also gain resistance to fire"
 				},
 				"sea" : {
 					name : "Shielding Storm: Sea",
-					description : "\n   " + "In rage, creatures of my choice within my Storm Aura also gain resistance to lightning"
+					description : "\n   In rage, creatures of my choice within my Storm Aura also gain resistance to lightning"
 				},
 				"tundra" : {
 					name : "Shielding Storm: Tundra",
-					description : "\n   " + "While raging, creatures of my choice within my Storm Aura also gain resistance to cold"
+					description : "\n   While raging, creatures of my choice within my Storm Aura also gain resistance to cold"
 				},
 				eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?barbarian,subclassfeature3,(desert|sea|tundra).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'barbarian,subclassfeature10,' + FeaChoice, false);};};"
 			},
@@ -11500,7 +11537,7 @@ function importData() {
 				name : "Raging Storm",
 				source : ["X", 11],
 				minlevel : 14,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select the effect",
+				description : "\n   Use the \"Choose Feature\" button above to select the effect",
 				choices : ["desert", "sea", "tundra"],
 				choicesNotInMenu : true,
 				"desert" : {
@@ -11572,7 +11609,7 @@ function importData() {
 				name : "Warrior of the Gods",
 				source : ["X", 11],
 				minlevel : 3,
-				description : "\n   " + "Spells restoring me to life (not undeath or anything else) don't require material comp."
+				description : "\n   Spells restoring me to life (not undeath or anything else) don't require material comp."
 			},
 			"subclassfeature6" : {
 				name : "Fanatical Focus",
@@ -11698,7 +11735,7 @@ function importData() {
 				name : "Fighting Style",
 				source : ["X", 15],
 				minlevel : 3,
-				description : "\n   " + "Select a Fighting Style for the college of swords using the \"Choose Feature\" button above",
+				description : "\n   Select a Fighting Style for the college of swords using the \"Choose Feature\" button above",
 				choices : ["Dueling", "Two-Weapon Fighting"],
 				"dueling" : FightingStyles.dueling,
 				"two-weapon fighting" : FightingStyles.two_weapon
@@ -11722,7 +11759,7 @@ function importData() {
 				name : "Master Flourish",
 				source : ["X", 16],
 				minlevel : 14,
-				description : "\n   " + "When I do a Blade Flourish, I can use a d6 instead of expending a Bardic Inspiration die"
+				description : "\n   When I do a Blade Flourish, I can use a d6 instead of expending a Bardic Inspiration die"
 			}
 		}
 	});
@@ -11801,7 +11838,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["X", 19],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with heavy armor and smith's tools",
+				description : "\n   I gain proficiency with heavy armor and smith's tools",
 				armor : [false, false, true, false],
 				toolProfs : ["Smith's tools"]
 			},
@@ -11835,7 +11872,7 @@ function importData() {
 				name : "Soul of the Forge",
 				source : ["X", 19],
 				minlevel : 6,
-				description : "\n   " + "I gain resistance to fire damage and +1 to AC while wearing medium or heavy armor",
+				description : "\n   I gain resistance to fire damage and +1 to AC while wearing medium or heavy armor",
 				dmgres : ["Fire"],
 				eval : "AddACMisc(1, 'Soul of the Forge', '+1 AC while wearing Medium or Heavy armor.\\n\\nSoul of the Forge was gained from Cleric (Forge Domain).', \"!tDoc.getField('Medium Armor').isBoxChecked(0) && !tDoc.getField('Heavy Armor').isBoxChecked(0)\");",
 				removeeval : "AddACMisc(0, 'Soul of the Forge', '+1 AC while wearing Medium or Heavy armor.\\n\\nSoul of the Forge was gained from Cleric (Forge Domain).');"
@@ -11844,7 +11881,7 @@ function importData() {
 				name : "Divine Strike",
 				source : ["X", 19],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 fire damage";
@@ -11918,13 +11955,13 @@ function importData() {
 				usagescalc : "event.value = Math.max(1, What('Wis Mod'));",
 				recovery : "long rest",
 				action : ["reaction", ""],
-				description : "\n   " + "As a reaction, I turn a critical hit to me or an ally I see within 30 ft to a normal hit"
+				description : "\n   As a reaction, I turn a critical hit to me or an ally I see within 30 ft to a normal hit"
 			},
 			"subclassfeature8" : {
 				name : "Potent Spellcasting",
 				source : ["X", 20],
 				minlevel : 8,
-				description : "\n   " + "I add my Wisdom modifier to the damage I deal with my cleric cantrips",
+				description : "\n   I add my Wisdom modifier to the damage I deal with my cleric cantrips",
 				calcChanges : {
 					atkCalc : ["if (classes.known.cleric && classes.known.cleric.level > 7 && thisWeapon[4].indexOf('cleric') !== -1 && thisWeapon[3] && SpellsList[thisWeapon[3]].level === 0) { output.extraDmg += What('Wis Mod'); }; ", "My cleric cantrips get my Wisdom modifier added to their damage."]
 				}
@@ -12058,13 +12095,13 @@ function importData() {
 				name : "Mighty Summoner",
 				source : ["X", 24],
 				minlevel : 6,
-				description : "\n   " + "Beasts or Fey I summon with spells get +2 HP per HD and their attacks count as magical"
+				description : "\n   Beasts or Fey I summon with spells get +2 HP per HD and their attacks count as magical"
 			},
 			"subclassfeature10" : {
 				name : "Guardian Spirit",
 				source : ["X", 24],
 				minlevel : 10,
-				description : "\n   " + "When a Beast or Fey that I summoned ends its turn in my Spirit Totem aura, it heals",
+				description : "\n   When a Beast or Fey that I summoned ends its turn in my Spirit Totem aura, it heals",
 				additional : levels.map(function (n) { return n < 10 ? "" : "heals " + Math.floor(n / 2) + " HP"; })
 			},
 			"subclassfeature14" : {
@@ -12142,7 +12179,7 @@ function importData() {
 				"bursting arrow [evocation]" : {
 					name : "Bursting Arrow [Evocation]",
 					source : ["X", 29],
-					description : "\n   " + "The target, in addition to the shot, and all creatures within 10 ft of it take damage",
+					description : "\n   The target, in addition to the shot, and all creatures within 10 ft of it take damage",
 					additional : levels.map( function(n) { return n < 3 ? "" : "+" + (n < 18 ? 2 : 4) + "d6 force damage"; })
 				},
 				"enfeebling arrow [necromancy]" : {
@@ -12201,7 +12238,7 @@ function importData() {
 				name : "Magic Arrow",
 				source : ["X", 28],
 				minlevel : 7,
-				description : "\n   " + "Whenever I fire a nonmagical arrow from a short- or longbow, I can make it magical"
+				description : "\n   Whenever I fire a nonmagical arrow from a short- or longbow, I can make it magical"
 			},
 			"subclassfeature7.1" : {
 				name : "Curving Shot",
@@ -12217,7 +12254,7 @@ function importData() {
 				name : "Ever-Ready Shot",
 				source : ["X", 28],
 				minlevel : 15,
-				description : "\n   " + "I regain one use of Arcane Shot if I have no more remaining when I roll initiative"
+				description : "\n   I regain one use of Arcane Shot if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -12239,12 +12276,12 @@ function importData() {
 				choices : ["Language proficiency", "Skill proficiency: Animal Handling, History, Insight, Performance, or Persuasion"],
 				"language proficiency" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I learn one language of my choice",
+					description : "\n   I learn one language of my choice",
 					languageProfs : [1]
 				},
 				"skill proficiency: animal handling, history, insight, performance, or persuasion" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I gain proficiency with Animal Handling, History, Insight, Performance, or Persuasion",
+					description : "\n   I gain proficiency with Animal Handling, History, Insight, Performance, or Persuasion",
 					skillstxt : "\n\n" + toUni("Cavalier") + ": Choose one from: Animal Handling, History, Insight, Performance, or Persuasion."
 				}
 			},
@@ -12340,12 +12377,12 @@ function importData() {
 				choices : ["Language proficiency", "Skill proficiency: History, Insight, Performance, or Persuasion"],
 				"language proficiency" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I learn one language of my choice",
+					description : "\n   I learn one language of my choice",
 					languageProfs : [1]
 				},
 				"skill proficiency: history, insight, performance, or persuasion" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I gain proficiency with History, Insight, Performance, or Persuasion",
+					description : "\n   I gain proficiency with History, Insight, Performance, or Persuasion",
 					skillstxt : "\n\n" + toUni("Samurai") + ": Choose one from: History, Insight, Performance, or Persuasion."
 				}
 			},
@@ -12377,7 +12414,7 @@ function importData() {
 				name : "Tireless Spirit",
 				source : ["X", 31],
 				minlevel : 10,
-				description : "\n   " + "I regain one use of Fighting Spirit if I have no more remaining when I roll initiative"
+				description : "\n   I regain one use of Fighting Spirit if I have no more remaining when I roll initiative"
 			},
 			"subclassfeature15" : {
 				name : "Rapid Strike",
@@ -12415,7 +12452,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["X", 34],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with the Performance skill and brewer's supplies",
+				description : "\n   I gain proficiency with the Performance skill and brewer's supplies",
 				skills : ["Performance"],
 				skillstxt : "\n\n" + toUni("Monk (Way of the Drunken Master)") + ": Performance.",
 				toolProfs : ["Brewer's supplies"]
@@ -12424,13 +12461,13 @@ function importData() {
 				name : "Drunken Technique",
 				source : ["X", 34],
 				minlevel : 3,
-				description : "\n   " + "When using Flurry of Blows, I gain the benefits of a Disengage and +10 ft speed this turn"
+				description : "\n   When using Flurry of Blows, I gain the benefits of a Disengage and +10 ft speed this turn"
 			},
 			"subclassfeature6" : {
 				name : "Tipsy Sway",
 				source : ["X", 34],
 				minlevel : 6,
-				description : "\n   " + "1 ki point: as a reaction if missed in melee, attacker instead hits other I see within 5 ft",
+				description : "\n   1 ki point: as a reaction if missed in melee, attacker instead hits other I see within 5 ft",
 				additional : "Standing up from prone costs only 5 ft",
 				action : ["reaction", ""]
 			},
@@ -12438,14 +12475,14 @@ function importData() {
 				name : "Drunkard's Luck",
 				source : ["X", 34],
 				minlevel : 11,
-				description : "\n   " + "By spending 2 ki points, I can remove disadv. from an ability check, attack roll, or save",
+				description : "\n   By spending 2 ki points, I can remove disadv. from an ability check, attack roll, or save",
 				additional : "2 ki points"
 			},
 			"subclassfeature17" : {
 				name : "Intoxicated Frenzy",
 				source : ["X", 34],
 				minlevel : 17,
-				description : "\n   " + "I can make 3 extra attacks with Flurry of Blows if each is used on a different target"
+				description : "\n   I can make 3 extra attacks with Flurry of Blows if each is used on a different target"
 			}
 		}
 	});
@@ -12481,7 +12518,7 @@ function importData() {
 				name : "One with the Blade",
 				source : ["X", 34],
 				minlevel : 6,
-				description : "\n   " + "My unarmed strikes and kensei weapon attacks count as magical",
+				description : "\n   My unarmed strikes and kensei weapon attacks count as magical",
 				calcChanges : {
 					atkAdd : ["if (((/unarmed strike/i).test(WeaponName) || (WeaponText.toLowerCase().indexOf('kensei') !== -1  && theWea && !isSpell && (!(/heavy|special/i).test(fields.Description) || WeaponName === 'longbow'))) && fields.Description.indexOf('Counts as magical') === -1 && !thisWeapon[1]) {fields.Description += (fields.Description ? '; ' : '') + 'Counts as magical';}; ", "My unarmed strikes and any Kensei Weapons count as magical for overcoming resistances and immunities."]
 				},
@@ -12489,7 +12526,7 @@ function importData() {
 				"deft strike" : {
 					name : "Deft Strike",
 					source : ["X", 35],
-					description : "\n   " + "Once per turn when I hit with a kensei weapon, I can do a martial arts die extra damage",
+					description : "\n   Once per turn when I hit with a kensei weapon, I can do a martial arts die extra damage",
 					additional : "1 ki point"
 				},
 				eval : "ClassFeatureOptions(['monk', 'ki-empowered strikes', 'deft strike', 'extra']);",
@@ -12499,7 +12536,7 @@ function importData() {
 				name : "Unerring Accuracy",
 				source : ["X", 35],
 				minlevel : 17,
-				description : "\n   " + "Once per turn, if I miss a monk weapon attack on my turn, I can reroll the attack roll",
+				description : "\n   Once per turn, if I miss a monk weapon attack on my turn, I can reroll the attack roll",
 				extraname : "Way of the Kensei 11",
 				"sharpen the blade" : {
 					name : "Sharpen the Blade",
@@ -12614,7 +12651,7 @@ function importData() {
 				name : "Channel Divinity: Guided Strike",
 				source : ["X", 38],
 				minlevel : 3,
-				description : "\n   " + "When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
+				description : "\n   When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
 			},
 			"subclassfeature7" : {
 				name : "Aura of Conquest",
@@ -12664,7 +12701,7 @@ function importData() {
 				name : "Channel Divinity: Emissary of Peace",
 				source : ["X", 39],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I grant myself +5 on Charisma (Persuasion) checks for 10 minutes",
+				description : "\n   As a bonus action, I grant myself +5 on Charisma (Persuasion) checks for 10 minutes",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature3.1" : {
@@ -12692,7 +12729,7 @@ function importData() {
 				name : "Protective Spirit",
 				source : ["X", 39],
 				minlevel : 15,
-				description : "\n   " + "At the end of my turn when I'm below half HP and not incapacitated, I regain HP",
+				description : "\n   At the end of my turn when I'm below half HP and not incapacitated, I regain HP",
 				additional : levels.map(function (n) { return n < 15 ? "" : "1d6+" + Math.floor(n/2) + " HP"; })
 			},
 			"subclassfeature20" : {
@@ -12750,20 +12787,20 @@ function importData() {
 				name : "Iron Mind",
 				source : ["X", 42],
 				minlevel : 7,
-				description : "\n   " + "I gain proficiency with Wis saves, or if I'm already proficient, either Int or Cha saves",
+				description : "\n   I gain proficiency with Wis saves, or if I'm already proficient, either Int or Cha saves",
 				saves : ["Wis"]
 			},
 			"subclassfeature11" : {
 				name : "Stalker's Flurry",
 				source : ["X", 42],
 				minlevel : 11,
-				description : "\n   " + "Once on each of my turns when I miss a weapon attack, I can make an extra attack"
+				description : "\n   Once on each of my turns when I miss a weapon attack, I can make an extra attack"
 			},
 			"subclassfeature15" : {
 				name : "Shadowy Dodge",
 				source : ["X", 42],
 				minlevel : 15,
-				description : "\n   " + "As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
+				description : "\n   As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
 				action : ["reaction", " (when attacked)"]
 			}
 		}
@@ -12779,7 +12816,7 @@ function importData() {
 				name : "Detect Portal",
 				source : ["X", 42],
 				minlevel : 3,
-				description : "\n   " + "As an action, I sense the distance and direction to the closest planar portal within 1 mile",
+				description : "\n   As an action, I sense the distance and direction to the closest planar portal within 1 mile",
 				usages : 1,
 				recovery : "short rest",
 				action : ["action", ""]
@@ -12810,7 +12847,7 @@ function importData() {
 				name : "Ethereal Step",
 				source : ["X", 43],
 				minlevel : 7,
-				description : "\n   " + "As a bonus action, I can cast the Etherealness spell, which lasts until the end of my turn",
+				description : "\n   As a bonus action, I can cast the Etherealness spell, which lasts until the end of my turn",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""],
@@ -12834,7 +12871,7 @@ function importData() {
 				name : "Spectral Defense",
 				source : ["X", 43],
 				minlevel : 15,
-				description : "\n   " + "As a reaction when an attack damages me, I can give myself resistance vs. that attack",
+				description : "\n   As a reaction when an attack damages me, I can give myself resistance vs. that attack",
 				action : ["reaction", ""]
 			}
 		}
@@ -12862,7 +12899,7 @@ function importData() {
 				name : "Monster Slayer Magic",
 				source : ["X", 43],
 				minlevel : 3,
-				description : "\n   " + "I get bonus spells known, which do not count against the number of spells I can know",
+				description : "\n   I get bonus spells known, which do not count against the number of spells I can know",
 				spellcastingExtra : ["protection from evil and good", "zone of truth", "magic circle", "banishment", "hold monster"].concat(new Array(95)).concat("AddToKnown")
 			},
 			"subclassfeature3.2" : {
@@ -12919,7 +12956,7 @@ function importData() {
 				name : "Ear for Deceit",
 				source : ["X", 45],
 				minlevel : 3,
-				description : "\n   " + "For Wis (Insight) to sense if another is lying, I can treat a die roll of 7 or lower as an 8"
+				description : "\n   For Wis (Insight) to sense if another is lying, I can treat a die roll of 7 or lower as an 8"
 			},
 			"subclassfeature3.1" : {
 				name : "Eye for Detail",
@@ -12972,7 +13009,7 @@ function importData() {
 				name : "Eye for Weakness",
 				source : ["X", 46],
 				minlevel : 17,
-				description : "\n   " + "While my Insightful Fighting is active, I add 3d6 to sneak attacks against that target"
+				description : "\n   While my Insightful Fighting is active, I add 3d6 to sneak attacks against that target"
 			}
 		}
 	});
@@ -13047,14 +13084,14 @@ function importData() {
 				name : "Skirmisher",
 				source : ["X", 47],
 				minlevel : 3,
-				description : "\n   " + "As a reaction when a hostile ends its turn within 5 ft of me, I can move half my speed",
+				description : "\n   As a reaction when a hostile ends its turn within 5 ft of me, I can move half my speed",
 				action : ["reaction", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Survivalist",
 				source : ["X", 47],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency and expertise with the Nature and Survival skills",
+				description : "\n   I gain proficiency and expertise with the Nature and Survival skills",
 				skillstxt : "\n\n" + toUni("Scout") + ": proficiency and expertise with Nature and Survival.",
 				eval : "AddSkillProf('Nature', true, true); AddSkillProf('Survival', true, true);",
 				removeeval : "AddSkillProf('Nature', false, true); AddSkillProf('Survival', false, true);"
@@ -13063,7 +13100,7 @@ function importData() {
 				name : "Superior Mobility",
 				source : ["X", 47],
 				minlevel : 9,
-				description : "\n   " + "I gain +10 ft to my walking speed (and swimming/climbing speed, if applicable)",
+				description : "\n   I gain +10 ft to my walking speed (and swimming/climbing speed, if applicable)",
 				speed : {
 					walk : { spd : "+10", enc : "+10" },
 					climb : { spd : "_10", enc : "_10" },
@@ -13140,14 +13177,14 @@ function importData() {
 					name : "Elegant Maneuver",
 					source : [["S", 136], ["X", 47]],
 					minlevel : 13,
-					description : "\n   " + "As a bonus action, I can gain adv. on my next Dex (Acrobatics) or Str (Athletics) check",
+					description : "\n   As a bonus action, I can gain adv. on my next Dex (Acrobatics) or Str (Athletics) check",
 					action : ["bonus action", ""]
 				},
 				"subclassfeature17" : {
 					name : "Master Duelist",
 					source : [["S", 136], ["X", 47]],
 					minlevel : 17,
-					description : "\n   " + "Once per short rest, when I miss with an attack roll, I can roll again with advantage",
+					description : "\n   Once per short rest, when I miss with an attack roll, I can roll again with advantage",
 					recovery : "short rest",
 					usages : 1
 				}
@@ -13255,7 +13292,7 @@ function importData() {
 				name : "Favored by the Gods",
 				source : ["X", 50],
 				minlevel : 1,
-				description : "\n   " + "If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
+				description : "\n   If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
 				recovery : "short rest",
 				usages : 1
 			},
@@ -13328,7 +13365,7 @@ function importData() {
 				name : "Eyes of the Dark",
 				source : ["X", 51],
 				minlevel : 1,
-				description : "\n   " + "I gain 120 ft darkvision",
+				description : "\n   I gain 120 ft darkvision",
 				vision : [["Darkvision", 120]]
 			},
 			"subclassfeature1.1" : {
@@ -13415,7 +13452,7 @@ function importData() {
 					name : "Wind Speaker",
 					source : [["S", 137], ["X", 52]],
 					minlevel : 1,
-					description : "\n   " + "I can speak, read, and write Primordial (and its dialects Aquan, Auran, Ignan, Terran)",
+					description : "\n   I can speak, read, and write Primordial (and its dialects Aquan, Auran, Ignan, Terran)",
 					languageProfs : ["Primordial"]
 				},
 				"subclassfeature1.1" : {
@@ -13492,7 +13529,7 @@ function importData() {
 				name : "Bonus Cantrips",
 				source : ["X", 54],
 				minlevel : 1,
-				description : "\n   " + "I learn the Light and Sacred Flame cantrips, not counting for the number I can know",
+				description : "\n   I learn the Light and Sacred Flame cantrips, not counting for the number I can know",
 				spellcastingBonus : [{
 					name : "Bonus Cantrips",
 					spells : ["light"],
@@ -13636,7 +13673,7 @@ function importData() {
 	// Add Warlock Invocations
 	AddWarlockInvocation("Aspect of the Moon (prereq: Pact of the Tome)", {
 		name : "Aspect of the Moon",
-		description : "\n   " + "I don't need sleep nor can be forced to by any means; I can rest while doing light activity",
+		description : "\n   I don't need sleep nor can be forced to by any means; I can rest while doing light activity",
 		source : [["X", 56], ["UA:RCO", 5]],
 		prereqeval : "What('Class Features Remember').indexOf('warlock,pact boon,pact of the tome') !== -1",
 		savetxt : { text : ["Nothing can force me to sleep"] }
@@ -13696,13 +13733,13 @@ function importData() {
 	});
 	AddWarlockInvocation("Gift of the Ever-Living Ones (prereq: Pact of the Chain)", {
 		name : "Gift of the Ever-Living Ones",
-		description : "\n   " + "When I regain HP while my familiar is within 100 ft, I regain the max the dice can roll",
+		description : "\n   When I regain HP while my familiar is within 100 ft, I regain the max the dice can roll",
 		source : [["X", 57], ["UA:RCO", 6]],
 		prereqeval : "What('Class Features Remember').indexOf('warlock,pact boon,pact of the chain') !== -1"
 	});
 	AddWarlockInvocation("Grasp of Hadar (prereq: Eldritch Blast cantrip)", {
 		name : "Grasp of Hadar",
-		description : "\n   " + "When my Eldritch Blast hits a creature once or more, I can move it 10 ft closer to me",
+		description : "\n   When my Eldritch Blast hits a creature once or more, I can move it 10 ft closer to me",
 		source : [["X", 57], ["UA:RCO", 6]],
 		prereqeval : "hasEldritchBlast",
 		calcChanges : {
@@ -13758,7 +13795,7 @@ function importData() {
 	});
 	AddWarlockInvocation("Shroud of Shadow (prereq: level 15 warlock)", {
 		name : "Shroud of Shadow",
-		description : "\n   " + "I can cast Invisibility at will, without using spell slots (PHB 254)",
+		description : "\n   I can cast Invisibility at will, without using spell slots (PHB 254)",
 		source : [["X", 57], ["UA:RCO", 6]],
 		spellcastingBonus : {
 			name : "Shroud of Shadow",
@@ -13784,7 +13821,7 @@ function importData() {
 	});
 	AddWarlockInvocation("Trickster's Escape (prereq: level 7 warlock)", {
 		name : "Trickster's Escape",
-		description : "\n   " + "Once per long rest, I can cast Freedom of Movement on myself without using a spell slot",
+		description : "\n   Once per long rest, I can cast Freedom of Movement on myself without using a spell slot",
 		source : [["X", 57], ["UA:RCO", 7]],
 		spellcastingBonus : {
 			name : "Trickster's Escape",
@@ -13817,7 +13854,7 @@ function importData() {
 				name : "Tactical Wit",
 				source : ["X", 60],
 				minlevel : 2,
-				description : "\n   " + "I gain a bonus to my initiative rolls equal to my Intelligence modifier",
+				description : "\n   I gain a bonus to my initiative rolls equal to my Intelligence modifier",
 				addMod : { type : "skill", field : "Init", mod : "Int", text : "I can add my Intelligence modifier to initiative rolls." }
 			},
 			"subclassfeature6" : {
@@ -13841,7 +13878,7 @@ function importData() {
 				name : "Durable Magic",
 				source : ["X", 60],
 				minlevel : 10,
-				description : "\n   " + "While I'm maintaining concentration on a spell, I gain +2 to AC and all saving throws"
+				description : "\n   While I'm maintaining concentration on a spell, I gain +2 to AC and all saving throws"
 			},
 			"subclassfeature14" : {
 				name : "Deflecting Shroud",
@@ -14074,7 +14111,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Con",
 			description : "30-ft cube all crea 12d8 Necrotic dmg; save halves; plants/water elem. dis. const/undead immune",
-			descriptionFull : "You draw the moisture from every creature in a 30-foot cube centered on a point you choose within range. Each creature in that area must make a Constitution saving throw. Constructs and undead aren't affected, and plants and water elementals make this saving throw with disadvantage. A creature takes 12d8 necrotic damage on a failed save, or half as much damage on a successful one." + "\n   " + "Nonmagical plants in the area that aren't creatures, such as trees and shrubs, wither and die instantly."
+			descriptionFull : "You draw the moisture from every creature in a 30-foot cube centered on a point you choose within range. Each creature in that area must make a Constitution saving throw. Constructs and undead aren't affected, and plants and water elementals make this saving throw with disadvantage. A creature takes 12d8 necrotic damage on a failed save, or half as much damage on a successful one.\n   Nonmagical plants in the area that aren't creatures, such as trees and shrubs, wither and die instantly."
 		};
 		SpellsList["absorb elements"] = {
 			name : "Absorb Elements",
@@ -14131,7 +14168,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Dex",
 			description : "6+2/SL 2.5-ft rad ground burst up 30-ft, \u2265 Med. creas save or lifted, 6d6 bludg. dmg if ceiling; see B",
-			descriptionFull : "You cause up to six pillars of stone to burst from places on the ground that you can see within range. Each pillar is a cylinder that has a diameter of 5 feet and a height of up to 30 feet. The ground where a pillar appears must be wide enough for its diameter, and you can target the ground under a creature if that creature is Medium or smaller. Each pillar has AC 5 and 30 hit points. When reduced to 0 hit points, a pillar crumbles into rubble, which creates an area of difficult terrain with a 10-foot radius that lasts until the rubble is cleared. Each 5-foot-diameter portion of the area requires at least 1 minute to clear by hand." + "\n   " + "If a pillar is created under a creature, that creature must succeed on a Dexterity saving throw or be lifted by the pillar. A creature can choose to fail the save." + "\n   " + "If a pillar is prevented from reaching its full height because of a ceiling or other obstacle, a creature on the pillar takes 6d6 bludgeoning damage and is restrained, pinched between the pillar and the obstacle. The restrained creature can use an action to make a Strength or Dexterity check (the creature's choice) against the spell's save DC. On a success, the creature is no longer restrained and must either move off the pillar or fall off it." + AtHigherLevels + "When you cast this spell using a spell slot of 7th level or higher, you can create."
+			descriptionFull : "You cause up to six pillars of stone to burst from places on the ground that you can see within range. Each pillar is a cylinder that has a diameter of 5 feet and a height of up to 30 feet. The ground where a pillar appears must be wide enough for its diameter, and you can target the ground under a creature if that creature is Medium or smaller. Each pillar has AC 5 and 30 hit points. When reduced to 0 hit points, a pillar crumbles into rubble, which creates an area of difficult terrain with a 10-foot radius that lasts until the rubble is cleared. Each 5-foot-diameter portion of the area requires at least 1 minute to clear by hand.\n   If a pillar is created under a creature, that creature must succeed on a Dexterity saving throw or be lifted by the pillar. A creature can choose to fail the save.\n   If a pillar is prevented from reaching its full height because of a ceiling or other obstacle, a creature on the pillar takes 6d6 bludgeoning damage and is restrained, pinched between the pillar and the obstacle. The restrained creature can use an action to make a Strength or Dexterity check (the creature's choice) against the spell's save DC. On a success, the creature is no longer restrained and must either move off the pillar or fall off it." + AtHigherLevels + "When you cast this spell using a spell slot of 7th level or higher, you can create."
 		};
 		SpellsList["catapult"] = {
 			name : "Catapult",
@@ -14158,7 +14195,7 @@ function importData() {
 			components : "S",
 			duration : "Instant. or 1 h",
 			description : "Nonmagical flame up to 5 cu ft; instant: expand/exinguish, 1h: brighten/dim/color/create shapes",
-			descriptionFull : "You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways." + "\n \u2022 " + "You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location." + "\n \u2022 " + "You instantaneously extinguish the flames within the cube." + "\n \u2022 " + "You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour." + "\n \u2022 " + "You cause simple shapes-such as the vague form of a creature, an inanimate object, or a location-to appear within the flames and animate as you like. The shapes last for 1 hour." + "\n   " + "If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+			descriptionFull : "You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways.\n \u2022 You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location.\n \u2022 You instantaneously extinguish the flames within the cube.\n \u2022 You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour.\n \u2022 You cause simple shapes-such as the vague form of a creature, an inanimate object, or a location-to appear within the flames and animate as you like. The shapes last for 1 hour.\n   If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 		};
 		SpellsList["control winds"] = {
 			name : "Control Winds",
@@ -14171,7 +14208,7 @@ function importData() {
 			components : "V,S",
 			duration : "Conc, 1 h",
 			description : "100-ft cube of air either gusts, downdraft, or updraft; affects flying/jump/ranged; 1 a change; see B",
-			descriptionFull : "You take control of the air in a 100-foot cube that you can see within range. Choose one of the following effects when you cast the spell. The effect lasts for the spell's duration, unless you use your action on a later turn to switch to a different effect. You can also use your action to temporarily halt the effect or to restart one you've halted." + "\n   " + toUni("Gusts") + ": A wind picks up within the cube, continually blowing in a horizontal direction you designate. You choose the intensity of the wind: calm, moderate, or strong. If the wind is moderate or strong, ranged weapon attacks that enter or leave the cube or pass through it have disadvantage on their attack rolls. If the wind is strong, any creature moving against the wind must spend 1 extra foot of movement for each foot moved." + "\n   " + toUni("Downdraft") + ": You cause a sustained blast of strong wind to blow downward from the top of the cube. Ranged weapon attacks that pass through the cube or that are made against targets within it have disadvantage on their attack rolls. A creature must make a Strength saving throw if it flies into the cube for the first time on a turn or starts its turn there flying. On a failed save, the creature is knocked prone." + "\n   " + toUni("Updraft") + ": You cause a sustained updraft within the cube, rising upward from the cube's bottom side. Creatures that end a fall within the cube take only half damage from the fall. When a creature in the cube makes a vertical jump, the creature can jump up to 10 feet higher than normal."
+			descriptionFull : "You take control of the air in a 100-foot cube that you can see within range. Choose one of the following effects when you cast the spell. The effect lasts for the spell's duration, unless you use your action on a later turn to switch to a different effect. You can also use your action to temporarily halt the effect or to restart one you've halted.\n   " + toUni("Gusts") + ": A wind picks up within the cube, continually blowing in a horizontal direction you designate. You choose the intensity of the wind: calm, moderate, or strong. If the wind is moderate or strong, ranged weapon attacks that enter or leave the cube or pass through it have disadvantage on their attack rolls. If the wind is strong, any creature moving against the wind must spend 1 extra foot of movement for each foot moved.\n   " + toUni("Downdraft") + ": You cause a sustained blast of strong wind to blow downward from the top of the cube. Ranged weapon attacks that pass through the cube or that are made against targets within it have disadvantage on their attack rolls. A creature must make a Strength saving throw if it flies into the cube for the first time on a turn or starts its turn there flying. On a failed save, the creature is knocked prone.\n   " + toUni("Updraft") + ": You cause a sustained updraft within the cube, rising upward from the cube's bottom side. Creatures that end a fall within the cube take only half damage from the fall. When a creature in the cube makes a vertical jump, the creature can jump up to 10 feet higher than normal."
 		};
 		SpellsList["create bonfire"] = {
 			name : "Create Bonfire",
@@ -14185,7 +14222,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Dex",
 			description : "5-ft cube all crea at casting or entering save or 1d8 Fire dmg; ignites flammable; +1d8 at CL 5/11/17",
-			descriptionFull : "You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there." + "\n   " + "The bonfire ignites flammable objects in its area that aren't being worn or carried." + "\n   " + "The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
+			descriptionFull : "You create a bonfire on ground that you can see within range. Until the spell ends, the magic bonfire fills a 5-foot cube. Any creature in the bonfire's space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it moves into the bonfire's space for the first time on a turn or ends its turn there.\n   The bonfire ignites flammable objects in its area that aren't being worn or carried.\n   The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)."
 		};
 		SpellsList["dust devil"] = {
 			name : "Dust Devil",
@@ -14200,7 +14237,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Str",
 			description : "5-ft cube; all in 5-ft 1d8+1d8/SL Bludg. dmg and pushed 10 ft away; save halves, no push; see book",
-			descriptionFull : "Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell's duration." + "\n   " + "Any creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away from the dust devil. On a successful save, the creature takes half as much damage and isn't pushed." + "\n   " + "As a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or light gravel, it sucks up the material and forms a 10-foot-radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd."
+			descriptionFull : "Choose an unoccupied 5-foot cube of air that you can see within range. An elemental force that resembles a dust devil appears in the cube and lasts for the spell's duration.\n   Any creature that ends its turn within 5 feet of the dust devil must make a Strength saving throw. On a failed save, the creature takes 1d8 bludgeoning damage and is pushed 10 feet away from the dust devil. On a successful save, the creature takes half as much damage and isn't pushed.\n   As a bonus action, you can move the dust devil up to 30 feet in any direction. If the dust devil moves over sand, dust, loose dirt, or light gravel, it sucks up the material and forms a 10-foot-radius cloud of debris around itself that lasts until the start of your next turn. The cloud heavily obscures its area." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for each slot level above 2nd."
 		};
 		SpellsList["earthbind"] = {
 			name : "Earthbind",
@@ -14284,7 +14321,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Con",
 			description : "1 crea save or 1d6 Cold dmg and dis. on next weapon attack roll; +1d6 at CL 5, 11, and 17",
-			descriptionFull : "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+			descriptionFull : "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 		};
 		SpellsList["gust"] = {
 			name : "Gust",
@@ -14298,7 +14335,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Str",
 			description : "Med. or smaller crea save or push 5 ft; or push unattended 5 lb obj 10 ft; or harmless sensory effect",
-			descriptionFull : "You seize the air and compel it to create one of the following effects at a point you can see within range." + "\n " + "\u2022 One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you." + "\n " + "\u2022 You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn't pushed with enough force to cause damage." + "\n " + "\u2022 You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze."
+			descriptionFull : "You seize the air and compel it to create one of the following effects at a point you can see within range.\n \u2022 One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you.\n \u2022 You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn't pushed with enough force to cause damage.\n \u2022 You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze."
 		};
 		SpellsList["ice knife"] = {
 			name : "Ice Knife",
@@ -14327,7 +14364,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Dex",
 			description : "1 crea save or 8d6 Fire dmg and burns for 4d6 Fire dmg/rnd; save each rnd to end; half dmg on save",
-			descriptionFull : "Flames wreathe one creature you can see within range. The target must make a Dexterity saving throw. It takes 8d6 fire damage on a failed save, or half as much damage on a successful one. On a failed save, the target also burns for the spell's duration. The burning target sheds bright light in a 30-foot radius and dim light for an additional 30 feet. At the end of each of its turns, the target repeats the saving throw. It takes 4d6 fire damage on a failed save, and the spell ends on a successful one. These magical flames can't be extinguished by nonmagical means." + "\n   " + "If damage from this spell kills a target, the target is turned to ash."
+			descriptionFull : "Flames wreathe one creature you can see within range. The target must make a Dexterity saving throw. It takes 8d6 fire damage on a failed save, or half as much damage on a successful one. On a failed save, the target also burns for the spell's duration. The burning target sheds bright light in a 30-foot radius and dim light for an additional 30 feet. At the end of each of its turns, the target repeats the saving throw. It takes 4d6 fire damage on a failed save, and the spell ends on a successful one. These magical flames can't be extinguished by nonmagical means.\n   If damage from this spell kills a target, the target is turned to ash."
 		};
 		SpellsList["investiture of flame"] = {
 			name : "Investiture of Flame",
@@ -14341,7 +14378,7 @@ function importData() {
 			duration : "Conc, 10 min",
 			save : "Dex",
 			description : "Fire immune; Cold res.; 1d10 Fire dmg in 5 ft; 1 a 15-ft long 5-ft wide all crea 4d8 Fire dmg, save half",
-			descriptionFull : "Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet for the spell's duration. The flames don't harm you. Until the spell ends, you gain the following benefits." + "\n " + "\u2022 You are immune to fire damage and have resistance to cold damage." + "\n " + "\u2022 Any creature that moves within 5 feet of you for the first time on a turn or ends its turn there takes 1d10 fire damage." + "\n " + "\u2022 You can use your action to create a line of fire 15 feet long and 5 feet wide extending from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 4d8 fire damage on a failed save, or half as much damage on a successful one."
+			descriptionFull : "Flames race across your body, shedding bright light in a 30-foot radius and dim light for an additional 30 feet for the spell's duration. The flames don't harm you. Until the spell ends, you gain the following benefits.\n \u2022 You are immune to fire damage and have resistance to cold damage.\n \u2022 Any creature that moves within 5 feet of you for the first time on a turn or ends its turn there takes 1d10 fire damage.\n \u2022 You can use your action to create a line of fire 15 feet long and 5 feet wide extending from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 4d8 fire damage on a failed save, or half as much damage on a successful one."
 		};
 		SpellsList["investiture of ice"] = {
 			name : "Investiture of Ice",
@@ -14355,7 +14392,7 @@ function importData() {
 			duration : "Conc, 10 min",
 			save : "Con",
 			description : "Cold immune; Fire resist; 10-ft rad dif. ter.; 1 a 15-ft cone all crea 4d6 Cold dmg, half speed, save half",
-			descriptionFull : "Until the spell ends, ice rimes your body, and you gain the following benefits." + "\n " + "\u2022 You are immune to cold damage and have resistance to fire damage." + "\n " + "\u2022 You can move across difficult terrain created by ice or snow without spending extra movement." + "\n " + "\u2022 The ground in a 10-foot radius around you is icy and is difficult terrain for creatures other than you. The radius moves with you." + "\n " + "\u2022 You can use your action to create a 15-foot cone of freezing wind extending from your outstretched hand in a direction you choose. Each creature in the cone must make a Constitution saving throw. A creature takes 4d6 cold damage on a failed save, or half as much damage on a successful one. A creature that fails its save against this effect has its speed halved until the start of your next turn."
+			descriptionFull : "Until the spell ends, ice rimes your body, and you gain the following benefits.\n \u2022 You are immune to cold damage and have resistance to fire damage.\n \u2022 You can move across difficult terrain created by ice or snow without spending extra movement.\n \u2022 The ground in a 10-foot radius around you is icy and is difficult terrain for creatures other than you. The radius moves with you.\n \u2022 You can use your action to create a 15-foot cone of freezing wind extending from your outstretched hand in a direction you choose. Each creature in the cone must make a Constitution saving throw. A creature takes 4d6 cold damage on a failed save, or half as much damage on a successful one. A creature that fails its save against this effect has its speed halved until the start of your next turn."
 		};
 		SpellsList["investiture of stone"] = {
 			name : "Investiture of Stone",
@@ -14369,7 +14406,7 @@ function importData() {
 			duration : "Conc, 10 min",
 			save : "Dex",
 			description : "Nonmagical Bludg/Pierc/Slash resist.; 1 a 15-ft rad all crea save or prone; move through earth/stone",
-			descriptionFull : "Until the spell ends, bits of rock spread across your body, and you gain the following benefits:" + "\n \u2022 " + "You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks." + "\n \u2022 " + "You can use your action to create a small earthquake on the ground in a 15-foot radius centered on you. Other creatures on that ground must succeed on a Dexterity saving throw or be knocked prone." + "\n \u2022 " + "You can move across difficult terrain made of earth or stone without spending extra movement. You can move through solid earth or stone as if it was air and without destabilizing it, but you can't end your movement there. If you do so, you are ejected to the nearest unoccupied space, this spell ends, and you are stunned until the end of your next turn."
+			descriptionFull : "Until the spell ends, bits of rock spread across your body, and you gain the following benefits:\n \u2022 You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks.\n \u2022 You can use your action to create a small earthquake on the ground in a 15-foot radius centered on you. Other creatures on that ground must succeed on a Dexterity saving throw or be knocked prone.\n \u2022 You can move across difficult terrain made of earth or stone without spending extra movement. You can move through solid earth or stone as if it was air and without destabilizing it, but you can't end your movement there. If you do so, you are ejected to the nearest unoccupied space, this spell ends, and you are stunned until the end of your next turn."
 		};
 		SpellsList["investiture of wind"] = {
 			name : "Investiture of Wind",
@@ -14383,7 +14420,7 @@ function importData() {
 			duration : "Conc, 10 min",
 			save : "Con",
 			description : "Rngd wea atks dis. vs. you; fly 60 ft; 1 a 15-ft cube in 60 ft all 2d10 Bludg. dmg, push 10 ft, save half",
-			descriptionFull : "Until the spell ends, wind whirls around you, and you gain the following benefits." + "\n " + "\u2022 Ranged weapon attacks made against you have disadvantage on the attack roll." + "\n " + "\u2022 You gain a flying speed of 60 feet. If you are still flying when the spell ends, you fall, unless you can somehow prevent it." + "\n " + "\u2022 You can use your action to create a 15-foot cube of swirling wind centered on a point you can see within 60 feet of you. Each creature in that area must make a Constitution saving throw. A creature takes 2d10 bludgeoning damage on a failed save, or half as much damage on a successful one. If a Large or smaller creature fails the save, that creature is also pushed up to 10 feet away from the center of the cube."
+			descriptionFull : "Until the spell ends, wind whirls around you, and you gain the following benefits.\n \u2022 Ranged weapon attacks made against you have disadvantage on the attack roll.\n \u2022 You gain a flying speed of 60 feet. If you are still flying when the spell ends, you fall, unless you can somehow prevent it.\n \u2022 You can use your action to create a 15-foot cube of swirling wind centered on a point you can see within 60 feet of you. Each creature in that area must make a Constitution saving throw. A creature takes 2d10 bludgeoning damage on a failed save, or half as much damage on a successful one. If a Large or smaller creature fails the save, that creature is also pushed up to 10 feet away from the center of the cube."
 		};
 		SpellsList["maelstrom"] = {
 			name : "Maelstrom",
@@ -14411,7 +14448,7 @@ function importData() {
 			components : "V,S",
 			duration : "1 min",
 			description : "Imbue 3 pebbles for spell attacks, thrown 60 ft or with sling, do 1d6+spellcasting mod Bludg. dmg",
-			descriptionFull : "You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, it has a range of 60 feet. If someone else attacks with the pebble, that attacker adds your spellcasting ability modifier, not the attacker's, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Hit or miss, the spell then ends on the stone." + "\n   " + "If you cast this spell again, the spell ends early on any pebbles still affected by it."
+			descriptionFull : "You touch one to three pebbles and imbue them with magic. You or someone else can make a ranged spell attack with one of the pebbles by throwing it or hurling it with a sling. If thrown, it has a range of 60 feet. If someone else attacks with the pebble, that attacker adds your spellcasting ability modifier, not the attacker's, to the attack roll. On a hit, the target takes bludgeoning damage equal to 1d6 + your spellcasting ability modifier. Hit or miss, the spell then ends on the stone.\n   If you cast this spell again, the spell ends early on any pebbles still affected by it."
 		};
 		SpellsList["maximilian's earthen grasp"] = {
 			name : "Maximilian's Earthen Grasp",
@@ -14428,7 +14465,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Str",
 			description : "Medium hand atks 1 crea: save or 2d6 Bludg. dmg \u0026 restrained; 1 a hand moves/atks, releases; see B",
-			descriptionFull : "You choose a 5-foot-square unoccupied space on the ground that you can see within range. A Medium hand made from compacted soil rises there and reaches for one creature you can see within 5 feet of it. The target must make a Strength saving throw. On a failed save, the target takes 2d6 bludgeoning damage and is restrained for the spell's duration." + "\n   " + "As an action, you can cause the hand to crush the restrained target, which must make a Strength saving throw. The target takes 2d6 bludgeoning damage on a failed save, or half as much damage on a successful one." + "\n   " + "To break out, the restrained target can use its action to make a Strength check against your spell save DC. On a success, the target escapes and is no longer restrained by the hand." + "\n   " + "As an action, you can cause the hand to reach for a different creature or to move to a different unoccupied space within range. The hand releases a restrained target if you do either."
+			descriptionFull : "You choose a 5-foot-square unoccupied space on the ground that you can see within range. A Medium hand made from compacted soil rises there and reaches for one creature you can see within 5 feet of it. The target must make a Strength saving throw. On a failed save, the target takes 2d6 bludgeoning damage and is restrained for the spell's duration.\n   As an action, you can cause the hand to crush the restrained target, which must make a Strength saving throw. The target takes 2d6 bludgeoning damage on a failed save, or half as much damage on a successful one.\n   To break out, the restrained target can use its action to make a Strength check against your spell save DC. On a success, the target escapes and is no longer restrained by the hand.\n   As an action, you can cause the hand to reach for a different creature or to move to a different unoccupied space within range. The hand releases a restrained target if you do either."
 		};
 		SpellsList["melf's minute meteors"] = {
 			name : "Melf's Minute Meteors",
@@ -14457,7 +14494,7 @@ function importData() {
 			components : "S",
 			duration : "Instant. or 1 h",
 			description : "5 cu ft earth; instant.: excavate; 1h: change to difficult or normal terrain, or change shape and color",
-			descriptionFull : "You choose a portion of dirt or stone that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways." + "\n " + "\u2022 If you target an area of loose earth, you can instantaneously excavate it, move it along the ground, and deposit it up to 5 feet away. This movement doesn't have enough force to cause damage." + "\n " + "\u2022 You cause shapes, colors, or both to appear on the dirt or stone, spelling out words, creating images, or shaping patterns. The changes last for 1 hour." + "\n " + "\u2022 If the dirt or stone you target is on the ground, you cause it to become difficult terrain. Alternatively, you can cause the ground to become normal terrain if it is already difficult terrain. This change lasts for 1 hour." + "\n\n" + "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+			descriptionFull : "You choose a portion of dirt or stone that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways.\n \u2022 If you target an area of loose earth, you can instantaneously excavate it, move it along the ground, and deposit it up to 5 feet away. This movement doesn't have enough force to cause damage.\n \u2022 You cause shapes, colors, or both to appear on the dirt or stone, spelling out words, creating images, or shaping patterns. The changes last for 1 hour.\n \u2022 If the dirt or stone you target is on the ground, you cause it to become difficult terrain. Alternatively, you can cause the ground to become normal terrain if it is already difficult terrain. This change lasts for 1 hour.\n\nIf you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 		};
 		SpellsList["primordial ward"] = {
 			name : "Primordial Ward",
@@ -14470,7 +14507,7 @@ function importData() {
 			components : "V,S",
 			duration : "Conc, 1 min",
 			description : "Acid, Cold, Fire, Lightning, and Thunder resistance; use rea to gain 1 immunity for 1 rnd, spell ends",
-			descriptionFull : "You have resistance to acid, cold, fire, lightning, and thunder damage for the spell's duration." + "\n   " + "When you take damage of one of those types, you can use your reaction to gain immunity to that type of damage, including against the triggering damage. If you do so, the resistances end, and you have the immunity until the end of your next turn, at which time the spell ends."
+			descriptionFull : "You have resistance to acid, cold, fire, lightning, and thunder damage for the spell's duration.\n   When you take damage of one of those types, you can use your reaction to gain immunity to that type of damage, including against the triggering damage. If you do so, the resistances end, and you have the immunity until the end of your next turn, at which time the spell ends."
 		};
 		SpellsList["pyrotechnics"] = {
 			name : "Pyrotechnics",
@@ -14484,7 +14521,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Con",
 			description : "5 cu ft nonma. flame extinguish, or 10-ft rad all crea save or blind 1 rnd, or 20-ft rad hvy obsc. 1 min",
-			descriptionFull : "Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke when you do so." + "\n   " + toUni("Fireworks") + ": The target explodes with a dazzling display of colors. Each creature within 10 feet of the target must succeed on a Constitution saving throw or become blinded until the end of your next turn." + "\n   " + toUni("Smoke") + ": Thick black smoke spreads out from the target in a 20-foot radius, moving around corners. The area of the smoke is heavily obscured. The smoke persists for 1 minute or until a strong wind disperses it."
+			descriptionFull : "Choose an area of nonmagical flame that you can see and that fits within a 5-foot cube within range. You can extinguish the fire in that area, and you create either fireworks or smoke when you do so.\n   " + toUni("Fireworks") + ": The target explodes with a dazzling display of colors. Each creature within 10 feet of the target must succeed on a Constitution saving throw or become blinded until the end of your next turn.\n   " + toUni("Smoke") + ": Thick black smoke spreads out from the target in a 20-foot radius, moving around corners. The area of the smoke is heavily obscured. The smoke persists for 1 minute or until a strong wind disperses it."
 		};
 		SpellsList["shape water"] = {
 			name : "Shape Water",
@@ -14497,7 +14534,7 @@ function importData() {
 			components : "S",
 			duration : "Instant. or 1 h",
 			description : "5 cu ft water; instant: move/change flow; 1h: simple shapes/change color or opacity/freeze",
-			descriptionFull : "You choose an area of water that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways." + "\n " + "\u2022 You instantaneously move or otherwise change the flow of the water as you direct, up to 5 feet in any direction. This movement doesn't have enough force to cause damage." + "\n " + "\u2022 You cause the water to form into simple shapes and animate at your direction. This change lasts for 1 hour." + "\n " + "\u2022 You change the water's color or opacity. The water must be changed in the same way throughout. This change lasts for 1 hour." + "\n " + "\u2022 You freeze the water, provided that there are no creatures in it. The water unfreezes in 1 hour." + "\n\n" + "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
+			descriptionFull : "You choose an area of water that you can see within range and that fits within a 5-foot cube. You manipulate it in one of the following ways.\n \u2022 You instantaneously move or otherwise change the flow of the water as you direct, up to 5 feet in any direction. This movement doesn't have enough force to cause damage.\n \u2022 You cause the water to form into simple shapes and animate at your direction. This change lasts for 1 hour.\n \u2022 You change the water's color or opacity. The water must be changed in the same way throughout. This change lasts for 1 hour.\n \u2022 You freeze the water, provided that there are no creatures in it. The water unfreezes in 1 hour.\n\nIf you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action."
 		};
 		SpellsList["skywrite"] = {
 			name : "Skywrite",
@@ -14540,7 +14577,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Str",
 			description : "20-ft rad dif. ter.; all crea + end turn save or 2d6+1d6/SL Bludg.; bns a 60 ft spell atk 4d6 Lightning",
-			descriptionFull : "A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. The sphere remains for the spell's duration. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage. The sphere's space is difficult terrain." + "\n   " + "Until the spell ends, you can use a bonus action on each of your turns to cause a bolt of lightning to leap from the center of the sphere toward one creature you choose within 60 feet of the center. Make a ranged spell attack. You have advantage on the attack roll if the target is in the sphere. On a hit, the target takes 4d6 lightning damage." + "\n   " + "Creatures within 30 feet of the sphere have disadvantage on Wisdom (Perception) checks made to listen." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the damage increases for each of its effects by 1d6 for each slot level above 4th."
+			descriptionFull : "A 20-foot-radius sphere of whirling air springs into existence centered on a point you choose within range. The sphere remains for the spell's duration. Each creature in the sphere when it appears or that ends its turn there must succeed on a Strength saving throw or take 2d6 bludgeoning damage. The sphere's space is difficult terrain.\n   Until the spell ends, you can use a bonus action on each of your turns to cause a bolt of lightning to leap from the center of the sphere toward one creature you choose within 60 feet of the center. Make a ranged spell attack. You have advantage on the attack roll if the target is in the sphere. On a hit, the target takes 4d6 lightning damage.\n   Creatures within 30 feet of the sphere have disadvantage on Wisdom (Perception) checks made to listen." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the damage increases for each of its effects by 1d6 for each slot level above 4th."
 		};
 		SpellsList["thunderclap"] = {
 			name : "Thunderclap",
@@ -14554,7 +14591,7 @@ function importData() {
 			duration : "Instantaneous",
 			save : "Con",
 			description : "100-ft rad audible; all crea but you in area save or 1d6 Thunder dmg; +1d6 at CL 5, 11, and 17",
-			descriptionFull : "You create a burst of thunderous sound that can be heard up to 100 feet away. Each creature within range, other than you, must succeed on a Constitution saving throw or take 1d6 thunder damage." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+			descriptionFull : "You create a burst of thunderous sound that can be heard up to 100 feet away. Each creature within range, other than you, must succeed on a Constitution saving throw or take 1d6 thunder damage.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 		};
 		SpellsList["tidal wave"] = {
 			name : "Tidal Wave",
@@ -14583,7 +14620,7 @@ function importData() {
 			compMaterial : "Clay and water",
 			duration : "Until dispelled",
 			description : "40 cu ft stone to mud or mud to stone; mud and stone restrains; mud from ceiling falls; see book",
-			descriptionFull : "You choose an area of stone or mud that you can see that fits within a 40-foot cube and is within range, and choose one of the following effects." + "\n   " + toUni("Transmute Rock to Mud") + ": Nonmagical rock of any sort in the area becomes an equal volume of thick, flowing mud that remains for the spell's duration." + "\n   " + "The ground in the spell's area becomes muddy enough that creatures can sink into it. Each foot that a creature moves through the mud costs 4 feet of movement, and any creature on the ground when you cast the spell must make a Strength saving throw. A creature must also make the saving throw when it moves into the area for the first time on a turn or ends its turn there. On a failed save, a creature sinks into the mud and is restrained, though it can use an action to end the restrained condition on itself by pulling itself free of the mud." + "\n   " + "If you cast the spell on a ceiling, the mud falls. Any creature under the mud when it falls must make a Dexterity saving throw. A creature takes 4d8 bludgeoning damage on a failed save, or half as much damage on a successful one." + "\n   " + toUni("Transmute Mud to Rock") + ": Nonmagical mud or quicksand in the area no more than 10 feet deep transforms into soft stone for the spell's duration. Any creature in the mud when it transforms must make a Dexterity saving throw. On a successful save, a creature is shunted safely to the surface in an unoccupied space. On a failed save, a creature becomes restrained by the rock. A restrained creature, or another creature within reach, can use an action to try to break the rock by succeeding on a DC 20 Strength check or by dealing damage to it. The rock has AC 15 and 25 hit points, and it is immune to poison and psychic damage."
+			descriptionFull : "You choose an area of stone or mud that you can see that fits within a 40-foot cube and is within range, and choose one of the following effects.\n   " + toUni("Transmute Rock to Mud") + ": Nonmagical rock of any sort in the area becomes an equal volume of thick, flowing mud that remains for the spell's duration.\n   The ground in the spell's area becomes muddy enough that creatures can sink into it. Each foot that a creature moves through the mud costs 4 feet of movement, and any creature on the ground when you cast the spell must make a Strength saving throw. A creature must also make the saving throw when it moves into the area for the first time on a turn or ends its turn there. On a failed save, a creature sinks into the mud and is restrained, though it can use an action to end the restrained condition on itself by pulling itself free of the mud.\n   If you cast the spell on a ceiling, the mud falls. Any creature under the mud when it falls must make a Dexterity saving throw. A creature takes 4d8 bludgeoning damage on a failed save, or half as much damage on a successful one.\n   " + toUni("Transmute Mud to Rock") + ": Nonmagical mud or quicksand in the area no more than 10 feet deep transforms into soft stone for the spell's duration. Any creature in the mud when it transforms must make a Dexterity saving throw. On a successful save, a creature is shunted safely to the surface in an unoccupied space. On a failed save, a creature becomes restrained by the rock. A restrained creature, or another creature within reach, can use an action to try to break the rock by succeeding on a DC 20 Strength check or by dealing damage to it. The rock has AC 15 and 25 hit points, and it is immune to poison and psychic damage."
 		};
 		SpellsList["vitriolic sphere"] = {
 			name : "Vitriolic Sphere",
@@ -14628,7 +14665,7 @@ function importData() {
 			duration : "Conc, 10 min",
 			description : "30\u00D71\u00D710ft (l\u00D7w\u00D7h) or 20-ft rad 20-ft high; dif. ter.; range wea dis.; Fire dmg half; Cold dmg freezes",
 			descriptionMetric : "9\u00D70,3\u00D73m (l\u00D7w\u00D7h) or 6-m rad 6-m high; dif. ter.; ranged wea dis.; Fire dmg half; Cold dmg freezes",
-			descriptionFull : "You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or you can make a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall vanishes when the spell ends. The wall's space is difficult terrain." + "\n   " + "Any ranged weapon attack that enters the wall's space has disadvantage on the attack roll, and fire damage is halved if the fire effect passes through the wall to reach its target. Spells that deal cold damage that pass through the wall cause the area of the wall they pass through to freeze solid (at least a 5-foot square section is frozen). Each 5-foot-square frozen section has AC 5 and 15 hit points. Reducing a frozen section to 0 hit points destroys it. When a section is destroyed, the wall's water doesn't fill it."
+			descriptionFull : "You conjure up a wall of water on the ground at a point you can see within range. You can make the wall up to 30 feet long, 10 feet high, and 1 foot thick, or you can make a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall vanishes when the spell ends. The wall's space is difficult terrain.\n   Any ranged weapon attack that enters the wall's space has disadvantage on the attack roll, and fire damage is halved if the fire effect passes through the wall to reach its target. Spells that deal cold damage that pass through the wall cause the area of the wall they pass through to freeze solid (at least a 5-foot square section is frozen). Each 5-foot-square frozen section has AC 5 and 15 hit points. Reducing a frozen section to 0 hit points destroys it. When a section is destroyed, the wall's water doesn't fill it."
 		};
 		SpellsList["warding wind"] = {
 			name : "Warding Wind",
@@ -14641,7 +14678,7 @@ function importData() {
 			components : "V",
 			duration : "Conc, 10 min",
 			description : "Strong (20 mph) wind in area deafens/extinguishes unprotected flames/dif. ter./ranged wea have dis",
-			descriptionFull : "A strong wind (20 miles per hour) blows around you in a 10-foot radius and moves with you, remaining centered on you. The wind lasts for the spell's duration." + "\n   " + "The wind has the following effects." + "\n " + "\u2022 It deafens you and other creatures in its area." + "\n " + "\u2022 It extinguishes unprotected flames in its area that are torch-sized or smaller." + "\n " + "\u2022 The area is difficult terrain for creatures other than you." + "\n " + "\u2022 The attack rolls of ranged weapon attacks have disadvantage if they pass in or out of the wind." + "\n " + "\u2022 It hedges out vapor, gas, and fog that can be dispersed by strong wind."
+			descriptionFull : "A strong wind (20 miles per hour) blows around you in a 10-foot radius and moves with you, remaining centered on you. The wind lasts for the spell's duration.\n   The wind has the following effects.\n \u2022 It deafens you and other creatures in its area.\n \u2022 It extinguishes unprotected flames in its area that are torch-sized or smaller.\n \u2022 The area is difficult terrain for creatures other than you.\n \u2022 The attack rolls of ranged weapon attacks have disadvantage if they pass in or out of the wind.\n \u2022 It hedges out vapor, gas, and fog that can be dispersed by strong wind."
 		};
 		SpellsList["watery sphere"] = {
 			name : "Watery Sphere",
@@ -14656,7 +14693,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Str",
 			description : "5-ft rad all crea < Huge save or restrained; on save ejected; save each rnd; 1 a move sphere 30 ft",
-			descriptionFull : "You conjure up a sphere of water with a 5-foot radius at a point you can see within range. The sphere can hover but no more than 10 feet off the ground. The sphere remains for the spell's duration." + "\n   " + "Any creature in the sphere's space must make a Strength saving throw. On a successful save, a creature is ejected from that space to the nearest unoccupied space of the creature's choice outside the sphere. A Huge or larger creature succeeds on the saving throw automatically, and a Large or smaller creature can choose to fail it. On a failed save, a creature is restrained by the sphere and is engulfed by the water. At the end of each of its turns, a restrained target can repeat the saving throw, ending the effect on itself on a success." + "\n   " + "The sphere can restrain as many as four Medium or smaller creatures or one Large creature. If the sphere restrains a creature that causes it to exceed this capacity, a random creature that was already restrained by the sphere falls out of it and lands prone in a space within 5 feet of it." + "\n   " + "As an action, you can move the sphere up to 30 feet in a straight line. If it moves over a pit, a cliff, or other drop-off, it safely descends until it is hovering 10 feet above the ground. Any creature restrained by the sphere moves with it. You can ram the sphere into creatures, forcing them to make the saving throw." + "\n   " + "When the spell ends, the sphere falls to the ground and extinguishes all normal flames within 30 feet of it. Any creature restrained by the sphere is knocked prone in the space where it falls. The water then vanishes."
+			descriptionFull : "You conjure up a sphere of water with a 5-foot radius at a point you can see within range. The sphere can hover but no more than 10 feet off the ground. The sphere remains for the spell's duration.\n   Any creature in the sphere's space must make a Strength saving throw. On a successful save, a creature is ejected from that space to the nearest unoccupied space of the creature's choice outside the sphere. A Huge or larger creature succeeds on the saving throw automatically, and a Large or smaller creature can choose to fail it. On a failed save, a creature is restrained by the sphere and is engulfed by the water. At the end of each of its turns, a restrained target can repeat the saving throw, ending the effect on itself on a success.\n   The sphere can restrain as many as four Medium or smaller creatures or one Large creature. If the sphere restrains a creature that causes it to exceed this capacity, a random creature that was already restrained by the sphere falls out of it and lands prone in a space within 5 feet of it.\n   As an action, you can move the sphere up to 30 feet in a straight line. If it moves over a pit, a cliff, or other drop-off, it safely descends until it is hovering 10 feet above the ground. Any creature restrained by the sphere moves with it. You can ram the sphere into creatures, forcing them to make the saving throw.\n   When the spell ends, the sphere falls to the ground and extinguishes all normal flames within 30 feet of it. Any creature restrained by the sphere is knocked prone in the space where it falls. The water then vanishes."
 		};
 		SpellsList["whirlwind"] = {
 			name : "Whirlwind",
@@ -14671,7 +14708,7 @@ function importData() {
 			duration : "Conc, 1 min",
 			save : "Dex",
 			description : "10-ft rad 30-ft high all crea 10d6 Bludg. dmg; save halves; restrains; 1 a move 30 ft; see book",
-			descriptionFull : "A whirlwind howls down to a point that you can see on the ground within range. The whirlwind is a 10-foot-radius, 30-foot-high cylinder centered on that point. Until the spell ends, you can use your action to move the whirlwind up to 30 feet in any direction along the ground. The whirlwind sucks up any Medium or smaller objects that aren't secured to anything and that aren't worn or carried by anyone." + "\n   " + "A creature must make a Dexterity saving throw the first time on a turn that it enters the whirlwind or that the whirlwind enters its space, including when the whirlwind first appears. A creature takes 10d6 bludgeoning damage on a failed save, or half as much damage on a successful one. In addition, a Large or smaller creature that fails the save must succeed on a Strength saving throw or become restrained in the whirlwind until the spell ends. When a creature starts its turn restrained by the whirlwind, the creature is pulled 5 feet higher inside it, unless the creature is at the top. A restrained creature moves with the whirlwind and falls when the spell ends, unless the creature has some means to stay aloft." + "\n   " + "A restrained creature can use an action to make a Strength or Dexterity check against your spell save DC. If successful, the creature is no longer restrained by the whirlwind and is hurled 3d6 \u00D7 10 feet away from it in a random direction."
+			descriptionFull : "A whirlwind howls down to a point that you can see on the ground within range. The whirlwind is a 10-foot-radius, 30-foot-high cylinder centered on that point. Until the spell ends, you can use your action to move the whirlwind up to 30 feet in any direction along the ground. The whirlwind sucks up any Medium or smaller objects that aren't secured to anything and that aren't worn or carried by anyone.\n   A creature must make a Dexterity saving throw the first time on a turn that it enters the whirlwind or that the whirlwind enters its space, including when the whirlwind first appears. A creature takes 10d6 bludgeoning damage on a failed save, or half as much damage on a successful one. In addition, a Large or smaller creature that fails the save must succeed on a Strength saving throw or become restrained in the whirlwind until the spell ends. When a creature starts its turn restrained by the whirlwind, the creature is pulled 5 feet higher inside it, unless the creature is at the top. A restrained creature moves with the whirlwind and falls when the spell ends, unless the creature has some means to stay aloft.\n   A restrained creature can use an action to make a Strength or Dexterity check against your spell save DC. If successful, the creature is no longer restrained by the whirlwind and is hurled 3d6 \u00D7 10 feet away from it in a random direction."
 		};
 	};
 	// Then add the new spells from XGtE (contains contributions by SoilentBrad)
@@ -14718,7 +14755,7 @@ function importData() {
 		compMaterial : "25 gp worth of powdered silver, which the spell consumes",
 		duration : "Instantaneous",
 		description : "Perform religious ceremony on target(s) within 10 ft throughout the casting; see book (25gp cons.)",
-		descriptionFull : "You perform a special religious ceremony that is infused with magic. When you cast the spell, choose one of the following rites, the target of which must be within 10 feet of you throughout the casting." + "\n   " + toUni("Atonement") + ": You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a successful check, you restore the target to its original alignment." + "\n   " + toUni("Bless Water") + ": You touch one vial of water and cause it to become holy water." + "\n   " + toUni("Coming of Age") + ": You touch one humanoid who is a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this rite only once." + "\n   " + toUni("Dedication") + ": You touch one humanoid who wishes to be dedicated to your god's service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this rite only once." + "\n   " + toUni("Funeral Rite") + ": You touch one corpse, and for the next 7 days, the target can't become undead by any means short of a wish spell." + "\n   " + toUni("Wedding") + ": You touch adult humanoids willing to be bonded together in marriage. For the next 7 days, each target gains a +2 bonus to AC while they are within 30 feet of each other. A creature can benefit from this rite again only if widowed."
+		descriptionFull : "You perform a special religious ceremony that is infused with magic. When you cast the spell, choose one of the following rites, the target of which must be within 10 feet of you throughout the casting.\n   " + toUni("Atonement") + ": You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a successful check, you restore the target to its original alignment.\n   " + toUni("Bless Water") + ": You touch one vial of water and cause it to become holy water.\n   " + toUni("Coming of Age") + ": You touch one humanoid who is a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this rite only once.\n   " + toUni("Dedication") + ": You touch one humanoid who wishes to be dedicated to your god's service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this rite only once.\n   " + toUni("Funeral Rite") + ": You touch one corpse, and for the next 7 days, the target can't become undead by any means short of a wish spell.\n   " + toUni("Wedding") + ": You touch adult humanoids willing to be bonded together in marriage. For the next 7 days, each target gains a +2 bonus to AC while they are within 30 feet of each other. A creature can benefit from this rite again only if widowed."
 	};
 	SpellsList["chaos bolt-xgte"] = {
 		name : "Chaos Bolt",
@@ -14732,7 +14769,7 @@ function importData() {
 		components : "V,S",
 		duration : "Instantaneous",
 		description : "Spell atk 2d8+1d6+1d6/SL dmg, d8s set dmg type, see B; double on d8s: new atk vs. crea in 30 ft",
-		descriptionFull : "You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 + 1d6 damage. Choose one of the d8s. The number rolled on that die determines the attack's damage type, as shown below." + "\n\n" + toUni("d8") + "\t" + toUni("Damage Type") + "\n  1\tAcid" + "\n  2\tCold" + "\n  3\tFire" + "\n  4\tForce" + "\n  5\tLightning" + "\n  6\tPoison" + "\n  7\tPsychic" + "\n  8\tThunder" + "\n\n   " + "If you roll the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again." + "\n   " + "A creature can be targeted only once by each casting of this spell." + AtHigherLevels + "When you cast this spell using a spell slot of 2nd level or higher, each target takes 1d6 extra damage of the type rolled for each slot level above 1st."
+		descriptionFull : "You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 + 1d6 damage. Choose one of the d8s. The number rolled on that die determines the attack's damage type, as shown below.\n\n" + toUni("d8") + "\t" + toUni("Damage Type") + "\n  1\tAcid\n  2\tCold\n  3\tFire\n  4\tForce\n  5\tLightning\n  6\tPoison\n  7\tPsychic\n  8\tThunder\n\n   If you roll the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again.\n   A creature can be targeted only once by each casting of this spell." + AtHigherLevels + "When you cast this spell using a spell slot of 2nd level or higher, each target takes 1d6 extra damage of the type rolled for each slot level above 1st."
 	};
 	SpellsList["charm monster"] = {
 		name : "Charm Monster",
@@ -14762,7 +14799,7 @@ function importData() {
 		compMaterial : "Clay, ash, and mandrake root, all of which the spell consumes, and a jewel-encrusted dagger worth at least 1,000 gp",
 		duration : "Instantaneous",
 		description : "You take 2d4 piercing dmg to create a homunculus as your faithful companion; see book (1000gp)",
-		descriptionFull : "While speaking an intricate incantation, you cut yourself with a jewel-encrusted dagger, taking 2d4 piercing damage that can't be reduced in any way. You then drip your blood on the spell's other components and touch them, transforming them into a special construct called a homunculus." + "\n   " + "The statistics of the homunculus are in the Monster Manual. It is your faithful companion, and it dies if you die. Whenever you finish a long rest, you can spend up to half your Hit Dice if the homunculus is on the same plane of existence as you. When you do so, roll each die and add your Constitution modifier to it. Your hit point maximum is reduced by the total, and the homunculus's hit point maximum and current hit points are both increased by it. This process can reduce you to no lower than 1 hit point, and the change to your and the homunculus's hit points ends when you finish your next long rest. The reduction to your hit point maximum can't be removed by any means before then, except by the homunculus's death." + "\n   " + "You can have only one homunculus at a time. If you cast this spell while your homunculus lives, the spell fails."
+		descriptionFull : "While speaking an intricate incantation, you cut yourself with a jewel-encrusted dagger, taking 2d4 piercing damage that can't be reduced in any way. You then drip your blood on the spell's other components and touch them, transforming them into a special construct called a homunculus.\n   The statistics of the homunculus are in the Monster Manual. It is your faithful companion, and it dies if you die. Whenever you finish a long rest, you can spend up to half your Hit Dice if the homunculus is on the same plane of existence as you. When you do so, roll each die and add your Constitution modifier to it. Your hit point maximum is reduced by the total, and the homunculus's hit point maximum and current hit points are both increased by it. This process can reduce you to no lower than 1 hit point, and the change to your and the homunculus's hit points ends when you finish your next long rest. The reduction to your hit point maximum can't be removed by any means before then, except by the homunculus's death.\n   You can have only one homunculus at a time. If you cast this spell while your homunculus lives, the spell fails."
 	};
 	SpellsList["crown of stars"] = {
 		name : "Crown of Stars",
@@ -14776,7 +14813,7 @@ function importData() {
 		components : "V,S",
 		duration : "1 h",
 		description : "7+2/SL motes shed 30-ft light; bonus action to fire one as 120 ft ranged atk for 4d12 Radiant dmg",
-		descriptionFull : "Seven star-like motes of light appear and orbit your head until the spell ends. You can use a bonus action to send one of the motes streaking toward one creature or object within 120 feet of you. When you do so, make a ranged spell attack. On a hit, the target takes 4d12 radiant damage. Whether you hit or miss, the mote is expended. The spell ends early if you expend the last mote." + "\n   " + "If you have four or more motes remaining, they shed bright light in a 30-foot radius and dim light for an additional 30 feet. If you have one to three motes remaining, they shed dim light in a 30-foot radius." + AtHigherLevels + "When you cast this spell using a spell slot of 8th level or higher, the number of motes created increases by two for each slot level above 7th."
+		descriptionFull : "Seven star-like motes of light appear and orbit your head until the spell ends. You can use a bonus action to send one of the motes streaking toward one creature or object within 120 feet of you. When you do so, make a ranged spell attack. On a hit, the target takes 4d12 radiant damage. Whether you hit or miss, the mote is expended. The spell ends early if you expend the last mote.\n   If you have four or more motes remaining, they shed bright light in a 30-foot radius and dim light for an additional 30 feet. If you have one to three motes remaining, they shed dim light in a 30-foot radius." + AtHigherLevels + "When you cast this spell using a spell slot of 8th level or higher, the number of motes created increases by two for each slot level above 7th."
 	};
 	SpellsList["danse macabre"] = {
 		name : "Danse Macabre",
@@ -14790,7 +14827,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 h",
 		description : "5+2/SL small/medium corpses as zombie/skeleton; spellc. mod to atk/dmg; bns a command in 60 ft",
-		descriptionFull : "Threads of dark power leap from your fingers to pierce up to five Small or Medium corpses you can see within range. Each corpse immediately stands up and becomes undead. You decide whether it is a zombie or a skeleton (the statistics for zombies and skeletons are in the Monster Manual), and it gains a bonus to its attack and damage rolls equal to your spellcasting ability modifier." + "\n   " + "You can use a bonus action to mentally command the creatures you make with this spell, issuing the same command to all of them. To receive the command, a creature must be within 60 feet of you. You decide what action the creatures will take and where they will move during their next turn, or you can issue a general command, such as to guard a chamber or passageway against your foes. If you issue no commands, the creatures do nothing except defend themselves against hostile creatures. Once given an order, the creatures continue to follow it until their task is complete." + "\n   " + "The creatures are under your control until the spell ends, after which they become inanimate once more" + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, you animate up to two additional corpses for each slot level above 5th."
+		descriptionFull : "Threads of dark power leap from your fingers to pierce up to five Small or Medium corpses you can see within range. Each corpse immediately stands up and becomes undead. You decide whether it is a zombie or a skeleton (the statistics for zombies and skeletons are in the Monster Manual), and it gains a bonus to its attack and damage rolls equal to your spellcasting ability modifier.\n   You can use a bonus action to mentally command the creatures you make with this spell, issuing the same command to all of them. To receive the command, a creature must be within 60 feet of you. You decide what action the creatures will take and where they will move during their next turn, or you can issue a general command, such as to guard a chamber or passageway against your foes. If you issue no commands, the creatures do nothing except defend themselves against hostile creatures. Once given an order, the creatures continue to follow it until their task is complete.\n   The creatures are under your control until the spell ends, after which they become inanimate once more" + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, you animate up to two additional corpses for each slot level above 5th."
 	};
 	SpellsList["dawn"] = {
 		name : "Dawn",
@@ -14806,7 +14843,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Con",
 		description : "30-ft rad 40-ft high all crea 4d10 Radiant dmg when cast or end turn in; bns a move it 60 ft (100gp)",
-		descriptionFull : "The light of dawn shines down on a location you specify within range. Until the spell ends, a 30-foot-radius, 40-foot-high cylinder of bright light glimmers there. This light is sunlight." + "\n   " + "When the cylinder appears, each creature in it must make a Constitution saving throw, taking 4d10 radiant damage on a failed save, or half as much damage on a successful one. A creature must also make this saving throw whenever it ends its turn in the cylinder." + "\n   " + "If you're within 60 feet of the cylinder, you can move it up to 60 feet as a bonus action on your turn."
+		descriptionFull : "The light of dawn shines down on a location you specify within range. Until the spell ends, a 30-foot-radius, 40-foot-high cylinder of bright light glimmers there. This light is sunlight.\n   When the cylinder appears, each creature in it must make a Constitution saving throw, taking 4d10 radiant damage on a failed save, or half as much damage on a successful one. A creature must also make this saving throw whenever it ends its turn in the cylinder.\n   If you're within 60 feet of the cylinder, you can move it up to 60 feet as a bonus action on your turn."
 	};
 	SpellsList["dragon's breath"] = {
 		name : "Dragon's Breath",
@@ -14837,7 +14874,7 @@ function importData() {
 		compMaterial : "Mistletoe, which the spell consumes, that was harvested with a golden sickle under the light of a full moon",
 		duration : "24 h",
 		description : "Protect 30-ft to 90-ft cube outdoors or underground; see book for effects",
-		descriptionFull : "You invoke the spirits of nature to protect an area outdoors or underground. The area can be as small as a 30-foot cube or as large as a 90-foot cube. Buildings and other structures are excluded from the affected area. If you cast this spell in the same area every day for a year, the spell lasts until dispelled." + "\n   " + "The spell creates the following effects within the area. When you cast this spell, you can specify creatures as friends who are immune to the effects. You can also specify a password that, when spoken aloud, makes the speaker immune to these effects." + "\n   " + "The entire warded area radiates magic. A dispel magic cast on the area, if successful, removes only one of the following effects, not the entire area. That spell's caster chooses which effect to end. Only when all its effects are gone is this spell dispelled." + "\n   " + toUni("Solid Fog") + ": You can fill any number of 5-foot squares on the ground with thick fog, making them heavily obscured. The fog reaches 10 feet high. In addition, every foot of movement through the fog costs 2 extra feet. To a creature immune to this effect, the fog obscures nothing and looks like soft mist, with motes of green light floating in the air." + "\n   " + toUni("Grasping Undergrowth") + ": You can fill any number of 5-foot squares on the ground that aren't filled with fog with grasping weeds and vines, as if they were affected by an entangle spell. To a creature immune to this effect, the weeds and vines feel soft and reshape themselves to serve as temporary seats or beds." + "\n   " + toUni("Grove Guardians") + ": You can animate up to four trees in the area, causing them to uproot themselves from the ground. These trees have the same statistics as an awakened tree, which appears in the Monster Manual, except they can't speak, and their bark is covered with druidic symbols. If any creature not immune to this effect enters the warded area, the grove guardians fight until they have driven off or slain the intruders. The grove guardians also obey your spoken commands (no action required by you) that you issue while in the area. If you don't give them commands and no intruders are present, the grove guardians do nothing. The grove guardians can't leave the warded area. When the spell ends, the magic animating them disappears, and the trees take root again if possible." + "\n   " + toUni("Additional Spell Effects") + ": You can place your choice of one of the following magical effects within the warded area:" + "\n \u2022 " + "A constant gust of wind in two locations of your choice" + "\n \u2022 " + "Spike growth in one location of your choice" + "\n \u2022 " + "Wind wall in two locations of your choice" + "\n   " + "To a creature immune to this effect, the winds are a fragrant, gentle breeze, and the area of spike growth is harmless."
+		descriptionFull : "You invoke the spirits of nature to protect an area outdoors or underground. The area can be as small as a 30-foot cube or as large as a 90-foot cube. Buildings and other structures are excluded from the affected area. If you cast this spell in the same area every day for a year, the spell lasts until dispelled.\n   The spell creates the following effects within the area. When you cast this spell, you can specify creatures as friends who are immune to the effects. You can also specify a password that, when spoken aloud, makes the speaker immune to these effects.\n   The entire warded area radiates magic. A dispel magic cast on the area, if successful, removes only one of the following effects, not the entire area. That spell's caster chooses which effect to end. Only when all its effects are gone is this spell dispelled.\n   " + toUni("Solid Fog") + ": You can fill any number of 5-foot squares on the ground with thick fog, making them heavily obscured. The fog reaches 10 feet high. In addition, every foot of movement through the fog costs 2 extra feet. To a creature immune to this effect, the fog obscures nothing and looks like soft mist, with motes of green light floating in the air.\n   " + toUni("Grasping Undergrowth") + ": You can fill any number of 5-foot squares on the ground that aren't filled with fog with grasping weeds and vines, as if they were affected by an entangle spell. To a creature immune to this effect, the weeds and vines feel soft and reshape themselves to serve as temporary seats or beds.\n   " + toUni("Grove Guardians") + ": You can animate up to four trees in the area, causing them to uproot themselves from the ground. These trees have the same statistics as an awakened tree, which appears in the Monster Manual, except they can't speak, and their bark is covered with druidic symbols. If any creature not immune to this effect enters the warded area, the grove guardians fight until they have driven off or slain the intruders. The grove guardians also obey your spoken commands (no action required by you) that you issue while in the area. If you don't give them commands and no intruders are present, the grove guardians do nothing. The grove guardians can't leave the warded area. When the spell ends, the magic animating them disappears, and the trees take root again if possible.\n   " + toUni("Additional Spell Effects") + ": You can place your choice of one of the following magical effects within the warded area:\n \u2022 A constant gust of wind in two locations of your choice\n \u2022 Spike growth in one location of your choice\n \u2022 Wind wall in two locations of your choice\n   To a creature immune to this effect, the winds are a fragrant, gentle breeze, and the area of spike growth is harmless."
 	};
 	SpellsList["enemies abound"] = {
 		name : "Enemies Abound",
@@ -14852,7 +14889,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Int",
 		description : "1 crea save or regard all creatures it can see as enemies, random targeting; save when damaged to end",
-		descriptionFull : "You reach into the mind of one creature you can see and force it to make an Intelligence saving throw. A creature automatically succeeds if it is immune to being frightened. On a failed save, the target loses the ability to distinguish friend from foe, regarding all creatures it can see as enemies until the spell ends. Each time the target takes damage, it can repeat the saving throw, ending the effect on itself on a success." + "\n   " + "Whenever the affected creature chooses another creature as a target, it must choose the target at random from among the creatures it can see within range of the attack, spell, or other ability it's using. If an enemy provokes an opportunity attack from the affected creature, the creature must make that attack if it is able to."
+		descriptionFull : "You reach into the mind of one creature you can see and force it to make an Intelligence saving throw. A creature automatically succeeds if it is immune to being frightened. On a failed save, the target loses the ability to distinguish friend from foe, regarding all creatures it can see as enemies until the spell ends. Each time the target takes damage, it can repeat the saving throw, ending the effect on itself on a success.\n   Whenever the affected creature chooses another creature as a target, it must choose the target at random from among the creatures it can see within range of the attack, spell, or other ability it's using. If an enemy provokes an opportunity attack from the affected creature, the creature must make that attack if it is able to."
 	};
 	SpellsList["enervation"] = {
 		name : "Enervation",
@@ -14867,7 +14904,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "1 crea 4d8+1d8/SL Necro dmg, action to repeat, I heal half; on save 2d8+1d8/SL dmg once; see book",
-		descriptionFull : "A tendril of inky darkness reaches out from you, touching a creature you can see within range to drain life from it. The target must make a Dexterity saving throw. On a successful save, the target takes 2d8 necrotic damage, and the spell ends. On a failed save, the target takes 4d8 necrotic damage, and until the spell ends, you can use your action on each of your turns to automatically deal 4d8 necrotic damage to the target. The spell ends if you use your action to do anything else, if the target is ever outside the spell's range, or if the target has total cover from you." + "\n   " + "Whenever the spell deals damage to a target, you regain hit points equal to half the amount of necrotic damage the target takes." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th."
+		descriptionFull : "A tendril of inky darkness reaches out from you, touching a creature you can see within range to drain life from it. The target must make a Dexterity saving throw. On a successful save, the target takes 2d8 necrotic damage, and the spell ends. On a failed save, the target takes 4d8 necrotic damage, and until the spell ends, you can use your action on each of your turns to automatically deal 4d8 necrotic damage to the target. The spell ends if you use your action to do anything else, if the target is ever outside the spell's range, or if the target has total cover from you.\n   Whenever the spell deals damage to a target, you regain hit points equal to half the amount of necrotic damage the target takes." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th."
 	};
 	SpellsList["far step"] = {
 		name : "Far Step",
@@ -14894,7 +14931,7 @@ function importData() {
 			components : "V,S",
 			duration : "Instantaneous",
 			description : "Gain the services of a steed; can communicate with it telepathically; can share spells with it; see book",
-			descriptionFull : "You summon a spirit that assumes the form of a loyal, majestic mount. Appearing in an unoccupied space within range, the spirit takes on a form you choose: a griffon, a pegasus, a peryton, a dire wolf, a rhinoceros, or a saber-toothed tiger. The creature has the statistics provided in the Monster Manual for the chosen form, though it is a celestial, a fey, or a fiend (your choice) instead of its normal creature type. Additionally, if it has an Intelligence score of 5 or lower, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak." + "\n   " + "You control the mount in combat. While the mount is within 1 mile of you, you can communicate with it telepathically. While mounted on it, you can make any spell you cast that targets only you also target the mount." + "\n   " + "The mount disappears temporarily when it drops to 0 hit points or when you dismiss it as an action. Casting this spell again re-summons the bonded mount, with all its hit points restored and any conditions removed." + "\n   " + "You can't have more than one mount bonded by this spell or find steed at the same time. As an action, you can release a mount from its bond, causing it to disappear permanently." + "\n   " + "Whenever the mount disappears, it leaves behind any objects it was wearing or carrying."
+			descriptionFull : "You summon a spirit that assumes the form of a loyal, majestic mount. Appearing in an unoccupied space within range, the spirit takes on a form you choose: a griffon, a pegasus, a peryton, a dire wolf, a rhinoceros, or a saber-toothed tiger. The creature has the statistics provided in the Monster Manual for the chosen form, though it is a celestial, a fey, or a fiend (your choice) instead of its normal creature type. Additionally, if it has an Intelligence score of 5 or lower, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak.\n   You control the mount in combat. While the mount is within 1 mile of you, you can communicate with it telepathically. While mounted on it, you can make any spell you cast that targets only you also target the mount.\n   The mount disappears temporarily when it drops to 0 hit points or when you dismiss it as an action. Casting this spell again re-summons the bonded mount, with all its hit points restored and any conditions removed.\n   You can't have more than one mount bonded by this spell or find steed at the same time. As an action, you can release a mount from its bond, causing it to disappear permanently.\n   Whenever the mount disappears, it leaves behind any objects it was wearing or carrying."
 	};
 	SpellsList["guardian of nature"] = {
 		name : "Guardian of Nature",
@@ -14908,7 +14945,7 @@ function importData() {
 		components : "V",
 		duration : "Conc, 1 min",
 		description : "You transform into a Primal Beast (offensive bonuses) or a Great Tree (defensive bonuses); see book",
-		descriptionFull : "A nature spirit answers your call and transforms you into a powerful guardian. The transformation lasts until the spell ends. You choose one of the following forms to assume: Primal Beast or Great Tree." + "\n\n" + toUni("Primal Beast") + ": Bestial fur covers your body, your facial features become feral, and you gain the following benefits:" + "\n \u2022 " + "Your walking speed increases by 10 feet." + "\n \u2022 " + "You gain darkvision with a range of 120 feet." + "\n \u2022 " + "You make Strength-based attack rolls with advantage." + "\n \u2022 " + "Your melee weapon attacks deal an extra 1d6 force damage on a hit." + "\n\n" + toUni("Great Tree") + ": Your skin appears barky, leaves sprout from your hair, and you gain the following benefits:" + "\n \u2022 " + "You gain 10 temporary hit points." + "\n \u2022 " + "You make Constitution saving throws with advantage." + "\n \u2022 " + "You make Dexterity- and Wisdom-based attack rolls with advantage." + "\n \u2022 " + "While you are on the ground, the ground within 15 feet of you is difficult terrain for your enemies."
+		descriptionFull : "A nature spirit answers your call and transforms you into a powerful guardian. The transformation lasts until the spell ends. You choose one of the following forms to assume: Primal Beast or Great Tree.\n\n" + toUni("Primal Beast") + ": Bestial fur covers your body, your facial features become feral, and you gain the following benefits:\n \u2022 Your walking speed increases by 10 feet.\n \u2022 You gain darkvision with a range of 120 feet.\n \u2022 You make Strength-based attack rolls with advantage.\n \u2022 Your melee weapon attacks deal an extra 1d6 force damage on a hit.\n\n" + toUni("Great Tree") + ": Your skin appears barky, leaves sprout from your hair, and you gain the following benefits:\n \u2022 You gain 10 temporary hit points.\n \u2022 You make Constitution saving throws with advantage.\n \u2022 You make Dexterity- and Wisdom-based attack rolls with advantage.\n \u2022 While you are on the ground, the ground within 15 feet of you is difficult terrain for your enemies."
 	};
 	SpellsList["healing spirit"] = {
 		name : "Healing Spirit",
@@ -14922,7 +14959,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 min",
 		description : "5-ft cube heals any crea I can see that enter it for 1d6+1d6/SL HP; I can move it 30 ft as a bns action",
-		descriptionFull : "You call forth a nature spirit to soothe the wounded. The intangible spirit appears in a space that is a 5-foot cube you can see within range. The spirit looks like a transparent beast or fey (your choice)." + "\n   " + "Until the spell ends, whenever you or a creature you can see moves into the spirit's space for the first time on a turn or starts its turn there, you can cause the spirit to restore 1d6 hit points to that creature (no action required). The spirit can't heal constructs or undead." + "\n   " + "As a bonus action on your turn, you can move the spirit up to 30 feet to a space you can see." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the healing increases by 1d6 for each slot level above 2nd."
+		descriptionFull : "You call forth a nature spirit to soothe the wounded. The intangible spirit appears in a space that is a 5-foot cube you can see within range. The spirit looks like a transparent beast or fey (your choice).\n   Until the spell ends, whenever you or a creature you can see moves into the spirit's space for the first time on a turn or starts its turn there, you can cause the spirit to restore 1d6 hit points to that creature (no action required). The spirit can't heal constructs or undead.\n   As a bonus action on your turn, you can move the spirit up to 30 feet to a space you can see." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, the healing increases by 1d6 for each slot level above 2nd."
 	};
 	SpellsList["holy weapon"] = {
 		name : "Holy Weapon",
@@ -14937,7 +14974,7 @@ function importData() {
 		duration : "Conc, 1 h",
 		save : "Con",
 		description : "Wea +2d8 Radiant dmg; bns a end spell, 30-ft rad all crea 4d8 Radiant dmg, blind; save half, no blind",
-		descriptionFull : "You imbue a weapon you touch with holy power. Until the spell ends, the weapon emits bright light in a 30-foot radius and dim light for an additional 30 feet. In addition, weapon attacks made with it deal an extra 2d8 radiant damage on a hit. If the weapon isn't already a magic weapon, it becomes one for the duration." + "\n   " + "As a bonus action on your turn, you can dismiss this spell and cause the weapon to emit a burst of radiance. Each creature of your choice that you can see within 30 feet of you must make a Constitution saving throw. On a failed save, a creature takes 4d8 radiant damage, and it is blinded for 1 minute. On a successful save, a creature takes half as much damage and isn't blinded. At the end of each of its turns, a blinded creature can make a Constitution saving throw, ending the effect on itself on a success."
+		descriptionFull : "You imbue a weapon you touch with holy power. Until the spell ends, the weapon emits bright light in a 30-foot radius and dim light for an additional 30 feet. In addition, weapon attacks made with it deal an extra 2d8 radiant damage on a hit. If the weapon isn't already a magic weapon, it becomes one for the duration.\n   As a bonus action on your turn, you can dismiss this spell and cause the weapon to emit a burst of radiance. Each creature of your choice that you can see within 30 feet of you must make a Constitution saving throw. On a failed save, a creature takes 4d8 radiant damage, and it is blinded for 1 minute. On a successful save, a creature takes half as much damage and isn't blinded. At the end of each of its turns, a blinded creature can make a Constitution saving throw, ending the effect on itself on a success."
 	};
 	SpellsList["illusory dragon"] = {
 		name : "Illusory Dragon",
@@ -14952,7 +14989,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "W/I",
 		description : "Huge shadowy dragon; see: Wis save or fright.; bns a move 60 ft \u0026 breath wea 7d6 dmg; Int save half",
-		descriptionFull : "By gathering threads of shadow material from the Shadowfell, you create a Huge shadowy dragon in an unoccupied space that you can see within range. The illusion lasts for the spell's duration and occupies its space, as if it were a creature." + "\n   " + "When the illusion appears, any of your enemies that can see it must succeed on a Wisdom saving throw or become frightened of it for 1 minute. If a frightened creature ends its turn in a location where it doesn't have line of sight to the illusion, it can repeat the saving throw, ending the effect on itself on a success." + "\n   " + "As a bonus action on your turn, you can move the illusion up to 60 feet. At any point during its movement, you can cause it to exhale a blast of energy in a 60-foot cone originating from its space. When you create the dragon, choose a damage type: acid, cold, fire, lightning, necrotic, or poison. Each creature in the cone must make an Intelligence saving throw, taking 7d6 damage of the chosen damage type on a failed save, or half as much damage on a successful one." + "\n   " + "The illusion is tangible because of the shadow stuff used to create it, but attacks miss it automatically, it succeeds on all saving throws, and it is immune to all damage and conditions. A creature that uses an action to examine the dragon can determine that it is an illusion by succeeding on an Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the creature can see through it and has advantage on saving throws against its breath."
+		descriptionFull : "By gathering threads of shadow material from the Shadowfell, you create a Huge shadowy dragon in an unoccupied space that you can see within range. The illusion lasts for the spell's duration and occupies its space, as if it were a creature.\n   When the illusion appears, any of your enemies that can see it must succeed on a Wisdom saving throw or become frightened of it for 1 minute. If a frightened creature ends its turn in a location where it doesn't have line of sight to the illusion, it can repeat the saving throw, ending the effect on itself on a success.\n   As a bonus action on your turn, you can move the illusion up to 60 feet. At any point during its movement, you can cause it to exhale a blast of energy in a 60-foot cone originating from its space. When you create the dragon, choose a damage type: acid, cold, fire, lightning, necrotic, or poison. Each creature in the cone must make an Intelligence saving throw, taking 7d6 damage of the chosen damage type on a failed save, or half as much damage on a successful one.\n   The illusion is tangible because of the shadow stuff used to create it, but attacks miss it automatically, it succeeds on all saving throws, and it is immune to all damage and conditions. A creature that uses an action to examine the dragon can determine that it is an illusion by succeeding on an Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the creature can see through it and has advantage on saving throws against its breath."
 	};
 	SpellsList["infernal calling"] = {
 		name : "Infernal Calling",
@@ -14967,7 +15004,7 @@ function importData() {
 		compMaterial : "A ruby worth at least 999 gp",
 		duration : "Conc, 1 h",
 		description : "Summon 1 devil of CR 6+1/SL; hostile to all, obeys your command if to its liking or Cha check; see B",
-		descriptionFull : "Uttering a dark incantation, you summon a devil from the Nine Hells. You choose the devil's type, which must be one of challenge rating 6 or lower, such as a barbed devil or a bearded devil. The devil appears in an unoccupied space that you can see within range. The devil disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The devil is unfriendly toward you and your companions. Roll initiative for the devil, which has its own turns. It is under the Dungeon Master's control and acts according to its nature on each of its turns, which might result in its attacking you if it thinks it can prevail, or trying to tempt you to undertake an evil act in exchange for limited service. The DM has the creature's statistics." + "\n   " + "On each of your turns, you can try to issue a verbal command to the devil (no action required by you). It obeys the command if the likely outcome is in accordance with its desires, especially if the result would draw you toward evil. Otherwise, you must make a Charisma (Deception, Intimidation, or Persuasion) check contested by its Wisdom (Insight) check. You make the check with advantage if you say the devil's true name. If your check fails, the devil becomes immune to your verbal commands for the duration of the spell, though it can still carry out your commands if it chooses. If your check succeeds, the devil carries out your command — such as “attack my enemies,” “explore the room ahead,” or “bear this message to the queen” — until it completes the activity, at which point it returns to you to report having done so." + "\n   " + "If your concentration ends before the spell reaches its full duration, the devil doesn't disappear if it has become immune to your verbal commands. Instead, it acts in whatever manner it chooses for 3d6 minutes, and then it disappears." + "\n   " + "If you possess an individual devil's talisman, you can summon that devil if it is of the appropriate challenge rating plus 1, and it obeys all your commands, with no Charisma checks required." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the challenge rating increases by 1 for each slot level above 5th."
+		descriptionFull : "Uttering a dark incantation, you summon a devil from the Nine Hells. You choose the devil's type, which must be one of challenge rating 6 or lower, such as a barbed devil or a bearded devil. The devil appears in an unoccupied space that you can see within range. The devil disappears when it drops to 0 hit points or when the spell ends.\n   The devil is unfriendly toward you and your companions. Roll initiative for the devil, which has its own turns. It is under the Dungeon Master's control and acts according to its nature on each of its turns, which might result in its attacking you if it thinks it can prevail, or trying to tempt you to undertake an evil act in exchange for limited service. The DM has the creature's statistics.\n   On each of your turns, you can try to issue a verbal command to the devil (no action required by you). It obeys the command if the likely outcome is in accordance with its desires, especially if the result would draw you toward evil. Otherwise, you must make a Charisma (Deception, Intimidation, or Persuasion) check contested by its Wisdom (Insight) check. You make the check with advantage if you say the devil's true name. If your check fails, the devil becomes immune to your verbal commands for the duration of the spell, though it can still carry out your commands if it chooses. If your check succeeds, the devil carries out your command — such as “attack my enemies,” “explore the room ahead,” or “bear this message to the queen” — until it completes the activity, at which point it returns to you to report having done so.\n   If your concentration ends before the spell reaches its full duration, the devil doesn't disappear if it has become immune to your verbal commands. Instead, it acts in whatever manner it chooses for 3d6 minutes, and then it disappears.\n   If you possess an individual devil's talisman, you can summon that devil if it is of the appropriate challenge rating plus 1, and it obeys all your commands, with no Charisma checks required." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the challenge rating increases by 1 for each slot level above 5th."
 	};
 	SpellsList["infestation-xgte"] = {
 		name : "Infestation",
@@ -14983,7 +15020,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "1 crea save or 1d6 Poison dmg and moved 5 ft in random direction; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You cause a cloud of mites, fleas, and other parasites to appear momentarily on one creature you can see within range. The target must succeed on a Constitution saving throw, or it takes 1d6 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet. Roll a d4 for the direction:" + "\n\n" + toUni("d4") + "\t" + toUni("Direction") + "\n  1\tNorth" + "\n  2\tSouth" + "\n  3\tEast" + "\n  4\tWest" + "\n\n   " + "This movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You cause a cloud of mites, fleas, and other parasites to appear momentarily on one creature you can see within range. The target must succeed on a Constitution saving throw, or it takes 1d6 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet. Roll a d4 for the direction:\n\n" + toUni("d4") + "\t" + toUni("Direction") + "\n  1\tNorth\n  2\tSouth\n  3\tEast\n  4\tWest\n\n   This movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["invulnerability"] = {
 		name : "Invulnerability",
@@ -15028,7 +15065,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Wis",
 		description : "60-ft rad darkness; darkvision, light doesn't work; Crea starting turn in 8d8 Psychic dmg, save halves",
-		descriptionFull : "Magical darkness spreads from a point you choose within range to fill a 60-foot-radius sphere until the spell ends. The darkness spreads around corners. A creature with darkvision can't see through this darkness. Nonmagical light, as well as light created by spells of 8th level or lower, can't illuminate the area." + "\n   " + "Shrieks, gibbering, and mad laughter can be heard within the sphere. Whenever a creature starts its turn in the sphere, it must make a Wisdom saving throw, taking 8d8 psychic damage on a failed save, or half as much damage on a successful one."
+		descriptionFull : "Magical darkness spreads from a point you choose within range to fill a 60-foot-radius sphere until the spell ends. The darkness spreads around corners. A creature with darkvision can't see through this darkness. Nonmagical light, as well as light created by spells of 8th level or lower, can't illuminate the area.\n   Shrieks, gibbering, and mad laughter can be heard within the sphere. Whenever a creature starts its turn in the sphere, it must make a Wisdom saving throw, taking 8d8 psychic damage on a failed save, or half as much damage on a successful one."
 	};
 	SpellsList["mass polymorph"] = {
 		name : "Mass Polymorph",
@@ -15044,7 +15081,7 @@ function importData() {
 		duration : "Conc, 1 h",
 		save : "Wis",
 		description : "10 crea save or take chosen beast form of CR \u2264 its CR or half its char. level; can only act as beast; see B",
-		descriptionFull : "You transform up to ten creatures of your choice that you can see within range. An unwilling target must succeed on a Wisdom saving throw to resist the transformation. An unwilling shapechanger automatically succeeds on the save." + "\n   " + "Each target assumes a beast form of your choice, and you can choose the same form or different ones for each target. The new form can be any beast you have seen whose challenge rating is equal to or less than the target's (or half the target's level, if the target doesn't have a challenge rating). The target's game statistics, including mental ability scores, are replaced by the statistics of the chosen beast, but the target retains its hit points, alignment, and personality." + "\n   " + "Each target gains a number of temporary hit points equal to the hit points of its new form. These temporary hit points can't be replaced by temporary hit points from another source. A target reverts to its normal form when it has no more temporary hit points or it dies. If the spell ends before then, the creature loses all its temporary hit points and reverts to its normal form." + "\n   " + "The creature is limited in the actions it can perform by the nature of its new form. It can't speak, cast spells, or do anything else that requires hands or speech." + "\n   " + "The target's gear melds into the new form. The target can't activate, use, wield, or otherwise benefit from any of its equipment."
+		descriptionFull : "You transform up to ten creatures of your choice that you can see within range. An unwilling target must succeed on a Wisdom saving throw to resist the transformation. An unwilling shapechanger automatically succeeds on the save.\n   Each target assumes a beast form of your choice, and you can choose the same form or different ones for each target. The new form can be any beast you have seen whose challenge rating is equal to or less than the target's (or half the target's level, if the target doesn't have a challenge rating). The target's game statistics, including mental ability scores, are replaced by the statistics of the chosen beast, but the target retains its hit points, alignment, and personality.\n   Each target gains a number of temporary hit points equal to the hit points of its new form. These temporary hit points can't be replaced by temporary hit points from another source. A target reverts to its normal form when it has no more temporary hit points or it dies. If the spell ends before then, the creature loses all its temporary hit points and reverts to its normal form.\n   The creature is limited in the actions it can perform by the nature of its new form. It can't speak, cast spells, or do anything else that requires hands or speech.\n   The target's gear melds into the new form. The target can't activate, use, wield, or otherwise benefit from any of its equipment."
 	};
 	SpellsList["mental prison"] = {
 		name : "Mental Prison",
@@ -15074,7 +15111,7 @@ function importData() {
 		compMaterial : "A diamond worth at least 500 gp, which the spell consumes",
 		duration : "Instantaneous",
 		description : "Create a stone fortress 120 ft on a side for 7 days; see book for effects (500gp cons.)",
-		descriptionFull : "A fortress of stone erupts from a square area of ground of your choice that you can see within range. The area is 120 feet on each side, and it must not have any buildings or other structures on it. Any creatures in the area are harmlessly lifted up as the fortress rises." + "\n   " + "The fortress has four turrets with square bases, each one 20 feet on a side and 30 feet tall, with one turret on each corner. The turrets are connected to each other by stone walls that are each 80 feet long, creating an enclosed area. Each wall is 1 foot thick and is composed of panels that are 10 feet wide and 20 feet tall. Each panel is contiguous with two other panels or one other panel and a turret. You can place up to four stone doors in the fortress's outer wall." + "\n   " + "A small keep stands inside the enclosed area. The keep has a square base that is 50 feet on each side, and it has three floors with 10-foot-high ceilings. Each of the floors can be divided into as many rooms as you like, provided each room is at least 5 feet on each side. The floors of the keep are connected by stone staircases, its walls are 6 inches thick, and interior rooms can have stone doors or open archways as you choose. The keep is furnished and decorated however you like, and it contains sufficient food to serve a nine-course banquet for up to 100 people each day. Furnishings, food, and other objects created by this spell crumble to dust if removed from the fortress." + "\n   " + "A staff of one hundred invisible servants obeys any command given to them by creatures you designate when you cast the spell. Each servant functions as if created by the unseen servant spell." + "\n   " + "The walls, turrets, and keep are all made of stone that can be damaged. Each 10-foot-by-10-foot section of stone has AC 15 and 30 hit points per inch of thickness. It is immune to poison and psychic damage. Reducing a section of stone to 0 hit points destroys it and might cause connected sections to buckle and collapse at the DM's discretion." + "\n   " + "After 7 days or when you cast this spell somewhere else, the fortress harmlessly crumbles and sinks back into the ground, leaving any creatures that were inside it safely on the ground." + "\n   " + "Casting this spell on the same spot once every 7 days for a year makes the fortress permanent."
+		descriptionFull : "A fortress of stone erupts from a square area of ground of your choice that you can see within range. The area is 120 feet on each side, and it must not have any buildings or other structures on it. Any creatures in the area are harmlessly lifted up as the fortress rises.\n   The fortress has four turrets with square bases, each one 20 feet on a side and 30 feet tall, with one turret on each corner. The turrets are connected to each other by stone walls that are each 80 feet long, creating an enclosed area. Each wall is 1 foot thick and is composed of panels that are 10 feet wide and 20 feet tall. Each panel is contiguous with two other panels or one other panel and a turret. You can place up to four stone doors in the fortress's outer wall.\n   A small keep stands inside the enclosed area. The keep has a square base that is 50 feet on each side, and it has three floors with 10-foot-high ceilings. Each of the floors can be divided into as many rooms as you like, provided each room is at least 5 feet on each side. The floors of the keep are connected by stone staircases, its walls are 6 inches thick, and interior rooms can have stone doors or open archways as you choose. The keep is furnished and decorated however you like, and it contains sufficient food to serve a nine-course banquet for up to 100 people each day. Furnishings, food, and other objects created by this spell crumble to dust if removed from the fortress.\n   A staff of one hundred invisible servants obeys any command given to them by creatures you designate when you cast the spell. Each servant functions as if created by the unseen servant spell.\n   The walls, turrets, and keep are all made of stone that can be damaged. Each 10-foot-by-10-foot section of stone has AC 15 and 30 hit points per inch of thickness. It is immune to poison and psychic damage. Reducing a section of stone to 0 hit points destroys it and might cause connected sections to buckle and collapse at the DM's discretion.\n   After 7 days or when you cast this spell somewhere else, the fortress harmlessly crumbles and sinks back into the ground, leaving any creatures that were inside it safely on the ground.\n   Casting this spell on the same spot once every 7 days for a year makes the fortress permanent."
 	};
 	SpellsList["mind spike"] = { // +1d8 at higher levels errata (https://twitter.com/JeremyECrawford/status/930603935391293440)
 		name : "Mind Spike",
@@ -15105,7 +15142,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "1 non-undead 5d12 Necrotic dmg; save halves; rises as zombie if killed; undead gain 5d12/2 temp HP",
-		descriptionFull : "You send ribbons of negative energy at one creature you can see within range. Unless the target is undead, it must make a Constitution saving throw, taking 5d12 necrotic damage on a failed save, or half as much damage on a successful one. A target killed by this damage rises up as a zombie at the start of your next turn. The zombie pursues whatever creature it can see that is closest to it. Statistics for the zombie are in the Monster Manual." + "\n   " + "If you target an undead with this spell, the target doesn't make a saving throw. Instead, roll 5d12. The target gains half the total as temporary hit points."
+		descriptionFull : "You send ribbons of negative energy at one creature you can see within range. Unless the target is undead, it must make a Constitution saving throw, taking 5d12 necrotic damage on a failed save, or half as much damage on a successful one. A target killed by this damage rises up as a zombie at the start of your next turn. The zombie pursues whatever creature it can see that is closest to it. Statistics for the zombie are in the Monster Manual.\n   If you target an undead with this spell, the target doesn't make a saving throw. Instead, roll 5d12. The target gains half the total as temporary hit points."
 	};
 	SpellsList["power word pain"] = {
 		name : "Power Word Pain",
@@ -15119,7 +15156,7 @@ function importData() {
 		components : "V",
 		duration : "Instantaneous",
 		description : "1 crea with 100 HP or less disadv. atk/check/save, conc. save to cast; save/rnd to end; charm effect",
-		descriptionFull : "You speak a word of power that causes waves of intense pain to assail one creature you can see within range. If the target has 100 hit points or fewer, it is subject to crippling pain. Otherwise, the spell has no effect on it. A target is also unaffected if it is immune to being charmed." + "\n   " + "While the target is affected by crippling pain, any speed it has can be no higher than 10 feet. The target also has disadvantage on attack rolls, ability checks, and saving throws, other than Constitution saving throws. Finally, if the target tries to cast a spell, it must first succeed on a Constitution saving throw, or the casting fails and the spell is wasted." + "\n   " + "A target suffering this pain can make a Constitution saving throw at the end of each of its turns. On a successful save, the pain ends."
+		descriptionFull : "You speak a word of power that causes waves of intense pain to assail one creature you can see within range. If the target has 100 hit points or fewer, it is subject to crippling pain. Otherwise, the spell has no effect on it. A target is also unaffected if it is immune to being charmed.\n   While the target is affected by crippling pain, any speed it has can be no higher than 10 feet. The target also has disadvantage on attack rolls, ability checks, and saving throws, other than Constitution saving throws. Finally, if the target tries to cast a spell, it must first succeed on a Constitution saving throw, or the casting fails and the spell is wasted.\n   A target suffering this pain can make a Constitution saving throw at the end of each of its turns. On a successful save, the pain ends."
 	};
 	SpellsList["primal savagery-xgte"] = {
 		name : "Primal Savagery",
@@ -15133,7 +15170,7 @@ function importData() {
 		components : "S",
 		duration : "Instantaneous",
 		description : "Melee spell attack, 5 ft range, for 1d10 Acid dmg; +1d10 at CL 5, 11, and 17",
-		descriptionFull : "You channel primal magic to cause your teeth or fingernails to sharpen, ready to deliver a corrosive attack. Make a melee spell attack against one creature within 5 feet of you. On a hit, the target takes 1d10 acid damage. After you make the attack, your teeth or fingernails return to normal." + "\n   " + "The spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
+		descriptionFull : "You channel primal magic to cause your teeth or fingernails to sharpen, ready to deliver a corrosive attack. Make a melee spell attack against one creature within 5 feet of you. On a hit, the target takes 1d10 acid damage. After you make the attack, your teeth or fingernails return to normal.\n   The spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
 	};
 	SpellsList["psychic scream"] = {
 		name : "Psychic Scream",
@@ -15148,7 +15185,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Int",
 		description : "10 crea Int>2 save or 14d6 Psychic dmg and stunned; save halves, no stun; end of turn save to stop",
-		descriptionFull : "You unleash the power of your mind to blast the intellect of up to ten creatures of your choice that you can see within range. Creatures that have an Intelligence score of 2 or lower are unaffected." + "\n   " + "Each target must make an Intelligence saving throw. On a failed save, a target takes 14d6 psychic damage and is stunned. On a successful save, a target takes half as much damage and isn't stunned. If a target is killed by this damage, its head explodes, assuming it has one." + "\n   " + "A stunned target can make an Intelligence saving throw at the end of each of its turns. On a successful save, the stunning effect ends."
+		descriptionFull : "You unleash the power of your mind to blast the intellect of up to ten creatures of your choice that you can see within range. Creatures that have an Intelligence score of 2 or lower are unaffected.\n   Each target must make an Intelligence saving throw. On a failed save, a target takes 14d6 psychic damage and is stunned. On a successful save, a target takes half as much damage and isn't stunned. If a target is killed by this damage, its head explodes, assuming it has one.\n   A stunned target can make an Intelligence saving throw at the end of each of its turns. On a successful save, the stunning effect ends."
 	};
 	SpellsList["scatter"] = {
 		name : "Scatter",
@@ -15178,7 +15215,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		description : "Sword 2d8 Psychic dmg, finesse, light, thrown (20/60ft), adv. if target in dim/dark; +1d8 at SL3/5/7",
 		descriptionMetric : "Sword: 2d8 Psychic dmg, finesse, light, thrown (6/18m), adv. if target in dim/dark; +1d8 at SL3/5/7",
-		descriptionFull : "You weave together threads of shadow to create a sword of solidified gloom in your hand. This magic sword lasts until the spell ends. It counts as a simple melee weapon with which you are proficient. It deals 2d8 psychic damage on a hit and has the finesse, light, and thrown properties (range 20/60). In addition, when you use the sword to attack a target that is in dim light or darkness, you make the attack roll with advantage." + "\n   " + "If you drop the weapon or throw it, it dissipates at the end of the turn. Thereafter, while the spell persists, you can use a bonus action to cause the sword to reappear in your hand." + AtHigherLevels + "When you cast this spell using a 3rd- or 4th-level spell slot, the damage increases to 3d8. When you cast it using a 5th- or 6th-level spell slot, the damage increases to 4d8. When you cast it using a spell slot of 7th level or higher, the damage increases to 5d8."
+		descriptionFull : "You weave together threads of shadow to create a sword of solidified gloom in your hand. This magic sword lasts until the spell ends. It counts as a simple melee weapon with which you are proficient. It deals 2d8 psychic damage on a hit and has the finesse, light, and thrown properties (range 20/60). In addition, when you use the sword to attack a target that is in dim light or darkness, you make the attack roll with advantage.\n   If you drop the weapon or throw it, it dissipates at the end of the turn. Thereafter, while the spell persists, you can use a bonus action to cause the sword to reappear in your hand." + AtHigherLevels + "When you cast this spell using a 3rd- or 4th-level spell slot, the damage increases to 3d8. When you cast it using a 5th- or 6th-level spell slot, the damage increases to 4d8. When you cast it using a spell slot of 7th level or higher, the damage increases to 5d8."
 	};
 	SpellsList["shadow of moil"] = {
 		name : "Shadow of Moil",
@@ -15193,7 +15230,7 @@ function importData() {
 		compMaterial : "An undead eyeball encased in a gem worth at least 150 gp",
 		duration : "Conc, 1 min",
 		description : "You: heavy obs., resist Radiant dmg; 10-ft rad: 1 step darker, hit vs. you take 2d8 Necro dmg (150gp)",
-		descriptionFull : "Flame-like shadows wreathe your body until the spell ends, causing you to become heavily obscured to others. The shadows turn dim light within 10 feet of you into darkness, and bright light in the same area to dim light." + "\n   " + "Until the spell ends, you have resistance to radiant damage. In addition, whenever a creature within 10 feet of you hits you with an attack, the shadows lash out at that creature, dealing it 2d8 necrotic damage."
+		descriptionFull : "Flame-like shadows wreathe your body until the spell ends, causing you to become heavily obscured to others. The shadows turn dim light within 10 feet of you into darkness, and bright light in the same area to dim light.\n   Until the spell ends, you have resistance to radiant damage. In addition, whenever a creature within 10 feet of you hits you with an attack, the shadows lash out at that creature, dealing it 2d8 necrotic damage."
 	};
 	SpellsList["sickening radiance"] = {
 		name : "Sickening Radiance",
@@ -15208,7 +15245,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Con",
 		description : "30-ft rad; all enter/start turn: save or 4d10 Radiant dmg, 1 level of exhaustion, and emit 5-ft rad light",
-		descriptionFull : "Dim, greenish light spreads within a 30-foot-radius sphere centered on a point you choose within range. The light spreads around corners, and it lasts until the spell ends." + "\n   " + "When a creature moves into the spell's area for the first time on a turn or starts its turn there, that creature must succeed on a Constitution saving throw or take 4d10 radiant damage, and it suffers one level of exhaustion and emits a dim, greenish light in a 5-foot radius. This light makes it impossible for the creature to benefit from being invisible. The light and any levels of exhaustion caused by this spell go away when the spell ends."
+		descriptionFull : "Dim, greenish light spreads within a 30-foot-radius sphere centered on a point you choose within range. The light spreads around corners, and it lasts until the spell ends.\n   When a creature moves into the spell's area for the first time on a turn or starts its turn there, that creature must succeed on a Constitution saving throw or take 4d10 radiant damage, and it suffers one level of exhaustion and emits a dim, greenish light in a 5-foot radius. This light makes it impossible for the creature to benefit from being invisible. The light and any levels of exhaustion caused by this spell go away when the spell ends."
 	};
 	SpellsList["skill empowerment"] = {
 		name : "Skill Empowerment",
@@ -15222,7 +15259,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 h",
 		description : "1 willing creature gains expertise in one skill of my choice that it is proficient with for the duration",
-		descriptionFull : "Your magic deepens a creature's understanding of its own talent. You touch one willing creature and give it expertise in one skill of your choice; until the spell ends, the creature doubles its proficiency bonus for ability checks it makes that use the chosen skill." + "\n   " + "You must choose a skill in which the target is proficient and that isn't already benefiting from an effect, such as Expertise, that doubles its proficiency bonus."
+		descriptionFull : "Your magic deepens a creature's understanding of its own talent. You touch one willing creature and give it expertise in one skill of your choice; until the spell ends, the creature doubles its proficiency bonus for ability checks it makes that use the chosen skill.\n   You must choose a skill in which the target is proficient and that isn't already benefiting from an effect, such as Expertise, that doubles its proficiency bonus."
 	};
 	SpellsList["snare-xgte"] = {
 		name : "Snare",
@@ -15238,7 +15275,7 @@ function importData() {
 		duration : "8 h, till trigger",
 		save : "Dex",
 		description : "5-ft rad trap; Investigation vs spell DC to see; save or restrained 3 ft in the air; save each rnd (5sp)",
-		descriptionFull : "As you cast this spell, you use the rope to create a circle with a 5-foot radius on the ground or the floor. When you finish casting, the rope disappears and the circle becomes a magic trap." + "\n   " + "This trap is nearly invisible, requiring a successful Intelligence (Investigation) check against your spell save DC to be discerned." + "\n   " + "The trap triggers when a Small, Medium, or Large creature moves onto the ground or the floor in the spell's radius. That creature must succeed on a Dexterity saving throw or be magically hoisted into the air, leaving it hanging upside down 3 feet above the ground or the floor. The creature is restrained there until the spell ends." + "\n   " + "A restrained creature can make a Dexterity saving throw at the end of each of its turns, ending the effect on itself on a success. Alternatively, the creature or someone else who can reach it can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect ends." + "\n   " + "After the trap is triggered, the spell ends when no creature is restrained by it."
+		descriptionFull : "As you cast this spell, you use the rope to create a circle with a 5-foot radius on the ground or the floor. When you finish casting, the rope disappears and the circle becomes a magic trap.\n   This trap is nearly invisible, requiring a successful Intelligence (Investigation) check against your spell save DC to be discerned.\n   The trap triggers when a Small, Medium, or Large creature moves onto the ground or the floor in the spell's radius. That creature must succeed on a Dexterity saving throw or be magically hoisted into the air, leaving it hanging upside down 3 feet above the ground or the floor. The creature is restrained there until the spell ends.\n   A restrained creature can make a Dexterity saving throw at the end of each of its turns, ending the effect on itself on a success. Alternatively, the creature or someone else who can reach it can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect ends.\n   After the trap is triggered, the spell ends when no creature is restrained by it."
 	};
 	SpellsList["soul cage"] = {
 		name : "Soul Cage",
@@ -15253,7 +15290,7 @@ function importData() {
 		compMaterial : "A tiny silver cage worth 100 gp",
 		duration : "8 h",
 		description : "As a reaction when humanoid in range dies, you capture their soul in a tiny cage; see book (100gp)",
-		descriptionFull : "This spell snatches the soul of a humanoid as it dies and traps it inside the tiny cage you use for the material component. A stolen soul remains inside the cage until the spell ends or until you destroy the cage, which ends the spell. While you have a soul inside the cage, you can exploit it in any of the ways described below. You can use a trapped soul up to six times. Once you exploit a soul for the sixth time, it is released, and the spell ends. While a soul is trapped, the dead humanoid it came from can't be revived." + "\n   " + toUni("Steal Life") + ": You can use a bonus action to drain vigor from the soul and regain 2d8 hit points." + "\n   " + toUni("Query Soul") + ": You ask the soul a question (no action required) and receive a brief telepathic answer, which you can understand regardless of the language used. The soul knows only what it knew in life, but it must answer you truthfully and to the best of its ability. The answer is no more than a sentence or two and might be cryptic." + "\n   " + toUni("Borrow Experience") + ": You can use a bonus action to bolster yourself with the soul's life experience, making your next attack roll, ability check, or saving throw with advantage. If you don't use this benefit before the start of your next turn, it is lost." + "\n   " + toUni("Eyes of the Dead") + ": You can use an action to name a place the humanoid saw in life, which creates an invisible sensor somewhere in that place if it is on the plane of existence you're currently on. The sensor remains for as long as you concentrate, up to 10 minutes (as if you were concentrating on a spell). You receive visual and auditory information from the sensor as if you were in its space using your senses" + "\n   " + "A creature that can see the sensor (such as one using see invisibility or truesight) sees a translucent image of the tormented humanoid whose soul you caged."
+		descriptionFull : "This spell snatches the soul of a humanoid as it dies and traps it inside the tiny cage you use for the material component. A stolen soul remains inside the cage until the spell ends or until you destroy the cage, which ends the spell. While you have a soul inside the cage, you can exploit it in any of the ways described below. You can use a trapped soul up to six times. Once you exploit a soul for the sixth time, it is released, and the spell ends. While a soul is trapped, the dead humanoid it came from can't be revived.\n   " + toUni("Steal Life") + ": You can use a bonus action to drain vigor from the soul and regain 2d8 hit points.\n   " + toUni("Query Soul") + ": You ask the soul a question (no action required) and receive a brief telepathic answer, which you can understand regardless of the language used. The soul knows only what it knew in life, but it must answer you truthfully and to the best of its ability. The answer is no more than a sentence or two and might be cryptic.\n   " + toUni("Borrow Experience") + ": You can use a bonus action to bolster yourself with the soul's life experience, making your next attack roll, ability check, or saving throw with advantage. If you don't use this benefit before the start of your next turn, it is lost.\n   " + toUni("Eyes of the Dead") + ": You can use an action to name a place the humanoid saw in life, which creates an invisible sensor somewhere in that place if it is on the plane of existence you're currently on. The sensor remains for as long as you concentrate, up to 10 minutes (as if you were concentrating on a spell). You receive visual and auditory information from the sensor as if you were in its space using your senses\n   A creature that can see the sensor (such as one using see invisibility or truesight) sees a translucent image of the tormented humanoid whose soul you caged."
 	};
 	SpellsList["steel wind strike"] = {
 		name : "Steel Wind Strike",
@@ -15268,7 +15305,7 @@ function importData() {
 		compMaterial : "A melee weapon worth at least 1 sp",
 		duration : "Instantaneous",
 		description : "Melee spell attack vs. 5 crea in range; 6d10 Force dmg on hit; after, you teleport next to one target",
-		descriptionFull : "You flourish the weapon used in the casting and then vanish to strike like the wind. Choose up to five creatures you can see within range. Make a melee spell attack against each target. On a hit, a target takes 6d10 force damage." + "\n   " + "You can then teleport to an unoccupied space you can see within 5 feet of one of the targets you hit or missed."
+		descriptionFull : "You flourish the weapon used in the casting and then vanish to strike like the wind. Choose up to five creatures you can see within range. Make a melee spell attack against each target. On a hit, a target takes 6d10 force damage.\n   You can then teleport to an unoccupied space you can see within 5 feet of one of the targets you hit or missed."
 	};
 	SpellsList["summon greater demon"] = {
 		name : "Summon Greater Demon",
@@ -15284,7 +15321,7 @@ function importData() {
 		duration : "Conc, 1 h",
 		save : "Cha",
 		description : "Summon 1 demon of CR 5+1/SL that obeys you; end of each of its turn, save to break free; see book",
-		descriptionFull : "You utter foul words, summoning one demon from the chaos of the Abyss. You choose the demon's type, which must be one of challenge rating 5 or lower, such as a shadow demon or a barlgura. The demon appears in an unoccupied space you can see within range, and the demon disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "Roll initiative for the demon, which has its own turns. When you summon it and on each of your turns thereafter, you can issue a verbal command to it (requiring no action on your part), telling it what it must do on its next turn. If you issue no command, it spends its turn attacking any creature within reach that has attacked it." + "\n   " + "At the end of each of the demon's turns, it makes a Charisma saving throw. The demon has disadvantage on this saving throw if you say its true name. On a failed save, the demon continues to obey you. On a successful save, your control of the demon ends for the rest of the duration, and the demon spends its turns pursuing and attacking the nearest non-demons to the best of its ability. If you stop concentrating on the spell before it reaches its full duration, an uncontrolled demon doesn't disappear for 1d6 rounds if it still has hit points." + "\n   " + "As part of casting the spell, you can form a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. While the spell lasts, the summoned demon can't cross the circle or harm it, and it can't target anyone within it. Using the material component in this manner consumes it when the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the challenge rating increases by 1 for each slot level above 4th."
+		descriptionFull : "You utter foul words, summoning one demon from the chaos of the Abyss. You choose the demon's type, which must be one of challenge rating 5 or lower, such as a shadow demon or a barlgura. The demon appears in an unoccupied space you can see within range, and the demon disappears when it drops to 0 hit points or when the spell ends.\n   Roll initiative for the demon, which has its own turns. When you summon it and on each of your turns thereafter, you can issue a verbal command to it (requiring no action on your part), telling it what it must do on its next turn. If you issue no command, it spends its turn attacking any creature within reach that has attacked it.\n   At the end of each of the demon's turns, it makes a Charisma saving throw. The demon has disadvantage on this saving throw if you say its true name. On a failed save, the demon continues to obey you. On a successful save, your control of the demon ends for the rest of the duration, and the demon spends its turns pursuing and attacking the nearest non-demons to the best of its ability. If you stop concentrating on the spell before it reaches its full duration, an uncontrolled demon doesn't disappear for 1d6 rounds if it still has hit points.\n   As part of casting the spell, you can form a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. While the spell lasts, the summoned demon can't cross the circle or harm it, and it can't target anyone within it. Using the material component in this manner consumes it when the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the challenge rating increases by 1 for each slot level above 4th."
 	};
 	SpellsList["summon lesser demons"] = {
 		name : "Summon Lesser Demons",
@@ -15299,7 +15336,7 @@ function importData() {
 		compMaterial : "A vial of blood from a humanoid killed within the past 24 hours",
 		duration : "Conc, 1 h",
 		description : "Summon up to 8 (16 at SL6, 24 at SL8) CR \u22641 1 demons, DM choice; attack nearest non-demons",
-		descriptionFull : "You utter foul words, summoning demons from the chaos of the Abyss. Roll on the following table to determine what appears." + "\n\n " + toUni("d6") + "\t" + toUni("Demons Summoned") + "\n  1-2\tTwo demons of challenge rating 1 or lower" + "\n  3-4\tFour demons of challenge rating 1/2 or lower" + "\n  5-6\tEight demons of challenge rating 1/4 or lower" + "\n\n   " + "The DM chooses the demons, such as manes or dretches, and you choose the unoccupied spaces you can see within range where they appear. A summoned demon disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The demons are hostile to all creatures, including you. Roll initiative for the summoned demons as a group, which has its own turns. The demons pursue and attack the nearest non-demons to the best of their ability." + "\n   " + "As part of casting the spell, you can form a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. While the spell lasts, the summoned demons can't cross the circle or harm it, and they can't target anyone within it. Using the material component in this manner consumes it when the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 6th or 7th level, you summon twice as many demons. If you cast it using a spell slot of 8th or 9th level, you summon three times as many demons."
+		descriptionFull : "You utter foul words, summoning demons from the chaos of the Abyss. Roll on the following table to determine what appears.\n\n " + toUni("d6") + "\t" + toUni("Demons Summoned") + "\n  1-2\tTwo demons of challenge rating 1 or lower\n  3-4\tFour demons of challenge rating 1/2 or lower\n  5-6\tEight demons of challenge rating 1/4 or lower\n\n   The DM chooses the demons, such as manes or dretches, and you choose the unoccupied spaces you can see within range where they appear. A summoned demon disappears when it drops to 0 hit points or when the spell ends.\n   The demons are hostile to all creatures, including you. Roll initiative for the summoned demons as a group, which has its own turns. The demons pursue and attack the nearest non-demons to the best of their ability.\n   As part of casting the spell, you can form a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. While the spell lasts, the summoned demons can't cross the circle or harm it, and they can't target anyone within it. Using the material component in this manner consumes it when the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 6th or 7th level, you summon twice as many demons. If you cast it using a spell slot of 8th or 9th level, you summon three times as many demons."
 	};
 	SpellsList["synaptic static"] = {
 		name : "Synaptic Static",
@@ -15314,7 +15351,7 @@ function importData() {
 		duration : "Instant, 1 min",
 		save : "Int",
 		description : "20-ft rad all crea Int>2 save or 8d6 Psychic dmg, -1d6 on atks/check/conc. save; save half, no -1d6",
-		descriptionFull : "You choose a point within range and cause psychic energy to explode there. Each creature in a 20-foot-radius sphere centered on that point must make an Intelligence saving throw. A creature with an Intelligence score of 2 or lower can't be affected by this spell. A target takes 8d6 psychic damage on a failed save, or half as much damage on a successful one." + "\n   " + "After a failed save, a target has muddled thoughts for 1 minute. During that time, it rolls a d6 and subtracts the number rolled from all its attack rolls and ability checks, as well as its Constitution saving throws to maintain concentration. The target can make an Intelligence saving throw at the end of each of its turns, ending the effect on itself on a success."
+		descriptionFull : "You choose a point within range and cause psychic energy to explode there. Each creature in a 20-foot-radius sphere centered on that point must make an Intelligence saving throw. A creature with an Intelligence score of 2 or lower can't be affected by this spell. A target takes 8d6 psychic damage on a failed save, or half as much damage on a successful one.\n   After a failed save, a target has muddled thoughts for 1 minute. During that time, it rolls a d6 and subtracts the number rolled from all its attack rolls and ability checks, as well as its Constitution saving throws to maintain concentration. The target can make an Intelligence saving throw at the end of each of its turns, ending the effect on itself on a success."
 	};
 	SpellsList["temple of the gods"] = {
 		name : "Temple of the Gods",
@@ -15329,7 +15366,7 @@ function importData() {
 		compMaterial : "A holy symbol worth at least 5 gp",
 		duration : "24 h",
 		description : "Create a temple 120 ft on a side to the deity of a holy symbol used; see book for effects",
-		descriptionFull : "You cause a temple to shimmer into existence on ground you can see within range. The temple must fit within an unoccupied cube of space, up to 120 feet on each side. The temple remains until the spell ends. It is dedicated to whatever god, pantheon, or philosophy is represented by the holy symbol used in the casting." + "\n   " + "You make all decisions about the temple's appearance. The interior is enclosed by a floor, walls, and a roof, with one door granting access to the interior and as many windows as you wish. Only you and any creatures you designate when you cast the spell can open or close the door." + "\n   " + "The temple's interior is an open space with an idol or altar at one end. You decide whether the temple is illuminated and whether that illumination is bright light or dim light. The smell of burning incense fills the air within, and the temperature is mild." + "\n   " + "The temple opposes types of creatures you choose when you cast this spell. Choose one or more of the following: celestials, elementals, fey, fiends, or undead. If a creature of the chosen type attempts to enter the temple, that creature must make a Charisma saving throw. On a failed save, it can't enter the temple for 24 hours. Even if the creature can enter the temple, the magic there hinders it; whenever it makes an attack roll, an ability check, or a saving throw inside the temple, it must roll a d4 and subtract the number rolled from the d20 roll." + "\n   " + "In addition, the sensors created by divination spells can't appear inside the temple, and creatures within can't be targeted by divination spells." + "\n   " + "Finally, whenever any creature in the temple regains hit points from a spell of 1st level or higher, the creature regains additional hit points equal to your Wisdom modifier (minimum 1 hit point)." + "\n   " + "The temple is made from opaque magical force that extends into the Ethereal Plane, thus blocking ethereal travel into the temple's interior. Nothing can physically pass through the temple's exterior. It can't be dispelled by dispel magic, and antimagic field has no effect on it. A disintegrate spell destroys the temple instantly." + "\n   " + "Casting this spell on the same spot once every 7 days for a year makes this effect permanent."
+		descriptionFull : "You cause a temple to shimmer into existence on ground you can see within range. The temple must fit within an unoccupied cube of space, up to 120 feet on each side. The temple remains until the spell ends. It is dedicated to whatever god, pantheon, or philosophy is represented by the holy symbol used in the casting.\n   You make all decisions about the temple's appearance. The interior is enclosed by a floor, walls, and a roof, with one door granting access to the interior and as many windows as you wish. Only you and any creatures you designate when you cast the spell can open or close the door.\n   The temple's interior is an open space with an idol or altar at one end. You decide whether the temple is illuminated and whether that illumination is bright light or dim light. The smell of burning incense fills the air within, and the temperature is mild.\n   The temple opposes types of creatures you choose when you cast this spell. Choose one or more of the following: celestials, elementals, fey, fiends, or undead. If a creature of the chosen type attempts to enter the temple, that creature must make a Charisma saving throw. On a failed save, it can't enter the temple for 24 hours. Even if the creature can enter the temple, the magic there hinders it; whenever it makes an attack roll, an ability check, or a saving throw inside the temple, it must roll a d4 and subtract the number rolled from the d20 roll.\n   In addition, the sensors created by divination spells can't appear inside the temple, and creatures within can't be targeted by divination spells.\n   Finally, whenever any creature in the temple regains hit points from a spell of 1st level or higher, the creature regains additional hit points equal to your Wisdom modifier (minimum 1 hit point).\n   The temple is made from opaque magical force that extends into the Ethereal Plane, thus blocking ethereal travel into the temple's interior. Nothing can physically pass through the temple's exterior. It can't be dispelled by dispel magic, and antimagic field has no effect on it. A disintegrate spell destroys the temple instantly.\n   Casting this spell on the same spot once every 7 days for a year makes this effect permanent."
 	};
 	SpellsList["tenser's transformation"] = {
 		name : "Tenser's Transformation",
@@ -15344,7 +15381,7 @@ function importData() {
 		compMaterial : "A few hairs from a bull",
 		duration : "Conc, 10 min",
 		description : "50 temp HP; prof Str/Con save, all wea/arm; extra atk; adv., +1d12 Force dmg on wea atks; no spellc.",
-		descriptionFull : "You endow yourself with endurance and martial prowess fueled by magic. Until the spell ends, you can't cast spells, and you gain the following benefits:" + "\n \u2022 " + "You gain 50 temporary hit points. If any of these remain when the spell ends, they are lost." + "\n \u2022 " + "You have advantage on attack rolls that you make with simple and martial weapons." + "\n \u2022 " + "When you hit a target with a weapon attack, that target takes an extra 2d12 force damage." + "\n \u2022 " + "You have proficiency with all armor, shields, simple weapons, and martial weapons." + "\n \u2022 " + "You have proficiency in Strength and Constitution saving throws." + "\n \u2022 " + "You can attack twice, instead of once, when you take the Attack action on your turn. You ignore this benefit if you already have a feature, like Extra Attack, that gives you extra attacks." + "\n   " + "Immediately after the spell ends, you must succeed on a DC 15 Constitution saving throw or suffer one level of exhaustion."
+		descriptionFull : "You endow yourself with endurance and martial prowess fueled by magic. Until the spell ends, you can't cast spells, and you gain the following benefits:\n \u2022 You gain 50 temporary hit points. If any of these remain when the spell ends, they are lost.\n \u2022 You have advantage on attack rolls that you make with simple and martial weapons.\n \u2022 When you hit a target with a weapon attack, that target takes an extra 2d12 force damage.\n \u2022 You have proficiency with all armor, shields, simple weapons, and martial weapons.\n \u2022 You have proficiency in Strength and Constitution saving throws.\n \u2022 You can attack twice, instead of once, when you take the Attack action on your turn. You ignore this benefit if you already have a feature, like Extra Attack, that gives you extra attacks.\n   Immediately after the spell ends, you must succeed on a DC 15 Constitution saving throw or suffer one level of exhaustion."
 	};
 	SpellsList["thunder step"] = {
 		name : "Thunder Step",
@@ -15359,7 +15396,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "You + willing crea teleport 90 ft; all crea in 10 ft of left spot 3d10+1d10/SL Thunder dmg; save half",
-		descriptionFull : "You teleport yourself to an unoccupied space you can see within range. Immediately after you disappear, a thunderous boom sounds, and each creature within 10 feet of the space you left must make a Constitution saving throw, taking 3d10 thunder damage on a failed save, or half as much damage on a successful one. The thunder can be heard from up to 300 feet away." + "\n   " + "You can bring along objects as long as their weight doesn't exceed what you can carry. You can also teleport one willing creature of your size or smaller who is carrying gear up to its carrying capacity. The creature must be within 5 feet of you when you cast this spell, and there must be an unoccupied space within 5 feet of your destination space for the creature to appear in; otherwise, the creature is left behind." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d10 for each slot level above 3rd."
+		descriptionFull : "You teleport yourself to an unoccupied space you can see within range. Immediately after you disappear, a thunderous boom sounds, and each creature within 10 feet of the space you left must make a Constitution saving throw, taking 3d10 thunder damage on a failed save, or half as much damage on a successful one. The thunder can be heard from up to 300 feet away.\n   You can bring along objects as long as their weight doesn't exceed what you can carry. You can also teleport one willing creature of your size or smaller who is carrying gear up to its carrying capacity. The creature must be within 5 feet of you when you cast this spell, and there must be an unoccupied space within 5 feet of your destination space for the creature to appear in; otherwise, the creature is left behind." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d10 for each slot level above 3rd."
 	};
 	SpellsList["tiny servant"] = {
 		name : "Tiny Servant",
@@ -15373,7 +15410,7 @@ function importData() {
 		components : "V,S",
 		duration : "8 h",
 		description : "Animate 1+2/SL Tiny, nonmagical, unattended obj as tiny servants; bns a to command telepathically",
-		descriptionFull : "You touch one Tiny, nonmagical object that isn't attached to another object or a surface and isn't being carried by another creature. The target animates and sprouts little arms and legs, becoming a creature under your control until the spell ends or the creature drops to 0 hit points. See the Tiny Servant stat block for its statistics." + "\n   " + "As a bonus action, you can mentally command the creature if it is within 120 feet of you. (If you control multiple creatures with this spell, you can command any or all of them at the same time, issuing the same command to each one.) You decide what action the creature will take and where it will move during its next turn, or you can issue a simple, general command, such as to fetch a key, stand watch, or stack some books. If you issue no commands, the servant does nothing other than defend itself against hostile creatures. Once given an order, the servant continues to follow that order until its task is complete." + "\n   " + "When the creature drops to 0 hit points, it reverts to its original form, and any remaining damage carries over to that form." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, you can animate two additional objects for each slot level above 3rd."
+		descriptionFull : "You touch one Tiny, nonmagical object that isn't attached to another object or a surface and isn't being carried by another creature. The target animates and sprouts little arms and legs, becoming a creature under your control until the spell ends or the creature drops to 0 hit points. See the Tiny Servant stat block for its statistics.\n   As a bonus action, you can mentally command the creature if it is within 120 feet of you. (If you control multiple creatures with this spell, you can command any or all of them at the same time, issuing the same command to each one.) You decide what action the creature will take and where it will move during its next turn, or you can issue a simple, general command, such as to fetch a key, stand watch, or stack some books. If you issue no commands, the servant does nothing other than defend itself against hostile creatures. Once given an order, the servant continues to follow that order until its task is complete.\n   When the creature drops to 0 hit points, it reverts to its original form, and any remaining damage carries over to that form." + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, you can animate two additional objects for each slot level above 3rd."
 	};
 	SpellsList["toll the dead-xgte"] = {
 		name : "Toll the Dead",
@@ -15388,7 +15425,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Wis",
 		description : "1 crea save or 1d12 Necrotic damage (only 1d8 if at full hp); +1d12/+1d8 at CL 5, 11, and 17",
-		descriptionFull : "You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage." + "\n   " + "The spell's damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12)."
+		descriptionFull : "You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage.\n   The spell's damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12)."
 	};
 	SpellsList["wall of light"] = {
 		name : "Wall of Light",
@@ -15405,7 +15442,7 @@ function importData() {
 		save: "Con",
 		description : "60\u00D75\u00D710ft (l\u00D7w\u00D7h) 4d8+1d8/SL Radiant dmg & blind; save half, not blind; 1 a rngd spell atk; see B",
 		descriptionMetric : "18\u00D71,5\u00D73m (l\u00D7w\u00D7h) 4d8+1d8/SL Radiant dmg & blind; save half, not blind; 1 a rngd spell atk; see B",
-		descriptionFull : "A shimmering wall of bright light appears at a point you choose within range. The wall appears in any orientation you choose: horizontally, vertically, or diagonally. It can be free floating, or it can rest on a solid surface. The wall can be up to 60 feet long, 10 feet high, and 5 feet thick. The wall blocks line of sight, but creatures and objects can pass through it. It emits bright light out to 120 feet and dim light for an additional 120 feet." + "\n   " + "When the wall appears, each creature in its area must make a Constitution saving throw. On a failed save, a creature takes 4d8 radiant damage, and it is blinded for 1 minute. On a successful save, it takes half as much damage and isn't blinded. A blinded creature can make a Constitution saving throw at the end of each of its turns, ending the effect on itself on a success." + "\n   " + "A creature that ends its turn in the wall's area takes 4d8 radiant damage." + "\n   " + "Until the spell ends, you can use an action to launch a beam of radiance from the wall at one creature you can see within 60 feet of it. Make a ranged spell attack. On a hit, the target takes 4d8 radiant damage. Whether you hit or miss, reduce the length of the wall by 10 feet. If the wall's length drops to 0 feet, the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th."
+		descriptionFull : "A shimmering wall of bright light appears at a point you choose within range. The wall appears in any orientation you choose: horizontally, vertically, or diagonally. It can be free floating, or it can rest on a solid surface. The wall can be up to 60 feet long, 10 feet high, and 5 feet thick. The wall blocks line of sight, but creatures and objects can pass through it. It emits bright light out to 120 feet and dim light for an additional 120 feet.\n   When the wall appears, each creature in its area must make a Constitution saving throw. On a failed save, a creature takes 4d8 radiant damage, and it is blinded for 1 minute. On a successful save, it takes half as much damage and isn't blinded. A blinded creature can make a Constitution saving throw at the end of each of its turns, ending the effect on itself on a success.\n   A creature that ends its turn in the wall's area takes 4d8 radiant damage.\n   Until the spell ends, you can use an action to launch a beam of radiance from the wall at one creature you can see within 60 feet of it. Make a ranged spell attack. On a hit, the target takes 4d8 radiant damage. Whether you hit or miss, reduce the length of the wall by 10 feet. If the wall's length drops to 0 feet, the spell ends." + AtHigherLevels + "When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d8 for each slot level above 5th."
 	};
 	SpellsList["word of radiance"] = {
 		name : "Word of Radiance",
@@ -15421,7 +15458,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "Any crea within range save or 1d6 Radiant damage; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You utter a divine word, and burning radiance erupts from you. Each creature of your choice that you can see within range must succeed on a Constitution saving throw or take 1d6 radiant damage." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You utter a divine word, and burning radiance erupts from you. Each creature of your choice that you can see within range must succeed on a Constitution saving throw or take 1d6 radiant damage.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["wrath of nature"] = {
 		name : "Wrath of Nature",
@@ -15435,7 +15472,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 min",
 		description : "60-ft cu dif. ter., tree: Dex or 4d6 Slash. dmg, root: Str or restr., rock: rngd atk 3d8 Bludg. dmg; see B ",
-		descriptionFull : "You call out to the spirits of nature to rouse them against your enemies. Choose a point you can see within range. The spirits cause trees, rocks, and grasses in a 60-foot cube centered on that point to become animated until the spell ends." + "\n   " + toUni("Grasses and Undergrowth") + ": Any area of ground in the cube that is covered by grass or undergrowth is difficult terrain for your enemies." + "\n   " + toUni("Trees") + ": At the start of each of your turns, each of your enemies within 10 feet of any tree in the cube must succeed on a Dexterity saving throw or take 4d6 slashing damage from whipping branches." + "\n   " + toUni("Roots and Vines") + ": At the end of each of your turns, one creature of your choice that is on the ground in the cube must succeed on a Strength saving throw or become restrained until the spell ends. A restrained creature can use an action to make a Strength (Athletics) check against your spell save DC, ending the effect on itself on a success." + "\n   " + toUni("Rocks") + ": As a bonus action on your turn, you can cause a loose rock in the cube to launch at a creature you can see in the cube. Make a ranged spell attack against the target. On a hit, the target takes 3d8 nonmagical bludgeoning damage, and it must succeed on a Strength saving throw or fall prone."
+		descriptionFull : "You call out to the spirits of nature to rouse them against your enemies. Choose a point you can see within range. The spirits cause trees, rocks, and grasses in a 60-foot cube centered on that point to become animated until the spell ends.\n   " + toUni("Grasses and Undergrowth") + ": Any area of ground in the cube that is covered by grass or undergrowth is difficult terrain for your enemies.\n   " + toUni("Trees") + ": At the start of each of your turns, each of your enemies within 10 feet of any tree in the cube must succeed on a Dexterity saving throw or take 4d6 slashing damage from whipping branches.\n   " + toUni("Roots and Vines") + ": At the end of each of your turns, one creature of your choice that is on the ground in the cube must succeed on a Strength saving throw or become restrained until the spell ends. A restrained creature can use an action to make a Strength (Athletics) check against your spell save DC, ending the effect on itself on a success.\n   " + toUni("Rocks") + ": As a bonus action on your turn, you can cause a loose rock in the cube to launch at a creature you can see in the cube. Make a ranged spell attack against the target. On a hit, the target takes 3d8 nonmagical bludgeoning damage, and it must succeed on a Strength saving throw or fall prone."
 	};
 	SpellsList["zephyr strike-xgte"] = {
 		name : "Zephyr Strike",
@@ -15449,7 +15486,7 @@ function importData() {
 		components : "V",
 		duration : "Conc, 1 min",
 		description : "Moving doesn't provoke opportunity atks; once: adv. on wea atk, +1d8 Force dmg, +30 ft spd for turn",
-		descriptionFull : "You move like the wind. Until the spell ends, your movement doesn't provoke opportunity attacks." + "\n   " + "Once before the spell ends, you can give yourself advantage on one weapon attack roll on your turn. That attack deals an extra 1d8 force damage on a hit. Whether you hit or miss, your walking speed increases by 30 feet until the end of that turn."
+		descriptionFull : "You move like the wind. Until the spell ends, your movement doesn't provoke opportunity attacks.\n   Once before the spell ends, you can give yourself advantage on one weapon attack roll on your turn. That attack deals an extra 1d8 force damage on a hit. Whether you hit or miss, your walking speed increases by 30 feet until the end of that turn."
 	};
 
 	// Add weapons (attack cantrips)
@@ -16035,34 +16072,34 @@ function importData() {
 				name : "Infuse Potions",
 				source : ["UA:E", 3],
 				minlevel : 2,
-				description : "\n   " + "I can produce magic potions if I spend 10 minutes and expend a spell slot" + "\n   " + "I can not regain the spell slot until the potion is consumed or a week has passed",
+				description : "\n   I can produce magic potions if I spend 10 minutes and expend a spell slot\n   I can not regain the spell slot until the potion is consumed or a week has passed",
 				additional : ["", "3 potions", "3 potions", "3 potions", "3 potions", "3 potions", "3 potions", "3 potions", "3 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions", "4 potions"]
 			},
 			"subclassfeature2.1" : {
 				name : "Infuse Scrolls",
 				source : ["UA:E", 4],
 				minlevel : 2,
-				description : "\n   " + "I can produce a scroll after a short rest if I spend 10 minutes and my Arcane Recovery" + "\n   " + "I subtract the spell's level from the levels worth of slots I regain using Arcane Recovery" + "\n   " + "This reduction applies till the scroll is used and I finish a long rest",
+				description : "\n   I can produce a scroll after a short rest if I spend 10 minutes and my Arcane Recovery\n   I subtract the spell's level from the levels worth of slots I regain using Arcane Recovery\n   This reduction applies till the scroll is used and I finish a long rest",
 				additional : ["", "1 scroll", "1 scroll", "1 scroll", "1 scroll", "1 scroll", "1 scroll", "1 scroll", "1 scroll", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls", "2 scrolls"]
 			},
 			"subclassfeature6" : {
 				name : "Infuse Weapons and Armor",
 				source : ["UA:E", 4],
 				minlevel : 6,
-				description : "\n   " + "I can spend 10 minutes to produce a magic weapon, armor, a shield, or ammunition" + "\n   " + "The item retains its magic for 8 hours and the spell slot I expend is:" + "\n   " + "2nd: +1 ammunition (20 pieces), 3rd: +1 weapon or +1 shield, 4th: +1 armor," + "\n   " + "5th: +2 weapon or +2 ammunition (20 pieces), 6th: +3 armor.",
+				description : "\n   I can spend 10 minutes to produce a magic weapon, armor, a shield, or ammunition\n   The item retains its magic for 8 hours and the spell slot I expend is:\n   2nd: +1 ammunition (20 pieces), 3rd: +1 weapon or +1 shield, 4th: +1 armor,\n   5th: +2 weapon or +2 ammunition (20 pieces), 6th: +3 armor.",
 				additional : ["", "", "", "", "", "1 weapon or armor", "1 weapon or armor", "1 weapon or armor", "1 weapon or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor", "2 weapons or armor"]
 			},
 			"subclassfeature10" : {
 				name : "Superior Artificer",
 				source : ["UA:E", 4],
 				minlevel : 10,
-				description : "\n   " + "I can create one additional scroll, potion, weapon, or armor when I use Infuse"
+				description : "\n   I can create one additional scroll, potion, weapon, or armor when I use Infuse"
 			},
 			"subclassfeature14" : {
 				name : "Master Artificer",
 				source : ["UA:E", 4],
 				minlevel : 14,
-				description : "\n   " + "I can produce a variety of magic items from Tables A and B from the DMG" + "\n   " + "It takes 1 week for such an item and I cannot do it again for a month",
+				description : "\n   I can produce a variety of magic items from Tables A and B from the DMG\n   It takes 1 week for such an item and I cannot do it again for a month",
 				usages : 1,
 				recovery : "Month"
 			}
@@ -16104,7 +16141,7 @@ function importData() {
 					name : "Bonus Proficiencies",
 					source : ["UA:MC", 9],
 					minlevel : 1,
-					description : "\n   " + "I gain proficiency with light armor, medium armor, shields, and simple weapons",
+					description : "\n   I gain proficiency with light armor, medium armor, shields, and simple weapons",
 					armor : [true, true, false, true],
 					weapons : [true, false]
 				},
@@ -16112,14 +16149,14 @@ function importData() {
 					name : "Chosen of the Gods",
 					source : ["UA:MC", 8],
 					minlevel : 1,
-					description : "\n   " + "Choose a Cleric Domain using the \"Choose Feature\" button above" + "\n   " + "I add the chosen domain's spells to my known spells, when they are of a level I can cast" + "\n   " + "These count as sorcerer spells, but do not count against the number of spells I can know",
+					description : "\n   Choose a Cleric Domain using the \"Choose Feature\" button above\n   I add the chosen domain's spells to my known spells, when they are of a level I can cast\n   These count as sorcerer spells, but do not count against the number of spells I can know",
 					choices : []
 				},
 				"subclassfeature14" : {
 					name : "Divine Wings",
 					source : ["UA:MC", 8],
 					minlevel : 14,
-					description : "\n   " + "As a bonus action, I sprout feathered or bat wings from my back unless blocked by armor" + "\n   " + "I gain a fly speed equal to my current speed until I dismiss the wings as a bonus action",
+					description : "\n   As a bonus action, I sprout feathered or bat wings from my back unless blocked by armor\n   I gain a fly speed equal to my current speed until I dismiss the wings as a bonus action",
 					action : ["bonus action", " (start/stop)"],
 					speed : { fly : { spd : "walk", enc : "walk" } }
 				},
@@ -16127,7 +16164,7 @@ function importData() {
 					name : "Power of the Chosen",
 					source : ["UA:MC", 8],
 					minlevel : 18,
-					description : "\n   " + "When I cast a spell I gained from the Chosen of the Gods class feature, I heal myself" + "\n   " + "I regain a number of HP equal to my Charisma modifier (minimum 1) + the spell's level"
+					description : "\n   When I cast a spell I gained from the Chosen of the Gods class feature, I heal myself\n   I regain a number of HP equal to my Charisma modifier (minimum 1) + the spell's level"
 				}
 			}
 		});
@@ -16153,13 +16190,14 @@ function importData() {
 					name : "Chosen of the Gods: " + cDomain.subname,
 					source : dSource,
 					spellcastingExtra : eSpells,
-					description : "\n   " + "I add the " + cDomain.subname.toLowerCase() + " spells to my known spells, if they are of a level I can cast" + "\n   " + "These count as sorcerer spells, but do not count against the number of spells I can know"
+					description : "\n   I add the " + cDomain.subname.toLowerCase() + " spells to my known spells, if they are of a level I can cast\n   These count as sorcerer spells, but do not count against the number of spells I can know"
 				};
 			};
 		};
 	});
 
 	// A version of the ranger, the spell-less ranger
+	console.log(ClassList.ranger);
 	ClassList["spell-less ranger"] = {
 		regExpSearch : /^(?=.*spell.?less)((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name : "Spell-less Ranger",
@@ -16190,7 +16228,7 @@ function importData() {
 				name : "Combat Superiority",
 				source : ["UA:MC", 6],
 				minlevel : 2,
-				description : "\n   " + "I gain a number of superiority dice that I can use to fuel special Maneuvers" + "\n   " + "I regain all superiority dice after a short rest",
+				description : "\n   I gain a number of superiority dice that I can use to fuel special Maneuvers\n   I regain all superiority dice after a short rest",
 				additional : "d8",
 				usages : levels.map( function(n) {
 					return n < 2 ? "" : n < 9 ? 4 : n < 17 ? 5 : 6;
@@ -16201,7 +16239,7 @@ function importData() {
 				name : "Combat Maneuvers",
 				source : ["UA:MC", 6],
 				minlevel : 2,
-				description : "\n   " + "Use the \"Choose Feature\" button above to add a Maneuver to the third page" + "\n   " + "I can use a Maneuver by expending a superiority die (only one Maneuver per attack)",
+				description : "\n   Use the \"Choose Feature\" button above to add a Maneuver to the third page\n   I can use a Maneuver by expending a superiority die (only one Maneuver per attack)",
 				additional : levels.map( function(n) {
 					if (n < 2) return "";
 					return (n < 5 ? 2 : n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6) + " maneuvers known";
@@ -16211,87 +16249,87 @@ function importData() {
 				"commander's strike" : {
 					name : "Commander's Strike",
 					source : ["P", 74],
-					description : "\n   " + "I forgo one attack of my Attack action to use a bonus action to direct an ally I see/hear" + "\n   " + "The ally can use a reaction to make an attack, adding the superiority die to damage",
+					description : "\n   I forgo one attack of my Attack action to use a bonus action to direct an ally I see/hear\n   The ally can use a reaction to make an attack, adding the superiority die to damage",
 					action : ["bonus action", " (with Attack action)"]
 				},
 				"disarming attack" : {
 					name : "Disarming Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Strength save or drops a held object of my choice to its feet"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Strength save or drops a held object of my choice to its feet"
 				},
 				"distracting strike" : {
 					name : "Distracting Strike",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "The next attack of an ally before my next turn has adv. against the creature"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   The next attack of an ally before my next turn has adv. against the creature"
 				},
 				"evasive footwork" : {
 					name : "Evasive Footwork",
 					source : ["P", 74],
-					description : "\n   " + "Use when moving; I add the superiority die to my AC until I stop moving"
+					description : "\n   Use when moving; I add the superiority die to my AC until I stop moving"
 				},
 				"feinting attack" : {
 					name : "Feinting Attack",
 					source : ["P", 74],
-					description : "\n   " + "As a bonus action, I can feint to gain adv. on my next attack against a target within 5 ft" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage",
+					description : "\n   As a bonus action, I can feint to gain adv. on my next attack against a target within 5 ft\n   If the attack hits, I add the superiority die to my attack's damage",
 					action : ["bonus action", ""]
 				},
 				"goading attack" : {
 					name : "Goading Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Wis save or has disadv. vs. other targets until the end of my next turn"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Wis save or has disadv. vs. other targets until the end of my next turn"
 				},
 				"lunging attack" : {
 					name : "Lunging Attack",
 					source : ["P", 74],
-					description : "\n   " + "I can spend a superiority die to increase the reach of a melee weapon attack by 5 ft" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage"
+					description : "\n   I can spend a superiority die to increase the reach of a melee weapon attack by 5 ft\n   If the attack hits, I add the superiority die to my attack's damage"
 				},
 				"maneuvering attack" : {
 					name : "Maneuvering Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Ally can use reaction to move half speed without opportunity attack from the target"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Ally can use reaction to move half speed without opportunity attack from the target"
 				},
 				"menacing attack" : {
 					name : "Menacing Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to my attack's damage" + "\n   " + "Target makes a Wisdom save or is frightened of me until the end of my next turn"
+					description : "\n   Use after hitting a creature; I add the superiority die to my attack's damage\n   Target makes a Wisdom save or is frightened of me until the end of my next turn"
 				},
 				"parry" : {
 					name : "Parry",
 					source : ["P", 74],
-					description : "\n   " + "When damaged in melee, I can use a reaction to reduce it by superiority die + Dex mod",
+					description : "\n   When damaged in melee, I can use a reaction to reduce it by superiority die + Dex mod",
 					action : ["reaction", " (when damaged in melee)"]
 				},
 				"precision attack" : {
 					name : "Precision Attack",
 					source : ["P", 74],
-					description : "\n   " + "I add the superiority die to my attack roll, either before or after rolling"
+					description : "\n   I add the superiority die to my attack roll, either before or after rolling"
 				},
 				"pushing attack" : {
 					name : "Pushing Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to the attack's damage" + "\n   " + "If target is Large or smaller, it must make a Strength save or be pushed up to 15 ft away"
+					description : "\n   Use after hitting a creature; I add the superiority die to the attack's damage\n   If target is Large or smaller, it must make a Strength save or be pushed up to 15 ft away"
 				},
 				"rally" : {
 					name : "Rally",
 					source : ["P", 74],
-					description : "\n   " + "Ally that can see/hear me gets temporary HP equal to superiority die + Charisma mod",
+					description : "\n   Ally that can see/hear me gets temporary HP equal to superiority die + Charisma mod",
 					action : ["bonus action", ""]
 				},
 				"riposte" : {
 					name : "Riposte",
 					source : ["P", 74],
-					description : "\n   " + "When missed in melee, I can use my reaction to make one melee attack vs. the attacker" + "\n   " + "If the attack hits, I add the superiority die to my attack's damage",
+					description : "\n   When missed in melee, I can use my reaction to make one melee attack vs. the attacker\n   If the attack hits, I add the superiority die to my attack's damage",
 					action : ["reaction", " (after missed in melee)"]
 				},
 				"sweeping attack" : {
 					name : "Sweeping Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature and a second creature is within 5 ft of the first" + "\n   " + "If the original attack roll hits this second creature, it takes the superiority die in damage"
+					description : "\n   Use after hitting a creature and a second creature is within 5 ft of the first\n   If the original attack roll hits this second creature, it takes the superiority die in damage"
 				},
 				"trip attack" : {
 					name : "Trip Attack",
 					source : ["P", 74],
-					description : "\n   " + "Use after hitting a creature; I add the superiority die to the attack's damage" + "\n   " + "If target is Large or smaller, it must make a Strength save or be knocked prone"
+					description : "\n   Use after hitting a creature; I add the superiority die to the attack's damage\n   If target is Large or smaller, it must make a Strength save or be knocked prone"
 				}
 			},
 			"fighting style" : ClassList.ranger.features["fighting style"],
@@ -16313,7 +16351,7 @@ function importData() {
 				name : "Primeval Awareness",
 				source : ["UA:MC", 6],
 				minlevel : 3,
-				description : "\n   " + "As an action, I can focus my awareness for 1 min, once per short rest" + "\n   " + "Out to 1 mile (6 in favored terrain), I sense if certain types of creatures are present",
+				description : "\n   As an action, I can focus my awareness for 1 min, once per short rest\n   Out to 1 mile (6 in favored terrain), I sense if certain types of creatures are present",
 				additional : "aber/celest/drag/elem/fey/fie/und",
 				action : ["action", ""],
 				usages : 1,
@@ -16323,7 +16361,7 @@ function importData() {
 				name : "Ranger Archetype",
 				source : ["UA:MC", 6],
 				minlevel : 3,
-				description : "\n   " + "Choose a Ranger Archetype you strive to emulate and put it in the \"Class\" field" + "\n   " + "Choose either Spell-less Beast Master or Spell-less Hunter"
+				description : "\n   Choose a Ranger Archetype you strive to emulate and put it in the \"Class\" field\n   Choose either Spell-less Beast Master or Spell-less Hunter"
 			},
 			"land's stride" : ClassList.ranger.features["land's stride"],
 			"natural antivenom" : {
@@ -16354,12 +16392,13 @@ function importData() {
 				name : "Relentless",
 				source : ["UA:MC", 7],
 				minlevel : 17,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			},
 			"feral senses" : ClassList.ranger.features["feral senses"],
 			"foe slayer" : ClassList.ranger.features["foe slayer"],
 		}
 	};
+	
 	// Create the Hunter subclass for the spell-less ranger
 	var SLR_Hunter = newObj(ClassSubList["ranger-hunter"]);
 	SLR_Hunter.source = ["UA:MC", 6];
@@ -16376,7 +16415,7 @@ function importData() {
 			name : "Beastly Coordination",
 			source : ["UA:MC", 7],
 			minlevel : 15,
-			description : "\n   " + "My companion can, as a reaction, halve an attack's damage from an attacker that I see"
+			description : "\n   My companion can, as a reaction, halve an attack's damage from an attacker that I see"
 		};
 		AddSubClass("spell-less ranger", "beast master", SLR_Beast_Master);
 	};
@@ -16397,7 +16436,7 @@ function importData() {
 	AddFightingStyle(["fighter", "ranger", "paladin"], "Mariner", {
 		name : "Mariner Fighting Style",
 		source : ["UA:WA", 3],
-		description : "\n   " + "While not wearing heavy armor or using a shield, I gain +1 AC and swim/climb speed" + "\n   " + "The swimming and climbing speeds are equal to my current walking speed",
+		description : "\n   While not wearing heavy armor or using a shield, I gain +1 AC and swim/climb speed\n   The swimming and climbing speeds are equal to my current walking speed",
 		speed : {
 			climb : { spd : "walk", enc : "walk" },
 			swim : { spd : "walk", enc : "walk" }
@@ -16491,7 +16530,7 @@ function importData() {
 				name : "Bonus Cantrip",
 				source: ["UA:MM", 1],
 				minlevel : 1,
-				description : "\n   " + "I learn the On/Off cantrip if I didn't already know it",
+				description : "\n   I learn the On/Off cantrip if I didn't already know it",
 				spellcastingBonus : {
 					name : "Bonus Cantrip (On/Off)",
 					spells : ["on/off"],
@@ -16502,7 +16541,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source: ["UA:MM", 1],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with sidearms and land vehicles",
+				description : "\n   I gain proficiency with sidearms and land vehicles",
 				weapons : [false, false, ["Sidearms"]],
 				toolProfs : ["Hacking tools"]
 			},
@@ -16534,13 +16573,13 @@ function importData() {
 				name : "Block Watch",
 				source: ["UA:MM", 2],
 				minlevel : 6,
-				description : "\n   " + "While in an urban environment, I'm proficient and expertise in Insight and Perception"
+				description : "\n   While in an urban environment, I'm proficient and expertise in Insight and Perception"
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source: ["UA:MM", 2],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 psychic damage";
@@ -16575,7 +16614,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["UA:MM", 2],
 				minlevel : 1,
-				description : "\n   " + "I am proficient with hacking tools and know the On/Off cantrip",
+				description : "\n   I am proficient with hacking tools and know the On/Off cantrip",
 				toolProfs : ["Hacking tools"],
 				spellcastingBonus : {
 					name : "Bonus Cantrip (On/Off)",
@@ -16647,7 +16686,7 @@ function importData() {
 				name: "Bonus Proficiencies",
 				source: ["UA:MM", 3],
 				minlevel: 2,
-				description: "\n   " + "I gain proficiency with sidearms and hacking tools",
+				description: "\n   I gain proficiency with sidearms and hacking tools",
 				weapons : [false, false, ["Sidearms"]],
 				toolProfs : ["Hacking tools"]
 			},
@@ -16690,7 +16729,7 @@ function importData() {
 				name: "Chained Device",
 				source: ["UA:MM", 4],
 				minlevel: 14,
-				description: "\n   " + "I can use a held/worn tablet computer to concentrate on a spell I cast instead of me" + "\n   " + "If the device is separated from me, turned off, or broken, the effect is lost",
+				description: "\n   I can use a held/worn tablet computer to concentrate on a spell I cast instead of me\n   If the device is separated from me, turned off, or broken, the effect is lost",
 				recovery: "long rest",
 				usages: 1
 			}
@@ -16741,7 +16780,7 @@ function importData() {
 		components : "V,S",
 		duration : "Instantaneous",
 		description : "Learn up to three facts about surrounding city, out to 1 mile above- or 600 ft underground; see B",
-		descriptionFull : "You briefly become one with the city and gain knowledge of the surrounding area. Aboveground, this spell gives you knowledge of the area within 1 mile of you. In sewers and other underground settings, you gain knowledge of the area within 600 feet of you." + "\n   " + "You instantly gain knowledge of up to three facts of your choice about any of the following subjects as they relate to the area:" + "\n  \u2022 " + "Terrain and bodies of water" + "\n  \u2022 " + "Prevalent buildings, plants, animals, or intelligent creatures" + "\n  \u2022 " + "Powerful (CR 1 or higher) celestials, fey, fiends, elementals, or undead" + "\n  \u2022 " + "Influences from other planes of existence" + "\n  \u2022 " + "Electrical currents, wireless signals, and active transit lines and tracks" + "\n\n   " + "For example, you could determine the location of powerful undead in the area, the location of major sources of electrical power or interference, and the location of any nearby parks."
+		descriptionFull : "You briefly become one with the city and gain knowledge of the surrounding area. Aboveground, this spell gives you knowledge of the area within 1 mile of you. In sewers and other underground settings, you gain knowledge of the area within 600 feet of you.\n   You instantly gain knowledge of up to three facts of your choice about any of the following subjects as they relate to the area:\n  \u2022 Terrain and bodies of water\n  \u2022 Prevalent buildings, plants, animals, or intelligent creatures\n  \u2022 Powerful (CR 1 or higher) celestials, fey, fiends, elementals, or undead\n  \u2022 Influences from other planes of existence\n  \u2022 Electrical currents, wireless signals, and active transit lines and tracks\n\n   For example, you could determine the location of powerful undead in the area, the location of major sources of electrical power or interference, and the location of any nearby parks."
 	};
 	SpellsList["conjure knowbot"] = {
 		name : "Conjure Knowbot",
@@ -16755,7 +16794,7 @@ function importData() {
 		components : "V,S",
 		duration : "10 min",
 		description : "Create bot in touched device; computer checks 1 bns instead of 1 a for me; SL5: 1 h, 1000 ft, see book",
-		descriptionFull : "[Technomagic]\n   You touch a single computerized device or computer system to conjure a knowbot\u2014a partially sentient piece of software imprinted with vestiges of your own skills and computer abilities. For the duration of the spell, you can use a bonus action to have the knowbot execute a computer-related task that would normally require an action. The knowbot makes Intelligence ability checks using your ability score and proficiency bonuses (including your proficiency with hacking tools, if applicable)." + "\n   " + "You have a limited telepathic bond with the knowbot, out to a range of 500 feet from the device or system where the knowbot was conjured. If you move beyond this range, the knowbot disappears in 2d4 rounds, as if the duration of the spell had expired. Moving within range again immediately reestablishes the bond. The knowbot is bound to the system in which it was created, and it stays there until it is dismissed or the spell's duration expires." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the spell's duration increases to 1 hour. Additionally, your telepathic bond with the knowbot is effective out to a range of 1,000 feet, and if you leave the range of the bond, the knowbot continues performing its last directed task until the spell expires."
+		descriptionFull : "[Technomagic]\n   You touch a single computerized device or computer system to conjure a knowbot\u2014a partially sentient piece of software imprinted with vestiges of your own skills and computer abilities. For the duration of the spell, you can use a bonus action to have the knowbot execute a computer-related task that would normally require an action. The knowbot makes Intelligence ability checks using your ability score and proficiency bonuses (including your proficiency with hacking tools, if applicable).\n   You have a limited telepathic bond with the knowbot, out to a range of 500 feet from the device or system where the knowbot was conjured. If you move beyond this range, the knowbot disappears in 2d4 rounds, as if the duration of the spell had expired. Moving within range again immediately reestablishes the bond. The knowbot is bound to the system in which it was created, and it stays there until it is dismissed or the spell's duration expires." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, the spell's duration increases to 1 hour. Additionally, your telepathic bond with the knowbot is effective out to a range of 1,000 feet, and if you leave the range of the bond, the knowbot continues performing its last directed task until the spell expires."
 	};
 	SpellsList["digital phantom"] = {
 		name : "Digital Phantom",
@@ -16784,7 +16823,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 h",
 		description : "Gain services of land spirit-vehicle; expertise, share spells with it; SL3: water, SL5: air, SL7: any; see B",
-		descriptionFull : "You summon a spirit that assumes the form of a nonmilitary land vehicle of your choice, appearing in an unoccupied space within range. The vehicle has the statistics of a normal vehicle of its sort, though it is celestial, fey, or fiendish (your choice) in origin. The physical characteristics of the vehicle reflect its origin to some degree. For example, a fiendish SUV might be jet black in color, with tinted windows and a sinister-looking front grille." + "\n   " + "You have a supernatural bond with the conjured vehicle that allows you to drive beyond your normal ability. While driving the conjured vehicle, you are considered proficient with vehicles of its type, and you add double your proficiency bonus to ability checks related to driving the vehicle. While driving the vehicle, you can make any spell you cast that targets only you also target the vehicle." + "\n   " + "If the vehicle drops to 0 hit points, it disappears, leaving behind no physical form. You can also dismiss the vehicle at any time as an action, causing it to disappear." + "\n   " + "You can't have more than one vehicle bonded by this spell at a time. As an action, you can release the vehicle from its bond at any time, causing it to disappear." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, you can conjure a nonmilitary water vehicle large enough to carry six Medium creatures. When you cast this spell using a spell slot of 5th level or higher, you can conjure a nonmilitary air vehicle large enough to carry ten Medium creatures. When you cast this spell using a spell slot of 7th level or higher, you can conjure any type of vehicle, subject to the DM's approval."
+		descriptionFull : "You summon a spirit that assumes the form of a nonmilitary land vehicle of your choice, appearing in an unoccupied space within range. The vehicle has the statistics of a normal vehicle of its sort, though it is celestial, fey, or fiendish (your choice) in origin. The physical characteristics of the vehicle reflect its origin to some degree. For example, a fiendish SUV might be jet black in color, with tinted windows and a sinister-looking front grille.\n   You have a supernatural bond with the conjured vehicle that allows you to drive beyond your normal ability. While driving the conjured vehicle, you are considered proficient with vehicles of its type, and you add double your proficiency bonus to ability checks related to driving the vehicle. While driving the vehicle, you can make any spell you cast that targets only you also target the vehicle.\n   If the vehicle drops to 0 hit points, it disappears, leaving behind no physical form. You can also dismiss the vehicle at any time as an action, causing it to disappear.\n   You can't have more than one vehicle bonded by this spell at a time. As an action, you can release the vehicle from its bond at any time, causing it to disappear." + AtHigherLevels + "When you cast this spell using a spell slot of 3rd level or higher, you can conjure a nonmilitary water vehicle large enough to carry six Medium creatures. When you cast this spell using a spell slot of 5th level or higher, you can conjure a nonmilitary air vehicle large enough to carry ten Medium creatures. When you cast this spell using a spell slot of 7th level or higher, you can conjure any type of vehicle, subject to the DM's approval."
 	};
 	SpellsList["haywire"] = {
 		name : "Haywire",
@@ -16799,7 +16838,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Wis",
 		description : "10 ft(+5 ft/SL) rad all electronic devices go haywire, see B; for hold devices, crea gets to save",
-		descriptionFull : "[Technomagic]\n   This spell plays havoc with electronic devices, making the use of such devices all but impossible. Each electronic device in a 10-foot-radius sphere centered on a point you choose within range is subject to random behavior while it remains within the area. A device not held by a creature is automatically affected. If an electronic device is held by a creature, that creature must succeed on a Wisdom saving throw or have the device affected by the spell." + "\n   " + "At the start of each of your turns, roll a d6 for each affected device to determine its behavior. Except where otherwise indicated, that behavior lasts until the start of your next turn while this spell is in effect." + "\n\n" + toUni("d10") + "\t" + toUni("Behavior") + "\n  " + "1\tThe device shuts down and must be restarted. Do not roll again for this device until it is restarted.\n2–4\tThe device does not function." + "\n  " + "5\tThe device experiences a power surge, causing an electric shock to the wielder (if any) and one random creature within 5 feet of the device. Each affected creature must make a Dexterity saving throw against your spell save DC, taking 6d6 lightning damage on a failed save, or half as much damage on a successful one." + "\n  " + "6\tThe device is usable as normal.\n" + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the radius of the sphere affected by the spell increases by 5 feet for each slot level above 3rd."
+		descriptionFull : "[Technomagic]\n   This spell plays havoc with electronic devices, making the use of such devices all but impossible. Each electronic device in a 10-foot-radius sphere centered on a point you choose within range is subject to random behavior while it remains within the area. A device not held by a creature is automatically affected. If an electronic device is held by a creature, that creature must succeed on a Wisdom saving throw or have the device affected by the spell.\n   At the start of each of your turns, roll a d6 for each affected device to determine its behavior. Except where otherwise indicated, that behavior lasts until the start of your next turn while this spell is in effect.\n\n" + toUni("d10") + "\t" + toUni("Behavior") + "\n  1\tThe device shuts down and must be restarted. Do not roll again for this device until it is restarted.\n2–4\tThe device does not function.\n  5\tThe device experiences a power surge, causing an electric shock to the wielder (if any) and one random creature within 5 feet of the device. Each affected creature must make a Dexterity saving throw against your spell save DC, taking 6d6 lightning damage on a failed save, or half as much damage on a successful one.\n  6\tThe device is usable as normal.\n" + AtHigherLevels + "When you cast this spell using a spell slot of 4th level or higher, the radius of the sphere affected by the spell increases by 5 feet for each slot level above 3rd."
 	};
 	SpellsList["infallible relay"] = {
 		name : "Infallible Relay",
@@ -16815,7 +16854,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save : "Cha",
 		description : "1 known crea save or has to answer your call from phone within 100 ft of it; it has to save to end call",
-		descriptionFull : "[Technomagic]\n   With this spell, you can target any creature with whom you have spoken previously, as long as the two of you are on the same plane of existence. When you cast the spell, the nearest functioning telephone or similar communications device within 100 feet of the target begins to ring. If there is no suitable device close enough to the target, the spell fails." + "\n   " + "The target must make a successful Charisma saving throw or be compelled to answer your call. Once the connection is established, the call is crystal clear and cannot be dropped until the conversation has ended or the spell's duration ends. You can end the conversation at any time, but a target must succeed on a Charisma saving throw to end the conversation."
+		descriptionFull : "[Technomagic]\n   With this spell, you can target any creature with whom you have spoken previously, as long as the two of you are on the same plane of existence. When you cast the spell, the nearest functioning telephone or similar communications device within 100 feet of the target begins to ring. If there is no suitable device close enough to the target, the spell fails.\n   The target must make a successful Charisma saving throw or be compelled to answer your call. Once the connection is established, the call is crystal clear and cannot be dropped until the conversation has ended or the spell's duration ends. You can end the conversation at any time, but a target must succeed on a Charisma saving throw to end the conversation."
 	};
 	SpellsList["invisibility to cameras"] = {
 		name : "Invisibility to Cameras",
@@ -16902,7 +16941,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 1 h",
 		description : "1 crea not slowed by mundane delays, disadv on opportunity attacks to it, adv to Stealth and driving",
-		descriptionFull : "The creature you touch feels reality subtly shifted to its favor while this spell is in effect." + "\n   " + "The target isn't inconvenienced by mundane delays of any sort. Traffic lights are always green, there's always a waiting elevator, and a taxi is always around the corner. The target can run at full speed through dense crowds, and attacks of opportunity provoked by the target's movement are made with disadvantage." + "\n   " + "Synchronicity grants advantage to Dexterity (Stealth) checks, since the target always finds a handy piece of cover available. Additionally, the target has advantage on all ability checks made to drive a vehicle." + "\n   " + "In the event that two or more creatures under the effect of synchronicity are attempting to avoid being inconvenienced by each other, the creatures engage in a contest of Charisma each time the effects of the spells would oppose each other."
+		descriptionFull : "The creature you touch feels reality subtly shifted to its favor while this spell is in effect.\n   The target isn't inconvenienced by mundane delays of any sort. Traffic lights are always green, there's always a waiting elevator, and a taxi is always around the corner. The target can run at full speed through dense crowds, and attacks of opportunity provoked by the target's movement are made with disadvantage.\n   Synchronicity grants advantage to Dexterity (Stealth) checks, since the target always finds a handy piece of cover available. Additionally, the target has advantage on all ability checks made to drive a vehicle.\n   In the event that two or more creatures under the effect of synchronicity are attempting to avoid being inconvenienced by each other, the creatures engage in a contest of Charisma each time the effects of the spells would oppose each other."
 	};
 	SpellsList["system backdoor"] = {
 		name : "System Backdoor",
@@ -16917,7 +16956,7 @@ function importData() {
 		compMaterial : "Hacking tools",
 		duration : "Conc, 1 h",
 		description : "Gain admin access to 1 system; defeats 3rd or lower technomancy spells; SL5+: defeats same or lower",
-		descriptionFull : "[Technomagic]\n   This spell allows you to bypass system security in order to create a secure login on a foreign system. The login you create allows you administrator-level privileges in any computer system not enhanced through technomagic. The login defeats any technomagic spells of 3rd level or lower." + "\n   " + "Once the duration of the spell expires, the login and all privileges are wiped from the system." + "\n   " + "System logs still show the activity of the user, but the user identification cannot be found or traced." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, you are able to bypass technomagic spells if the spell's level is equal to or less than the level of the spell slot you used."
+		descriptionFull : "[Technomagic]\n   This spell allows you to bypass system security in order to create a secure login on a foreign system. The login you create allows you administrator-level privileges in any computer system not enhanced through technomagic. The login defeats any technomagic spells of 3rd level or lower.\n   Once the duration of the spell expires, the login and all privileges are wiped from the system.\n   System logs still show the activity of the user, but the user identification cannot be found or traced." + AtHigherLevels + "When you cast this spell using a spell slot of 5th level or higher, you are able to bypass technomagic spells if the spell's level is equal to or less than the level of the spell slot you used."
 	};
 	// This code was contributed by Lewis Henderson
 	//
@@ -17021,7 +17060,7 @@ function importData() {
 				name : "Guardian's Shroud",
 				source : ["UA:R", 4],
 				minlevel : 3,
-				description :"\n   " + "When I call my spirit animal, I grant me or an ally I can see 2d6 + Wis mod temp HP"
+				description :"\n   When I call my spirit animal, I grant me or an ally I can see 2d6 + Wis mod temp HP"
 			}
 		}
 	};
@@ -17241,7 +17280,7 @@ function importData() {
 				name : "Runic Magic",
 				source : ["UA:PCRM", 3],
 				minlevel : 1,
-				description : "\n   " + "I obtain spell slots as if gaining a level in a full spellcasting class, but don't learn spells"
+				description : "\n   I obtain spell slots as if gaining a level in a full spellcasting class, but don't learn spells"
 			},
 			"runic discovery" : {
 				name : "Runic Discovery",
@@ -17269,7 +17308,7 @@ function importData() {
 				name : "Rune Mastery",
 				source : ["UA:PCRM", 3],
 				minlevel : 5,
-				description : "\n   " + "One rune I'm attuned to doesn't count toward the limit of magic items I can attune to"
+				description : "\n   One rune I'm attuned to doesn't count toward the limit of magic items I can attune to"
 			}
 		}
 	};
@@ -17290,7 +17329,7 @@ function importData() {
 	AddFightingStyle(["fighter", "ranger", "paladin"], "Close Quarters Shooter", {
 		name : "Close Quarters Shooting Fighting Style",
 		source : ["UA:LDU", 1],
-		description : "\n   " + "+1 bonus to attack rolls I make with ranged attacks" + "\n   " + "I don't have disadvantage when making a ranged attack while within 5 ft of a hostile" + "\n   " + "My ranged attacks ignore half and three-quarters cover against targets within 30 ft",
+		description : "\n   +1 bonus to attack rolls I make with ranged attacks\n   I don't have disadvantage when making a ranged attack while within 5 ft of a hostile\n   My ranged attacks ignore half and three-quarters cover against targets within 30 ft",
 		calcChanges : {
 			atkCalc : ["if (isRangedWeapon) {output.extraHit += 1; }; ", "My ranged weapons get a +1 bonus on the To Hit."]
 		}
@@ -17298,7 +17337,7 @@ function importData() {
 	AddFightingStyle(["fighter", "ranger", "paladin"], "Tunnel Fighter", {
 		name : "Tunnel Fighting Style",
 		source : ["UA:LDU", 1],
-		description : "\n   " + "As a bonus action, I enter a defensive stance that lasts until the start of my next turn" + "\n   " + "While I'm in this defensive stance I gain the following two benefits:" + "\n    - " + "I can make opportunity attacks without using my reaction" + "\n    - " + "I can make a melee attack as a reaction if a hostile moves >5 ft while in my reach",
+		description : "\n   As a bonus action, I enter a defensive stance that lasts until the start of my next turn\n   While I'm in this defensive stance I gain the following two benefits:\n    - I can make opportunity attacks without using my reaction\n    - I can make a melee attack as a reaction if a hostile moves >5 ft while in my reach",
 		action : ["bonus action", ""]
 	});
 
@@ -17313,14 +17352,14 @@ function importData() {
 				name : "Underdark Scout",
 				source : ["UA:LDU", 1],
 				minlevel : 3,
-				description : "\n   " + "In the first turn of combat I have +10 ft speed and +1 attack with the Attack action" + "\n   " + "All turns after that, I can take the Hide action as a bonus action at the end of my turn",
+				description : "\n   In the first turn of combat I have +10 ft speed and +1 attack with the Attack action\n   All turns after that, I can take the Hide action as a bonus action at the end of my turn",
 				action : ["bonus action", " (Hide at end of turn)"]
 			},
 			"subclassfeature3.1" : {
 				name : "Deep Stalker Magic",
 				source : ["UA:LDU", 2],
 				minlevel : 3,
-				description : "\n   " + "I have 90 ft darkvision and add a spell to my known spells at level 3, 5, 9, 13, and 15" + "\n   " + "These count as ranger spells, but do not count against the number of spells I can know",
+				description : "\n   I have 90 ft darkvision and add a spell to my known spells at level 3, 5, 9, 13, and 15\n   These count as ranger spells, but do not count against the number of spells I can know",
 				spellcastingExtra : ["disguise self", "rope trick", "glyph of warding", "greater invisibility", "seeming"].concat(new Array(95)).concat("AddToKnown"),
 				vision : [["Darkvision", 90]]
 			},
@@ -17328,20 +17367,20 @@ function importData() {
 				name : "Iron Mind",
 				source : ["UA:LDU", 2],
 				minlevel : 7,
-				description : "\n   " + "I am proficient with Wisdom saving throws",
+				description : "\n   I am proficient with Wisdom saving throws",
 				saves : ["Wis"]
 			},
 			"subclassfeature11" : {
 				name : "Stalker's Flurry",
 				source : ["UA:LDU", 2],
 				minlevel : 11,
-				description : "\n   " + "Once during my turn when I miss an attack, I can immediately make an extra attack"
+				description : "\n   Once during my turn when I miss an attack, I can immediately make an extra attack"
 			},
 			"subclassfeature15" : {
 				name : "Stalker's Dodge",
 				source : ["UA:LDU", 2],
 				minlevel : 15,
-				description : "\n   " + "As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
+				description : "\n   As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
 				action : ["reaction", " (when attacked)"]
 			}
 		}
@@ -17358,7 +17397,7 @@ function importData() {
 				name : "Eyes of the Dark",
 				source : ["UA:LDU", 2],
 				minlevel : 1,
-				description : "\n   " + "I have 60 ft darkvision and can cast Darkness by spending 1 sorcery point" + "\n   " + "I can see through any darkness spell I cast using this ability",
+				description : "\n   I have 60 ft darkvision and can cast Darkness by spending 1 sorcery point\n   I can see through any darkness spell I cast using this ability",
 				additional : "1 sorcery point",
 				vision : [["Darkvision", 60]],
 				action : ["action", " (1 sorcery point)"],
@@ -17373,21 +17412,21 @@ function importData() {
 				name : "Strength of the Grave",
 				source : ["UA:LDU", 2],
 				minlevel : 1,
-				description : "\n   " + "When damage reduces me to 0 HP, that isn't radiant damage or a critical hit," + "\n   " + "I can make a Constitution save (DC 5 + damage taken) to drop to 1 HP instead"
+				description : "\n   When damage reduces me to 0 HP, that isn't radiant damage or a critical hit,\n   I can make a Constitution save (DC 5 + damage taken) to drop to 1 HP instead"
 			},
 			"subclassfeature6" : {
 				name : "Hound of Ill Omen",
 				source : ["UA:LDU", 2],
 				minlevel : 6,
 				additional : "3 sorcery points",
-				description : "\n   " + "As a bonus action, I target a creature I can see and summon a hound within 30 ft of it" + "\n   " + "The hound has all the stats of a medium sized dire wolf with the following exceptions:" + "\n    - " + "At the start of its turn, it automatically knows where the target is" + "\n    - " + "It can only move towards and make (opportunity) attack against the target" + "\n    - " + "It can move through other creatures and objects as if they were difficult terrain" + "\n    - " + "It takes 5 force damage if it ends its turn inside an object" + "\n   " + "The target has disadvantage on saves vs. my spells while the hound is within 5 ft of it",
+				description : "\n   As a bonus action, I target a creature I can see and summon a hound within 30 ft of it\n   The hound has all the stats of a medium sized dire wolf with the following exceptions:\n    - At the start of its turn, it automatically knows where the target is\n    - It can only move towards and make (opportunity) attack against the target\n    - It can move through other creatures and objects as if they were difficult terrain\n    - It takes 5 force damage if it ends its turn inside an object\n   The target has disadvantage on saves vs. my spells while the hound is within 5 ft of it",
 				action : ["bonus action", " (3 sorcery points)"]
 			},
 			"subclassfeature14" : {
 				name : "Shadow Walk",
 				source : ["UA:LDU", 3],
 				minlevel : 14,
-				description : "\n   " + "As a bonus action when I'm in dim light or darkness, I can teleport up to 120 ft" + "\n   " + "The destination has to be unoccupied, within line of sight, and in dim light or darkness",
+				description : "\n   As a bonus action when I'm in dim light or darkness, I can teleport up to 120 ft\n   The destination has to be unoccupied, within line of sight, and in dim light or darkness",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature18" : {
@@ -17395,7 +17434,7 @@ function importData() {
 				source : ["UA:LDU", 3],
 				minlevel : 18,
 				additional : "3 sorcery points",
-				description : "\n   " + "As a bonus action, I transform into a shadow form for 1 minute" + "\n   " + "While transformed, I have resistance to all damage types except force damage" + "\n   " + "Also, I can move through other creatures and objects as if they were difficult terrain" + "\n   " + "I take 5 force damage if I end my turn inside an object",
+				description : "\n   As a bonus action, I transform into a shadow form for 1 minute\n   While transformed, I have resistance to all damage types except force damage\n   Also, I can move through other creatures and objects as if they were difficult terrain\n   I take 5 force damage if I end my turn inside an object",
 				action : ["bonus action", " (3 sorcery points)"]
 			}
 		}
@@ -17412,7 +17451,7 @@ function importData() {
 				name : "Radiant Soul",
 				source : ["UA:LDU", 3],
 				minlevel : 1,
-				description : "\n   " + "I add my Cha modifier to cantrips/spells I cast that deal fire or radiant damage" + "\n   " + "I have resistance to radiant damage and know the Light and Sacred Flame cantrips",
+				description : "\n   I add my Cha modifier to cantrips/spells I cast that deal fire or radiant damage\n   I have resistance to radiant damage and know the Light and Sacred Flame cantrips",
 				spellcastingBonus : [{
 					name : "Radiant Soul",
 					spells : ["light"],
@@ -17431,7 +17470,7 @@ function importData() {
 				name : "Searing Vengeance",
 				source : ["UA:LDU", 3],
 				minlevel : 6,
-				description : "\n   " + "When I would make a death saving throw, I can instead spring back to my feet" + "\n   " + "I immediately stand up and recover HP equal to half my current HP maximum" + "\n   " + "Also, all hostiles within 30 ft of me take 10 + Charisma modifier in radiant damage" + "\n   " + "Damaged creatures are blinded until the end of my next turn",
+				description : "\n   When I would make a death saving throw, I can instead spring back to my feet\n   I immediately stand up and recover HP equal to half my current HP maximum\n   Also, all hostiles within 30 ft of me take 10 + Charisma modifier in radiant damage\n   Damaged creatures are blinded until the end of my next turn",
 				usages : 1,
 				recovery : "long rest"
 			},
@@ -17439,13 +17478,13 @@ function importData() {
 				name : "Radiant Resilience",
 				source : ["UA:LDU", 4],
 				minlevel : 10,
-				description : "\n   " + "When I finish a short or long rest, I and up to five allies gain temporary hit points" + "\n   " + "I get my warlock level + Cha mod, while my allies get half my warlock level + Cha mod"
+				description : "\n   When I finish a short or long rest, I and up to five allies gain temporary hit points\n   I get my warlock level + Cha mod, while my allies get half my warlock level + Cha mod"
 			},
 			"subclassfeature14" : {
 				name : "Healing Light",
 				source : ["UA:LDU", 4],
 				minlevel : 14,
-				description : "\n   " + "As a bonus action, I touch a creature and heal it by expending dice from my pool" + "\n   " + "I subtract the number of d6's used from my pool; I can expend up to 5d6 at a time" + "\n   " + "The target heals HP equal to the roll of the dice; I regain expended uses with a long rest",
+				description : "\n   As a bonus action, I touch a creature and heal it by expending dice from my pool\n   I subtract the number of d6's used from my pool; I can expend up to 5d6 at a time\n   The target heals HP equal to the roll of the dice; I regain expended uses with a long rest",
 				usages : "15d6 per ",
 				usagescalc : "event.value = \"15d6\";",
 				recovery : "long rest",
@@ -17562,7 +17601,7 @@ function importData() {
 		compMaterial : "A vial of blood from an intelligent humanoid killed within the past 24 hours",
 		duration : "Conc, 1 h",
 		description : "Summon 8 (16 at SL6, 32 at SL8) manes/dretches that are hostile to all non-demons, attacking nearest",
-		descriptionFull : "You summon up to a total of eight manes or dretches that appear in unoccupied spaces you can see within range. A manes or dretch disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The demons are hostile to all creatures. Roll initiative for the summoned demons as a group, which has its own turns. The demons attack the nearest non-demons to the best of their ability." + "\n   " + "As part of casting the spell, you can scribe a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. The summoned demons cannot cross the circle or target anyone in it while the spell lasts. Using the material component in this manner consumes it." + AtHigherLevels + "When you cast this spell using a spell slot of 6th or 7th level, you summon sixteen demons. If you cast it using a spell slot of 8th or 9th level, you summon thirty-two demons."
+		descriptionFull : "You summon up to a total of eight manes or dretches that appear in unoccupied spaces you can see within range. A manes or dretch disappears when it drops to 0 hit points or when the spell ends.\n   The demons are hostile to all creatures. Roll initiative for the summoned demons as a group, which has its own turns. The demons attack the nearest non-demons to the best of their ability.\n   As part of casting the spell, you can scribe a circle on the ground with the blood used as a material component. The circle is large enough to encompass your space. The summoned demons cannot cross the circle or target anyone in it while the spell lasts. Using the material component in this manner consumes it." + AtHigherLevels + "When you cast this spell using a spell slot of 6th or 7th level, you summon sixteen demons. If you cast it using a spell slot of 8th or 9th level, you summon thirty-two demons."
 	};
 	SpellsList["conjure barlgura"] = {
 		name : "Conjure Barlgura",
@@ -17576,7 +17615,7 @@ function importData() {
 		components : "V,S",
 		duration : "10 min",
 		description : "Summon a barlgura that is hostile to all non-demons, attacking the nearest",
-		descriptionFull : "You summon a barlgura that appears in an unoccupied space you can see within range. The barlgura disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The barlgura is hostile to all non-demons. Roll initiative for the barlgura, which has its own turns. At the start of its turn, it moves toward and attacks the nearest non-demon it can perceive. If two or more creatures are equally near, it picks one at random. If it cannot see any potential enemies, the barlgura moves in a random direction in search of foes." + "\n   " + "As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned barlgura cannot cross the circle or target anyone in it while the spell lasts."
+		descriptionFull : "You summon a barlgura that appears in an unoccupied space you can see within range. The barlgura disappears when it drops to 0 hit points or when the spell ends.\n   The barlgura is hostile to all non-demons. Roll initiative for the barlgura, which has its own turns. At the start of its turn, it moves toward and attacks the nearest non-demon it can perceive. If two or more creatures are equally near, it picks one at random. If it cannot see any potential enemies, the barlgura moves in a random direction in search of foes.\n   As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned barlgura cannot cross the circle or target anyone in it while the spell lasts."
 	};
 	SpellsList["conjure hezrou"] = {
 		name : "Conjure Hezrou",
@@ -17591,7 +17630,7 @@ function importData() {
 		compMaterial : "Food worth at least 100 gp, which the spell consumes",
 		duration : "Conc, 1 h",
 		description : "Summon a hezrou that I might control as long as there is food; At half HP it leaves, see B (100gp cons.)",
-		descriptionFull : "You summon a hezrou that appears in an unoccupied space you can see within range. The hezrou disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The hezrou's attitude depends on the value of the food used as a material component for this spell. Roll initiative for the hezrou, which has its own turns. At the start of the hezrou's turn, the DM makes a secret Charisma check on your behalf, with a bonus equal to the food's value divided by 20. The check DC starts at 10 and increases by 2 each round. You can issue orders to the hezrou and have it obey you as long as you succeed on the Charisma check." + "\n   " + "If the check fails, the spell no longer requires concentration and the demon is no longer under your control. The hezrou then focuses on devouring any corpses it can see. If there are no such meals at hand, it attacks the nearest creatures and eats anything it kills. If its hit points are reduced to below half its hit point maximum, it returns to the Abyss." + "\n   " + "As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned hezrou cannot cross the circle or target anyone in it while the spell lasts."
+		descriptionFull : "You summon a hezrou that appears in an unoccupied space you can see within range. The hezrou disappears when it drops to 0 hit points or when the spell ends.\n   The hezrou's attitude depends on the value of the food used as a material component for this spell. Roll initiative for the hezrou, which has its own turns. At the start of the hezrou's turn, the DM makes a secret Charisma check on your behalf, with a bonus equal to the food's value divided by 20. The check DC starts at 10 and increases by 2 each round. You can issue orders to the hezrou and have it obey you as long as you succeed on the Charisma check.\n   If the check fails, the spell no longer requires concentration and the demon is no longer under your control. The hezrou then focuses on devouring any corpses it can see. If there are no such meals at hand, it attacks the nearest creatures and eats anything it kills. If its hit points are reduced to below half its hit point maximum, it returns to the Abyss.\n   As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned hezrou cannot cross the circle or target anyone in it while the spell lasts."
 	};
 	SpellsList["conjure shadow demon"] = {
 		name : "Conjure Shadow Demon",
@@ -17606,7 +17645,7 @@ function importData() {
 		compMaterial : "A vial of blood from an intelligent humanoid killed within the past 24 hours",
 		duration : "Conc, 1 h",
 		description : "Summon a shadow demon that I control while not in bright light, can attack, and within 100 ft, see B",
-		descriptionFull : "You summon a shadow demon that appears in an unoccupied space you can see within range. The shadow demon disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "Roll initiative for the shadow demon, which has its own turns. You can issue orders to the shadow demon, and it obeys you as long as it can attack a creature on each of its turns and does not start its turn in an area of bright light. If either of these conditions is not met, the shadow demon immediately makes a Charisma check contested by your Charisma check. If you fail the check, the spell no longer requires concentration and the demon is no longer under your control. The demon automatically succeeds on the check if it is more than 100 feet away from you." + "\n   " + "As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned shadow demon cannot cross the circle or target anyone in it while the spell lasts."
+		descriptionFull : "You summon a shadow demon that appears in an unoccupied space you can see within range. The shadow demon disappears when it drops to 0 hit points or when the spell ends.\n   Roll initiative for the shadow demon, which has its own turns. You can issue orders to the shadow demon, and it obeys you as long as it can attack a creature on each of its turns and does not start its turn in an area of bright light. If either of these conditions is not met, the shadow demon immediately makes a Charisma check contested by your Charisma check. If you fail the check, the spell no longer requires concentration and the demon is no longer under your control. The demon automatically succeeds on the check if it is more than 100 feet away from you.\n   As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned shadow demon cannot cross the circle or target anyone in it while the spell lasts."
 	};
 	SpellsList["conjure vrock"] = {
 		name : "Conjure Vrock",
@@ -17621,7 +17660,7 @@ function importData() {
 		compMaterial : "A gem worth at least 100 gp, which the spell consumes",
 		duration : "Conc, 1 h",
 		description : "Summon a vrock that I might control for some rounds, depending on gem value, see B (100gp cons.)",
-		descriptionFull : "You summon a vrock that appears in an unoccupied space you can see within range. The vrock disappears when it drops to 0 hit points or when the spell ends." + "\n   " + "The vrock's attitude depends on the value of the gem used as a material component for this spell. Roll initiative for the vrock, which has its own turns. At the start of the vrock's turn, the DM makes a secret Charisma check on your behalf, with a bonus equal to the gem's value divided by 20. The check DC starts at 10 and increases by 2 each round. You can issue orders to the vrock and have it obey you as long as you succeed on the Charisma check." + "\n   " + "If the check fails, the spell no longer requires concentration and the vrock is no longer under your control. The vrock takes no actions on its next turn and uses its telepathy to tell any creature it can see that it will fight in exchange for treasure. The creature that gives the vrock the most expensive gem can command it for the next 1d6 rounds. At the end of that time, it offers the bargain again. If no one offers the vrock treasure before its next turn begins, it attacks the nearest creatures for 1d6 rounds before returning to the Abyss." + "\n   " + "As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned vrock cannot cross the circle or target anyone in it while the spell lasts."
+		descriptionFull : "You summon a vrock that appears in an unoccupied space you can see within range. The vrock disappears when it drops to 0 hit points or when the spell ends.\n   The vrock's attitude depends on the value of the gem used as a material component for this spell. Roll initiative for the vrock, which has its own turns. At the start of the vrock's turn, the DM makes a secret Charisma check on your behalf, with a bonus equal to the gem's value divided by 20. The check DC starts at 10 and increases by 2 each round. You can issue orders to the vrock and have it obey you as long as you succeed on the Charisma check.\n   If the check fails, the spell no longer requires concentration and the vrock is no longer under your control. The vrock takes no actions on its next turn and uses its telepathy to tell any creature it can see that it will fight in exchange for treasure. The creature that gives the vrock the most expensive gem can command it for the next 1d6 rounds. At the end of that time, it offers the bargain again. If no one offers the vrock treasure before its next turn begins, it attacks the nearest creatures for 1d6 rounds before returning to the Abyss.\n   As part of casting the spell, you can scribe a circle on the ground using the blood of an intelligent humanoid slain within the past 24 hours. The circle is large enough to encompass your space. The summoned vrock cannot cross the circle or target anyone in it while the spell lasts."
 	};
 	var iFileName = "ua_20160104_Kits-of-Old.js";
 	RequiredSheetVersion(12.999);
@@ -17647,7 +17686,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:KoO", 1],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with medium armor and scimitars",
+				description : "\n   I gain proficiency with medium armor and scimitars",
 				armor : [false, true, false, false],
 				weapons : [false, false, ["scimitar"]]
 			},
@@ -17661,14 +17700,14 @@ function importData() {
 				name : "Blade Flourish",
 				source : ["UA:KoO", 1],
 				minlevel : 3,
-				description : "\n   " + "When I take the Attack action on my turn, I can do one of the following flourishes:" + "\n   " + "I have to use a dagger, longsword, rapier, scimitar, or shortsword while doing this" + "\n    - " + "Defensive Flourish [one Bardic Inspiration die]" + "\n       " + "As a bonus action, I add the die to my AC until the start of my next turn" + "\n    - " + "Trick Shooter's Flourish [one Bardic Inspiration die]" + "\n       " + "As a bonus action with a dagger ranged attack, I add the die to the attack roll" + "\n       " + "If the target is an unattended, inanimate object, the result of the die is doubled" + "\n    - " + "Unnerving Flourish [one Bardic Inspiration die]" + "\n       " + "As a bonus action when reducing a foe to 0 HP with a melee attack, I leave it alive" + "\n       " + "The target stays at 1 HP and is frightened of me for my Cha modifier in minutes" + "\n       " + "It must also make a Cha save at a DC of my spell save + the bardic inspiration die" + "\n       " + "If failed, it answers truthfully any questions I ask and obeys me while frightened",
+				description : "\n   When I take the Attack action on my turn, I can do one of the following flourishes:\n   I have to use a dagger, longsword, rapier, scimitar, or shortsword while doing this\n    - Defensive Flourish [one Bardic Inspiration die]\n       As a bonus action, I add the die to my AC until the start of my next turn\n    - Trick Shooter's Flourish [one Bardic Inspiration die]\n       As a bonus action with a dagger ranged attack, I add the die to the attack roll\n       If the target is an unattended, inanimate object, the result of the die is doubled\n    - Unnerving Flourish [one Bardic Inspiration die]\n       As a bonus action when reducing a foe to 0 HP with a melee attack, I leave it alive\n       The target stays at 1 HP and is frightened of me for my Cha modifier in minutes\n       It must also make a Cha save at a DC of my spell save + the bardic inspiration die\n       If failed, it answers truthfully any questions I ask and obeys me while frightened",
 				action : ["bonus action", " (one inspiration die)"]
 			},
 			"subclassfeature14" : {
 				name : "Battle Magic",
 				source : ["UA:KoO", 2],
 				minlevel : 14,
-				description : "\n   " + "When I use my action to cast a Bard spell, I can make one bonus action weapon attack",
+				description : "\n   When I use my action to cast a Bard spell, I can make one bonus action weapon attack",
 				action : ["bonus action", " (with Bard spell)"]
 			}
 		}
@@ -17682,7 +17721,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:KoO", 2],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with thieves' tools, sleight of hand, and one other skill of my choice",
+				description : "\n   I gain proficiency with thieves' tools, sleight of hand, and one other skill of my choice",
 				skills : ["Sleight of Hand"],
 				skillstxt : "\n\n" + toUni("College of Satire") + ": Thieves' Tools, Sleight of Hand, and any one other skill.",
 				toolProfs : [["Thieves' tools", "Dex"]]
@@ -17691,7 +17730,7 @@ function importData() {
 				name : "Tumbling Fool",
 				source : ["UA:KoO", 2],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I tumble which gives the benefits of the Dash and Disengage actions" + "\n   " + "I also gain a climbing speed at my current speed and half damage from falling",
+				description : "\n   As a bonus action, I tumble which gives the benefits of the Dash and Disengage actions\n   I also gain a climbing speed at my current speed and half damage from falling",
 				action : ["bonus action", ""],
 				speed : { climb : { spd : "walk", enc : "walk" } }
 			},
@@ -17699,7 +17738,7 @@ function importData() {
 				name : "Fool's Insight",
 				source : ["UA:KoO", 2],
 				minlevel : 6,
-				description : "\n   " + "I can cast Detect Thoughts, but on a save the target suffers an embarrassing social gaffe",
+				description : "\n   I can cast Detect Thoughts, but on a save the target suffers an embarrassing social gaffe",
 				usages : "Charisma modifier per ",
 				usagescalc : "event.value = Math.max(1, this.getField(\"Cha Mod\").value);",
 				recovery : "long rest",
@@ -17709,7 +17748,7 @@ function importData() {
 				name : "Fool's Luck",
 				source : ["UA:KoO", 3],
 				minlevel : 14,
-				description : " [one bardic inspiration die]" + "\n   " + "When I fail an ability check, saving throw, or attack roll, I can add one inspiration die" + "\n   " + "If this turns the roll into a success, I have to note down the number rolled" + "\n   " + "I can't use this ability again until the DM subtracts the amount from a check or attack",
+				description : " [one bardic inspiration die]\n   When I fail an ability check, saving throw, or attack roll, I can add one inspiration die\n   If this turns the roll into a success, I have to note down the number rolled\n   I can't use this ability again until the DM subtracts the amount from a check or attack",
 				usages : 1,
 				recovery : "reset"
 			}
@@ -17726,17 +17765,17 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:KoO", 3],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with two skills or one skill and any one tool" + "\n   " + "For skills I can choose from Animal Handling, Insight, Performance, or Persuasion",
+				description : "\n   I gain proficiency with two skills or one skill and any one tool\n   For skills I can choose from Animal Handling, Insight, Performance, or Persuasion",
 				choices : ["1 Skill and 1 Tool proficiencies", "2 Skill proficiencies"],
 				"1 skill and 1 tool proficiencies" : {
 					name : "Bonus Proficiencies",
-					description : "\n   " + "I gain proficiency with one skill and any one tool of my choice" + "\n   " + "For the skill, I can choose Animal Handling, Insight, Performance, or Persuasion",
+					description : "\n   I gain proficiency with one skill and any one tool of my choice\n   For the skill, I can choose Animal Handling, Insight, Performance, or Persuasion",
 					skillstxt : "\n\n" + toUni("Cavalier") + ": Choose one from: Animal Handling, Insight, Performance, or Persuasion.",
 					toolProfs : [["Any tool", 1]]
 				},
 				"2 skill proficiencies" : {
 					name : "Bonus Proficiencies",
-					description : "\n   " + "I gain two skill proficiencies: Animal Handling, Insight, Performance, or Persuasion",
+					description : "\n   I gain two skill proficiencies: Animal Handling, Insight, Performance, or Persuasion",
 					skillstxt : "\n\n" + toUni("Cavalier") + ": Choose two from: Animal Handling, Insight, Performance, or Persuasion."
 				}
 			},
@@ -17744,14 +17783,14 @@ function importData() {
 				name : "Born in the Saddle",
 				source : ["UA:KoO", 3],
 				minlevel : 3,
-				description : "\n   " + "I have advantage on saves to avoid falling off my mount, and land on my feet if I fail" + "\n   " + "Mounting or dismounting a creature costs me only 5 ft of movement instead of half",
+				description : "\n   I have advantage on saves to avoid falling off my mount, and land on my feet if I fail\n   Mounting or dismounting a creature costs me only 5 ft of movement instead of half",
 				savetxt : { adv_vs : ["falling off my mount"] }
 			},
 			"subclassfeature3.2" : {
 				name : "Combat Superiority",
 				source : ["UA:KoO", 3],
 				minlevel : 3,
-				description : "\n   " + "I gain a number of superiority dice that I can use to fuel special maneuvers (see below)" + "\n   " + "I can use only one maneuver per attack; I regain all superiority dice after a short rest" + "\n    - " + "Use after rolling to influence/control an animal; I add the superiority die to the roll" + "\n    - " + "Use after rolling to hit; I add the superiority die to my attack roll" + "\n    - " + "Use on a mount, before rolling to hit with a lance; I add the die to the damage roll" + "\n       " + "Also, the target must make a Str save (DC 8 + Prof + Str mod) or be knocked prone" + "\n    - " + "As a reaction when I'm hit or my mount is hit, I add the superiority die to AC" + "\n       " + "If the attack still hits, I or my mount only take half damage from it",
+				description : "\n   I gain a number of superiority dice that I can use to fuel special maneuvers (see below)\n   I can use only one maneuver per attack; I regain all superiority dice after a short rest\n    - Use after rolling to influence/control an animal; I add the superiority die to the roll\n    - Use after rolling to hit; I add the superiority die to my attack roll\n    - Use on a mount, before rolling to hit with a lance; I add the die to the damage roll\n       Also, the target must make a Str save (DC 8 + Prof + Str mod) or be knocked prone\n    - As a reaction when I'm hit or my mount is hit, I add the superiority die to AC\n       If the attack still hits, I or my mount only take half damage from it",
 				additional : ["", "", "d8", "d8", "d8", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d12", "d12", "d12"],
 				usages : [0, 0, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6],
 				recovery : "short rest",
@@ -17763,20 +17802,20 @@ function importData() {
 				minlevel : 7,
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "I can use two superiority dice, instead of just one, to increase the damage of my lance" + "\n   " + "If doing so, the target has disadvantage on its Str save to avoid being knocked prone",
+				description : "\n   I can use two superiority dice, instead of just one, to increase the damage of my lance\n   If doing so, the target has disadvantage on its Str save to avoid being knocked prone",
 				action : ["action", ""]
 			},
 			"subclassfeature10" : {
 				name : "Improved Combat Superiority",
 				source : ["UA:KoO", 3],
 				minlevel : 10,
-				description : "\n   " + "My superiority dice turn into d10s at 10th level and into d12s at 18th level"
+				description : "\n   My superiority dice turn into d10s at 10th level and into d12s at 18th level"
 			},
 			"subclassfeature15" : {
 				name : "Relentless",
 				source : ["UA:KoO", 4],
 				minlevel : 15,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -17789,7 +17828,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:KoO", 4],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with three skills or two skills and Thieves' Tools; For skills choose from:" + "\n   " + "Acrobatics, Athletics, Investigation, Medicine, Nature, Perception, Stealth, and Survival",
+				description : "\n   I gain proficiency with three skills or two skills and Thieves' Tools; For skills choose from:\n   Acrobatics, Athletics, Investigation, Medicine, Nature, Perception, Stealth, and Survival",
 				choices : ["2 Skill proficiencies and Thieves' Tools proficiency", "3 Skill proficiencies"],
 				"2 skill proficiencies and thieves' tools proficiency" : {
 					name : "Bonus Proficiencies",
@@ -17813,7 +17852,7 @@ function importData() {
 				name : "Combat Superiority",
 				source : ["UA:KoO", 4],
 				minlevel : 3,
-				description : "\n   " + "I gain a number of superiority dice that I can use to fuel special maneuvers (see below)" + "\n   " + "I can use only one maneuver per attack; I regain all superiority dice after a short rest" + "\n    - " + "Use after rolling an Athletics, Nature, Perception, Stealth, or Survival check" + "\n       " + "I add half the superiority die to the roll (rounding up)" + "\n    - " + "Use after rolling to hit; I add the superiority die to my attack roll" + "\n    - " + "As a reaction when I'm hit while wearing light/medium armor, I add the die to AC" + "\n       " + "If the attack still hits, I only take half damage from it",
+				description : "\n   I gain a number of superiority dice that I can use to fuel special maneuvers (see below)\n   I can use only one maneuver per attack; I regain all superiority dice after a short rest\n    - Use after rolling an Athletics, Nature, Perception, Stealth, or Survival check\n       I add half the superiority die to the roll (rounding up)\n    - Use after rolling to hit; I add the superiority die to my attack roll\n    - As a reaction when I'm hit while wearing light/medium armor, I add the die to AC\n       If the attack still hits, I only take half damage from it",
 				additional : ["", "", "d8", "d8", "d8", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d12", "d12", "d12"],
 				usages : [0, 0, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6],
 				recovery : "short rest",
@@ -17830,13 +17869,13 @@ function importData() {
 				name : "Improved Combat Superiority",
 				source : ["UA:KoO", 4],
 				minlevel : 10,
-				description : "\n   " + "My superiority dice turn into d10s at 10th level and into d12s at 18th level"
+				description : "\n   My superiority dice turn into d10s at 10th level and into d12s at 18th level"
 			},
 			"subclassfeature15" : {
 				name : "Relentless",
 				source : ["UA:KoO", 4],
 				minlevel : 15,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -18066,17 +18105,17 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:GH", 2],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with two skills or one skill and any one tool" + "\n   " + "For skills I can choose Arcana, History, Insight, Investigation, Nature, or Perception",
+				description : "\n   I gain proficiency with two skills or one skill and any one tool\n   For skills I can choose Arcana, History, Insight, Investigation, Nature, or Perception",
 				choices : ["1 Skill and 1 Tool proficiencies", "2 Skill proficiencies"],
 				"1 skill and 1 tool proficiencies" : {
 					name : "Bonus Proficiencies",
-					description : "\n   " + "I gain proficiency with one skill and any one tool of my choice" + "\n   " + "For the skill, I can choose Arcana, History, Insight, Investigation, Nature, or Perception",
+					description : "\n   I gain proficiency with one skill and any one tool of my choice\n   For the skill, I can choose Arcana, History, Insight, Investigation, Nature, or Perception",
 					skillstxt : "\n\n" + toUni("Monster Hunter") + ": Choose one from: Arcana, History, Insight, Investigation, Nature, or Perception.",
 					toolProfs : [["Any tool", 1]]
 				},
 				"2 skill proficiencies" : {
 					name : "Bonus Proficiencies",
-					description : "\n   " + "I gain 2 skill proficiencies: Arcana, History, Insight, Investigation, Nature, or Perception",
+					description : "\n   I gain 2 skill proficiencies: Arcana, History, Insight, Investigation, Nature, or Perception",
 					skillstxt : "\n\n" + toUni("Monster Hunter") + ": Choose two from: Arcana, History, Insight, Investigation, Nature, or Perception."
 				}
 			},
@@ -18084,7 +18123,7 @@ function importData() {
 				name : "Combat Superiority",
 				source : ["UA:GH", 2],
 				minlevel : 3,
-				description : "\n   " + "I gain a number of superiority dice that I can use to fuel special maneuvers (see below)" + "\n   " + "I can use only one maneuver per attack; I regain all superiority dice after a short rest" + "\n    - " + "Use after rolling to hit; I add the superiority die to my attack roll" + "\n    - " + "Use after damaging a creature; I add the superiority die to the damage roll" + "\n       " + "Also, the attack imposes disadvantage on any concentration save resulting from it" + "\n    - " + "Use after Int/Wis/Cha save, before knowing success/fail; add the die to the save total" + "\n    - " + "Use with Wis (Perception) to detect hidden or Wis (Insight) to see if lying to me" + "\n       " + "After rolling but before knowing if success/fail; I add the superiority die to the check",
+				description : "\n   I gain a number of superiority dice that I can use to fuel special maneuvers (see below)\n   I can use only one maneuver per attack; I regain all superiority dice after a short rest\n    - Use after rolling to hit; I add the superiority die to my attack roll\n    - Use after damaging a creature; I add the superiority die to the damage roll\n       Also, the attack imposes disadvantage on any concentration save resulting from it\n    - Use after Int/Wis/Cha save, before knowing success/fail; add the die to the save total\n    - Use with Wis (Perception) to detect hidden or Wis (Insight) to see if lying to me\n       After rolling but before knowing if success/fail; I add the superiority die to the check",
 				additional : ["", "", "d8", "d8", "d8", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d10", "d12", "d12", "d12"],
 				usages : [0, 0, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6],
 				recovery : "short rest"
@@ -18095,7 +18134,7 @@ function importData() {
 				minlevel : 3,
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "I can cast Detect Magic as a ritual and Protection from Evil & Good once per long rest" + "\n   " + "I gain the ability to speak one of the following languages: Abyssal, Celestial, or Infernal",
+				description : "\n   I can cast Detect Magic as a ritual and Protection from Evil & Good once per long rest\n   I gain the ability to speak one of the following languages: Abyssal, Celestial, or Infernal",
 				action : ["action", " (Prot vs. Evil/Good)"],
 				languageProfs : [["Abyssal, Celestial, or Infernal", 1]]
 			},
@@ -18105,20 +18144,20 @@ function importData() {
 				minlevel : 7,
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "Whenever I use a superiority die, I can choose to expend two, adding both to the roll" + "\n   " + "If the target is an aberration, fey, fiend, or undead, both dice deal maximum damage",
+				description : "\n   Whenever I use a superiority die, I can choose to expend two, adding both to the roll\n   If the target is an aberration, fey, fiend, or undead, both dice deal maximum damage",
 				action : ["action", ""]
 			},
 			"subclassfeature10" : {
 				name : "Improved Combat Superiority",
 				source : ["UA:GH", 2],
 				minlevel : 10,
-				description : "\n   " + "My superiority dice turn into d10s at 10th level and into d12s at 18th level"
+				description : "\n   My superiority dice turn into d10s at 10th level and into d12s at 18th level"
 			},
 			"subclassfeature15" : {
 				name : "Relentless",
 				source : ["UA:GH", 2],
 				minlevel : 15,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -18131,19 +18170,19 @@ function importData() {
 				name : "Ear for Deceit",
 				source : ["UA:GH", 3],
 				minlevel : 3,
-				description : "\n   " + "When using Wis (Insight) to sense if someone is lying, I can choose to use a fixed total" + "\n   " + "This total is 8 + Wis modifier + proficiency bonus (if proficient, or twice if expertise)"
+				description : "\n   When using Wis (Insight) to sense if someone is lying, I can choose to use a fixed total\n   This total is 8 + Wis modifier + proficiency bonus (if proficient, or twice if expertise)"
 			},
 			"subclassfeature3.1" : {
 				name : "Eye for Detail",
 				source : ["UA:GH", 3],
 				minlevel : 3,
-				description : "\n   " + "I can use the bonus action granted by Cunning Action for the following as well:" + "\n    - " + "To make a Wisdom (Perception) check to spot a hidden creature or object" + "\n    - " + "To make an Intelligence (Investigation) check to uncover and decipher clues" + "\n    - " + "To use Insightful Fighting (see below)"
+				description : "\n   I can use the bonus action granted by Cunning Action for the following as well:\n    - To make a Wisdom (Perception) check to spot a hidden creature or object\n    - To make an Intelligence (Investigation) check to uncover and decipher clues\n    - To use Insightful Fighting (see below)"
 			},
 			"subclassfeature3.2" : {
 				name : "Insightful Fighting",
 				source : ["UA:GH", 3],
 				minlevel : 3,
-				description : "\n   " + "As an action or bonus action, I can decipher the tactics of an active opponent I can see" + "\n   " + "I have to make a Wisdom (Insight) check vs. the target's Charisma (Deception) check" + "\n   " + "If I succeed, I can use sneak attack on the target regardless of advantage/disadvantage" + "\n   " + "This benefit lasts for 1 minute or until I successfully use Insightful Fighting again",
+				description : "\n   As an action or bonus action, I can decipher the tactics of an active opponent I can see\n   I have to make a Wisdom (Insight) check vs. the target's Charisma (Deception) check\n   If I succeed, I can use sneak attack on the target regardless of advantage/disadvantage\n   This benefit lasts for 1 minute or until I successfully use Insightful Fighting again",
 				action : ["action", ""]
 			},
 			"subclassfeature9" : {
@@ -18152,20 +18191,20 @@ function importData() {
 				minlevel : 9,
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "If not moving during my turn, I gain adv. on Wis (Perception) to find hidden things"
+				description : "\n   If not moving during my turn, I gain adv. on Wis (Perception) to find hidden things"
 			},
 			"subclassfeature13" : {
 				name : "Unerring Eye",
 				source : ["UA:GH", 3],
 				minlevel : 13,
-				description : "\n   " + "As an action, I can sense magical deceptions within 30 feet of me, but not what it does" + "\n   " + "I learn the presence of illusions, shapechanged creatures, or magic designed to deceive",
+				description : "\n   As an action, I can sense magical deceptions within 30 feet of me, but not what it does\n   I learn the presence of illusions, shapechanged creatures, or magic designed to deceive",
 				action : ["action", ""]
 			},
 			"subclassfeature17" : {
 				name : "Eye for Weakness",
 				source : ["UA:GH", 3],
 				minlevel : 17,
-				description : "\n   " + "While my Insightful Fighting is active, I add 2d6 to sneak attacks against that target"
+				description : "\n   While my Insightful Fighting is active, I add 2d6 to sneak attacks against that target"
 			}
 		}
 	});
@@ -18292,7 +18331,7 @@ function importData() {
 				name : "Shielding Aurora",
 				source : ["UA:TF", 1],
 				minlevel : 1,
-				description : "\n   " + "As a bonus action, I create a whirling aurora of brilliant energy around me" + "\n   " + "It lasts until the end of my next turn and grants me resistance to all damage" + "\n   " + "Any hostile ending its turn in 10 ft of me get Warlock level + Cha mod radiant damage",
+				description : "\n   As a bonus action, I create a whirling aurora of brilliant energy around me\n   It lasts until the end of my next turn and grants me resistance to all damage\n   Any hostile ending its turn in 10 ft of me get Warlock level + Cha mod radiant damage",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""]
@@ -18303,7 +18342,7 @@ function importData() {
 				pactBoon["pact of the star chain"] = {
 					name : "Pact of the Star Chain",
 					source : ["UA:TF", 1],
-					description : "\n   " + "My patron grants me an item of power which disappears when I die" + "\n   " + "While it is on my person, I can cast Augury as a ritual (PHB 215)" + "\n   " + "Additionally, once per short rest, I can get advantage on an Intelligence check" + "\n   " + "If I lose this item I can perform a 1-hour ceremony to get a replacement",
+					description : "\n   My patron grants me an item of power which disappears when I die\n   While it is on my person, I can cast Augury as a ritual (PHB 215)\n   Additionally, once per short rest, I can get advantage on an Intelligence check\n   If I lose this item I can perform a 1-hour ceremony to get a replacement",
 					usages : 1,
 					recovery : "short rest",
 					spellcastingBonus : {
@@ -18319,21 +18358,21 @@ function importData() {
 				name : "Astral Refuge",
 				source : ["UA:TF", 2],
 				minlevel : 6,
-				description : "\n   " + "As an action, I can step into an astral refuge, coming back at the end of the turn" + "\n   " + "While in the astral refuge, I can take two actions to cast spells targeting just me",
+				description : "\n   As an action, I can step into an astral refuge, coming back at the end of the turn\n   While in the astral refuge, I can take two actions to cast spells targeting just me",
 				action : ["action", ""]
 			},
 			"subclassfeature10" : {
 				name : "Far Wanderer",
 				source : ["UA:TF", 2],
 				minlevel : 10,
-				description : "\n   " + "I no longer need to breathe, and I gain resistance to fire damage and cold damage",
+				description : "\n   I no longer need to breathe, and I gain resistance to fire damage and cold damage",
 				dmgres : ["Cold", "Fire"]
 			},
 			"subclassfeature14" : {
 				name : "Astral Sequestration",
 				source : ["UA:TF", 2],
 				minlevel : 14,
-				description : "\n   " + "With a 5 minutes ritual, I can shift myself and ten willing creatures to the Astral Plane" + "\n   " + "While sequestered an Astral Plane, we gain the full benefits of a short rest" + "\n   " + "After this rest, we return to the same space as before, without any time having passed",
+				description : "\n   With a 5 minutes ritual, I can shift myself and ten willing creatures to the Astral Plane\n   While sequestered an Astral Plane, we gain the full benefits of a short rest\n   After this rest, we return to the same space as before, without any time having passed",
 				usages : 1,
 				recovery : "long rest"
 			}
@@ -18350,14 +18389,14 @@ function importData() {
 					name : "Arcane Initiate",
 					source : [["UA:TF", 2], ["UA:WR", 1]],
 					minlevel : 2,
-					description : "\n   " + "Choose a Cleric Domain using the \"Choose Feature\" button above" + "\n   " + "When I gain a wizard level I can replace one of the spells I would add to my spellbook" + "\n   " + "I can replace it with one of the chosen domain spells, if it is of a level I can cast" + "\n   " + "If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast" + "\n   " + "Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
+					description : "\n   Choose a Cleric Domain using the \"Choose Feature\" button above\n   When I gain a wizard level I can replace one of the spells I would add to my spellbook\n   I can replace it with one of the chosen domain spells, if it is of a level I can cast\n   If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast\n   Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
 					choices : []
 				},
 				"subclassfeature2.1" : {
 					name : "Channel Arcana",
 					source : [["UA:TF", 2], ["UA:WR", 1]],
 					minlevel : 2,
-					description : "\n   " + "I can channel arcane energy from my deity; the save for this is my wizard spell DC",
+					description : "\n   I can channel arcane energy from my deity; the save for this is my wizard spell DC",
 					usages : [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3],
 					recovery : "short rest"
 				},
@@ -18365,14 +18404,14 @@ function importData() {
 					name : "Channel Arcana: Divine Arcana",
 					source : [["UA:TF", 2], ["UA:WR", 1]],
 					minlevel : 2,
-					description : "\n   " + "As a bonus action, I speak a prayer to control the flow of magic around me" + "\n   " + "The next spell I cast gains a +2 bonus to its attack roll or saving throw DC",
+					description : "\n   As a bonus action, I speak a prayer to control the flow of magic around me\n   The next spell I cast gains a +2 bonus to its attack roll or saving throw DC",
 					action : ["bonus action", ""]
 				},
 				"subclassfeature2.3" : {
 					name : "Channel Arcana: Domain",
 					source : [["UA:TF", 2], ["UA:WR", 1]],
 					minlevel : 2,
-					description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+					description : "\n   Use the \"Choose Feature\" button above to select the domain",
 					choices : [],
 					choicesNotInMenu : true,
 					eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature2.2,' + FeaChoice, false);};};"
@@ -18381,7 +18420,7 @@ function importData() {
 					name : "Arcane Acolyte",
 					source : [["UA:TF", 3], ["UA:WR", 1]],
 					minlevel : 6,
-					description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+					description : "\n   Use the \"Choose Feature\" button above to select the domain",
 					choices : [],
 					choicesNotInMenu : true,
 					eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature6,' + FeaChoice, false);};};"
@@ -18390,7 +18429,7 @@ function importData() {
 					name : "Arcane Priest",
 					source : [["UA:TF", 3], ["UA:WR", 2]],
 					minlevel : 10,
-					description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+					description : "\n   Use the \"Choose Feature\" button above to select the domain",
 					choices : [],
 					choicesNotInMenu : true,
 					eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature10,' + FeaChoice, false);};};"
@@ -18399,7 +18438,7 @@ function importData() {
 					name : "Arcane High Priest",
 					source : [["UA:TF", 3], ["UA:WR", 2]],
 					minlevel : 14,
-					description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+					description : "\n   Use the \"Choose Feature\" button above to select the domain",
 					choices : [],
 					choicesNotInMenu : true,
 					eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature14,' + FeaChoice, false);};};"
@@ -18425,7 +18464,7 @@ function importData() {
 				name : "Arcane Initiate: " + aDomain.subname,
 				source : dSource,
 				spellcastingExtra : aDomain.spellcastingExtra,
-				description : "\n   " + "When I gain a wizard level I can replace one of the spells I would add to my spellbook" + "\n   " + "I can replace it with one of the " + aDomain.subname.toLowerCase() + " spells, if it is of a level I can cast" + "\n   " + "If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast" + "\n   " + "Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
+				description : "\n   When I gain a wizard level I can replace one of the spells I would add to my spellbook\n   I can replace it with one of the " + aDomain.subname.toLowerCase() + " spells, if it is of a level I can cast\n   If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast\n   Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
 				eval : ""
 			};
 			var AIdomain = MTfeat["subclassfeature2"][entryDoNm.toLowerCase()];
@@ -18530,30 +18569,30 @@ function importData() {
 				name : "Favored Enemy",
 				source : ["UA:RR", 2],
 				minlevel : 1,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select a favored enemy" + "\n   " + "Choose from beasts, fey, humanoids, monstrosities, or undead" + "\n   " + "I get a bonus to damage rolls with weapon attacks against the chosen favored enemy" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about them" + "\n   " + "I also learn one language of my choice, typically one associated with the favored enemy",
+				description : "\n   Use the \"Choose Feature\" button above to select a favored enemy\n   Choose from beasts, fey, humanoids, monstrosities, or undead\n   I get a bonus to damage rolls with weapon attacks against the chosen favored enemy\n   I have adv. on Wis (Survival) to track and Int checks to recall info about them\n   I also learn one language of my choice, typically one associated with the favored enemy",
 				additional : levels.map(function (n) {
 					return (n < 6 ? "+2" : "+4") + " weapon attack damage";
 				}),
 				choices : ["Beasts", "Fey", "Humanoids", "Monstrosities", "Undead"],
 				"beasts" : {
 					name : "Favored Enemy: Beasts",
-					description : "\n   " + "I get a bonus to damage rolls with weapon attacks against beasts" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about beasts" + "\n   " + "I learn a language, typically one spoken by or associated with beasts"
+					description : "\n   I get a bonus to damage rolls with weapon attacks against beasts\n   I have adv. on Wis (Survival) to track and Int checks to recall info about beasts\n   I learn a language, typically one spoken by or associated with beasts"
 				},
 				"fey" : {
 					name : "Favored Enemy: Fey",
-					description : "\n   " + "I get a bonus to damage rolls with weapon attacks against fey" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about fey" + "\n   " + "I learn a language, typically one spoken by or associated with fey"
+					description : "\n   I get a bonus to damage rolls with weapon attacks against fey\n   I have adv. on Wis (Survival) to track and Int checks to recall info about fey\n   I learn a language, typically one spoken by or associated with fey"
 				},
 				"humanoids" : {
 					name : "Favored Enemy: Humanoids",
-					description : "\n   " + "I get a bonus to damage rolls with weapon attacks against humanoids" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about humanoids" + "\n   " + "I learn a language, typically one spoken by or associated with humanoids"
+					description : "\n   I get a bonus to damage rolls with weapon attacks against humanoids\n   I have adv. on Wis (Survival) to track and Int checks to recall info about humanoids\n   I learn a language, typically one spoken by or associated with humanoids"
 				},
 				"monstrosities" : {
 					name : "Favored Enemy: Monstrosities",
-					description : "\n   " + "I get a bonus to damage rolls with weapon attacks against monstrosities" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about monstrosities" + "\n   " + "I learn a language, typically one spoken by or associated with monstrosities"
+					description : "\n   I get a bonus to damage rolls with weapon attacks against monstrosities\n   I have adv. on Wis (Survival) to track and Int checks to recall info about monstrosities\n   I learn a language, typically one spoken by or associated with monstrosities"
 				},
 				"undead" : {
 					name : "Favored Enemy: Undead",
-					description : "\n   " + "I get a bonus to damage rolls with weapon attacks against undead" + "\n   " + "I have adv. on Wis (Survival) to track and Int checks to recall info about undead" + "\n   " + "I learn a language, typically one spoken by or associated with undead"
+					description : "\n   I get a bonus to damage rolls with weapon attacks against undead\n   I have adv. on Wis (Survival) to track and Int checks to recall info about undead\n   I learn a language, typically one spoken by or associated with undead"
 				},
 				languageProfs : [1],
 				calcChanges : {
@@ -18564,12 +18603,12 @@ function importData() {
 				name : "Natural Explorer",
 				source : ["UA:RR", 3],
 				minlevel : 1,
-				description : "\n   " + "On my first turn in combat, I have adv. on attacks against those that did not yet act" + "\n   " + "I ignore difficult terrain; I have adv. on Initiative; I have benefits in travel, see page 3",
+				description : "\n   On my first turn in combat, I have adv. on attacks against those that did not yet act\n   I ignore difficult terrain; I have adv. on Initiative; I have benefits in travel, see page 3",
 				extraname : "Natural Explorer",
 				"travel benefit" : {
 					name : "Travel Benefits",
 					source : ["UA:RR", 3],
-					description: "\n   " + "After one hour of traveling in the wilderness I gain the following benefits:" + "\n    - " + "My allies and I are not slowed by difficult terrain and can't get lost except by magic" + "\n    - " + "I am alert to danger even when doing something else; I forage twice as much food" + "\n    - " + "If alone (or alone with animal companion), I can move stealthily at my normal pace" + "\n    - " + "When tracking others, I also learn their exact number, size, and time since passing"
+					description: "\n   After one hour of traveling in the wilderness I gain the following benefits:\n    - My allies and I are not slowed by difficult terrain and can't get lost except by magic\n    - I am alert to danger even when doing something else; I forage twice as much food\n    - If alone (or alone with animal companion), I can move stealthily at my normal pace\n    - When tracking others, I also learn their exact number, size, and time since passing"
 				},
 				eval : "Checkbox('Init Adv', true, 'Advantage to Initiative checks was gained from Ranger (Natural Explorer)'); ClassFeatureOptions(['rangerua', 'natural explorer', 'travel benefit', 'extra']);",
 				removeeval : "Checkbox('Init Adv', false, ''); ClassFeatureOptions(['rangerua', 'natural explorer', 'travel benefit', 'extra'], 'remove');"
@@ -18583,62 +18622,62 @@ function importData() {
 				name : "Spellcasting",
 				source : ["UA:RR", 3],
 				minlevel : 2,
-				description : "\n   " + "I can cast ranger spells that I know, using Wisdom as my spellcasting ability",
+				description : "\n   I can cast ranger spells that I know, using Wisdom as my spellcasting ability",
 				additional : ["", "2 spells known", "3 spells known", "3 spells known", "4 spells known", "4 spells known", "5 spells known", "5 spells known", "6 spells known", "6 spells known", "7 spells known", "7 spells known", "8 spells known", "8 spells known", "9 spells known", "9 spells known", "10 spells known", "10 spells known", "11 spells known", "11 spells known"]
 			},
 			"primeval awareness" : {
 				name : "Primeval Awareness",
 				source : ["UA:RR", 4],
 				minlevel : 3,
-				description : "\n   " + "If I haven't attacked a beast within the last 10 min, I can communicate with it" + "\n   " + "As an action, I convey simple ideas, and read mood, intent, emotions, needs, etc." + "\n   " + "By concentrating for 1 min, I know if any of my favored enemies are within 5 miles" + "\n   " + "Per group, I sense the number, general direction, distance, and type of favored enemy",
+				description : "\n   If I haven't attacked a beast within the last 10 min, I can communicate with it\n   As an action, I convey simple ideas, and read mood, intent, emotions, needs, etc.\n   By concentrating for 1 min, I know if any of my favored enemies are within 5 miles\n   Per group, I sense the number, general direction, distance, and type of favored enemy",
 				action : ["action", " (communicate)"]
 			},
 			"subclassfeature3" : {
 				name : "Ranger Conclave",
 				source : ["UA:RR", 4],
 				minlevel : 3,
-				description : "\n   " + "Choose a Ranger Conclave you strive to emulate and put it in the \"Class\" field" + "\n   " + "Choose either Beast Conclave, Deep Stalker Conclave or Hunter Conclave"
+				description : "\n   Choose a Ranger Conclave you strive to emulate and put it in the \"Class\" field\n   Choose either Beast Conclave, Deep Stalker Conclave or Hunter Conclave"
 			},
 			"greater favored enemy" : {
 				name : "Greater Favored Enemy",
 				source : ["UA:RR", 4],
 				minlevel : 6,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select a greater favored enemy" + "\n   " + "Choose from aberrations, celestials, constructs, dragons, elementals, fiends, or giants" + "\n   " + "I get all the bonuses from Favored Enemy for this creature type as well" + "\n   " + "Additionally, I have adv. on saves vs. spells and abilities of this greater favored enemy",
+				description : "\n   Use the \"Choose Feature\" button above to select a greater favored enemy\n   Choose from aberrations, celestials, constructs, dragons, elementals, fiends, or giants\n   I get all the bonuses from Favored Enemy for this creature type as well\n   Additionally, I have adv. on saves vs. spells and abilities of this greater favored enemy",
 				additional : "+4 weapon attack damage",
 				choices : ["Aberrations", "Celestials", "Constructs", "Dragons", "Elementals", "Fiends", "Giants"],
 				"aberrations" : {
 					name : "Greater Favored Enemy: Aberrations",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against aberrations" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by aberrations",
+					description : "\n   The bonuses I get from Favored Enemy now also work against aberrations\n   Additionally, I have advantage on saves against spells and abilities used by aberrations",
 					savetxt : { adv_vs : ["spells/abilities of aberrations"] }
 				},
 				"celestials" : {
 					name : "Greater Favored Enemy: Celestials",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against celestials" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by celestials",
+					description : "\n   The bonuses I get from Favored Enemy now also work against celestials\n   Additionally, I have advantage on saves against spells and abilities used by celestials",
 					savetxt : { adv_vs : ["spells/abilities of celestials"] }
 				},
 				"constructs" : {
 					name : "Greater Favored Enemy: Constructs",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against constructs" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by constructs",
+					description : "\n   The bonuses I get from Favored Enemy now also work against constructs\n   Additionally, I have advantage on saves against spells and abilities used by constructs",
 					savetxt : { adv_vs : ["spells/abilities of constructs"] }
 				},
 				"dragons" : {
 					name : "Greater Favored Enemy: Dragons",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against dragons" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by dragons",
+					description : "\n   The bonuses I get from Favored Enemy now also work against dragons\n   Additionally, I have advantage on saves against spells and abilities used by dragons",
 					savetxt : { adv_vs : ["spells/abilities of dragons"] }
 				},
 				"elementals" : {
 					name : "Greater Favored Enemy: Elementals",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against elementals" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by elementals",
+					description : "\n   The bonuses I get from Favored Enemy now also work against elementals\n   Additionally, I have advantage on saves against spells and abilities used by elementals",
 					savetxt : { adv_vs : ["spells/abilities of elementals"] }
 				},
 				"fiends" : {
 					name : "Greater Favored Enemy: Fiends",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against fiends" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by fiends",
+					description : "\n   The bonuses I get from Favored Enemy now also work against fiends\n   Additionally, I have advantage on saves against spells and abilities used by fiends",
 					savetxt : { adv_vs : ["spells/abilities of fiends"] }
 				},
 				"giants" : {
 					name : "Greater Favored Enemy: Giants",
-					description : "\n   " + "The bonuses I get from Favored Enemy now also work against giants" + "\n   " + "Additionally, I have advantage on saves against spells and abilities used by giants",
+					description : "\n   The bonuses I get from Favored Enemy now also work against giants\n   Additionally, I have advantage on saves against spells and abilities used by giants",
 					savetxt : { adv_vs : ["spells/abilities of giants"] }
 				},
 				languageProfs : [1]
@@ -18647,33 +18686,33 @@ function importData() {
 				name : "Fleet of Foot",
 				source : ["UA:RR", 4],
 				minlevel : 8,
-				description : "\n   " + "I can take the Dash action as a bonus action",
+				description : "\n   I can take the Dash action as a bonus action",
 				action : ["bonus action", ""]
 			},
 			"hide in plain sight" : {
 				name : "Hide in Plain Sight",
 				source : ["UA:RR", 4],
 				minlevel : 10,
-				description : "\n   " + "When I hide on my turn without moving, others take -10 Wis (Perception) to find me" + "\n   " + "This lasts until something reveals my presence, or until I (voluntarily) move/fall prone"
+				description : "\n   When I hide on my turn without moving, others take -10 Wis (Perception) to find me\n   This lasts until something reveals my presence, or until I (voluntarily) move/fall prone"
 			},
 			"vanish" : {
 				name : "Vanish",
 				source : ["UA:RR", 5],
 				minlevel : 14,
-				description : "\n   " + "I can't be nonmagically tracked if I don't want to be and can Hide as a bonus action",
+				description : "\n   I can't be nonmagically tracked if I don't want to be and can Hide as a bonus action",
 				action : ["bonus action", ""]
 			},
 			"feral senses" : {
 				name : "Feral Senses",
 				source : ["UA:RR", 5],
 				minlevel : 18,
-				description : "\n   " + "When not blinded or deafened, I'm aware of invisible, non-hidden creatures in 30 ft" + "\n   " + "I don't have disadvantage when attacking creatures I am aware of but can't see"
+				description : "\n   When not blinded or deafened, I'm aware of invisible, non-hidden creatures in 30 ft\n   I don't have disadvantage when attacking creatures I am aware of but can't see"
 			},
 			"foe slayer" : {
 				name : "Foe Slayer",
 				source : ["UA:RR", 5],
 				minlevel : 20,
-				description : "\n   " + "Once per turn, I can add Wis mod to the attack or damage roll after I see the die roll"
+				description : "\n   Once per turn, I can add Wis mod to the attack or damage roll after I see the die roll"
 			}
 		}
 	};
@@ -18686,38 +18725,38 @@ function importData() {
 				name : "Animal Companion",
 				source : ["UA:RR", 5],
 				minlevel : 3,
-				description : "\n   " + "I call an animal by spending 8 hours and 50 gp; I can revive it with 8 hours and 25 gp",
+				description : "\n   I call an animal by spending 8 hours and 50 gp; I can revive it with 8 hours and 25 gp",
 				additional : ["", "", "", "+1 HD for companion", "+2 HD for companion", "+3 HD for companion", "+4 HD for companion", "+5 HD for companion", "+6 HD for companion", "+7 HD for companion", "+8 HD for companion", "+9 HD for companion", "+10 HD for companion", "+11 HD for companion", "+12 HD for companion", "+13 HD for companion", "+14 HD for companion", "+15 HD for companion", "+16 HD for companion", "+17 HD for companion"]
 			},
 			"subclassfeature3.1" : {
 				name : "Companion's Bond",
 				source : ["UA:RR", 5],
 				minlevel : 3,
-				description : "\n   " + "My companion gains several benefits, see the Companion's sheet"
+				description : "\n   My companion gains several benefits, see the Companion's sheet"
 			},
 			"subclassfeature5" : {
 				name : "Coordinated Attack",
 				source : ["UA:RR", 6],
 				minlevel : 5,
-				description : "\n   " + "If I take the Attack action, my companion can use its reaction to make a melee attack"
+				description : "\n   If I take the Attack action, my companion can use its reaction to make a melee attack"
 			},
 			"subclassfeature7" : {
 				name : "Beast's Defense",
 				source : ["UA:RR", 6],
 				minlevel : 7,
-				description : "\n   " + "While my companion can see me, it has advantage on all saving throws"
+				description : "\n   While my companion can see me, it has advantage on all saving throws"
 			},
 			"subclassfeature11" : {
 				name : "Storm of Claws and Fangs",
 				source : ["UA:RR", 6],
 				minlevel : 11,
-				description : "\n   " + "My companion can, as an action, make melee attacks vs. all creatures within 5 ft of it"
+				description : "\n   My companion can, as an action, make melee attacks vs. all creatures within 5 ft of it"
 			},
 			"subclassfeature15" : {
 				name : "Superior Beast's Defense",
 				source : ["UA:RR", 6],
 				minlevel : 15,
-				description : "\n   " + "My companion can, as a reaction, halve an attack's damage from attacker that it sees"
+				description : "\n   My companion can, as a reaction, halve an attack's damage from attacker that it sees"
 			}
 		}
 	};
@@ -18731,39 +18770,39 @@ function importData() {
 				name : "Hunter's Prey",
 				source : ["UA:RR", 7],
 				minlevel : 3,
-				description : "\n   " + "Choose Colossus Slayer, Giant Killer, or Horde Breaker with the \"Choose Feature\" button",
+				description : "\n   Choose Colossus Slayer, Giant Killer, or Horde Breaker with the \"Choose Feature\" button",
 				choices : ["Colossus Slayer", "Giant killer", "Horde Breaker"],
 				"colossus slayer" : {
 					name : "Hunter's Prey: Colossus Slayer",
-					description : "\n   " + "Once per turn, when hitting someone that is below max HP, I do an extra 1d8 damage"
+					description : "\n   Once per turn, when hitting someone that is below max HP, I do an extra 1d8 damage"
 				},
 				"giant killer" : {
 					name : "Hunter's Prey: Giant Killer",
-					description : "\n   " + "As a reaction, when a Large or larger enemy in 5 ft attacks me, I can attack it once",
+					description : "\n   As a reaction, when a Large or larger enemy in 5 ft attacks me, I can attack it once",
 					action : ["reaction", ""]
 				},
 				"horde breaker" : {
 					name : "Hunter's Prey: Horde Breaker",
-					description : "\n   " + "Once per turn, when I hit a creature, I can make an attack vs. another within 5 ft of it"
+					description : "\n   Once per turn, when I hit a creature, I can make an attack vs. another within 5 ft of it"
 				}
 			},
 			"subclassfeature7" : {
 				name : "Defensive Tactics",
 				source : ["UA:RR", 7],
 				minlevel : 7,
-				description : "\n   " + "\"Choose Feature\" button to choose Escape the Horde, Multiattack Defense, or Steel Will",
+				description : "\n   \"Choose Feature\" button to choose Escape the Horde, Multiattack Defense, or Steel Will",
 				choices : ["Escape the Horde", "Multiattack Defense", "Steel Will"],
 				"escape the horde" : {
 					name : "Defensive Tactic: Escape the Horde",
-					description : "\n   " + "Creatures attacking me with opportunity attacks have disadvantage on the attack rolls"
+					description : "\n   Creatures attacking me with opportunity attacks have disadvantage on the attack rolls"
 				},
 				"multiattack defense" : {
 					name : "Defensive Tactic: Multiattack Defense",
-					description : "\n   " + "When a creature hits me, I gain +4 AC against that creature for the rest of the turn"
+					description : "\n   When a creature hits me, I gain +4 AC against that creature for the rest of the turn"
 				},
 				"steel will" : {
 					name : "Defensive Tactic: Steel Will",
-					description : "\n   " + "I have advantage on saves against being frightened",
+					description : "\n   I have advantage on saves against being frightened",
 					savetxt : { adv_vs : ["frightened"] }
 				}
 			},
@@ -18771,16 +18810,16 @@ function importData() {
 				name : "Multiattack",
 				source : ["UA:RR", 7],
 				minlevel : 11,
-				description : "\n   " + "Choose Volley or Whirlwind Attack using the \"Choose Feature\" button above",
+				description : "\n   Choose Volley or Whirlwind Attack using the \"Choose Feature\" button above",
 				choices : ["Volley", "Whirlwind Attack"],
 				"volley" : {
 					name : "Multiattack: Volley",
-					description : "\n   " + "As an action, I can make ranged attacks vs. all within a 10-ft radius of a point in range",
+					description : "\n   As an action, I can make ranged attacks vs. all within a 10-ft radius of a point in range",
 					action : ["action", ""]
 				},
 				"whirlwind attack" : {
 					name : "Multiattack: Whirlwind Attack",
-					description : "\n   " + "As an action, I can make melee attacks vs. all creatures within 5 ft of me",
+					description : "\n   As an action, I can make melee attacks vs. all creatures within 5 ft of me",
 					action : ["action", ""]
 				}
 			},
@@ -18788,21 +18827,21 @@ function importData() {
 				name : "Superior Hunter's Defense",
 				source : ["UA:RR", 7],
 				minlevel : 15,
-				description : "\n   " + "\"Choose Feature\" button to choose Evasion, Stand Against the Tide, or Uncanny Dodge",
+				description : "\n   \"Choose Feature\" button to choose Evasion, Stand Against the Tide, or Uncanny Dodge",
 				choices : ["Evasion", "Stand Against the Tide", "Uncanny Dodge"],
 				"evasion" : {
 					name : "Evasion",
-					description : "\n   " + "My Dexterity saves vs. areas of effect negate damage on success and halve it on failure",
+					description : "\n   My Dexterity saves vs. areas of effect negate damage on success and halve it on failure",
 					savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] }
 				},
 				"stand against the tide" : {
 					name : "Stand Against the Tide",
-					description : "\n   " + "When a creature misses me with a melee attack, I can use my reaction on the attack" + "\n   " + "I force the attacker to repeat it vs. another (not attacker) of my choice within range",
+					description : "\n   When a creature misses me with a melee attack, I can use my reaction on the attack\n   I force the attacker to repeat it vs. another (not attacker) of my choice within range",
 					action : ["reaction", ""]
 				},
 				"uncanny dodge" : {
 					name : "Uncanny Dodge",
-					description : "\n   " + "As a reaction, I halve the damage of an attack from an attacker that I can see",
+					description : "\n   As a reaction, I halve the damage of an attack from an attacker that I can see",
 					action : ["reaction", ""]
 				}
 			}
@@ -18818,13 +18857,13 @@ function importData() {
 				name : "Underdark Scout",
 				source : ["UA:RR", 7],
 				minlevel : 3,
-				description : "\n   " + "In the first turn of combat I have +10 ft speed and +1 attack with the Attack action" + "\n   " + "When I'm hiding or trying to hide, others gain no benefit from darkvision to detect me"
+				description : "\n   In the first turn of combat I have +10 ft speed and +1 attack with the Attack action\n   When I'm hiding or trying to hide, others gain no benefit from darkvision to detect me"
 			},
 			"subclassfeature3.1" : {
 				name : "Deep Stalker Magic",
 				source : ["UA:RR", 8],
 				minlevel : 3,
-				description : "\n   " + "I have 90 ft darkvision and add a spell to my known spells at level 3, 5, 9, 13, and 15" + "\n   " + "These count as ranger spells, but do not count against the number of spells I can know",
+				description : "\n   I have 90 ft darkvision and add a spell to my known spells at level 3, 5, 9, 13, and 15\n   These count as ranger spells, but do not count against the number of spells I can know",
 				spellcastingExtra : ["disguise self", "rope trick", "glyph of warding", "greater invisibility", "seeming"].concat(new Array(95)).concat("AddToKnown"),
 				vision : [["Darkvision", 90]]
 			},
@@ -18832,20 +18871,20 @@ function importData() {
 				name : "Iron Mind",
 				source : ["UA:RR", 8],
 				minlevel : 7,
-				description : "\n   " + "I am proficient with Wisdom saving throws",
+				description : "\n   I am proficient with Wisdom saving throws",
 				saves : ["Wis"]
 			},
 			"subclassfeature11" : {
 				name : "Stalker's Flurry",
 				source : ["UA:RR", 8],
 				minlevel : 11,
-				description : "\n   " + "Once during my turn when I miss an attack, I can immediately make an extra attack"
+				description : "\n   Once during my turn when I miss an attack, I can immediately make an extra attack"
 			},
 			"subclassfeature15" : {
 				name : "Stalker's Dodge",
 				source : ["UA:RR", 8],
 				minlevel : 15,
-				description : "\n   " + "As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
+				description : "\n   As a reaction when I'm attacked without adv., I can impose disadv. on the attack roll",
 				action : ["reaction", " (when attacked)"]
 			}
 		}
@@ -18888,21 +18927,21 @@ function importData() {
 				name : "Ancestral Protectors",
 				source : ["UA:BPP", 1],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action while raging, I can choose a creature within 5 ft of me that I can see" + "\n   " + "The creature has disadvantage on attack rolls that don't target me" + "\n   " + "If it takes the Disengage action within 5 feet of me, its speed is halved for its turn" + "\n   " + "This lasts until the start of my next turn or my rage ends, whichever comes ",
+				description : "\n   As a bonus action while raging, I can choose a creature within 5 ft of me that I can see\n   The creature has disadvantage on attack rolls that don't target me\n   If it takes the Disengage action within 5 feet of me, its speed is halved for its turn\n   This lasts until the start of my next turn or my rage ends, whichever comes ",
 				action : ["bonus action", " (in Rage)"]
 			},
 			"subclassfeature6" : {
 				name : "Ancestral Shield",
 				source : ["UA:BPP", 1],
 				minlevel : 6,
-				description : "\n   " + "While I'm raging, I can transfer my resistance to an ally I can see within 30 ft of me" + "\n   " + "As a reaction when an ally takes bludgeoning, piercing, or slashing damage" + "\n   " + "My ally keeps the resistance, and I lose it, until the start of my next turn",
+				description : "\n   While I'm raging, I can transfer my resistance to an ally I can see within 30 ft of me\n   As a reaction when an ally takes bludgeoning, piercing, or slashing damage\n   My ally keeps the resistance, and I lose it, until the start of my next turn",
 				action : ["reaction", ""]
 			},
 			"subclassfeature10" : {
 				name : "Consult the Spirits",
 				source : ["UA:BPP", 1],
 				minlevel : 10,
-				description : "\n   " + "I can consult my ancestral spirits to give myself advantage on a Int or Wis check",
+				description : "\n   I can consult my ancestral spirits to give myself advantage on a Int or Wis check",
 				usages : 3,
 				recovery : "long rest"
 			},
@@ -18910,7 +18949,7 @@ function importData() {
 				name : "Vengeful Ancestors",
 				source : ["UA:BPP", 1],
 				minlevel : 14,
-				description : "\n   " + "While I'm raging, I can have my vengeful ancestors attack for 2d8 force damage" + "\n   " + "As a reaction when I or an ally I can see within 30 feet of me is damaged in melee",
+				description : "\n   While I'm raging, I can have my vengeful ancestors attack for 2d8 force damage\n   As a reaction when I or an ally I can see within 30 feet of me is damaged in melee",
 				action : ["reaction", ""]
 			}
 		}
@@ -18926,17 +18965,17 @@ function importData() {
 				name : "Storm Aura",
 				source : ["UA:BPP", 2],
 				minlevel : 3,
-				description : "\n   " + "While raging, I emanate a 10-ft radius aura that shapes the environment around me" + "\n   " + "Use the \"Choose Feature\" button above to select the aura",
+				description : "\n   While raging, I emanate a 10-ft radius aura that shapes the environment around me\n   Use the \"Choose Feature\" button above to select the aura",
 				choices : ["Desert", "Sea", "Tundra"],
 				"desert" : {
 					name : "Storm of Fury: Desert",
-					description : "\n   " + "While raging, I emanate a 10-ft radius aura that shapes the environment around me" + "\n   " + "Any enemy that ends its turn in my aura takes fire damage",
+					description : "\n   While raging, I emanate a 10-ft radius aura that shapes the environment around me\n   Any enemy that ends its turn in my aura takes fire damage",
 					additional : ["", "", "2 fire damage", "3 fire damage", "3 fire damage", "3 fire damage", "3 fire damage", "4 fire damage", "4 fire damage", "4 fire damage", "4 fire damage", "5 fire damage", "5 fire damage", "5 fire damage", "5 fire damage", "6 fire damage", "6 fire damage", "6 fire damage", "6 fire damage", "7 fire damage"],
 					eval : "var ToAdd = ['barbarian', 'subclassfeature6', 'desert']; if (classes.known.barbarian.level >= 6 && this.getField('Class Features Remember').value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ToAdd[1] = 'subclassfeature14'; if (classes.known.barbarian.level >= 14 && this.getField('Class Features Remember').value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)};"
 				},
 				"sea" : {
 					name : "Storm of Fury: Sea",
-					description : "\n   " + "While raging, I emanate a 10-ft radius aura that shapes the environment around me" + "\n   " + "At the end of each of my turns, I can choose a creature in my aura, other than myself" + "\n   " + "It must make a Dex save or take lightning damage, or half damage on a successful save" + "\n   " + "The DC for this save is 8 + my proficiency bonus + my Constitution modifier",
+					description : "\n   While raging, I emanate a 10-ft radius aura that shapes the environment around me\n   At the end of each of my turns, I can choose a creature in my aura, other than myself\n   It must make a Dex save or take lightning damage, or half damage on a successful save\n   The DC for this save is 8 + my proficiency bonus + my Constitution modifier",
 					additional : ["", "", "2d6", "2d6", "2d6", "2d6", "2d6", "2d6", "2d6", "3d6", "3d6", "3d6", "3d6", "3d6", "4d6", "4d6", "4d6", "4d6", "4d6", "4d6"],
 					usages : 1,
 					recovery : "turn",
@@ -18944,7 +18983,7 @@ function importData() {
 				},
 				"tundra" : {
 					name : "Storm of Fury: Tundra",
-					description : "\n   " + "While raging, I emanate a 10-ft radius aura that shapes the environment around me" + "\n   " + "Any enemy that ends its turn in my aura takes cold damage",
+					description : "\n   While raging, I emanate a 10-ft radius aura that shapes the environment around me\n   Any enemy that ends its turn in my aura takes cold damage",
 					additional : ["", "", "2 cold damage", "3 cold damage", "3 cold damage", "3 cold damage", "3 cold damage", "4 cold damage", "4 cold damage", "4 cold damage", "4 cold damage", "5 cold damage", "5 cold damage", "5 cold damage", "5 cold damage", "6 cold damage", "6 cold damage", "6 cold damage", "6 cold damage", "7 cold damage"],
 					eval : "var ToAdd = ['barbarian', 'subclassfeature6', 'tundra']; if (classes.known.barbarian.level >= 6 && this.getField('Class Features Remember').value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ToAdd[1] = 'subclassfeature14'; if (classes.known.barbarian.level >= 14 && this.getField('Class Features Remember').value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)};"
 				}
@@ -18953,23 +18992,23 @@ function importData() {
 				name : "Storm Soul",
 				source : ["UA:BPP", 2],
 				minlevel : 6,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select the effect",
+				description : "\n   Use the \"Choose Feature\" button above to select the effect",
 				choices : ["desert", "sea", "tundra"],
 				choicesNotInMenu : true,
 				"desert" : {
 					name : "Storm Soul: Desert",
-					description : "\n   " + "I have resistance to fire damage and don't suffer the effects of extreme heat",
+					description : "\n   I have resistance to fire damage and don't suffer the effects of extreme heat",
 					dmgres : ["Fire"],
 					savetxt : { immune : ["effects of extreme heat"] }
 				},
 				"sea" : {
 					name : "Storm Soul: Sea",
-					description : "\n   " + "I have resistance to lightning damage and can breathe underwater",
+					description : "\n   I have resistance to lightning damage and can breathe underwater",
 					dmgres : ["Lightning"]
 				},
 				"tundra" : {
 					name : "Storm Soul: Tundra",
-					description : "\n   " + "I have resistance to cold damage and don't suffer the effects of extreme cold",
+					description : "\n   I have resistance to cold damage and don't suffer the effects of extreme cold",
 					dmgres : ["Cold"],
 					savetxt : { immune : ["effects of extreme cold"] }
 				},
@@ -18979,29 +19018,29 @@ function importData() {
 				name : "Shield of the Storm",
 				source : ["UA:BPP", 2],
 				minlevel : 10,
-				description : "\n   " + "While I'm raging, allies within my aura gain the benefits of my Storm Soul feature"
+				description : "\n   While I'm raging, allies within my aura gain the benefits of my Storm Soul feature"
 			},
 			"subclassfeature14" : {
 				name : "Raging Storm",
 				source : ["UA:BPP", 2],
 				minlevel : 14,
-				description : "\n   " + "Use the \"Choose Feature\" button above to select the effect",
+				description : "\n   Use the \"Choose Feature\" button above to select the effect",
 				choices : ["desert", "sea", "tundra"],
 				choicesNotInMenu : true,
 				"desert" : {
 					name : "Raging Storm: Desert",
-					description : "\n   " + "Enemy in my aura move more than 5 ft on the ground must make a Strength save" + "\n   " + "On a fail, it moves only 5 ft and its speed drops to 0 until the start of its next turn" + "\n   " + "The DC for this save is 8 + my proficiency bonus + my Constitution modifier"
+					description : "\n   Enemy in my aura move more than 5 ft on the ground must make a Strength save\n   On a fail, it moves only 5 ft and its speed drops to 0 until the start of its next turn\n   The DC for this save is 8 + my proficiency bonus + my Constitution modifier"
 				},
 				"sea" : {
 					name : "Raging Storm: Sea",
-					description : "\n   " + "Creatures in my aura hit by my attack must make a Str save or be knocked prone" + "\n   " + "The DC for this save is 8 + my proficiency bonus + my Strength modifier",
+					description : "\n   Creatures in my aura hit by my attack must make a Str save or be knocked prone\n   The DC for this save is 8 + my proficiency bonus + my Strength modifier",
 					calcChanges : {
 						atkAdd : ["if (isMeleeWeapon && classes.known.barbarian && classes.known.barbarian.level > 13 && (/\\brage\\b/i).test(WeaponText)) {fields.Description += (fields.Description ? '; ' : '') + 'Str save or knocked prone'; }; ", "If I include the word 'Rage' in a melee weapon's name, it will show in its description that it forces targets that are hit to make a Strength saving throw or be knocked prone."]
 					}
 				},
 				"tundra" : {
 					name : "Raging Storm: Tundra",
-					description : "\n   " + "The area within my aura is difficult terrain for my enemies"
+					description : "\n   The area within my aura is difficult terrain for my enemies"
 				},
 				eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?barbarian,subclassfeature3,(desert|sea|tundra).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'barbarian,subclassfeature14,' + FeaChoice, false);};};"
 			}
@@ -19017,31 +19056,31 @@ function importData() {
 				name : "Divine Fury",
 				source : ["UA:BPP", 2],
 				minlevel : 3,
-				description : "\n   " + "While raging, I can become cloaked in an aura of divine power until my rage ends" + "\n   " + "Choose a damage type using the \"Choose Feature\" button above",
+				description : "\n   While raging, I can become cloaked in an aura of divine power until my rage ends\n   Choose a damage type using the \"Choose Feature\" button above",
 				additional : ["", "", "1d6+1", "1d6+2", "1d6+2", "1d6+3", "1d6+3", "1d6+4", "1d6+4", "1d6+5", "1d6+5", "1d6+6", "1d6+6", "1d6+7", "1d6+7", "1d6+8", "1d6+8", "1d6+9", "1d6+9", "1d6+10"],
 				usages : 1,
 				recovery : "turn",
 				choices : ["Necrotic Damage", "Radiant Damage"],
 				"necrotic damage" : {
 					name : "Divine Fury: Necrotic",
-					description : "\n   " + "While raging, I become cloaked in an aura of divine power until my rage ends" + "\n   " + "At the end of my turn, each creature within 5 feet of me takes necrotic damage"
+					description : "\n   While raging, I become cloaked in an aura of divine power until my rage ends\n   At the end of my turn, each creature within 5 feet of me takes necrotic damage"
 				},
 				"radiant damage" : {
 					name : "Divine Fury: Radiant",
-					description : "\n   " + "While raging, I become cloaked in an aura of divine power until my rage ends" + "\n   " + "At the end of my turn, each creature within 5 feet of me takes radiant damage"
+					description : "\n   While raging, I become cloaked in an aura of divine power until my rage ends\n   At the end of my turn, each creature within 5 feet of me takes radiant damage"
 				}
 			},
 			"subclassfeature3.1" : {
 				name : "Warrior of the Gods",
 				source : ["UA:BPP", 2],
 				minlevel : 3,
-				description : "\n   " + "Spells restoring me to life (not undeath or anything else) don't need material comp."
+				description : "\n   Spells restoring me to life (not undeath or anything else) don't need material comp."
 			},
 			"subclassfeature6" : {
 				name : "Zealous Focus",
 				source : ["UA:BPP", 3],
 				minlevel : 6,
-				description : "\n   " + "As a reaction when I fail a saving throw while raging, I can instead succeed on it" + "\n   " + "Doing so immediately ends my rage and I can't rage again until I finish a short rest",
+				description : "\n   As a reaction when I fail a saving throw while raging, I can instead succeed on it\n   Doing so immediately ends my rage and I can't rage again until I finish a short rest",
 				usages : 1,
 				recovery : "short rest",
 				action : ["reaction", " (in Rage)"]
@@ -19050,7 +19089,7 @@ function importData() {
 				name : "Zealous Presence",
 				source : ["UA:BPP", 3],
 				minlevel : 10,
-				description : "\n   " + "As an action, I howl in fury and unleash a battle cry infused with divine energy" + "\n   " + "Allies within 60 ft of me gain adv. on attacks and saves until the start of my next turn",
+				description : "\n   As an action, I howl in fury and unleash a battle cry infused with divine energy\n   Allies within 60 ft of me gain adv. on attacks and saves until the start of my next turn",
 				usages : 1,
 				recovery : "long rest",
 				action : ["action", " (allies within 60 feet)"]
@@ -19059,7 +19098,7 @@ function importData() {
 				name : "Rage Beyond Death",
 				source : ["UA:BPP", 3],
 				minlevel : 14,
-				description : "\n   " + "While raging, having 0 hit points doesn't knock me unconscious" + "\n   " + "I still must make death saves, and I suffer the normal effects of taking damage" + "\n   " + "However, if I would die due to failing death saves, I don't die until my rage ends"
+				description : "\n   While raging, having 0 hit points doesn't knock me unconscious\n   I still must make death saves, and I suffer the normal effects of taking damage\n   However, if I would die due to failing death saves, I don't die until my rage ends"
 			}
 		}
 	});
@@ -19086,7 +19125,7 @@ function importData() {
 				name : "Mantle of Inspiration",
 				source : ["UA:BC", 1],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I expend one bardic inspiration die to aid those within 60 ft of me" + "\n   " + "A number of allies equal to my Cha mod gain twice the die roll in temporary HP" + "\n   " + "They can use a reaction to move their speed toward me, without opportunity attacks",
+				description : "\n   As a bonus action, I expend one bardic inspiration die to aid those within 60 ft of me\n   A number of allies equal to my Cha mod gain twice the die roll in temporary HP\n   They can use a reaction to move their speed toward me, without opportunity attacks",
 				additional : "1 bardic inspiration die",
 				action : ["bonus action", ""]
 			},
@@ -19096,7 +19135,7 @@ function importData() {
 				minlevel : 3,
 				recovery : "short rest",
 				usages : 1,
-				description : "\n   " + "By performing for at least 10 minutes, I can charm humanoids within 60 ft of me" + "\n   " + "At the end of the performance, my Cha mod number of targets must make a Wis save" + "\n   " + "On a fail, a target is charmed for 1 hour; If success, it doesn't knows I tried to charm it" + "\n   " + "While charmed, the target idolizes me, hinders those opposing me, and avoids violence" + "\n   " + "This lasts until a target takes damage, I attack it, or if it sees me attacking its allies"
+				description : "\n   By performing for at least 10 minutes, I can charm humanoids within 60 ft of me\n   At the end of the performance, my Cha mod number of targets must make a Wis save\n   On a fail, a target is charmed for 1 hour; If success, it doesn't knows I tried to charm it\n   While charmed, the target idolizes me, hinders those opposing me, and avoids violence\n   This lasts until a target takes damage, I attack it, or if it sees me attacking its allies"
 			},
 			"subclassfeature6" : {
 				name : "Mantle of Majesty",
@@ -19105,7 +19144,7 @@ function importData() {
 				recovery : "long rest",
 				usages : 1,
 				action : ["bonus action", ""],
-				description : "\n   " + "As a bonus action, I take on an appearance of unearthly beauty for 1 minute" + "\n   " + "As a bonus action during this time, I can cast Command without using a spell slot" + "\n   " + "Creatures charmed by me automatically fail their saves against these Command spells",
+				description : "\n   As a bonus action, I take on an appearance of unearthly beauty for 1 minute\n   As a bonus action during this time, I can cast Command without using a spell slot\n   Creatures charmed by me automatically fail their saves against these Command spells",
 				spellcastingBonus : [{
 					name : "Mantle of Majesty",
 					spells : ["command"],
@@ -19120,7 +19159,7 @@ function importData() {
 				recovery : "short rest",
 				usages : 1,
 				action : ["action", ""],
-				description : "\n   " + "As an action, I can cast Sanctuary on myself without using a spell slot" + "\n   " + "If a creature fails its save to this, I gain adv. on all Cha checks against it for 1 min" + "\n   " + "In addition, the target has disadv. on saves it makes against my spells on my next turn",
+				description : "\n   As an action, I can cast Sanctuary on myself without using a spell slot\n   If a creature fails its save to this, I gain adv. on all Cha checks against it for 1 min\n   In addition, the target has disadv. on saves it makes against my spells on my next turn",
 				spellcastingBonus : [{
 					name : "Unbreakable Majesty",
 					spells : ["sanctuary"],
@@ -19139,7 +19178,7 @@ function importData() {
 				name : "Venomous Blades",
 				source : ["UA:BC", 2],
 				minlevel : 3,
-				description : "\n   " + "When I hit with a weapon attack, I can expend a bardic inspiration die to add damage" + "\n   " + "I roll the inspiration die twice, dealing the total in Poison damage to the target" + "\n   " + "I can do this no more than once per round on my turn",
+				description : "\n   When I hit with a weapon attack, I can expend a bardic inspiration die to add damage\n   I roll the inspiration die twice, dealing the total in Poison damage to the target\n   I can do this no more than once per round on my turn",
 				additional : "1 bardic inspiration die"
 			},
 			"subclassfeature3.1" : {
@@ -19148,20 +19187,20 @@ function importData() {
 				minlevel : 3,
 				recovery : "short rest",
 				usages : 1,
-				description : "\n   " + "By speaking in private with a humanoid for at least 10 minutes, I can try to frighten it" + "\n   " + "After the conversation, the target must make a Wisdom save or be frightened of me" + "\n   " + "If the save is successful, the target doesn't know I try to frighten it" + "\n   " + "While frightened, the target avoids the company of others, including its allies" + "\n   " + "The target also tries to hide in the most secret, safest place available to it" + "\n   " + "This lasts for 1 hour or until it is attacked/damaged, or if it sees me attacking its allies"
+				description : "\n   By speaking in private with a humanoid for at least 10 minutes, I can try to frighten it\n   After the conversation, the target must make a Wisdom save or be frightened of me\n   If the save is successful, the target doesn't know I try to frighten it\n   While frightened, the target avoids the company of others, including its allies\n   The target also tries to hide in the most secret, safest place available to it\n   This lasts for 1 hour or until it is attacked/damaged, or if it sees me attacking its allies"
 			},
 			"subclassfeature6" : {
 				name : "Mantle of Whispers",
 				source : ["UA:BC", 2],
 				minlevel : 6,
 				action : ["reaction", ""],
-				description : "\n   " + "As a reaction when a creature dies within 5 ft or by my hand, I can capture its shadow" + "\n   " + "I can use shadows of those with the same type and size as me (or Medium if I'm Small)" + "\n   " + "I can have only one captured shadow at a time and I can don it as a shadow disguise",
+				description : "\n   As a reaction when a creature dies within 5 ft or by my hand, I can capture its shadow\n   I can use shadows of those with the same type and size as me (or Medium if I'm Small)\n   I can have only one captured shadow at a time and I can don it as a shadow disguise",
 				extraname : "Mantle of Whispers",
 				"shadow disguise" : {
 					name : "Shadow Disguise",
 					source : ["UA:BC", 2],
 					action : ["action", " (start)"],
-					description : "\n   " + "As an action, I can don a shadow that I captured as a disguise for 1 hour or until I stop it" + "\n   " + "I take on the creature's appearance and I can access its surface memories, but not secrets" + "\n   " + "I have access to information that it would would freely share with a casual acquaintance" + "\n   " + "This is enough that I can pass myself off as the creature by drawing on its memories" + "\n   " + "Anybody can see through the disguise with a Wis (Insight) check vs. my Cha (Deception) +5" + "\n   " + "The knowledge disappears when the disguise ends",
+					description : "\n   As an action, I can don a shadow that I captured as a disguise for 1 hour or until I stop it\n   I take on the creature's appearance and I can access its surface memories, but not secrets\n   I have access to information that it would would freely share with a casual acquaintance\n   This is enough that I can pass myself off as the creature by drawing on its memories\n   Anybody can see through the disguise with a Wis (Insight) check vs. my Cha (Deception) +5\n   The knowledge disappears when the disguise ends",
 					eval : "AddAction('bonus action', 'Shadow Disguise (end)', 'Bard (College of Whispers)');",
 					removeeval : "RemoveAction('bonus action', 'Shadow Disguise (end)');"
 				},
@@ -19175,7 +19214,7 @@ function importData() {
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""],
-				description : "\n   " + "As an action, I whisper to a creature within 30 ft that can hear and understand me" + "\n   " + "Only the target can hear me; It must make a Wisdom save or be charmed by me" + "\n   " + "If failed, it thinks I know its most mortifying secret, otherwise it only hears mumbling" + "\n   " + "While charmed, the target obeys my commands, but won't risk its life or fight for me" + "\n   " + "This lasts for 8 hours or until I or my allies attack or damage it" + "\n   " + "When the effect ends, the target has no idea why it was so afraid of me"
+				description : "\n   As an action, I whisper to a creature within 30 ft that can hear and understand me\n   Only the target can hear me; It must make a Wisdom save or be charmed by me\n   If failed, it thinks I know its most mortifying secret, otherwise it only hears mumbling\n   While charmed, the target obeys my commands, but won't risk its life or fight for me\n   This lasts for 8 hours or until I or my allies attack or damage it\n   When the effect ends, the target has no idea why it was so afraid of me"
 			}
 		}
 	});
@@ -19203,7 +19242,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["UA:CDD", 1],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with heavy armor",
+				description : "\n   I gain proficiency with heavy armor",
 				armor : [false, false, true, false]
 			},
 			"subclassfeature1.1" : {
@@ -19213,20 +19252,20 @@ function importData() {
 				action : ["action", ""],
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "At the end of a long rest, I can imbue magic into a nonmagical weapon or armor" + "\n   " + "It becomes magical: +1 AC if armor, or +1 to attack and damage rolls if a weapon" + "\n   " + "This lasts until the end of my next long rest"
+				description : "\n   At the end of a long rest, I can imbue magic into a nonmagical weapon or armor\n   It becomes magical: +1 AC if armor, or +1 to attack and damage rolls if a weapon\n   This lasts until the end of my next long rest"
 			},
 			"subclassfeature2" : {
 				name : "Channel Divinity: Artisan's Blessing",
 				source : ["UA:CDD", 1],
 				minlevel : 2,
-				description : "\n   " + "During a short rest, I can conduct a ritual to craft an item that is at least part metal" + "\n   " + "The object can be worth up to 100 gp, and I must expend metals of equal value to it" + "\n   " + "The item can be an exact duplicate of a nonmagical item if I possess the original"
+				description : "\n   During a short rest, I can conduct a ritual to craft an item that is at least part metal\n   The object can be worth up to 100 gp, and I must expend metals of equal value to it\n   The item can be an exact duplicate of a nonmagical item if I possess the original"
 			},
 			"subclassfeature6" : {
 				name : "Soul of the Forge",
 				source : ["UA:CDD", 1],
 				minlevel : 6,
 				additional : ["", "", "", "", "", "+6 force damage", "+7 force damage", "+8 force damage", "+9 force damage", "+10 force damage", "+11 force damage", "+12 force damage", "+13 force damage", "+14 force damage", "+15 force damage", "+16 force damage", "+17 force damage", "+18 force damage", "+19 force damage", "+20 force damage"],
-				description : "\n   " + "I gain a +1 AC while wearing medium or heavy armor, and resistance to fire damage" + "\n   " + "When I hit a construct with an attack, I deal my cleric level in additional force damage",
+				description : "\n   I gain a +1 AC while wearing medium or heavy armor, and resistance to fire damage\n   When I hit a construct with an attack, I deal my cleric level in additional force damage",
 				dmgres : ["Fire"],
 				eval : "AddACMisc(1, 'Soul of the Forge', '+1 AC while wearing Medium or Heavy armor.\\n\\nSoul of the Forge was gained from Cleric (Forge Domain).', \"!tDoc.getField('Medium Armor').isBoxChecked(0) && !tDoc.getField('Heavy Armor').isBoxChecked(0)\");",
 				removeeval : "AddACMisc(0, 'Soul of the Forge', '+1 AC while wearing Medium or Heavy armor.\\n\\nSoul of the Forge was gained from Cleric (Forge Domain).');"
@@ -19235,7 +19274,7 @@ function importData() {
 				name : "Divine Strike",
 				source : ["UA:CDD", 1],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 fire damage";
@@ -19248,7 +19287,7 @@ function importData() {
 				name : "Saint of Forge and Fire",
 				source : ["UA:CDD", 1],
 				minlevel : 17,
-				description : "\n   " + "I gain immunity to fire damage" + "\n   " + "If wearing heavy armor, I'm resistant to nonmagical bludg./piercing/slashing damage",
+				description : "\n   I gain immunity to fire damage\n   If wearing heavy armor, I'm resistant to nonmagical bludg./piercing/slashing damage",
 				savetxt : { immune : ["fire"] },
 				dmgres : [["Bludgeoning", "Bludg. (nonmagical)"], ["Piercing", "Pierc. (nonmagical)"], ["Slashing", "Slash. (nonmagical)"]]
 			}
@@ -19264,7 +19303,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["UA:CDD", 2],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with heavy armor",
+				description : "\n   I gain proficiency with heavy armor",
 				armor : [false, false, true, false]
 			},
 			"subclassfeature1.1" : {
@@ -19272,7 +19311,7 @@ function importData() {
 				source : ["UA:CDD", 2],
 				minlevel : 1,
 				action : ["bonus action", ""],
-				description : "\n   " + "Spells I cast to heal a living creature at 0 HP have their dice count as their max result" + "\n   " + "As a bonus action, I can cast the Spare the Dying cantrip, if I know it"
+				description : "\n   Spells I cast to heal a living creature at 0 HP have their dice count as their max result\n   As a bonus action, I can cast the Spare the Dying cantrip, if I know it"
 			},
 			"subclassfeature1.2" : {
 				name : "Eyes of the Grave",
@@ -19280,14 +19319,14 @@ function importData() {
 				minlevel : 1,
 				usages : 1,
 				recovery : "long rest",
-				description : "\n   " + "By spending 1 min in uninterrupted contemplation, I sense undead within 1 mile" + "\n   " + "I learn their number, distance, and direction from me" + "\n   " + "In addition, I know the creature type of the one with the highest CR"
+				description : "\n   By spending 1 min in uninterrupted contemplation, I sense undead within 1 mile\n   I learn their number, distance, and direction from me\n   In addition, I know the creature type of the one with the highest CR"
 			},
 			"subclassfeature2" : {
 				name : "Channel Divinity: Path to the Grave",
 				source : ["UA:CDD", 2],
 				minlevel : 2,
 				action : ["action", ""],
-				description : "\n   " + "As an action, I can touch a creature to make it take extra damage from one attack" + "\n   " + "It is vulnerable to all the damage from the next spell or attack from me or an ally" + "\n   " + "This only applies to the first time that source inflicts damage, and then ends" + "\n   " + "If the creature has resistance or is immune to the damage, it instead loses it"
+				description : "\n   As an action, I can touch a creature to make it take extra damage from one attack\n   It is vulnerable to all the damage from the next spell or attack from me or an ally\n   This only applies to the first time that source inflicts damage, and then ends\n   If the creature has resistance or is immune to the damage, it instead loses it"
 			},
 			"subclassfeature6" : {
 				name : "Sentinel at Death's Door",
@@ -19296,13 +19335,13 @@ function importData() {
 				usages : 1,
 				recovery : "short rest",
 				action : ["reaction", ""],
-				description : "\n   " + "As a reaction, I turn a critical hit to me or an ally I see within 30 ft to a normal hit"
+				description : "\n   As a reaction, I turn a critical hit to me or an ally I see within 30 ft to a normal hit"
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["UA:CDD", 2],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 necrotic damage";
@@ -19315,7 +19354,7 @@ function importData() {
 				name : "Keeper of Souls",
 				source : ["UA:CDD", 2],
 				minlevel : 17,
-				description : "\n   " + "Once per round, if I'm not incapacitated, I can manipulate the energy of the dying" + "\n   " + "When an enemy I can see dies within 30 ft of me, I or an ally within 30 ft regain HP" + "\n   " + "The HP regained is equal to the enemy's number of Hit Dice"
+				description : "\n   Once per round, if I'm not incapacitated, I can manipulate the energy of the dying\n   When an enemy I can see dies within 30 ft of me, I or an ally within 30 ft regain HP\n   The HP regained is equal to the enemy's number of Hit Dice"
 			}
 		}
 	});
@@ -19329,7 +19368,7 @@ function importData() {
 				name : "Bonus Proficiency",
 				source : ["UA:CDD", 3],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with heavy armor",
+				description : "\n   I gain proficiency with heavy armor",
 				armor : [false, false, true, false]
 			},
 			"subclassfeature1.1" : {
@@ -19337,27 +19376,27 @@ function importData() {
 				source : ["UA:CDD", 3],
 				minlevel : 1,
 				action : ["reaction", ""],
-				description : "\n   " + "As a reaction, when someone within 5 ft of me is attacked, I impose disadv. on the roll" + "\n   " + "To do this, I must be able to see both the attacker and the target"
+				description : "\n   As a reaction, when someone within 5 ft of me is attacked, I impose disadv. on the roll\n   To do this, I must be able to see both the attacker and the target"
 			},
 			"subclassfeature2" : {
 				name : "Channel Divinity: Radiant Defense",
 				source : ["UA:CDD", 3],
 				minlevel : 2,
 				action : ["action", ""],
-				description : "\n   " + "As an action, I channel blessed energy into an ally that I can see within 30 ft of me" + "\n   " + "The first time the ally is hit within the next minute, the attacker takes radiant damage",
+				description : "\n   As an action, I channel blessed energy into an ally that I can see within 30 ft of me\n   The first time the ally is hit within the next minute, the attacker takes radiant damage",
 				additional : ["", "2d10+2", "2d10+3", "2d10+4", "2d10+5", "2d10+6", "2d10+7", "2d10+8", "2d10+9", "2d10+10", "2d10+11", "2d10+12", "2d10+13", "2d10+14", "2d10+15", "2d10+16", "2d10+17", "2d10+18", "2d10+19", "2d10+20"]
 			},
 			"subclassfeature6" : {
 				name : "Blessed Healer",
 				source : ["UA:CDD", 3],
 				minlevel : 6,
-				description : "\n   " + "When I cast a spell to heal another using a spell slot, I heal 2 + the spell's level as well"
+				description : "\n   When I cast a spell to heal another using a spell slot, I heal 2 + the spell's level as well"
 			},
 			"subclassfeature8" : {
 				name : "Divine Strike",
 				source : ["UA:CDD", 3],
 				minlevel : 8,
-				description : "\n   " + "Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
+				description : "\n   Once per turn, when I hit a creature with a weapon attack, I can do extra damage",
 				additional : levels.map(function (n) {
 					if (n < 8) return "";
 					return "+" + (n < 14 ? 1 : 2) + "d8 radiant damage";
@@ -19373,7 +19412,7 @@ function importData() {
 				usages : 1,
 				recovery : "short rest",
 				action : ["action", " (transfer)"],
-				description : "\n   " + "I gain resistance to two of: bludgeoning, necrotic, piercing, radiant, or slashing damage" + "\n   " + "Whenever I finish a short or long rest, I can change the damage types chosen" + "\n   " + "As an action, I can transfer both resistances to one creature I touch" + "\n   " + "As a bonus action, I can transfer the resistances back to myself" + "\n   " + "Otherwise, the creature keeps this resistance until the end of my next short or long rest",
+				description : "\n   I gain resistance to two of: bludgeoning, necrotic, piercing, radiant, or slashing damage\n   Whenever I finish a short or long rest, I can change the damage types chosen\n   As an action, I can transfer both resistances to one creature I touch\n   As a bonus action, I can transfer the resistances back to myself\n   Otherwise, the creature keeps this resistance until the end of my next short or long rest",
 				eval : "AddAction('bonus action', 'Indomitable Defense (return)', 'Cleric (Protection Domain)');",
 				removeeval : "RemoveAction('bonus action', 'Indomitable Defense (return)');"
 			}
@@ -19460,13 +19499,13 @@ function importData() {
 				name : "Beast Speech",
 				source : ["UA:DC", 2],
 				minlevel : 2,
-				description : "\n   " + "I can talk with beasts, they understand me and I them, to the limit of their intelligence" + "\n   " + "This doesn't automatically make me friends with all beasts"
+				description : "\n   I can talk with beasts, they understand me and I them, to the limit of their intelligence\n   This doesn't automatically make me friends with all beasts"
 			},
 			"subclassfeature2.1" : {
 				name : "Spirit Bond",
 				source : ["UA:DC", 2],
 				minlevel : 2,
-				description : "\n   " + "As a bonus action, I can summon a spirit to an empty space within 60 ft that I can see" + "\n   " + "The Bear, Hawk, or Wolf spirit, creates a 30-ft radius aura and persist for 1 minute" + "\n   " + "It doesn't occupy space, is immobile, and counts as neither a creature nor an object" + "\n    - " + "Bear: my allies in the area and I instantly gain 5 + my druid level in temp HP" + "\n       " + "While in the aura, my allies and I gain advantage on Strength checks and saves" + "\n    - " + "Hawk: my allies and I gain advantage on attacks against targets in the aura" + "\n    - " + "Wolf: my allies and I gain advantage on ability checks to detect targets in the aura" + "\n       " + "If I cast a healing spell with a spell slot, allies in the aura heal my druid level in HP",
+				description : "\n   As a bonus action, I can summon a spirit to an empty space within 60 ft that I can see\n   The Bear, Hawk, or Wolf spirit, creates a 30-ft radius aura and persist for 1 minute\n   It doesn't occupy space, is immobile, and counts as neither a creature nor an object\n    - Bear: my allies in the area and I instantly gain 5 + my druid level in temp HP\n       While in the aura, my allies and I gain advantage on Strength checks and saves\n    - Hawk: my allies and I gain advantage on attacks against targets in the aura\n    - Wolf: my allies and I gain advantage on ability checks to detect targets in the aura\n       If I cast a healing spell with a spell slot, allies in the aura heal my druid level in HP",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""]
@@ -19475,19 +19514,19 @@ function importData() {
 				name : "Mighty Summoner",
 				source : ["UA:DC", 2],
 				minlevel : 6,
-				description : "\n   " + "Beast I summon with my spells have +2 HP per HD and their attacks count as magical"
+				description : "\n   Beast I summon with my spells have +2 HP per HD and their attacks count as magical"
 			},
 			"subclassfeature10" : {
 				name : "Guardian Spirit",
 				source : ["UA:DC", 2],
 				minlevel : 10,
-				description : "\n   " + "Whenever I finish a long rest, I gain the benefits of a Death Ward spell for 24 hours"
+				description : "\n   Whenever I finish a long rest, I gain the benefits of a Death Ward spell for 24 hours"
 			},
 			"subclassfeature14" : {
 				name : "Faithful Summons",
 				source : ["UA:DC", 2],
 				minlevel : 14,
-				description : "\n   " + "When I am reduced to 0 HP or incapacitated against my will, I can summon protectors" + "\n   " + "I gain the benefits of a Conjure Animals spell as if cast with a 9th-level spell slot" + "\n   " + "It summons 4 beast of my choice with CR 2 or lower within 20 ft of me for 1 hour" + "\n   " + "If they receive no commands from me, they protect me from harm and attack foes",
+				description : "\n   When I am reduced to 0 HP or incapacitated against my will, I can summon protectors\n   I gain the benefits of a Conjure Animals spell as if cast with a 9th-level spell slot\n   It summons 4 beast of my choice with CR 2 or lower within 20 ft of me for 1 hour\n   If they receive no commands from me, they protect me from harm and attack foes",
 				usages : 1,
 				recovery : "long rest"
 			}
@@ -19502,7 +19541,7 @@ function importData() {
 				name : "Harvest's Scythe",
 				source : ["UA:DC", 3],
 				minlevel : 2,
-				description : "\n   " + "I have a pool of energy represented by a number of d10s equal to my druid level" + "\n   " + "When I roll damage for a spell, I can do extra necrotic damage with dice from the pool" + "\n   " + "I can spend up to half my druid level worth of dice from the pool at once" + "\n   " + "If I any hostiles die from an augmented spell, I can heal one ally I can see within 30 ft" + "\n   " + "The ally regains 2 HP per die spent; or 5 HP per die if one of the slain was undead  ",
+				description : "\n   I have a pool of energy represented by a number of d10s equal to my druid level\n   When I roll damage for a spell, I can do extra necrotic damage with dice from the pool\n   I can spend up to half my druid level worth of dice from the pool at once\n   If I any hostiles die from an augmented spell, I can heal one ally I can see within 30 ft\n   The ally regains 2 HP per die spent; or 5 HP per die if one of the slain was undead  ",
 				usages : ["", "2d10 per ", "3d10 per ", "4d10 per ", "5d10 per ", "6d10 per ", "7d10 per ", "8d10 per ", "9d10 per ", "10d10 per ", "11d10 per ", "12d10 per ", "13d10 per ", "14d10 per ", "15d10 per ", "16d10 per ", "17d10 per ", "18d10 per ", "19d10 per ", "20d10 per "],
 				recovery : "long rest"
 			},
@@ -19510,7 +19549,7 @@ function importData() {
 				name : "Speech Beyond the Grave",
 				source : ["UA:DC", 3],
 				minlevel : 6,
-				description : "\n   " + "Once per short rest, I can cast Speak with Dead without spell slots or material comp." + "\n   " + "The target and I can understand each other, regardless of language or intelligence",
+				description : "\n   Once per short rest, I can cast Speak with Dead without spell slots or material comp.\n   The target and I can understand each other, regardless of language or intelligence",
 				usages : 1,
 				recovery : "short rest",
 				spellcastingBonus : {
@@ -19524,14 +19563,14 @@ function importData() {
 				name : "Watcher at the Threshold",
 				source : ["UA:DC", 3],
 				minlevel : 10,
-				description : "\n   " + "I gain resistance to necrotic and radiant damage" + "\n   " + "While I'm not incapacitated, allies within 30 ft of me gain adv. on their death saves",
+				description : "\n   I gain resistance to necrotic and radiant damage\n   While I'm not incapacitated, allies within 30 ft of me gain adv. on their death saves",
 				dmgres : ["Necrotic", "Radiant"]
 			},
 			"subclassfeature14" : {
 				name : "Paths of the Dead",
 				source : ["UA:DC", 3],
 				minlevel : 14,
-				description : "\n   " + "Once per short rest, I can cast Etherealness without needing a spell slot (PHB 238)",
+				description : "\n   Once per short rest, I can cast Etherealness without needing a spell slot (PHB 238)",
 				usages : 1,
 				recovery : "short rest",
 				spellcastingBonus : {
@@ -19567,7 +19606,7 @@ function importData() {
 				name : "Arcane Arrow",
 				source : ["UA:FMA", 1],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I can create one magical arrow that I can fire with a bow" + "\n   " + "A shot with the arrow counts as magical and does additional force damage on a hit" + "\n   " + "When I create the arrow, I can apply one of my known Arcane Shots on it" + "\n   " + "This arrow lasts until the end of my turn or until I hit or miss a target with it",
+				description : "\n   As a bonus action, I can create one magical arrow that I can fire with a bow\n   A shot with the arrow counts as magical and does additional force damage on a hit\n   When I create the arrow, I can apply one of my known Arcane Shots on it\n   This arrow lasts until the end of my turn or until I hit or miss a target with it",
 				additional : levels.map(function (n) {
 					return n < 3 ? "" :
 						(n < 18 ? "+2" : "+4") + "d6 force damage";
@@ -19585,71 +19624,71 @@ function importData() {
 				name : "Arcane Shot",
 				source : ["UA:FMA", 1],
 				minlevel : 3,
-				description : "\n   " + "Use the \"Choose Feature\" button above to add Arcane Shots to the third page",
+				description : "\n   Use the \"Choose Feature\" button above to add Arcane Shots to the third page",
 				additional : ["", "", "2 known", "2 known", "2 known", "2 known", "3 known", "3 known", "3 known", "4 known", "4 known", "4 known", "4 known", "4 known", "5 known", "5 known", "5 known", "6 known", "6 known", "6 known"],
 				extraname : "Arcane Shot",
 				extrachoices : ["Beguiling Arrow", "Brute Bane Arrow", "Bursting Arrow", "Defending Arrow", "Grasping Arrow", "Piercing Arrow", "Seeking Arrow", "Shadow Arrow"],
 				"beguiling arrow" : {
 					name : "Beguiling Arrow",
 					source : ["UA:FMA", 1],
-					description : " [Enchantment]" + "\n   " + "If the arrow hits, I choose an ally withing 30 feet of the target" + "\n   " + "The target can't attack the chosen ally or include the ally in any harmful area of effects" + "\n   " + "This effect stops if the target is immune to charm effects or the ally damages the target"
+					description : " [Enchantment]\n   If the arrow hits, I choose an ally withing 30 feet of the target\n   The target can't attack the chosen ally or include the ally in any harmful area of effects\n   This effect stops if the target is immune to charm effects or the ally damages the target"
 				},
 				"brute bane arrow" : {
 					name : "Brute Bane Arrow",
 					source : ["UA:FMA", 1],
-					description : " [Necromancy]" + "\n   " + "If the arrow hits, the target's attacks deal half damage until the end of my next turn" + "\n   " + "Only attacks that deal bludgeoning, piercing or slashing damage are halved"
+					description : " [Necromancy]\n   If the arrow hits, the target's attacks deal half damage until the end of my next turn\n   Only attacks that deal bludgeoning, piercing or slashing damage are halved"
 				},
 				"bursting arrow" : {
 					name : "Bursting Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Evocation]" + "\n   " + "If the arrow hits, all creatures within 10 ft of the target creature take 2d6 force damage"
+					description : " [Evocation]\n   If the arrow hits, all creatures within 10 ft of the target creature take 2d6 force damage"
 				},
 				"defending arrow" : {
 					name : "Defending Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Abjuration]" + "\n   " + "If the arrow hits, the target has disadv. on its next attack before the end of my next turn"
+					description : " [Abjuration]\n   If the arrow hits, the target has disadv. on its next attack before the end of my next turn"
 				},
 				"grasping arrow" : {
 					name : "Grasping Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Conjuration]" + "\n   " + "If the arrow hits, the target is wrapped with grasping, thorny brambles for 1 minute" + "\n   " + "The target has -10 ft speed; It takes 2d6 slashing damage when moving more than 1 ft" + "\n   " + "As an action, the target or a creature can remove the brambles with a DC 10 Str check"
+					description : " [Conjuration]\n   If the arrow hits, the target is wrapped with grasping, thorny brambles for 1 minute\n   The target has -10 ft speed; It takes 2d6 slashing damage when moving more than 1 ft\n   As an action, the target or a creature can remove the brambles with a DC 10 Str check"
 				},
 				"piercing arrow" : {
 					name : "Piercing Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Transmutation]" + "\n   " + "The arrow transform into an ethereal dart that creates a line of 1 ft wide and 30 ft long" + "\n   " + "I then make a separate attack using my Arcane Arrow against each creature in that line"
+					description : " [Transmutation]\n   The arrow transform into an ethereal dart that creates a line of 1 ft wide and 30 ft long\n   I then make a separate attack using my Arcane Arrow against each creature in that line"
 				},
 				"seeking arrow" : {
 					name : "Seeking Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Divination]" + "\n   " + "As an action, I can make a ranged attack against a creature I have seen in the last minute" + "\n   " + "The seeking arrow moves around corners and obstacles to hit the target" + "\n   " + "The attack ignores 1/2 and 3/4 cover and disadvantage from range or being out of sight" + "\n   " + "The attack misses if the target is too far away or there is no path for the arrow to travel" + "\n   " + "I know if the arrow hits the target, but don't learn the location unless it's in line of sight",
+					description : " [Divination]\n   As an action, I can make a ranged attack against a creature I have seen in the last minute\n   The seeking arrow moves around corners and obstacles to hit the target\n   The attack ignores 1/2 and 3/4 cover and disadvantage from range or being out of sight\n   The attack misses if the target is too far away or there is no path for the arrow to travel\n   I know if the arrow hits the target, but don't learn the location unless it's in line of sight",
 					action : ["action", ""]
 				},
 				"shadow arrow" : {
 					name : "Shadow Arrow",
 					source : ["UA:FMA", 2],
-					description : " [Illusion]" + "\n   " + "If the arrow hits, the target can't see beyond 30 ft until the end of my next turn"
+					description : " [Illusion]\n   If the arrow hits, the target can't see beyond 30 ft until the end of my next turn"
 				}
 			},
 			"subclassfeature3.2" : {
 				name : "Archer's Lore",
 				source : ["UA:FMA", 1],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with two skills" + "\n   " + "I can choose from: Arcana, Athletics, Nature, Perception, Stealth, or Survival",
+				description : "\n   I gain proficiency with two skills\n   I can choose from: Arcana, Athletics, Nature, Perception, Stealth, or Survival",
 				skillstxt : "\n\n" + toUni("Arcane Archer") + ": Choose two from Arcana, Athletics, Nature, Perception, Stealth, and Survival."
 			},
 			"subclassfeature7" : {
 				name : "Conjure Arrows",
 				source : ["UA:FMA", 1],
 				minlevel : 7,
-				description : "\n   " + "As an action, I can create up to 20 nonmagical arrows that remain for 10 minutes" + "\n   " + "The arrows vanish if I use this feature again with 10 minutes",
+				description : "\n   As an action, I can create up to 20 nonmagical arrows that remain for 10 minutes\n   The arrows vanish if I use this feature again with 10 minutes",
 				action : ["action", ""]
 			},
 			"subclassfeature15" : {
 				name : "Ever-Ready Arrow",
 				source : ["UA:FMA", 1],
 				minlevel : 15,
-				description : "\n   " + "I regain one use of Arcane Arrow one minute after I expend my last remaining use of it"
+				description : "\n   I regain one use of Arcane Arrow one minute after I expend my last remaining use of it"
 			}
 		}
 	});
@@ -19663,14 +19702,14 @@ function importData() {
 				name : "Born in the Saddle",
 				source : ["UA:FMA", 2],
 				minlevel : 3,
-				description : "\n   " + "Mounting or dismounting a creature costs me only 5 ft of movement" + "\n   " + "I have advantage on saving throws made to avoid falling off my mount" + "\n   " + "If I fall off my mount for less than 10 ft while not incapacitated, I land on my feet",
+				description : "\n   Mounting or dismounting a creature costs me only 5 ft of movement\n   I have advantage on saving throws made to avoid falling off my mount\n   If I fall off my mount for less than 10 ft while not incapacitated, I land on my feet",
 				savetxt : { adv_vs : ["falling off my mount"] }
 			},
 			"subclassfeature3.1" : {
 				name : "Implacable Mark",
 				source : ["UA:FMA", 2],
 				minlevel : 3,
-				description : "\n   " + "If I hit a creature with a melee weapon attack, I mark it until the end of my next turn" + "\n   " + "A marked target has disadv. on any attacks vs. those that didn't mark it" + "\n   " + "I can attack the target I marked if it is within 5 ft of me and does one of the following:" + "\n    - " + "It moves at least 1 foot on its turn" + "\n    - " + "It makes an attack that it suffers disadv. on from being marked" + "\n   " + "This attack uses my reaction, has adv., and adds my fighter level as extra damage" + "\n   " + "I can still do this if I already used my reaction this round, but not this turn",
+				description : "\n   If I hit a creature with a melee weapon attack, I mark it until the end of my next turn\n   A marked target has disadv. on any attacks vs. those that didn't mark it\n   I can attack the target I marked if it is within 5 ft of me and does one of the following:\n    - It moves at least 1 foot on its turn\n    - It makes an attack that it suffers disadv. on from being marked\n   This attack uses my reaction, has adv., and adds my fighter level as extra damage\n   I can still do this if I already used my reaction this round, but not this turn",
 				recovery : "short rest",
 				usages : 3,
 				additional : levels.map(function (n) {
@@ -19685,16 +19724,16 @@ function importData() {
 				name : "Noble Cavalry",
 				source : ["UA:FMA", 2],
 				minlevel : 7,
-				description : "\n   " + "I gain proficiency with two skills or one language" + "\n   " + "I can choose the skills from: Animal Handling, History, Insight, Persuasion, and Religion",
+				description : "\n   I gain proficiency with two skills or one language\n   I can choose the skills from: Animal Handling, History, Insight, Persuasion, and Religion",
 				choices : ["Language proficiency", "2 Skill proficiencies: Animal Handling, History, Insight, Persuasion, or Religion"],
 				"language proficiency" : {
 					name : "Noble Cavalry",
-					description : "\n   " + "I learn one language of my choice",
+					description : "\n   I learn one language of my choice",
 					languageProfs : [1]
 				},
 				"2 skill proficiencies: animal handling, history, insight, persuasion, or religion" : {
 					name : "Noble Cavalry",
-					description : "\n   " + "I gain 2 skill proficiencies: Animal Handling, History, Insight, Persuasion, or Religion",
+					description : "\n   I gain 2 skill proficiencies: Animal Handling, History, Insight, Persuasion, or Religion",
 					skillstxt : "\n\n" + toUni("Knight") + ": Choose two from: Animal Handling, History, Insight, Persuasion, or Religion."
 				}
 			},
@@ -19702,7 +19741,7 @@ function importData() {
 				name : "Hold the Line",
 				source : ["UA:FMA", 2],
 				minlevel : 10,
-				description : "\n   " + "As a reaction when a creature within 5 ft of me moves at least 1 ft, I can attack it" + "\n   " + "This attack is made with a melee weapon attack and deals extra damage on a hit" + "\n   " + "If this hits, the attack reduces the target's speed to 0 until the end of this turn",
+				description : "\n   As a reaction when a creature within 5 ft of me moves at least 1 ft, I can attack it\n   This attack is made with a melee weapon attack and deals extra damage on a hit\n   If this hits, the attack reduces the target's speed to 0 until the end of this turn",
 				additional : levels.map(function (n) {
 					return n < 10 ? "" : "+" + Math.floor(n / 2) + " damage";
 				}),
@@ -19715,14 +19754,14 @@ function importData() {
 				name : "Rapid Strike",
 				source : ["UA:FMA", 3],
 				minlevel : 15,
-				description : "\n   " + "If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action" + "\n   " + "This attack has to be with the same weapon against the same target",
+				description : "\n   If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action\n   This attack has to be with the same weapon against the same target",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature18" : {
 				name : "Defender's Blade",
 				source : ["UA:FMA", 3],
 				minlevel : 18,
-				description : "\n   " + "I can do opportunity attacks if I already used my reaction this round, but not this turn" + "\n   " + "I gain +1 bonus to AC when I'm wearing heavy armor",
+				description : "\n   I can do opportunity attacks if I already used my reaction this round, but not this turn\n   I gain +1 bonus to AC when I'm wearing heavy armor",
 				eval : "AddACMisc(1, \"Defender's Blade\", \"When wearing heavy armor, the class feature Defender's Blade gives a +1 bonus to AC\", \"!tDoc.getField('Heavy Armor').isBoxChecked(0)\")",
 				removeeval : "AddACMisc(0, \"Defender's Blade\", \"When wearing heavy armor, the class feature Defender's Blade gives a +1 bonus to AC\")"
 			}
@@ -19738,7 +19777,7 @@ function importData() {
 				name : "Fighting Spirit",
 				source : ["UA:FMA", 3],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I can give myself benefits that last until the end of my next turn" + "\n   " + "I then gain adv. on my attacks and resistance to bludgeoning/piercing/slashing damage",
+				description : "\n   As a bonus action, I can give myself benefits that last until the end of my next turn\n   I then gain adv. on my attacks and resistance to bludgeoning/piercing/slashing damage",
 				recovery : "short rest",
 				usages : 3,
 				action : ["bonus action", ""]
@@ -19747,16 +19786,16 @@ function importData() {
 				name : "Elegant Courtier",
 				source : ["UA:FMA", 3],
 				minlevel : 7,
-				description : "\n   " + "I can add my Wis modifier to any Cha check to persuade anyone of a high social station" + "\n   " + "I gain proficiency with either one language or the History, Insight, or Persuasion skill",
+				description : "\n   I can add my Wis modifier to any Cha check to persuade anyone of a high social station\n   I gain proficiency with either one language or the History, Insight, or Persuasion skill",
 				choices : ["Language proficiency", "Skill proficiency: History, Insight, or Persuasion"],
 				"language proficiency" : {
 					name : "Elegant Courtier",
-					description : "\n   " + "I can add my Wis modifier to any Cha check to persuade anyone of a high social station" + "\n   " + "I gain proficiency with one language of my choice",
+					description : "\n   I can add my Wis modifier to any Cha check to persuade anyone of a high social station\n   I gain proficiency with one language of my choice",
 					languageProfs : [1]
 				},
 				"skill proficiency: history, insight, or persuasion" : {
 					name : "Elegant Courtier",
-					description : "\n   " + "I can add my Wis modifier to any Cha check to persuade anyone of a high social station" + "\n   " + "I gain proficiency with one skill: History, Insight, or Persuasion",
+					description : "\n   I can add my Wis modifier to any Cha check to persuade anyone of a high social station\n   I gain proficiency with one skill: History, Insight, or Persuasion",
 					skillstxt : "\n\n" + toUni("Samurai") + ": History, Insight, or Persuasion.",
 				}
 			},
@@ -19764,21 +19803,21 @@ function importData() {
 				name : "Unbreakable Will",
 				source : ["UA:FMA", 3],
 				minlevel : 10,
-				description : "\n   " + "I gain proficiency with Wis saves, or if I'm already proficient, either Int or Cha saves",
+				description : "\n   I gain proficiency with Wis saves, or if I'm already proficient, either Int or Cha saves",
 				saves : ["Wis"]
 			},
 			"subclassfeature15" : {
 				name : "Rapid Strike",
 				source : ["UA:FMA", 3],
 				minlevel : 15,
-				description : "\n   " + "If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action" + "\n   " + "This attack has to be with the same weapon against the same target",
+				description : "\n   If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action\n   This attack has to be with the same weapon against the same target",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature18" : {
 				name : "Strength Before Death",
 				source : ["UA:FMA", 3],
 				minlevel : 18,
-				description : "\n   " + "If I take damage that would reduce me to 0 HP, I can delay that damage" + "\n   " + "I then immediately take a bonus turn, interrupting the current turn" + "\n   " + "I don't take the delayed damage until the bonus turn ends and can affect that damage",
+				description : "\n   If I take damage that would reduce me to 0 HP, I can delay that damage\n   I then immediately take a bonus turn, interrupting the current turn\n   I don't take the delayed damage until the bonus turn ends and can affect that damage",
 				recovery : "long rest",
 				usages : 1
 			}
@@ -19794,7 +19833,7 @@ function importData() {
 				name : "Steady Aim",
 				source : ["UA:FMA", 3],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I can carefully aim my ranged weapon on a target I can see in range" + "\n   " + "Until the end of my turn, my attacks with this weapon on that target get to:" + "\n   " + "Ignore half and three-quarter cover; Add 2 + half fighter level damage per hit",
+				description : "\n   As a bonus action, I can carefully aim my ranged weapon on a target I can see in range\n   Until the end of my turn, my attacks with this weapon on that target get to:\n   Ignore half and three-quarter cover; Add 2 + half fighter level damage per hit",
 				recovery : "short rest",
 				usages : 3,
 				additional : levels.map(function (n) {
@@ -19810,7 +19849,7 @@ function importData() {
 				name : "Careful Eyes",
 				source : ["UA:FMA", 4],
 				minlevel : 7,
-				description : "\n   " + "As a bonus action, I can take the Search action" + "\n   " + "I gain proficiency with one skill, Perception, Investigation, or Survival",
+				description : "\n   As a bonus action, I can take the Search action\n   I gain proficiency with one skill, Perception, Investigation, or Survival",
 				skillstxt : "\n\n" + toUni("Sharpshooter") + ": Perception, Investigation, or Survival.",
 				action : ["bonus action", ""]
 			},
@@ -19818,20 +19857,20 @@ function importData() {
 				name : "Close-Quarters Shooting",
 				source : ["UA:FMA", 4],
 				minlevel : 10,
-				description : "\n   " + "I don't have disadvantage when making a ranged attack while within 5 ft of a hostile" + "\n   " + "A hostile within 5 ft that I hit with a ranged attack on my turn, can't take reactions" + "\n   " + "This lasts until the end of my turn"
+				description : "\n   I don't have disadvantage when making a ranged attack while within 5 ft of a hostile\n   A hostile within 5 ft that I hit with a ranged attack on my turn, can't take reactions\n   This lasts until the end of my turn"
 			},
 			"subclassfeature15" : {
 				name : "Rapid Strike",
 				source : ["UA:FMA", 4],
 				minlevel : 15,
-				description : "\n   " + "If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action" + "\n   " + "This attack has to be with the same weapon against the same target",
+				description : "\n   If I have adv. on an attack, I can forgo it to make an extra attack as a bonus action\n   This attack has to be with the same weapon against the same target",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature18" : {
 				name : "Snap Shot",
 				source : ["UA:FMA", 4],
 				minlevel : 18,
-				description : "\n   " + "I can make one more ranged attack with my Attack action on my first turn of combat"
+				description : "\n   I can make one more ranged attack with my Attack action on my first turn of combat"
 			}
 		}
 	});
@@ -19858,13 +19897,13 @@ function importData() {
 				name : "Path of the Kensei",
 				source : ["UA:MMT", 1],
 				minlevel : 3,
-				description : " [3 martial weapons proficiencies]" + "\n   " + "Martial weapons I am proficient with count as kensei weapons for me" + "\n   " + "With these, I can use Dex instead of Str and use the Martial Arts damage die" + "\n   " + "As a bonus action, my kensei weapon deal +1d4 bludg. damage for an Attack action",
+				description : " [3 martial weapons proficiencies]\n   Martial weapons I am proficient with count as kensei weapons for me\n   With these, I can use Dex instead of Str and use the Martial Arts damage die\n   As a bonus action, my kensei weapon deal +1d4 bludg. damage for an Attack action",
 				action: ["bonus action", " (after hit)"],
 				extraname : "Way of the Kensei 3",
 				"kensei defense" : {
 					name : "Kensei Defense",
 					source : ["UA:MMT", 1],
-					description : "\n   " + "If I make an unarmed strike with an Attack action, I can use my kensei weapon to defend" + "\n   " + "Until the start of my next turn, if I'm not incapacitated, I gain +2 AC while holding it"
+					description : "\n   If I make an unarmed strike with an Attack action, I can use my kensei weapon to defend\n   Until the start of my next turn, if I'm not incapacitated, I gain +2 AC while holding it"
 				},
 				eval : "ClassFeatureOptions(['monk', 'subclassfeature3', 'kensei defense', 'extra']);",
 				removeeval : "ClassFeatureOptions(['monk', 'subclassfeature3', 'kensei defense', 'extra'], 'remove');",
@@ -19876,7 +19915,7 @@ function importData() {
 				name : "One with the Blade",
 				source : ["UA:MMT", 1],
 				minlevel : 6,
-				description : "\n   " + "My unarmed strikes and kensei weapon attacks count as magical",
+				description : "\n   My unarmed strikes and kensei weapon attacks count as magical",
 				calcChanges : {
 					atkAdd : ["if (((/unarmed strike/i).test(WeaponName) || (theWea && !isSpell && (/martial/i).test(theWea.type))) && fields.Description.indexOf('Counts as magical') === -1 && !thisWeapon[1]) {fields.Description += (fields.Description ? '; ' : '') + 'Counts as magical';}; ", "My unarmed strikes and Kensei Weapons count as magical for overcoming resistances and immunities."]
 				}
@@ -19885,7 +19924,7 @@ function importData() {
 				name : "Precise Strike",
 				source : ["UA:MMT", 1],
 				minlevel : 6,
-				description : "As a bonus action, I can focus my attention on one creature I can see within 30 ft" + "\n   " + "This turn, I double my proficiency bonus on my next weapon attack against that mark",
+				description : "As a bonus action, I can focus my attention on one creature I can see within 30 ft\n   This turn, I double my proficiency bonus on my next weapon attack against that mark",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""],
@@ -19897,12 +19936,12 @@ function importData() {
 				name : "Unerring Accuracy",
 				source : ["UA:MMT", 1],
 				minlevel : 17,
-				description : "\n   " + "On each of my turns, I can reroll one weapon attack roll I make that misses",
+				description : "\n   On each of my turns, I can reroll one weapon attack roll I make that misses",
 				extraname : "Way of the Kensei 11",
 				"sharpen the blade" : {
 					name : "Sharpen the Blade",
 					source : ["UA:MMT", 1],
-					description : " [1 to 3 ki points]" + "\n   " + "As a bonus action, I can grant my weapon a bonus to attack and damage rolls" + "\n   " + "This bonus is equal to the number of ki points I spend; It lasts for 1 minute",
+					description : " [1 to 3 ki points]\n   As a bonus action, I can grant my weapon a bonus to attack and damage rolls\n   This bonus is equal to the number of ki points I spend; It lasts for 1 minute",
 					action : ["bonus action", ""]
 				},
 				changeeval : "if (newClassLvl.monk >= 11 && (What('Extra.Notes') + What('Class Features')).toLowerCase().indexOf('sharpen the blade') === -1) {ClassFeatureOptions(['monk', 'subclassfeature17', 'sharpen the blade', 'extra'])} else if (newClassLvl.monk <= 11 && oldClassLvl.monk >= 11) {ClassFeatureOptions(['monk', 'subclassfeature17', 'sharpen the blade', 'extra'], 'remove')}"
@@ -19918,7 +19957,7 @@ function importData() {
 				name : "Path of Tranquility",
 				source : ["UA:MMT", 2],
 				minlevel : 3,
-				description : "\n   " + "I cast Sanctuary on me, no material comp., lasts 8 hours, hostiles must save every hour",
+				description : "\n   I cast Sanctuary on me, no material comp., lasts 8 hours, hostiles must save every hour",
 				usages : 1,
 				recovery : "1 min",
 				action : ["bonus action", ""],
@@ -19932,7 +19971,7 @@ function importData() {
 				name : "Healing Hands",
 				source : ["UA:MMT", 2],
 				minlevel : 3,
-				description : "\n   " + "As an action, I use points to heal living creature; or 5 points to cure one poison/disease" + "\n   " + "With Flurry of Blows, I can replace one unarmed strike with a use of this feature",
+				description : "\n   As an action, I use points to heal living creature; or 5 points to cure one poison/disease\n   With Flurry of Blows, I can replace one unarmed strike with a use of this feature",
 				usages : [0, 0, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
 				recovery : "long rest",
 				action : ["action", ""]
@@ -19941,13 +19980,13 @@ function importData() {
 				name : "Emissary of Peace",
 				source : ["UA:MMT", 2],
 				minlevel : 6,
-				description : " [Performance or Persuasion prof]" + "\n   " + "I get adv. on Cha checks to calm or counsel peace; not with Deception or Intimidation",
+				description : " [Performance or Persuasion prof]\n   I get adv. on Cha checks to calm or counsel peace; not with Deception or Intimidation",
 				skillstxt : "\n\n" + toUni("Way of Tranquility") + ": Choose one from Performance or Persuasion.",
 				extraname : "Way of Tranquility 11",
 				"douse the flames of war" : {
 					name : "Douse the Flames of War",
 					source : ["UA:MMT", 1],
-					description : "\n   " + "As an action, a creature I touch must make a Wisdom save or have no violent impulses" + "\n   " + "If the target is missing any HP it succeeds on the save; The effect lasts for 1 minute" + "\n   " + "During this time, it can't attack or cast spells that deal damage or force a saving throw" + "\n   " + "This effect ends if the target is attacked, takes damage, or is forced to make a saving throw" + "\n   " + "It also ends if the target witnesses any of those things happening to its allies",
+					description : "\n   As an action, a creature I touch must make a Wisdom save or have no violent impulses\n   If the target is missing any HP it succeeds on the save; The effect lasts for 1 minute\n   During this time, it can't attack or cast spells that deal damage or force a saving throw\n   This effect ends if the target is attacked, takes damage, or is forced to make a saving throw\n   It also ends if the target witnesses any of those things happening to its allies",
 					action : ["action", ""]
 				},
 				changeeval : "if (newClassLvl.monk >= 11 && (What('Extra.Notes') + What('Class Features')).toLowerCase().indexOf('douse the flames of war') === -1) {ClassFeatureOptions(['monk', 'subclassfeature6', 'douse the flames of war', 'extra']);} else if (newClassLvl.monk <= 11 && oldClassLvl.monk >= 11) {ClassFeatureOptions(['monk', 'subclassfeature6', 'douse the flames of war', 'extra'], 'remove');}"
@@ -19956,7 +19995,7 @@ function importData() {
 				name : "Anger of a Gentle Soul",
 				source : ["UA:MMT", 2],
 				minlevel : 17,
-				description : "\n   " + "As a reaction if another I see goes to 0 HP, I get bonus damage until my next turn ends",
+				description : "\n   As a reaction if another I see goes to 0 HP, I get bonus damage until my next turn ends",
 				usages : 1,
 				recovery : "short rest",
 				additional : ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "+17", "+18", "+19", "+20"],
@@ -19988,33 +20027,33 @@ function importData() {
 				name : "Channel Divinity: Conquering Strike",
 				source : ["UA:PSO", 1],
 				minlevel : 3,
-				description : "\n   " + "I can use my channel divinity to break a foe's will that I hit with my melee weapon" + "\n   " + "The target must make a Wisdom saving throw or become frightened for 1 minute" + "\n   " + "The target can repeat this save at the end of each or its turn to end the effect"
+				description : "\n   I can use my channel divinity to break a foe's will that I hit with my melee weapon\n   The target must make a Wisdom saving throw or become frightened for 1 minute\n   The target can repeat this save at the end of each or its turn to end the effect"
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Guided Strike",
 				source : ["UA:PSO", 1],
 				minlevel : 3,
-				description : "\n   " + "When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
+				description : "\n   When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
 			},
 			"subclassfeature7" : {
 				name : "Aura of Conquest",
 				source : ["UA:PSO", 1],
 				minlevel : 7,
-				description : "\n   " + "While I'm not incapacitated, enemies in range have disadv. on saves vs. being frightened",
+				description : "\n   While I'm not incapacitated, enemies in range have disadv. on saves vs. being frightened",
 				additional : ["", "", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"]
 			},
 			"subclassfeature15" : {
 				name : "Implacable Spirit",
 				source : ["UA:PSO", 1],
 				minlevel : 15,
-				description : "\n   " + "I can't be charmed",
+				description : "\n   I can't be charmed",
 				savetxt : { immune : ["charmed"] }
 			},
 			"subclassfeature20" : {
 				name : "Invincible Conqueror",
 				source : ["UA:PSO", 2],
 				minlevel : 20,
-				description : "\n   " + "As an action, I can gain the following benefits for 1 minute:" + "\n    - " + "I have resistance all damage" + "\n    - " + "I can make an additional attack as part of my Attack action" + "\n    - " + "My melee weapons score critical hits on a roll of 19 or 20",
+				description : "\n   As an action, I can gain the following benefits for 1 minute:\n    - I have resistance all damage\n    - I can make an additional attack as part of my Attack action\n    - My melee weapons score critical hits on a roll of 19 or 20",
 				recovery : "long rest",
 				usages : 1,
 				action : ["action", ""]
@@ -20031,7 +20070,7 @@ function importData() {
 				name : "Channel Divinity: Conjure Duplicate",
 				source : ["UA:PSO", 2],
 				minlevel : 3,
-				description : "\n   " + "As an action, I create 1 illusory duplicate of myself within 30 ft of me for 1 min (conc)" + "\n   " + "As a bonus action, I can move it up to 30 ft to a space I can see within 120 ft of me" + "\n   " + "I can cast spells as though I was in its space, but still have to use my own senses" + "\n   " + "I have advantage on attacks if the target is within 5 ft of the duplicate and me",
+				description : "\n   As an action, I create 1 illusory duplicate of myself within 30 ft of me for 1 min (conc)\n   As a bonus action, I can move it up to 30 ft to a space I can see within 120 ft of me\n   I can cast spells as though I was in its space, but still have to use my own senses\n   I have advantage on attacks if the target is within 5 ft of the duplicate and me",
 				action : ["action", ""],
 				eval : "AddAction('bonus action', 'Move Duplicate', 'Paladin (Oath of Treachery) - Channel Divinity: Conjure Duplicate')",
 				removeeval : "RemoveAction('bonus action', 'Move Duplicate')"
@@ -20040,7 +20079,7 @@ function importData() {
 				name : "Channel Divinity: Poison Strike",
 				source : ["UA:PSO", 2],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I imbue one weapon or piece of ammunition with poison upon touch" + "\n   " + "This poison lasts for 1 minute and will affect the next time I hit a target with it" + "\n   " + "The target takes 2d10 + my paladin level poison damage immediately after the hit" + "\n   " + "You automatically roll 20 on the 2d10 if you had advantage on the attack roll",
+				description : "\n   As a bonus action, I imbue one weapon or piece of ammunition with poison upon touch\n   This poison lasts for 1 minute and will affect the next time I hit a target with it\n   The target takes 2d10 + my paladin level poison damage immediately after the hit\n   You automatically roll 20 on the 2d10 if you had advantage on the attack roll",
 				action : ["bonus action", ""],
 				additional : levels.map(function (n) {
 					return n < 3 ? "" : "2d10+" + n + " damage";
@@ -20053,13 +20092,13 @@ function importData() {
 				name : "Cull the Herd",
 				source : ["UA:PSO", 3],
 				minlevel : 7,
-				description : "\n   " + "I have adv. on melee attacks against creatures that have an ally of it within 5 ft of it"
+				description : "\n   I have adv. on melee attacks against creatures that have an ally of it within 5 ft of it"
 			},
 			"subclassfeature7.1" : {
 				name : "Treacherous Strike",
 				source : ["UA:PSO", 3],
 				minlevel : 7,
-				description : "\n   " + "As a reaction when a creature within 5 ft misses me, I can redirect the attack" + "\n   " + "If it can be charmed, it rerolls the attack on a target of my choice within 5 ft of it",
+				description : "\n   As a reaction when a creature within 5 ft misses me, I can redirect the attack\n   If it can be charmed, it rerolls the attack on a target of my choice within 5 ft of it",
 				recovery : "short rest",
 				usages : 3,
 				action : ["reaction", ""]
@@ -20068,7 +20107,7 @@ function importData() {
 				name : "Blackguard's Escape",
 				source : ["UA:PSO", 3],
 				minlevel : 15,
-				description : "\n   " + "As a reaction after I am hit by an attack, I can teleport up to 60 ft to a spot I can see" + "\n   " + "In doing this, I also become invisible (as the spell) until the end of my next turn",
+				description : "\n   As a reaction after I am hit by an attack, I can teleport up to 60 ft to a spot I can see\n   In doing this, I also become invisible (as the spell) until the end of my next turn",
 				recovery : "short rest",
 				usages : 1,
 				action : ["reaction", ""],
@@ -20077,7 +20116,7 @@ function importData() {
 				"icon of deceit" : {
 					name : "Icon of Deceit",
 					source : ["UA:PSO", 3],
-					description : "\n   " + "As an action, I can gain the following benefits for 1 minute:" + "\n    - " + "I become invisible" + "\n    - " + "If I have adv. on an attack, I do 20 extra damage with it if it hits" + "\n    - " + "If a creature hits me on its turn, it must make a Wis save or I control its next action" + "\n       " + "Provided it can be charmed and I am not incapacitated when it takes the action",
+					description : "\n   As an action, I can gain the following benefits for 1 minute:\n    - I become invisible\n    - If I have adv. on an attack, I do 20 extra damage with it if it hits\n    - If a creature hits me on its turn, it must make a Wis save or I control its next action\n       Provided it can be charmed and I am not incapacitated when it takes the action",
 					recovery : "long rest",
 					usages : 1,
 					action : ["action", ""]
@@ -20488,7 +20527,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 12,
-			descriptionFull : "This ceramic jug appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty. Sloshing sounds can be heard from within the jug when it is shaken, even if the jug is empty." + "\n   " + "You can use an action and name one liquid from the table below to cause the jug to produce the chosen liquid. Afterward, you can uncork the jug as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the jug can produce depends on the liquid you named." + "\n   " + "Once the jug starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.\n\n" + toUni("Max") + "\t" + toUni("Liquid") + "\t\t" + toUni("Max") + "\t" + toUni("Liquid") + "\n8 ounces\tAcid\t\t1 quart\tOil\n1/2 ounce\tBasic poison\t2 gallons\tVinegar\n4 gallons\tBeer\t\t8 gallons\tWater, fresh\n1 gallon\tHoney\t\t12 gallons\tWater, salt\n2 gallons\tMayonnaise\t1 gallon\tWine"
+			descriptionFull : "This ceramic jug appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty. Sloshing sounds can be heard from within the jug when it is shaken, even if the jug is empty.\n   You can use an action and name one liquid from the table below to cause the jug to produce the chosen liquid. Afterward, you can uncork the jug as an action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the jug can produce depends on the liquid you named.\n   Once the jug starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.\n\n" + toUni("Max") + "\t" + toUni("Liquid") + "\t\t" + toUni("Max") + "\t" + toUni("Liquid") + "\n8 ounces\tAcid\t\t1 quart\tOil\n1/2 ounce\tBasic poison\t2 gallons\tVinegar\n4 gallons\tBeer\t\t8 gallons\tWater, fresh\n1 gallon\tHoney\t\t12 gallons\tWater, salt\n2 gallons\tMayonnaise\t1 gallon\tWine"
 		},
 		"bag of beans" : {
 			name : "Bag of Beans",
@@ -20499,7 +20538,7 @@ function importData() {
 			rarity : "rare",
 			attunement : false,
 			weight : 2.5,
-			descriptionFull : "Inside this heavy cloth bag are 3d4 dry beans. The bag weighs 1/2 pound plus 1/4 pound for each bean it contains." + "\n   " + "If you dump the bag's contents out on the ground, they explode in a 10-foot radius, extending from the beans. Each creature in the area, including you, must make a DC 15 Dexterity saving throw, taking 5d4 fire damage on a failed save, or half as much damage on a successful one. The fire ignites flammable objects in the area that aren't being worn or carried." + "\n   " + "If you remove a bean from the bag, plant it in dirt or sand, and then water it, the bean produces an effect 1 minute later from the ground where it was planted. The GM can choose an effect from the following table, determine it randomly, or create an effect.\n\n" + toUni("d100") + "\t" + toUni("Effect") + "\n" + toUni("01") + "\t5d4 toadstools sprout. If a creature eats a toadstool, roll any die. On an odd roll, the eater must succeed on a DC 15 Constitution saving throw or take 5d6 poison damage and become poisoned for 1 hour. On an even roll, the eater gains 5d6 temporary hit points for 1 hour.\n" + toUni("02-10") + "\tA geyser erupts and spouts water, beer, berry juice, tea, vinegar, wine, or oil (GM's choice) 30 feet into the air for 1d12 rounds.\n" + toUni("11-20") + "\tA treant sprouts. There's a 50 percent chance that the treant is chaotic evil and attacks.\n" + toUni("21-30") + "\tAn animate, immobile stone statue in your likeness rises. It makes verbal threats against you. If you leave it and others come near, it describes you as the most heinous of villains and directs the newcomers to find and attack you. If you are on the same plane of existence as the statue, it knows where you are. The statue becomes inanimate after 24 hours.\n" + toUni("31-40") + "\tA campfire with blue flames springs forth and burns for 24 hours (or until it is extinguished).\n" + toUni("41-50") + "\t1d6 + 6 shriekers sprout.\n" + toUni("51-60") + "\t1d4 + 8 bright pink toads crawl forth. Whenever a toad is touched, it transforms into a Large or smaller monster of the GM's choice. The monster remains for 1 minute, then disappears in a puff of bright pink smoke.\n" + toUni("61-70") + "\tA hungry bulette burrows up and attacks.\n" + toUni("71-80") + "\tA fruit tree grows. It has 1d10 + 20 fruit, 1d8 of which act as randomly determined magic potions, while one acts as an ingested poison of the GM's choice. The tree vanishes after 1 hour. Picked fruit remains, retaining any magic for 30 days.\n" + toUni("81-90") + "\tA nest of 1d4 + 3 eggs springs up. Any creature that eats an egg must make a DC 20 Constitution saving throw. On a successful save, a creature permanently increases its lowest ability score by 1, randomly choosing among equally low scores. On a failed save, the creature takes 10d6 force damage from an internal magical explosion.\n" + toUni("91-99") + "\tA pyramid with a 60-foot-square base bursts upward. Inside is a sarcophagus containing a mummy lord. The pyramid is treated as the mummy lord's lair, and its sarcophagus contains treasure of the GM's choice." + "\n" + toUni("100") + "\tA giant beanstalk sprouts, growing to a height of the GM's choice. The top leads where the GM chooses, such as to a great view, a cloud giant's castle, or a different plane of existence."
+			descriptionFull : "Inside this heavy cloth bag are 3d4 dry beans. The bag weighs 1/2 pound plus 1/4 pound for each bean it contains.\n   If you dump the bag's contents out on the ground, they explode in a 10-foot radius, extending from the beans. Each creature in the area, including you, must make a DC 15 Dexterity saving throw, taking 5d4 fire damage on a failed save, or half as much damage on a successful one. The fire ignites flammable objects in the area that aren't being worn or carried.\n   If you remove a bean from the bag, plant it in dirt or sand, and then water it, the bean produces an effect 1 minute later from the ground where it was planted. The GM can choose an effect from the following table, determine it randomly, or create an effect.\n\n" + toUni("d100") + "\t" + toUni("Effect") + "\n" + toUni("01") + "\t5d4 toadstools sprout. If a creature eats a toadstool, roll any die. On an odd roll, the eater must succeed on a DC 15 Constitution saving throw or take 5d6 poison damage and become poisoned for 1 hour. On an even roll, the eater gains 5d6 temporary hit points for 1 hour.\n" + toUni("02-10") + "\tA geyser erupts and spouts water, beer, berry juice, tea, vinegar, wine, or oil (GM's choice) 30 feet into the air for 1d12 rounds.\n" + toUni("11-20") + "\tA treant sprouts. There's a 50 percent chance that the treant is chaotic evil and attacks.\n" + toUni("21-30") + "\tAn animate, immobile stone statue in your likeness rises. It makes verbal threats against you. If you leave it and others come near, it describes you as the most heinous of villains and directs the newcomers to find and attack you. If you are on the same plane of existence as the statue, it knows where you are. The statue becomes inanimate after 24 hours.\n" + toUni("31-40") + "\tA campfire with blue flames springs forth and burns for 24 hours (or until it is extinguished).\n" + toUni("41-50") + "\t1d6 + 6 shriekers sprout.\n" + toUni("51-60") + "\t1d4 + 8 bright pink toads crawl forth. Whenever a toad is touched, it transforms into a Large or smaller monster of the GM's choice. The monster remains for 1 minute, then disappears in a puff of bright pink smoke.\n" + toUni("61-70") + "\tA hungry bulette burrows up and attacks.\n" + toUni("71-80") + "\tA fruit tree grows. It has 1d10 + 20 fruit, 1d8 of which act as randomly determined magic potions, while one acts as an ingested poison of the GM's choice. The tree vanishes after 1 hour. Picked fruit remains, retaining any magic for 30 days.\n" + toUni("81-90") + "\tA nest of 1d4 + 3 eggs springs up. Any creature that eats an egg must make a DC 20 Constitution saving throw. On a successful save, a creature permanently increases its lowest ability score by 1, randomly choosing among equally low scores. On a failed save, the creature takes 10d6 force damage from an internal magical explosion.\n" + toUni("91-99") + "\tA pyramid with a 60-foot-square base bursts upward. Inside is a sarcophagus containing a mummy lord. The pyramid is treated as the mummy lord's lair, and its sarcophagus contains treasure of the GM's choice.\n" + toUni("100") + "\tA giant beanstalk sprouts, growing to a height of the GM's choice. The top leads where the GM chooses, such as to a great view, a cloud giant's castle, or a different plane of existence."
 		},
 		"bag of holding" : {
 			name : "Bag of Holding",
@@ -20510,7 +20549,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 15,
-			descriptionFull : "This bag has an interior space considerably larger than its outside dimensions, roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet. The bag weighs 15 pounds, regardless of its contents. Retrieving an item from the bag requires an action." + "\n   " + "If the bag is overloaded, pierced, or torn, it ruptures and is destroyed, and its contents are scattered in the Astral Plane. If the bag is turned inside out, its contents spill forth, unharmed, but the bag must be put right before it can be used again. Breathing creatures inside the bag can survive up to a number of minutes equal to 10 divided by the number of creatures (minimum 1 minute), after which time they begin to suffocate." + "\n   " + "Placing a bag of holding inside an extradimensional space created by a handy haversack, portable hole, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within 10 feet of the gate is sucked through it to a random location on the Astral Plane. The gate then closes. The gate is one-way only and can't be reopened."
+			descriptionFull : "This bag has an interior space considerably larger than its outside dimensions, roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet. The bag weighs 15 pounds, regardless of its contents. Retrieving an item from the bag requires an action.\n   If the bag is overloaded, pierced, or torn, it ruptures and is destroyed, and its contents are scattered in the Astral Plane. If the bag is turned inside out, its contents spill forth, unharmed, but the bag must be put right before it can be used again. Breathing creatures inside the bag can survive up to a number of minutes equal to 10 divided by the number of creatures (minimum 1 minute), after which time they begin to suffocate.\n   Placing a bag of holding inside an extradimensional space created by a handy haversack, portable hole, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within 10 feet of the gate is sucked through it to a random location on the Astral Plane. The gate then closes. The gate is one-way only and can't be reopened."
 		},
 		"boots of striding and springing" : {
 			name : "Boots of Striding and Springing",
@@ -20554,7 +20593,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 3,
-			descriptionFull : "This wooden broom, which weighs 3 pounds, functions like a mundane broom until you stand astride it and speak its command word. It then hovers beneath you and can be ridden in the air. It has a flying speed of 50 feet. It can carry up to 400 pounds, but its flying speed becomes 30 feet while carrying over 200 pounds. The broom stops hovering when you land." + "\n   " + "You can send the broom to travel alone to a destination within 1 mile of you if you speak the command word, name the location, and are familiar with that place. The broom comes back to you when you speak another command word, provided that the broom is still within 1 mile of you."
+			descriptionFull : "This wooden broom, which weighs 3 pounds, functions like a mundane broom until you stand astride it and speak its command word. It then hovers beneath you and can be ridden in the air. It has a flying speed of 50 feet. It can carry up to 400 pounds, but its flying speed becomes 30 feet while carrying over 200 pounds. The broom stops hovering when you land.\n   You can send the broom to travel alone to a destination within 1 mile of you if you speak the command word, name the location, and are familiar with that place. The broom comes back to you when you speak another command word, provided that the broom is still within 1 mile of you."
 		},
 		"cap of water breathing" : {
 			name : "Cap of Water Breathing",
@@ -20576,7 +20615,7 @@ function importData() {
 			rarity : "rare",
 			attunement : false,
 			weight : 1,
-			descriptionFull : "This hollow metal tube measures about 1 foot long and weighs 1 pound. You can strike it as an action, pointing it at an object within 120 feet of you that can be opened, such as a door, lid, or lock. The chime issues a clear tone, and one lock or latch on the object opens unless the sound can't reach the object. If no locks or latches remain, the object itself opens." + "\n   " + "The chime can be used ten times. After the tenth time, it cracks and becomes useless."
+			descriptionFull : "This hollow metal tube measures about 1 foot long and weighs 1 pound. You can strike it as an action, pointing it at an object within 120 feet of you that can be opened, such as a door, lid, or lock. The chime issues a clear tone, and one lock or latch on the object opens unless the sound can't reach the object. If no locks or latches remain, the object itself opens.\n   The chime can be used ten times. After the tenth time, it cracks and becomes useless."
 		},
 		"decanter of endless water" : {
 			name : "Decanter of Endless Water",
@@ -20587,7 +20626,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 2,
-			descriptionFull : "This stoppered flask sloshes when shaken, as if it contains water. The decanter weighs 2 pounds." + "\n   " + "You can use an action to remove the stopper and speak one of three command words, whereupon an amount of fresh water or salt water (your choice) pours out of the flask. The water stops pouring out at the start of your next turn. Choose from the following options:" + "\n \u2022 " + "'Stream' produces 1 gallon of water." + "\n \u2022 " + "'Fountain' produces 5 gallons of water." + "\n \u2022 " + "'Geyser' produces 30 gallons of water that gushes forth in a geyser 30 feet long and 1 foot wide. As a bonus action while holding the decanter, you can aim the geyser at a creature you can see within 30 feet of you. The target must succeed on a DC 13 Strength saving throw or take 1d4 bludgeoning damage and fall prone. Instead of a creature, you can target an object that isn't being worn or carried and that weighs no more than 200 pounds. The object is either knocked over or pushed up to 15 feet away from you."
+			descriptionFull : "This stoppered flask sloshes when shaken, as if it contains water. The decanter weighs 2 pounds.\n   You can use an action to remove the stopper and speak one of three command words, whereupon an amount of fresh water or salt water (your choice) pours out of the flask. The water stops pouring out at the start of your next turn. Choose from the following options:\n \u2022 'Stream' produces 1 gallon of water.\n \u2022 'Fountain' produces 5 gallons of water.\n \u2022 'Geyser' produces 30 gallons of water that gushes forth in a geyser 30 feet long and 1 foot wide. As a bonus action while holding the decanter, you can aim the geyser at a creature you can see within 30 feet of you. The target must succeed on a DC 13 Strength saving throw or take 1d4 bludgeoning damage and fall prone. Instead of a creature, you can target an object that isn't being worn or carried and that weighs no more than 200 pounds. The object is either knocked over or pushed up to 15 feet away from you."
 		},
 		"driftglobe" : {
 			name : "Driftglobe",
@@ -20598,7 +20637,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 1,
-			descriptionFull : "This small sphere of thick glass weighs 1 pound. If you are within 60 feet of it, you can speak its command word and cause it to emanate the light or daylight spell. Once used, the daylight effect can't be used again until the next dawn." + "\n   " + "You can speak another command word as an action to make the illuminated globe rise into the air and float no more than 5 feet off the ground. The globe hovers in this way until you or another creature grasps it. If you move more than 60 feet from the hovering globe, it follows you until it is within 60 feet of you. It takes the shortest route to do so. If prevented from moving, the globe sinks gently to the ground and becomes inactive, and its light winks out."
+			descriptionFull : "This small sphere of thick glass weighs 1 pound. If you are within 60 feet of it, you can speak its command word and cause it to emanate the light or daylight spell. Once used, the daylight effect can't be used again until the next dawn.\n   You can speak another command word as an action to make the illuminated globe rise into the air and float no more than 5 feet off the ground. The globe hovers in this way until you or another creature grasps it. If you move more than 60 feet from the hovering globe, it follows you until it is within 60 feet of you. It takes the shortest route to do so. If prevented from moving, the globe sinks gently to the ground and becomes inactive, and its light winks out."
 		},
 		"eyes of minute seeing" : {
 			name : "Eyes of Minute Seeing",
@@ -20631,7 +20670,7 @@ function importData() {
 			rarity : "rare",
 			attunement : false,
 			weight : 4,
-			descriptionFull : "This object appears as a wooden box that measures 12 inches long, 6 inches wide, and 6 inches deep. It weighs 4 pounds and floats. It can be opened to store items inside. This item also has three command words, each requiring you to use an action to speak it." + "\n   " + "One command word causes the box to unfold into a boat 10 feet long, 4 feet wide, and 2 feet deep. The boat has one pair of oars, an anchor, a mast, and a lateen sail. The boat can hold up to four Medium creatures comfortably." + "\n   " + "The second command word causes the box to unfold into a ship 24 feet long, 8 feet wide, and 6 feet deep. The ship has a deck, rowing seats, five sets of oars, a steering oar, an anchor, a deck cabin, and a mast with a square sail. The ship can hold fifteen Medium creatures comfortably." + "\n   " + "When the box becomes a vessel, its weight becomes that of a normal vessel its size, and anything that was stored in the box remains in the boat." + "\n   " + "The third command word causes the folding boat to fold back into a box, provided that no creatures are aboard. Any objects in the vessel that can't fit inside the box remain outside the box as it folds. Any objects in the vessel that can fit inside the box do so."
+			descriptionFull : "This object appears as a wooden box that measures 12 inches long, 6 inches wide, and 6 inches deep. It weighs 4 pounds and floats. It can be opened to store items inside. This item also has three command words, each requiring you to use an action to speak it.\n   One command word causes the box to unfold into a boat 10 feet long, 4 feet wide, and 2 feet deep. The boat has one pair of oars, an anchor, a mast, and a lateen sail. The boat can hold up to four Medium creatures comfortably.\n   The second command word causes the box to unfold into a ship 24 feet long, 8 feet wide, and 6 feet deep. The ship has a deck, rowing seats, five sets of oars, a steering oar, an anchor, a deck cabin, and a mast with a square sail. The ship can hold fifteen Medium creatures comfortably.\n   When the box becomes a vessel, its weight becomes that of a normal vessel its size, and anything that was stored in the box remains in the boat.\n   The third command word causes the folding boat to fold back into a box, provided that no creatures are aboard. Any objects in the vessel that can't fit inside the box remain outside the box as it folds. Any objects in the vessel that can fit inside the box do so."
 		},
 		"gem of brightness" : {
 			name : "Gem of Brightness",
@@ -20642,7 +20681,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 0,
-			descriptionFull : "This prism has 50 charges. While you are holding it, you can use an action to speak one of three command words to cause one of the following effects:" + "\n \u2022 " + "The first command word causes the gem to shed bright light in a 30-foot radius and dim light for an additional 30 feet. This effect doesn't expend a charge. It lasts until you use a bonus action to repeat the command word or until you use another function of the gem." + "\n \u2022 " + "The second command word expends 1 charge and causes the gem to fire a brilliant beam of light at one creature you can see within 60 feet of you. The creature must succeed on a DC 15 Constitution saving throw or become blinded for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success." + "\n \u2022 " + "The third command word expends 5 charges and causes the gem to flare with blinding light in a 30-foot cone originating from it. Each creature in the cone must make a saving throw as if struck by the beam created with the second command word." + "\n   " + "When all of the gem's charges are expended, the gem becomes a nonmagical jewel worth 50 gp."
+			descriptionFull : "This prism has 50 charges. While you are holding it, you can use an action to speak one of three command words to cause one of the following effects:\n \u2022 The first command word causes the gem to shed bright light in a 30-foot radius and dim light for an additional 30 feet. This effect doesn't expend a charge. It lasts until you use a bonus action to repeat the command word or until you use another function of the gem.\n \u2022 The second command word expends 1 charge and causes the gem to fire a brilliant beam of light at one creature you can see within 60 feet of you. The creature must succeed on a DC 15 Constitution saving throw or become blinded for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n \u2022 The third command word expends 5 charges and causes the gem to flare with blinding light in a 30-foot cone originating from it. Each creature in the cone must make a saving throw as if struck by the beam created with the second command word.\n   When all of the gem's charges are expended, the gem becomes a nonmagical jewel worth 50 gp."
 		},
 		"gloves of missile snaring" : {
 			name : "Gloves of Missile Snaring",
@@ -20708,7 +20747,7 @@ function importData() {
 			rarity : "rare",
 			attunement : false,
 			weight : 5,
-			descriptionFull : "This backpack has a central pouch and two side pouches, each of which is an extradimensional space. Each side pouch can hold up to 20 pounds of material, not exceeding a volume of 2 cubic feet. The large central pouch can hold up to 8 cubic feet or 80 pounds of material. The backpack always weighs 5 pounds, regardless of its contents." + "\n   " + "Placing an object in the haversack follows the normal rules for interacting with objects. Retrieving an item from the haversack requires you to use an action. When you reach into the haversack for a specific item, the item is always magically on top." + "\n   " + "The haversack has a few limitations. If it is overloaded, or if a sharp object pierces it or tears it, the haversack ruptures and is destroyed. If the haversack is destroyed, its contents are lost forever, although an artifact always turns up again somewhere. If the haversack is turned inside out, its contents spill forth, unharmed, and the haversack must be put right before it can be used again. If a breathing creature is placed within the haversack, the creature can survive for up to 10 minutes, after which time it begins to suffocate." + "\n   " + "Placing the haversack inside an extradimensional space created by a bag of holding, portable hole, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within 10 feet of the gate is sucked through it and deposited in a random location on the Astral Plane. The gate then closes. The gate is one-way only and can't be reopened."
+			descriptionFull : "This backpack has a central pouch and two side pouches, each of which is an extradimensional space. Each side pouch can hold up to 20 pounds of material, not exceeding a volume of 2 cubic feet. The large central pouch can hold up to 8 cubic feet or 80 pounds of material. The backpack always weighs 5 pounds, regardless of its contents.\n   Placing an object in the haversack follows the normal rules for interacting with objects. Retrieving an item from the haversack requires you to use an action. When you reach into the haversack for a specific item, the item is always magically on top.\n   The haversack has a few limitations. If it is overloaded, or if a sharp object pierces it or tears it, the haversack ruptures and is destroyed. If the haversack is destroyed, its contents are lost forever, although an artifact always turns up again somewhere. If the haversack is turned inside out, its contents spill forth, unharmed, and the haversack must be put right before it can be used again. If a breathing creature is placed within the haversack, the creature can survive for up to 10 minutes, after which time it begins to suffocate.\n   Placing the haversack inside an extradimensional space created by a bag of holding, portable hole, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within 10 feet of the gate is sucked through it and deposited in a random location on the Astral Plane. The gate then closes. The gate is one-way only and can't be reopened."
 		},
 		"lantern of revealing" : {
 			name : "Lantern of Revealing",
@@ -20741,7 +20780,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : true,
 			weight : 0,
-			descriptionFull : "While wearing this ring, you are immune to magic that allows other creatures to read your thoughts, determine whether you are lying, know your alignment, or know your creature type. Creatures can telepathically communicate with you only if you allow it." + "\n   " + "You can use an action to cause the ring to become invisible until you use another action to make it visible, until you remove the ring, or until you die." + "\n   " + "If you die while wearing the ring, your soul enters it, unless it already houses a soul. You can remain in the ring or depart for the afterlife. As long as your soul is in the ring, you can telepathically communicate with any creature wearing it. A wearer can't prevent this telepathic communication."
+			descriptionFull : "While wearing this ring, you are immune to magic that allows other creatures to read your thoughts, determine whether you are lying, know your alignment, or know your creature type. Creatures can telepathically communicate with you only if you allow it.\n   You can use an action to cause the ring to become invisible until you use another action to make it visible, until you remove the ring, or until you die.\n   If you die while wearing the ring, your soul enters it, unless it already houses a soul. You can remain in the ring or depart for the afterlife. As long as your soul is in the ring, you can telepathically communicate with any creature wearing it. A wearer can't prevent this telepathic communication."
 		},
 		"ring of swimming" : {
 			name : "Ring of Swimming",
@@ -20763,7 +20802,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 1,
-			descriptionFull : "This robe has cloth patches of various shapes and colors covering it. While wearing the robe, you can use an action to detach one of the patches, causing it to become the object or creature it represents. Once the last patch is removed, the robe becomes an ordinary garment." + "\n\n" + "The robe has two of each of the following patches:" + "\n \u2022 " + "Dagger" + "\n \u2022 " + "Bullseye lantern (filled and lit)" + "\n \u2022 " + "Steel mirror" + "\n \u2022 " + "10-foot pole" + "\n \u2022 " + "Hempen rope (50 feet, coiled)" + "\n \u2022 " + "Sack" + "\n\nIn addition, the robe has 4d4 other patches. The GM chooses the patches or determines them randomly.\n\n" + toUni("d100") + "\t" + toUni("Effect") + "\n" + toUni("01-08") + "\tBag of 100 gp\n" + toUni("09-15") + "\tSilver coffer (1 foot long, 6 inches wide and deep) worth 500 gp\n" + toUni("16-22") + "\tIron door (up to 10 feet wide and 10 feet high, barred on one side of your choice), which you can place in an opening you can reach; it conforms to fit the opening, attaching and hinging itself\n" + toUni("23-30") + "\t10 gems worth 100 gp each\n" + toUni("31-44") + "\tWooden ladder (24 feet long)\n" + toUni("45-51") + "\tA riding horse with saddle bags\n" + toUni("52-59") + "\tPit (a cube 10 feet on a side), which you can place on the ground within 10 feet of you\n" + toUni("60-68") + "\t4 potions of healing\n" + toUni("69-75") + "\tRowboat (12 feet long)\n" + toUni("76-83") + "\tSpell scroll containing one spell of 1st to 3rd level\n" + toUni("84-90") + "\t2 mastiffs\n" + toUni("91-96") + "\tWindow (2 feet by 4 feet, up to 2 feet deep), which you can place on a vertical surface you can reach\n" + toUni("97-00") + "\tPortable ram"
+			descriptionFull : "This robe has cloth patches of various shapes and colors covering it. While wearing the robe, you can use an action to detach one of the patches, causing it to become the object or creature it represents. Once the last patch is removed, the robe becomes an ordinary garment.\n\nThe robe has two of each of the following patches:\n \u2022 Dagger\n \u2022 Bullseye lantern (filled and lit)\n \u2022 Steel mirror\n \u2022 10-foot pole\n \u2022 Hempen rope (50 feet, coiled)\n \u2022 Sack\n\nIn addition, the robe has 4d4 other patches. The GM chooses the patches or determines them randomly.\n\n" + toUni("d100") + "\t" + toUni("Effect") + "\n" + toUni("01-08") + "\tBag of 100 gp\n" + toUni("09-15") + "\tSilver coffer (1 foot long, 6 inches wide and deep) worth 500 gp\n" + toUni("16-22") + "\tIron door (up to 10 feet wide and 10 feet high, barred on one side of your choice), which you can place in an opening you can reach; it conforms to fit the opening, attaching and hinging itself\n" + toUni("23-30") + "\t10 gems worth 100 gp each\n" + toUni("31-44") + "\tWooden ladder (24 feet long)\n" + toUni("45-51") + "\tA riding horse with saddle bags\n" + toUni("52-59") + "\tPit (a cube 10 feet on a side), which you can place on the ground within 10 feet of you\n" + toUni("60-68") + "\t4 potions of healing\n" + toUni("69-75") + "\tRowboat (12 feet long)\n" + toUni("76-83") + "\tSpell scroll containing one spell of 1st to 3rd level\n" + toUni("84-90") + "\t2 mastiffs\n" + toUni("91-96") + "\tWindow (2 feet by 4 feet, up to 2 feet deep), which you can place on a vertical surface you can reach\n" + toUni("97-00") + "\tPortable ram"
 		},
 		"rope of climbing" : {
 			name : "Rope of Climbing",
@@ -20774,7 +20813,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 3,
-			descriptionFull : "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose. That end moves 10 feet on your turn when you first command it and 10 feet on each of your turns until reaching its destination, up to its maximum length away, or until you tell it to stop. You can also tell the rope to fasten itself securely to an object or to unfasten itself, to knot or unknot itself, or to coil itself for carrying." + "\n   " + "If you tell the rope to knot, large knots appear at 1-foot intervals along the rope. While knotted, the rope shortens to a 50-foot length and grants advantage on checks made to climb it." + "\n   " + "The rope has AC 20 and 20 hit points. It regains 1 hit point every 5 minutes as long as it has at least 1 hit point. If the rope drops to 0 hit points, it is destroyed."
+			descriptionFull : "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose. That end moves 10 feet on your turn when you first command it and 10 feet on each of your turns until reaching its destination, up to its maximum length away, or until you tell it to stop. You can also tell the rope to fasten itself securely to an object or to unfasten itself, to knot or unknot itself, or to coil itself for carrying.\n   If you tell the rope to knot, large knots appear at 1-foot intervals along the rope. While knotted, the rope shortens to a 50-foot length and grants advantage on checks made to climb it.\n   The rope has AC 20 and 20 hit points. It regains 1 hit point every 5 minutes as long as it has at least 1 hit point. If the rope drops to 0 hit points, it is destroyed."
 		},
 		"sending stones" : {
 			name : "Sending Stones",
@@ -20785,7 +20824,7 @@ function importData() {
 			rarity : "uncommon",
 			attunement : false,
 			weight : 0,
-			descriptionFull : "Sending stones come in pairs, with each smooth stone carved to match the other so the pairing is easily recognized. While you touch one stone, you can use an action to cast the sending spell from it. The target is the bearer of the other stone. If no creature bears the other stone, you know that fact as soon as you use the stone and don't cast the spell." + "\n   " + "Once sending is cast through the stones, they can't be used again until the next dawn. If one of the stones in a pair is destroyed, the other one becomes nonmagical."
+			descriptionFull : "Sending stones come in pairs, with each smooth stone carved to match the other so the pairing is easily recognized. While you touch one stone, you can use an action to cast the sending spell from it. The target is the bearer of the other stone. If no creature bears the other stone, you know that fact as soon as you use the stone and don't cast the spell.\n   Once sending is cast through the stones, they can't be used again until the next dawn. If one of the stones in a pair is destroyed, the other one becomes nonmagical."
 		},
 		"slippers of spider climbing" : {
 			name : "Slippers of Spider Climbing",
@@ -21072,7 +21111,7 @@ function importData() {
 				name : "Ethereal Step",
 				source : ["UA:RnR", 1],
 				minlevel : 7,
-				description : "\n   " + "As a bonus action, I can cast the Etherealness spell, which lasts until the end of the turn",
+				description : "\n   As a bonus action, I can cast the Etherealness spell, which lasts until the end of the turn",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""],
@@ -21096,7 +21135,7 @@ function importData() {
 				name : "Spectral Defense",
 				source : ["UA:RnR", 1],
 				minlevel : 15,
-				description : "\n   " + "As a reaction when I take damage, I can halve that damage against me",
+				description : "\n   As a reaction when I take damage, I can halve that damage against me",
 				action : ["reaction", ""]
 			}
 		}
@@ -21112,14 +21151,14 @@ function importData() {
 				name : "Guardian magic",
 				source : ["UA:RnR", 2],
 				minlevel : 3,
-				description : "\n   " + "I get bonus spells known, which do not count against the number of spells I can know",
+				description : "\n   I get bonus spells known, which do not count against the number of spells I can know",
 				spellcastingExtra : ["entangle", "enhance ability", "conjure animals", "giant insect", "insect plague"].concat(new Array(95)).concat("AddToKnown")
 			},
 			"subclassfeature3.1" : {
 				name : "Guardian Soul",
 				source : ["UA:RnR", 2],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I transform to or from a guardian form, changing me as follows:" + "\n    - " + "I grow to Large size, all my movement is reduced to 5 ft, and I get +5 ft reach" + "\n    - " + "I gain half my ranger level in temporary HP at the start of each of my turns" + "\n   " + "This ends when I'm incapacitated; When it ends, I lose all temporary HP I got from it",
+				description : "\n   As a bonus action, I transform to or from a guardian form, changing me as follows:\n    - I grow to Large size, all my movement is reduced to 5 ft, and I get +5 ft reach\n    - I gain half my ranger level in temporary HP at the start of each of my turns\n   This ends when I'm incapacitated; When it ends, I lose all temporary HP I got from it",
 				additional : ["", "", "1 temp HP per round", "2 temp HP per round", "2 temp HP per round", "3 temp HP per round", "3 temp HP per round", "4 temp HP per round", "4 temp HP per round", "5 temp HP per round", "5 temp HP per round", "6 temp HP per round", "6 temp HP per round", "7 temp HP per round", "7 temp HP per round", "8 temp HP per round", "8 temp HP per round", "9 temp HP per round", "9 temp HP per round", "10 temp HP per round"],
 				action : ["bonus action", " (start/end)"]
 			},
@@ -21127,7 +21166,7 @@ function importData() {
 				name : "Piercing Thorns",
 				source : ["UA:RnR", 2],
 				minlevel : 3,
-				description : "\n   " + "Once each turn, a hit from my weapon attack can deal 1d6 extra piercing damage",
+				description : "\n   Once each turn, a hit from my weapon attack can deal 1d6 extra piercing damage",
 				calcChanges : {
 					atkAdd : ["if (!isSpell) {fields.Description += (fields.Description ? '; ' : '') + 'Once per turn, +1d6 piercing damage'; }; ", "My weapon attacks can deal 1d6 extra piercing damage once per turn."]
 				}
@@ -21136,20 +21175,20 @@ function importData() {
 				name : "Ancient Fortitude",
 				source : ["UA:RnR", 2],
 				minlevel : 7,
-				description : "\n   " + "When I assume my guardian form, my HP \u0026 max HP increase by twice my ranger level" + "\n   " + "When I leave the form, my max HP reverts back, and any excess HP I have is lost",
+				description : "\n   When I assume my guardian form, my HP \u0026 max HP increase by twice my ranger level\n   When I leave the form, my max HP reverts back, and any excess HP I have is lost",
 				additional : ["", "", "", "", "", "", "", "+16 max HP", "+18 max HP", "+20 max HP", "+22 max HP", "+24 max HP", "+26 max HP", "+28 max HP", "+30 max HP", "+32 max HP", "+34 max HP", "+36 max HP", "+38 max HP", "+40 max HP"]
 			},
 			"subclassfeature11" : {
 				name : "Rooted Defense",
 				source : ["UA:RnR", 2],
 				minlevel : 11,
-				description : "\n   " + "While in guardian form, the ground within 30 ft of me is difficult terrain for hostiles"
+				description : "\n   While in guardian form, the ground within 30 ft of me is difficult terrain for hostiles"
 			},
 			"subclassfeature15" : {
 				name : "Guardian Aura",
 				source : ["UA:RnR", 2],
 				minlevel : 15,
-				description : "\n   " + "While I'm in my guardian form, I heal allies that start their turn within 30 ft of me" + "\n   " + "They heal half my ranger level if they are below half HP and not undead or constructs",
+				description : "\n   While I'm in my guardian form, I heal allies that start their turn within 30 ft of me\n   They heal half my ranger level if they are below half HP and not undead or constructs",
 				additional : ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "Heals 7 HP", "Heals 8 HP", "Heals 8 HP", "Heals 9 HP", "Heals 9 HP", "Heals 10 HP"]
 			}
 		}
@@ -21174,14 +21213,14 @@ function importData() {
 				name : "Skirmisher",
 				source : ["UA:RnR", 3],
 				minlevel : 3,
-				description : "\n   " + "As a reaction when a hostile ends its turn within 5 ft of me, I can move half my speed",
+				description : "\n   As a reaction when a hostile ends its turn within 5 ft of me, I can move half my speed",
 				action : ["reaction", ""]
 			},
 			"subclassfeature3.1" : {
 				name : "Survivalist",
 				source : ["UA:RnR", 3],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency and expertise with the Nature and Survival skills",
+				description : "\n   I gain proficiency and expertise with the Nature and Survival skills",
 				skillstxt : "\n\n" + toUni("Scout") + ": proficiency and expertise with Nature and Survival.",
 				eval : "AddSkillProf('Nature', true, true); AddSkillProf('Survival', true, true);",
 				removeeval : "AddSkillProf('Nature', false, true); AddSkillProf('Survival', false, true);"
@@ -21190,7 +21229,7 @@ function importData() {
 				name : "Superior Mobility",
 				source : ["UA:RnR", 3],
 				minlevel : 9,
-				description : "\n   " + "I gain +10 ft to my walking speed (and swimming/climbing speed, if applicable)",
+				description : "\n   I gain +10 ft to my walking speed (and swimming/climbing speed, if applicable)",
 				speed : {
 					walk : { spd : "+10", enc : "+10" },
 					climb : { spd : "_10", enc : "_10" },
@@ -21201,14 +21240,14 @@ function importData() {
 				name : "Ambush Master",
 				source : ["UA:RnR", 3],
 				minlevel : 13,
-				description : "\n   " + "As a bonus action in the first combat round with a surprised foe, I can lead the ambush" + "\n   " + "If I do so, allies who can see me gets +5 to their initiative roll, up to my initiative value" + "\n   " + "Also, each ally gains +10 ft to its speed that lasts until the end their next turn",
+				description : "\n   As a bonus action in the first combat round with a surprised foe, I can lead the ambush\n   If I do so, allies who can see me gets +5 to their initiative roll, up to my initiative value\n   Also, each ally gains +10 ft to its speed that lasts until the end their next turn",
 				action : ["bonus action", " (first round)"]
 			},
 			"subclassfeature17" : {
 				name : "Sudden Strike",
 				source : ["UA:RnR", 3],
 				minlevel : 17,
-				description : "\n   " + "With the Attack action, I can make one additional attack as a bonus action" + "\n   " + "This attack can benefit from my Sneak Attack even if I already used it this turn" + "\n   " + "However, I still can't use Sneak Attack on a single target more than once per turn",
+				description : "\n   With the Attack action, I can make one additional attack as a bonus action\n   This attack can benefit from my Sneak Attack even if I already used it this turn\n   However, I still can't use Sneak Attack on a single target more than once per turn",
 				action : ["bonus action", " (with Attack action)"]
 			}
 		}
@@ -21241,13 +21280,13 @@ function importData() {
 				name : "Divine Magic",
 				source : ["UA:SO", 1],
 				minlevel : 1,
-				description : "\n   " + "When I select my 1st level or higher spells, I can also pick spells from the cleric spell list" + "\n   " + "These cleric spells count as sorcerer spells for me"
+				description : "\n   When I select my 1st level or higher spells, I can also pick spells from the cleric spell list\n   These cleric spells count as sorcerer spells for me"
 			},
 			"subclassfeature1.1" : {
 				name : "Supernatural Resilience",
 				source : ["UA:SO", 1],
 				minlevel : 1,
-				description : "\n   " + "My hit point maximum increases by an amount equal to my sorcerer level",
+				description : "\n   My hit point maximum increases by an amount equal to my sorcerer level",
 				calcChanges : {
 					hp : "if (classes.known.sorcerer) {extrahp += classes.known.sorcerer.level; extrastring += '\\n + ' + classes.known.sorcerer.level + ' from Supernatural Resilience (Sorcerer)'; }; "
 				}
@@ -21256,7 +21295,7 @@ function importData() {
 				name : "Favored by the Gods",
 				source : ["UA:SO", 1],
 				minlevel : 1,
-				description : "\n   " + "If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
+				description : "\n   If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
 				recovery : "short rest",
 				usages : 1
 			},
@@ -21264,27 +21303,27 @@ function importData() {
 				name : "Blessed Countenance",
 				source : ["UA:SO", 1],
 				minlevel : 6,
-				description : "\n   " + "Choose an otherworldly quality using the \"Choose Feature\" button above" + "\n   " + "When my proficiency bonus applies to a Charisma check, I double that bonus",
+				description : "\n   Choose an otherworldly quality using the \"Choose Feature\" button above\n   When my proficiency bonus applies to a Charisma check, I double that bonus",
 				choices : ["Beautiful", "Youthful", "Kind", "Imposing"],
 				"beautiful" : {
 					name : "Beautiful",
 					source : ["UA:SO", 1],
-					description : "\n   " + "My appearance takes on an otherworldly quality of beauty" + "\n   " + "When my proficiency bonus applies to a Charisma check, I double that bonus"
+					description : "\n   My appearance takes on an otherworldly quality of beauty\n   When my proficiency bonus applies to a Charisma check, I double that bonus"
 				},
 				"youthful" : {
 					name : "Youthful",
 					source : ["UA:SO", 1],
-					description : "\n   " + "My appearance takes on an otherworldly quality of youthfulness" + "\n   " + "When my proficiency bonus applies to a Charisma check, I double that bonus"
+					description : "\n   My appearance takes on an otherworldly quality of youthfulness\n   When my proficiency bonus applies to a Charisma check, I double that bonus"
 				},
 				"kind" : {
 					name : "Kind",
 					source : ["UA:SO", 1],
-					description : "\n   " + "My appearance takes on an otherworldly quality of kindness" + "\n   " + "When my proficiency bonus applies to a Charisma check, I double that bonus"
+					description : "\n   My appearance takes on an otherworldly quality of kindness\n   When my proficiency bonus applies to a Charisma check, I double that bonus"
 				},
 				"imposing" : {
 					name : "Imposing",
 					source : ["UA:SO", 1],
-					description : "\n   " + "My appearance takes on an otherworldly quality of imposingness" + "\n   " + "When my proficiency bonus applies to a Charisma check, I double that bonus"
+					description : "\n   My appearance takes on an otherworldly quality of imposingness\n   When my proficiency bonus applies to a Charisma check, I double that bonus"
 				},
 				skillstxt : "\n\n" + toUni("Blessed Countenance (Sorcerer)") + ": I gain expertise in any Charisma-based skill I'm proficient with.",
 				eval : "AddSkillProf('Dec', true, 'only'); AddSkillProf('Inti', true, 'only'); AddSkillProf('Perf', true, 'only'); AddSkillProf('Pers', true, 'only');",
@@ -21294,14 +21333,14 @@ function importData() {
 				name : "Divine Purity",
 				source : ["UA:SO", 1],
 				minlevel : 14,
-				description : "\n   " + "I become immune to disease and poison",
+				description : "\n   I become immune to disease and poison",
 				savetxt : { immune : ["poison", "disease"] }
 			},
 			"subclassfeature18" : {
 				name : "Unearthly Recovery",
 				source : ["UA:SO", 1],
 				minlevel : 18,
-				description : "\n   " + "As a bonus action when I have less than half of my max HP, I can heal myself" + "\n   " + "I regain a number of HP equal to half my maximum Hit Points",
+				description : "\n   As a bonus action when I have less than half of my max HP, I can heal myself\n   I regain a number of HP equal to half my maximum Hit Points",
 				action : ["bonus action", ""],
 				recovery : "long rest",
 				usages : 1
@@ -21319,7 +21358,7 @@ function importData() {
 				name : "Ignite",
 				source : ["UA:SO", 2],
 				minlevel : 1,
-				description : "\n   " + "As an action, I can magically ignite a flammable object by touching it with my hand",
+				description : "\n   As an action, I can magically ignite a flammable object by touching it with my hand",
 				action : ["action", ""]
 			},
 			"subclassfeature1.1" : {
@@ -21389,7 +21428,7 @@ function importData() {
 				name : "Soul of the Sea",
 				source : ["UA:SO", 3],
 				minlevel : 1,
-				description : "\n   " + "I can breathe underwater and I have a swim speed equal to my walking speed",
+				description : "\n   I can breathe underwater and I have a swim speed equal to my walking speed",
 				speed : { swim : { spd : "walk", enc : "walk" } }
 			},
 			"subclassfeature1.1" : {
@@ -21462,7 +21501,7 @@ function importData() {
 				name : "Bonus Proficiencies",
 				source : ["UA:SO", 4],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with shields, simple weapons and martial weapons",
+				description : "\n   I gain proficiency with shields, simple weapons and martial weapons",
 				armor : [false, false, false, true],
 				weapons : [true, true]
 			},
@@ -21470,7 +21509,7 @@ function importData() {
 				name : "Metal Magic",
 				source : ["UA:SO", 4],
 				minlevel : 1,
-				description : "\n   " + "My affinity for metal allows me to select from a broader range of spells"
+				description : "\n   My affinity for metal allows me to select from a broader range of spells"
 			},
 			"subclassfeature1.2" : {
 				name : "Stone's Durability",
@@ -21526,7 +21565,7 @@ function importData() {
 				name : "Earth Master's Aegis",
 				source : ["UA:SO", 4],
 				minlevel : 18,
-				description : "\n   " + "My Stone's Aegis can now affect up to three creatures"
+				description : "\n   My Stone's Aegis can now affect up to three creatures"
 			}
 		}
 	});
@@ -21612,7 +21651,7 @@ function importData() {
 				name : "Armor of Hexes",
 				source : ["UA:WnW", 2],
 				minlevel : 10,
-				description : "\n   " + "Targets affected by my hexblade's curse have a 50% of missing me with any attack roll"
+				description : "\n   Targets affected by my hexblade's curse have a 50% of missing me with any attack roll"
 			},
 			"subclassfeature14" : {
 				name : "Master of Hexes",
@@ -21668,7 +21707,7 @@ function importData() {
 				name : "Raven's Shield",
 				source : ["UA:WnW", 3],
 				minlevel : 10,
-				description : "\n   " + "I can't be frightened, have advantage on death saves, and resistance to necrotic damage",
+				description : "\n   I can't be frightened, have advantage on death saves, and resistance to necrotic damage",
 				savetxt : { immune : ["frightened"], adv_vs : ["death"] },
 				dmgres : ["Necrotic"]
 			},
@@ -21676,7 +21715,7 @@ function importData() {
 				name : "Queen's Right Hand",
 				source : ["UA:WnW", 3],
 				minlevel : 14,
-				description : "\n   " + "I can cast Finger of Death once per long rest",
+				description : "\n   I can cast Finger of Death once per long rest",
 				usages : 1,
 				recovery : "long rest",
 				spellcastingBonus : {
@@ -21721,7 +21760,7 @@ function importData() {
 				name : "Spell Secrets: Saves",
 				source : ["UA:WnW", 6],
 				minlevel : 2,
-				description : "\n   " + "I can change the saving throw ability score to another for a spell I cast using a spell slot",
+				description : "\n   I can change the saving throw ability score to another for a spell I cast using a spell slot",
 				recovery : "short rest",
 				usages : 1
 			},
@@ -21740,7 +21779,7 @@ function importData() {
 				name : "Prodigious Memory",
 				source : ["UA:WnW", 6],
 				minlevel : 10,
-				description : "\n   " + "As a bonus action, I can replace one of my prepared spells with another from my book",
+				description : "\n   As a bonus action, I can replace one of my prepared spells with another from my book",
 				recovery : "short rest",
 				usages : 1,
 				action : ["bonus action", ""]
@@ -21765,7 +21804,7 @@ function importData() {
 	// Add many new Warlock invocations
 	AddWarlockInvocation("Aspect of the Moon (prereq: the Archfey patron)", {
 		name : "Aspect of the Moon",
-		description : "\n   " + "I don't need to sleep nor can be magically forced to; I can rest while doing light activity",
+		description : "\n   I don't need to sleep nor can be magically forced to; I can rest while doing light activity",
 		source : ["UA:WnW", 3],
 		prereqeval : "(/\\barchfey\\b/).test(classes.known.warlock.subclass)",
 		savetxt : { text : ["Nothing can force me to sleep"] }
@@ -22272,7 +22311,7 @@ function importData() {
 				name : "Bonus Disciplines",
 				source : ["UA:TMC", 5],
 				minlevel : 1,
-				description : "\n   " + "I know two additional psionic disciplines, chosen from the avatar disciplines",
+				description : "\n   I know two additional psionic disciplines, chosen from the avatar disciplines",
 				spellcastingBonus : {
 					name : "Bonus Disciplines",
 					"class" : "mystic",
@@ -22285,14 +22324,14 @@ function importData() {
 				name : "Armor Training",
 				source : ["UA:TMC", 5],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with medium armor and shields.",
+				description : "\n   I gain proficiency with medium armor and shields.",
 				armor : [false, true, false, true]
 			},
 			"subclassfeature3" : {
 				name : "Avatar of Battle",
 				source : ["UA:TMC", 5],
 				minlevel : 3,
-				description : "\n   " + "Allies within 30 ft of me gain +2 on initiative rolls while I'm not incapacitated"
+				description : "\n   Allies within 30 ft of me gain +2 on initiative rolls while I'm not incapacitated"
 			},
 			"subclassfeature6" : {
 				name : "Avatar of Healing",
@@ -22307,7 +22346,7 @@ function importData() {
 				name : "Avatar of Speed",
 				source : ["UA:TMC", 6],
 				minlevel : 14,
-				description : "\n   " + "Allies within 30 ft of me can use Dash as a bonus action while I'm not incapacitated"
+				description : "\n   Allies within 30 ft of me can use Dash as a bonus action while I'm not incapacitated"
 			}
 		}
 	};
@@ -22387,7 +22426,7 @@ function importData() {
 				name : "Bonus Disciplines",
 				source : ["UA:TMC", 7],
 				minlevel : 1,
-				description : "\n   " + "I know two additional psionic disciplines, taken from the immortal disciplines",
+				description : "\n   I know two additional psionic disciplines, taken from the immortal disciplines",
 				spellcastingBonus : {
 					name : "Bonus Disciplines",
 					"class" : "mystic",
@@ -22453,7 +22492,7 @@ function importData() {
 				name : "Bonus Disciplines",
 				source : ["UA:TMC", 7],
 				minlevel : 1,
-				description : "\n   " + "I know two additional psionic disciplines, taken from the nomad disciplines",
+				description : "\n   I know two additional psionic disciplines, taken from the nomad disciplines",
 				spellcastingBonus : {
 					name : "Bonus Disciplines",
 					"class" : "mystic",
@@ -22513,7 +22552,7 @@ function importData() {
 				name : "Martial Training",
 				source : ["UA:TMC", 7],
 				minlevel : 1,
-				description : "\n   " + "I gain proficiency with medium armor and martial weapons",
+				description : "\n   I gain proficiency with medium armor and martial weapons",
 				armor : [false, true, false, false],
 				weapons : [false, true]
 			},
@@ -22672,7 +22711,7 @@ function importData() {
 		range : "60 ft",
 		duration : "1 min",
 		description : "1 crea either hears a sound (whisper-scream), or sees up to 5-ft cube object that disappears on touch",
-		descriptionFull : "As an action, you plant a false belief in the mind of one creature that you can see within 60 feet of you. You can create a sound or an image. Only the target of this talent perceives the sound or image you create." + "\n   " + "If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a creature's roar, a musical instrument, or any other sound you pick. It lasts for 1 minute." + "\n   " + "If you create an object, it must fit within a 5-foot cube and can't move or be reflective. The image can't create any effect that influences a sense other than sight. The image lasts for 1 minute, and it disappears if the creature touches it."
+		descriptionFull : "As an action, you plant a false belief in the mind of one creature that you can see within 60 feet of you. You can create a sound or an image. Only the target of this talent perceives the sound or image you create.\n   If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a creature's roar, a musical instrument, or any other sound you pick. It lasts for 1 minute.\n   If you create an object, it must fit within a 5-foot cube and can't move or be reflective. The image can't create any effect that influences a sense other than sight. The image lasts for 1 minute, and it disappears if the creature touches it."
 	};
 	PsionicsList["energy beam"] = {
 		name : "Energy Beam",
@@ -22685,7 +22724,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Dex",
 		description : "1 crea save or 1d8 Acid, Cold, Fire, Lightning, or Thunder dmg; +1d8 at CL 5, 11, and 17",
-		descriptionFull : "As an action, you target one creature you can see within 90 feet of you. The target must succeed on a Dexterity saving throw or take 1d8 acid, cold, fire, lightning, or thunder damage (your choice)." + "\n   " + "The talent's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)"
+		descriptionFull : "As an action, you target one creature you can see within 90 feet of you. The target must succeed on a Dexterity saving throw or take 1d8 acid, cold, fire, lightning, or thunder damage (your choice).\n   The talent's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8)"
 	};
 	PsionicsList["light step"] = {
 		name : "Light Step",
@@ -22709,7 +22748,7 @@ function importData() {
 		range : "120 ft",
 		duration : "This turn end",
 		description : "You communicate telepathically with 1 willing crea (int > 1) and gain access to 1 memory of theirs",
-		descriptionFull : "As a bonus action, you can communicate telepathically with one willing creature you can see within 120 feet of you. The target must have an Intelligence of at least 2, otherwise this talent fails and the action is wasted." + "\n   " + "This communication can occur until the end of the current turn. You don't need to share a language with the target for it to understand your telepathic utterances, and it understands you even if it lacks a language. You also gain access to one memory of the target's choice, gaining perfect recall of one thing it saw or did."
+		descriptionFull : "As a bonus action, you can communicate telepathically with one willing creature you can see within 120 feet of you. The target must have an Intelligence of at least 2, otherwise this talent fails and the action is wasted.\n   This communication can occur until the end of the current turn. You don't need to share a language with the target for it to understand your telepathic utterances, and it understands you even if it lacks a language. You also gain access to one memory of the target's choice, gaining perfect recall of one thing it saw or did."
 	};
 	PsionicsList["mind slam"] = {
 		name : "Mind Slam",
@@ -22722,7 +22761,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "1 crea save or 1d6 Force dmg, and knocked prone if Large or smaller; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "As an action, you target one creature you can see within 60 feet of you. The target must succeed on a Constitution saving throw or take 1d6 force damage. If it takes any of this damage and is Large or smaller, it is knocked prone." + "\n   " + "The talent's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)"
+		descriptionFull : "As an action, you target one creature you can see within 60 feet of you. The target must succeed on a Constitution saving throw or take 1d6 force damage. If it takes any of this damage and is Large or smaller, it is knocked prone.\n   The talent's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)"
 	};
 	PsionicsList["mind thrust"] = {
 		name : "Mind Thrust",
@@ -22735,7 +22774,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Int",
 		description : "1 crea save or 1d10 Psychic dmg; +1d10 at CL 5, 11, and 17",
-		descriptionFull : "As an action, you target one creature you can see within 120 feet of you. The target must succeed on an Intelligence saving throw or take 1d10 psychic damage." + "\n   " + "The talent's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
+		descriptionFull : "As an action, you target one creature you can see within 120 feet of you. The target must succeed on an Intelligence saving throw or take 1d10 psychic damage.\n   The talent's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
 	};
 	PsionicsList["mystic charm"] = {
 		name : "Mystic Charm",
@@ -22760,7 +22799,7 @@ function importData() {
 		range : "30 ft",
 		duration : "This turn end",
 		description : "Move 1 unattended object (up to 10 lbs) up to 30 ft, or manipulate an object",
-		descriptionFull : "You can use your action to manipulate or move one object within 30 feet of you. The object can't weigh more than 10 pounds, and you can't affect an object being worn or carried by another creature. If the object is loose, you can move it up to 30 feet in any direction." + "\n   " + "This talent allows you to open an unlocked door, pour out a beer stein, and so on." + "\n   " + "The object falls to the ground at the end of your turn if you leave it suspended in midair."
+		descriptionFull : "You can use your action to manipulate or move one object within 30 feet of you. The object can't weigh more than 10 pounds, and you can't affect an object being worn or carried by another creature. If the object is loose, you can move it up to 30 feet in any direction.\n   This talent allows you to open an unlocked door, pour out a beer stein, and so on.\n   The object falls to the ground at the end of your turn if you leave it suspended in midair."
 	};
 	PsionicsList["psychic hammer"] = {
 		name : "Psychic Hammer",
@@ -22773,7 +22812,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Str",
 		description : "1 crea save or 1d6 Force dmg and moved up to 10 ft in chosen direction; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "As an action, you try to grasp one creature you can see within 120 feet of you, with a hand crafted from telekinetic energy. The target must succeed on a Strength saving throw or take 1d6 force damage. If it takes any of this damage and is Large or smaller, you can move it up to 10 feet in a straight line in a direction of your choice. You can't lift the target off the ground unless it is already airborne or underwater." + "\n   " + "The talent's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "As an action, you try to grasp one creature you can see within 120 feet of you, with a hand crafted from telekinetic energy. The target must succeed on a Strength saving throw or take 1d6 force damage. If it takes any of this damage and is Large or smaller, you can move it up to 10 feet in a straight line in a direction of your choice. You can't lift the target off the ground unless it is already airborne or underwater.\n   The talent's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 
 	// Psionic Disciplines for the Mystic
@@ -23434,7 +23473,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Cha",
 		description : "6 crea 8d6 Psychic dmg, frightened, \u0026 do only melee atks; save halves, no other effects; save each rnd",
-		descriptionFull : "As an action, choose up to six creatures within 60 feet of you. Each target must make a Charisma saving throw. On a failed save, a target takes 8d6 psychic damage, and it is frightened until your concentration ends. On a successful save, a target takes half as much damage." + "\n   " + "While frightened by this effect, a target's speed is reduced to 0, and the target can use its action, and any bonus action it might have, only to make melee attacks. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+		descriptionFull : "As an action, choose up to six creatures within 60 feet of you. Each target must make a Charisma saving throw. On a failed save, a target takes 8d6 psychic damage, and it is frightened until your concentration ends. On a successful save, a target takes half as much damage.\n   While frightened by this effect, a target's speed is reduced to 0, and the target can use its action, and any bonus action it might have, only to make melee attacks. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
 		firstCol : 7
 	};
 	//the crown of rage discipline
@@ -23764,7 +23803,7 @@ function importData() {
 		range : "30 ft",
 		duration : "10 min",
 		description : "2d8/PP hp of conscious, not in combat, not immune to charm crea charmed; use hp max, not current",
-		descriptionFull : "As an action, you exert an aura of sympathetic power. Roll 2d8 per psi point spent on this ability; the total is how many hit points worth of creatures this option can affect. Creatures within 30 feet of you are affected in ascending order of their hit point maximums, ignoring incapacitated creatures, creatures immune to being charmed, and creatures engaged in combat." + "\n   " + "Starting with the creature that has the lowest hit point maximum, each creature affected by this option is charmed by you for 10 minutes, regarding you as a friendly acquaintance. Subtract each creature's hit point maximum from the total before moving on to the next creature. A creature's hit point maximum must be equal to or less than the remaining total for that creature to be affected.",
+		descriptionFull : "As an action, you exert an aura of sympathetic power. Roll 2d8 per psi point spent on this ability; the total is how many hit points worth of creatures this option can affect. Creatures within 30 feet of you are affected in ascending order of their hit point maximums, ignoring incapacitated creatures, creatures immune to being charmed, and creatures engaged in combat.\n   Starting with the creature that has the lowest hit point maximum, each creature affected by this option is charmed by you for 10 minutes, regarding you as a friendly acquaintance. Subtract each creature's hit point maximum from the total before moving on to the next creature. A creature's hit point maximum must be equal to or less than the remaining total for that creature to be affected.",
 		firstCol : "1-7"
 	};
 	PsionicsList["moa2-center of attention"] = {
@@ -24353,7 +24392,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Dex",
 		description : "Move obj 60 ft, after which it falls; crea under obj DC 10 save or 1d6+1d6/PP Bludg. dmg; see book",
-		descriptionFull : "Choose one object you can see within 60 feet of you that isn't being worn or carried by another creature and that isn't secured in place. It can't be larger than 20 feet on a side, and its maximum weight depends on the psi points spent on this ability, as shown below." + "\n   " + "As an action, you move the object up to 60 feet, and you must keep the object within sight during this movement. If the object ends this movement in the air, it falls. If the object would fall on a creature, the creature must succeed on a DC 10 Dexterity saving throw or take damage as listed on the table below.\n\n  " + toUni("Psi") + "\t" + toUni("Maximum") + "    " + toUni("Bludgeoning") + "\n" + toUni("Points") + "\t " + toUni("Weight") + "\t        " + toUni("Damage") + "\n    2\t     25 lbs.  \t             2d6" + "\n    3\t     50 lbs.  \t             4d6" + "\n    5\t   250 lbs.  \t             6d6" + "\n    6\t   500 lbs.  \t             7d6" + "\n    7\t 1000 lbs.  \t             8d6",
+		descriptionFull : "Choose one object you can see within 60 feet of you that isn't being worn or carried by another creature and that isn't secured in place. It can't be larger than 20 feet on a side, and its maximum weight depends on the psi points spent on this ability, as shown below.\n   As an action, you move the object up to 60 feet, and you must keep the object within sight during this movement. If the object ends this movement in the air, it falls. If the object would fall on a creature, the creature must succeed on a DC 10 Dexterity saving throw or take damage as listed on the table below.\n\n  " + toUni("Psi") + "\t" + toUni("Maximum") + "    " + toUni("Bludgeoning") + "\n" + toUni("Points") + "\t " + toUni("Weight") + "\t        " + toUni("Damage") + "\n    2\t     25 lbs.  \t             2d6\n    3\t     50 lbs.  \t             4d6\n    5\t   250 lbs.  \t             6d6\n    6\t   500 lbs.  \t             7d6\n    7\t 1000 lbs.  \t             8d6",
 		firstCol : "2-7"
 	};
 	PsionicsList["mf3-inertial armor"] = {
@@ -24393,7 +24432,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		description : "1 crea save or grappled; escape Athl./Acro. vs. your spell atk +1/PP; if grappled you can Crush/Move",
 		save : "Str",
-		descriptionFull : "You attempt to grasp a creature in telekinetic energy and hold it captive. As an action, choose one creature you can see within 60 feet of you. The target must succeed on a Strength saving throw or be grappled by you until your concentration ends or until the target leaves your reach, which is 60 feet for this grapple." + "\n   " + "The grappled target can escape by succeeding on a Strength (Athletics) or Dexterity (Acrobatics) check contested by your psionic ability plus your proficiency bonus. When a target attempts to escape in this way, you can spend psi points to boost your check, abiding by your psi limit. You gain a +1 bonus per psi point spent." + "\n   " + "While a target is grappled in this manner, you create one of the following effects as an action: " + toUni("Crush") + " (1–7 psi) The target takes 1d6 bludgeoning damage per psi point spent." + toUni("Move") + " (1–7 psi) You move the target up to 5 feet per psi point spent. You can move it in the air and hold it there. It falls if the grapple ends.",
+		descriptionFull : "You attempt to grasp a creature in telekinetic energy and hold it captive. As an action, choose one creature you can see within 60 feet of you. The target must succeed on a Strength saving throw or be grappled by you until your concentration ends or until the target leaves your reach, which is 60 feet for this grapple.\n   The grappled target can escape by succeeding on a Strength (Athletics) or Dexterity (Acrobatics) check contested by your psionic ability plus your proficiency bonus. When a target attempts to escape in this way, you can spend psi points to boost your check, abiding by your psi limit. You gain a +1 bonus per psi point spent.\n   While a target is grappled in this manner, you create one of the following effects as an action: " + toUni("Crush") + " (1–7 psi) The target takes 1d6 bludgeoning damage per psi point spent." + toUni("Move") + " (1–7 psi) You move the target up to 5 feet per psi point spent. You can move it in the air and hold it there. It falls if the grapple ends.",
 		firstCol : 3
 	};
 	PsionicsList["mf6-crush (with grasp)"] = {
@@ -24406,7 +24445,7 @@ function importData() {
 		range : "60 ft",
 		duration : "Instantaneous",
 		description : "1 creature grappled by Grasp takes 1d6/PP Bludgeoning damage",
-		descriptionFull : "While the target is grappled by Grasp from the Mastery of Force discipline, you can use Crush on it as an action:" + "\n  " + "The target takes 1d6 bludgeoning damage per psi point spent.",
+		descriptionFull : "While the target is grappled by Grasp from the Mastery of Force discipline, you can use Crush on it as an action:\n  The target takes 1d6 bludgeoning damage per psi point spent.",
 		firstCol : "1-7"
 	};
 	PsionicsList["mf7-move (with grasp)"] = {
@@ -24419,7 +24458,7 @@ function importData() {
 		range : "60 ft",
 		duration : "Instantaneous",
 		description : "1 creature grappled by Grasp moved up to 5 ft/PP; can hold it aloft, but it falls when grapple ends",
-		descriptionFull : "While the target is grappled by Grasp from the Mastery of Force discipline, you can use Move on it as an action:" + "\n  " + "You move the target up to 5 feet per psi point spent. You can move it in the air and hold it there. It falls if the grapple ends.",
+		descriptionFull : "While the target is grappled by Grasp from the Mastery of Force discipline, you can use Move on it as an action:\n  You move the target up to 5 feet per psi point spent. You can move it in the air and hold it there. It falls if the grapple ends.",
 		firstCol : "1-7"
 	};
 	//the mastery of ice discipline (contributed by Justin W.)
@@ -24491,7 +24530,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Con",
 		description : "20-ft rad all 6d6(+1d6/extra PP) Cold dmg \u0026 spd 0; save half \u0026 no spd 0; 1 a Athl. vs DC for no spd 0",
-		descriptionFull : "As an action, choose a point you can see within 120 feet of you. The air in a 20-foot-radius sphere centered on that point becomes deathly cold and saturated with moisture. Each creature in that area must make a Constitution saving throw. On a failed save, a target takes 6d6 cold damage, and its speed is reduced to 0 until your concentration ends. On a successful save, a target takes half as much damage." + "\n   " + "As an action, a target that has its speed reduced can end the effect early if it succeeds on a Strength (Athletics) check with a DC equal to this effect's save DC." + "\n   " + "You can increase this effect's damage by 1d6 per each additional psi point spent on it.",
+		descriptionFull : "As an action, choose a point you can see within 120 feet of you. The air in a 20-foot-radius sphere centered on that point becomes deathly cold and saturated with moisture. Each creature in that area must make a Constitution saving throw. On a failed save, a target takes 6d6 cold damage, and its speed is reduced to 0 until your concentration ends. On a successful save, a target takes half as much damage.\n   As an action, a target that has its speed reduced can end the effect early if it succeeds on a Strength (Athletics) check with a DC equal to this effect's save DC.\n   You can increase this effect's damage by 1d6 per each additional psi point spent on it.",
 		firstCol : "5-7"
 	};
 	PsionicsList["mi5-ice barrier"] = {
@@ -24577,7 +24616,7 @@ function importData() {
 		duration : "Conc, 1 min",
 		save : "Dex",
 		description : "1 crea 6d6(+1d6/extra PP) Radiant dmg, blinded, save each turn to end blind; save halves \u0026 not blind",
-		descriptionFull : "As an action, you project a beam of light at one creature you can see within 60 feet of you. The target must make a Dexterity saving throw. On a failed save, it takes 6d6 radiant damage and is blinded until your concentration ends. On a successful save, it takes half as much damage. A blinded target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success." + "\n   " + "You can increase this effect's damage by 1d6 per each additional psi point spent on it.",
+		descriptionFull : "As an action, you project a beam of light at one creature you can see within 60 feet of you. The target must make a Dexterity saving throw. On a failed save, it takes 6d6 radiant damage and is blinded until your concentration ends. On a successful save, it takes half as much damage. A blinded target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n   You can increase this effect's damage by 1d6 per each additional psi point spent on it.",
 		firstCol : "5-7"
 	};
 	//the mastery of water discipline (contributed by Justin W.)
@@ -24762,7 +24801,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Dex",
 		description : "60-ft long 5-ft wide all 6d6(+1d6/extra PP) Lightning dmg; save halves; you teleport to spot on line",
-		descriptionFull : "As an action, you let loose a line of lightning that is 60 feet long and 5 feet wide. Each creature in the line must make a Dexterity saving throw, taking 6d6 lightning damage on a failed save, or half as much damage on a successful one. You can then teleport to an unoccupied space touched by the line." + "\n   " + "You can increase this ability's damage by 1d6 per additional psi point spent on it.",
+		descriptionFull : "As an action, you let loose a line of lightning that is 60 feet long and 5 feet wide. Each creature in the line must make a Dexterity saving throw, taking 6d6 lightning damage on a failed save, or half as much damage on a successful one. You can then teleport to an unoccupied space touched by the line.\n   You can increase this ability's damage by 1d6 per additional psi point spent on it.",
 		firstCol : "5-7"
 	};
 	PsionicsList["mw6-wall of thunder"] = {
@@ -24988,7 +25027,7 @@ function importData() {
 		range : "60 ft",
 		duration : "Conc, 1 min",
 		description : "You(+1 crea/extra PP) become invisible; attacking/targeting/affecting other crea makes a crea visible",
-		descriptionFull : "As a bonus action, cloak yourself from sight. You can target one additional creature for every additional psi point you spend on this ability. The added targets must be visible to you and within 60 feet of you." + "\n   " + "Each target turns invisible and remains so until your concentration ends or until immediately after it targets, damages, or otherwise affects any creature with an attack, a spell, or another ability.",
+		descriptionFull : "As a bonus action, cloak yourself from sight. You can target one additional creature for every additional psi point you spend on this ability. The added targets must be visible to you and within 60 feet of you.\n   Each target turns invisible and remains so until your concentration ends or until immediately after it targets, damages, or otherwise affects any creature with an attack, a spell, or another ability.",
 		firstCol : "3-7"
 	};
 	PsionicsList["nc3-enduring invisibility"] = {
@@ -25617,7 +25656,7 @@ function importData() {
 		duration : "12/24/48 h",
 		save : "Int",
 		description : "1 crea 3 saves if in range for full duration; learn key memories from 12/24/48 h (1/2/3 failed saves)",
-		descriptionFull : "While you concentrate on this ability, you probe one creature's mind. The creature must remain within 30 feet of you, and you must be able to see it. If you reach the ability's full duration, the target must make three Intelligence saving throws, and you learn information from it based on the number of saving throws it fails." + "\n   " + "With one failed saving throw, you learn its key memories from the past 12 hours." + "\n   " + "With two failed saving throws, you learn its key memories from the past 24 hours." + "\n   " + "With three failed saving throws, you learn its key memories from the past 48 hours.",
+		descriptionFull : "While you concentrate on this ability, you probe one creature's mind. The creature must remain within 30 feet of you, and you must be able to see it. If you reach the ability's full duration, the target must make three Intelligence saving throws, and you learn information from it based on the number of saving throws it fails.\n   With one failed saving throw, you learn its key memories from the past 12 hours.\n   With two failed saving throws, you learn its key memories from the past 24 hours.\n   With three failed saving throws, you learn its key memories from the past 48 hours.",
 		firstCol : 5
 	};
 	PsionicsList["pi4-phantom idea"] = {
@@ -25631,7 +25670,7 @@ function importData() {
 		duration : "4/24/48 h",
 		save : "Int",
 		description : "1 crea 3 saves if in range for full duration; implant memory lasting 4/24/48 h (1/2/3 failed saves)",
-		descriptionFull : "While you concentrate on this ability, you probe one creature's mind. The creature must remain within 30 feet of you, and you must be able to see it. If you reach the ability's full duration, the target must make three Intelligence saving throws, and you plant a memory or an idea in it, which lasts for a number of hours based on the number of saving throws it fails. You choose whether the idea or memory is trivial (such as “I had porridge for breakfast” or “Ale is the worst”) or personality-defining (“I failed to save my village from orc marauders and am therefore a coward” or “Magic is a scourge, so I renounce it”)." + "\n   " + "With one failed saving throw, the idea or memory lasts for the next 4 hours. With two failed saving throws, it lasts for 24 hours. With three failed saving throws, it lasts for 48 hours.",
+		descriptionFull : "While you concentrate on this ability, you probe one creature's mind. The creature must remain within 30 feet of you, and you must be able to see it. If you reach the ability's full duration, the target must make three Intelligence saving throws, and you plant a memory or an idea in it, which lasts for a number of hours based on the number of saving throws it fails. You choose whether the idea or memory is trivial (such as “I had porridge for breakfast” or “Ale is the worst”) or personality-defining (“I failed to save my village from orc marauders and am therefore a coward” or “Magic is a scourge, so I renounce it”).\n   With one failed saving throw, the idea or memory lasts for the next 4 hours. With two failed saving throws, it lasts for 24 hours. With three failed saving throws, it lasts for 48 hours.",
 		firstCol : 6
 	};
 	//the psychic phantoms discipline (contributed by Justin W.)
@@ -26034,14 +26073,14 @@ function importData() {
 						name : "Arcane Initiate",
 						source : [["UA:TF", 2], ["UA:WR", 1]],
 						minlevel : 2,
-						description : "\n   " + "Choose a Cleric Domain using the \"Choose Feature\" button above" + "\n   " + "When I gain a wizard level I can replace one of the spells I would add to my spellbook" + "\n   " + "I can replace it with one of the chosen domain spells, if it is of a level I can cast" + "\n   " + "If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast" + "\n   " + "Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
+						description : "\n   Choose a Cleric Domain using the \"Choose Feature\" button above\n   When I gain a wizard level I can replace one of the spells I would add to my spellbook\n   I can replace it with one of the chosen domain spells, if it is of a level I can cast\n   If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast\n   Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
 						choices : []
 					},
 					"subclassfeature2.1" : {
 						name : "Channel Arcana",
 						source : [["UA:TF", 2], ["UA:WR", 1]],
 						minlevel : 2,
-						description : "\n   " + "I can channel arcane energy from my deity; the save for this is my wizard spell DC",
+						description : "\n   I can channel arcane energy from my deity; the save for this is my wizard spell DC",
 						usages : [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3],
 						recovery : "short rest"
 					},
@@ -26049,14 +26088,14 @@ function importData() {
 						name : "Channel Arcana: Divine Arcana",
 						source : [["UA:TF", 2], ["UA:WR", 1]],
 						minlevel : 2,
-						description : "\n   " + "As a bonus action, I speak a prayer to control the flow of magic around me" + "\n   " + "The next spell I cast gains a +2 bonus to its attack roll or saving throw DC",
+						description : "\n   As a bonus action, I speak a prayer to control the flow of magic around me\n   The next spell I cast gains a +2 bonus to its attack roll or saving throw DC",
 						action : ["bonus action", ""]
 					},
 					"subclassfeature2.3" : {
 						name : "Channel Arcana: Domain",
 						source : [["UA:TF", 2], ["UA:WR", 1]],
 						minlevel : 2,
-						description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+						description : "\n   Use the \"Choose Feature\" button above to select the domain",
 						choices : [],
 						choicesNotInMenu : true,
 						eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature2.2,' + FeaChoice, false);};};"
@@ -26065,7 +26104,7 @@ function importData() {
 						name : "Arcane Acolyte",
 						source : [["UA:TF", 3], ["UA:WR", 1]],
 						minlevel : 6,
-						description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+						description : "\n   Use the \"Choose Feature\" button above to select the domain",
 						choices : [],
 						choicesNotInMenu : true,
 						eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature6,' + FeaChoice, false);};};"
@@ -26074,7 +26113,7 @@ function importData() {
 						name : "Arcane Priest",
 						source : [["UA:TF", 3], ["UA:WR", 2]],
 						minlevel : 10,
-						description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+						description : "\n   Use the \"Choose Feature\" button above to select the domain",
 						choices : [],
 						choicesNotInMenu : true,
 						eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature10,' + FeaChoice, false);};};"
@@ -26083,7 +26122,7 @@ function importData() {
 						name : "Arcane High Priest",
 						source : [["UA:TF", 3], ["UA:WR", 2]],
 						minlevel : 14,
-						description : "\n   " + "Use the \"Choose Feature\" button above to select the domain",
+						description : "\n   Use the \"Choose Feature\" button above to select the domain",
 						choices : [],
 						choicesNotInMenu : true,
 						eval : "if (FeaChoice === '') {var CFrem = What('Class Features Remember'); var tReg = /.*?wizard,subclassfeature2,(.*?domain).*/i; if ((tReg).test(CFrem)) {FeaChoice = CFrem.replace(tReg, '$1'); AddString('Class Features Remember', 'wizard,subclassfeature14,' + FeaChoice, false);};};"
@@ -26109,7 +26148,7 @@ function importData() {
 					name : "Arcane Initiate: " + aDomain.subname,
 					source : dSource,
 					spellcastingExtra : aDomain.spellcastingExtra,
-					description : "\n   " + "When I gain a wizard level I can replace one of the spells I would add to my spellbook" + "\n   " + "I can replace it with one of the " + aDomain.subname.toLowerCase() + " spells, if it is of a level I can cast" + "\n   " + "If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast" + "\n   " + "Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
+					description : "\n   When I gain a wizard level I can replace one of the spells I would add to my spellbook\n   I can replace it with one of the " + aDomain.subname.toLowerCase() + " spells, if it is of a level I can cast\n   If my spellbook has all the domain spells, I can select any cleric spell of a level I can cast\n   Other wizards cannot copy cleric spells from my spellbook into their own spellbooks",
 					eval : ""
 				};
 				var AIdomain = MTfeat["subclassfeature2"][entryDoNm.toLowerCase()];
@@ -26202,7 +26241,7 @@ function importData() {
 				name : "Tipsy Sway",
 				source : ["UA:AToS", 1],
 				minlevel : 6,
-				description : "\n   " + "As a reaction when missed in melee, attacker instead hits another I can see within 5 ft",
+				description : "\n   As a reaction when missed in melee, attacker instead hits another I can see within 5 ft",
 				usages : 1,
 				recovery : "short rest",
 				action : ["reaction", ""]
@@ -26211,14 +26250,14 @@ function importData() {
 				name : "Drunkard's Luck",
 				source : ["UA:AToS", 1],
 				minlevel : 11,
-				description : "\n   " + "Before I roll for a save, I can spend 1 ki to give myself advantage on it",
+				description : "\n   Before I roll for a save, I can spend 1 ki to give myself advantage on it",
 				additional : "1 ki point"
 			},
 			"subclassfeature17" : {
 				name : "Intoxicated Frenzy",
 				source : ["UA:AToS", 1],
 				minlevel : 17,
-				description : "\n   " + "I can make 3 extra attacks with Flurry of Blows if each is used on a different target"
+				description : "\n   I can make 3 extra attacks with Flurry of Blows if each is used on a different target"
 			}
 		}
 	});
@@ -26232,14 +26271,14 @@ function importData() {
 				name : "Armor of Peace",
 				source : ["UA:AToS", 2],
 				minlevel : 3,
-				description : "\n   " + "When not wearing armor or wielding a shield, my AC is 16 + my Dexterity modifier",
+				description : "\n   When not wearing armor or wielding a shield, my AC is 16 + my Dexterity modifier",
 				addarmor : "Armor of Peace"
 			},
 			"subclassfeature3.1" : {
 				name : "Channel Divinity: Emissary of Peace",
 				source : ["UA:AToS", 2],
 				minlevel : 3,
-				description : "\n   " + "As a bonus action, I gain +5 to my next Charisma (Persuasion) check in the next min",
+				description : "\n   As a bonus action, I gain +5 to my next Charisma (Persuasion) check in the next min",
 				action : ["bonus action", ""]
 			},
 			"subclassfeature3.2" : {
@@ -26276,7 +26315,7 @@ function importData() {
 				name : "Protective Spirit",
 				source : ["UA:AToS", 2],
 				minlevel : 15,
-				description : "\n   " + "At the end of my turn when I'm below half HP and not incapacitated, I regain HP",
+				description : "\n   At the end of my turn when I'm below half HP and not incapacitated, I regain HP",
 				additional : levels.map(function (n) { return n < 15 ? "" : "1d6+" + Math.floor(n/2) + " HP"; })
 			},
 			"subclassfeature20" : {
@@ -26313,7 +26352,7 @@ function importData() {
 				name : "Slayer's Mysticism",
 				source : ["UA:AToS", 3],
 				minlevel : 3,
-				description : "\n   " + "I get bonus spells known, which do not count against the number of spells I can know",
+				description : "\n   I get bonus spells known, which do not count against the number of spells I can know",
 				spellcastingExtra : ["protection from evil and good", "zone of truth", "magic circle", "banishment", "planar binding"].concat(new Array(95)).concat("AddToKnown")
 			},
 			"subclassfeature3.1" : {
@@ -26403,7 +26442,7 @@ function importData() {
 		compMaterial : "25 gp worth of powdered silver",
 		duration : "Instantaneous",
 		description : "Perform religious ceremony on target(s) that are within 10 ft throughout the casting; see book (25gp)",
-		descriptionFull : "You perform one of several religious ceremonies. When you cast the spell, choose one of the following ceremonies, the target of which must be within 10 feet of you throughout the casting." + "\n   " + toUni("Atonement") + ": You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a success, you restore the target to its original alignment." + "\n   " + toUni("Bless Water") + ": You touch one vial of water and cause it to become holy water." + "\n   " + toUni("Coming of Age") + ": You touch one humanoid old enough to be a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this ceremony just once." + "\n   " + toUni("Dedication") + ": You touch one humanoid who would willingly convert to your religion or who wishes to be dedicated to your god's service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this ceremony just once." + "\n   " + toUni("Funeral Rite") + ": You bless one corpse within 5 feet of you. For the next 24 hours, the target can't become undead by any means short of a wish spell." + "\n   " + toUni("Investiture") + ": You touch one willing humanoid. Choose one 1st-level spell you have prepared and expend a spell slot and any material components as if you were casting that spell. The spell has no effect. Instead, the target can cast this spell once without having to expend a spell slot or use material components. If the target doesn't cast the spell within 1 hour, the invested spell is lost." + "\n   " + toUni("Marriage") + ": You touch adult humanoids willing to be bonded together in marriage. For the next 24 hours, each target gains a +2 bonus to AC and saving throws while they are within 30 feet of each other. A creature can benefit from this ceremony just once."
+		descriptionFull : "You perform one of several religious ceremonies. When you cast the spell, choose one of the following ceremonies, the target of which must be within 10 feet of you throughout the casting.\n   " + toUni("Atonement") + ": You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a success, you restore the target to its original alignment.\n   " + toUni("Bless Water") + ": You touch one vial of water and cause it to become holy water.\n   " + toUni("Coming of Age") + ": You touch one humanoid old enough to be a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this ceremony just once.\n   " + toUni("Dedication") + ": You touch one humanoid who would willingly convert to your religion or who wishes to be dedicated to your god's service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this ceremony just once.\n   " + toUni("Funeral Rite") + ": You bless one corpse within 5 feet of you. For the next 24 hours, the target can't become undead by any means short of a wish spell.\n   " + toUni("Investiture") + ": You touch one willing humanoid. Choose one 1st-level spell you have prepared and expend a spell slot and any material components as if you were casting that spell. The spell has no effect. Instead, the target can cast this spell once without having to expend a spell slot or use material components. If the target doesn't cast the spell within 1 hour, the invested spell is lost.\n   " + toUni("Marriage") + ": You touch adult humanoids willing to be bonded together in marriage. For the next 24 hours, each target gains a +2 bonus to AC and saving throws while they are within 30 feet of each other. A creature can benefit from this ceremony just once."
 	};
 	SpellsList["chaos bolt"] = {
 		name : "Chaos Bolt",
@@ -26417,7 +26456,7 @@ function importData() {
 		components : "V,S",
 		duration : "Instantaneous",
 		description : "Spell atk 2d8+1d6/SL dmg, d8s set dmg type, see B; double on d8s: new atk vs. crea in 30 ft of target",
-		descriptionFull : "You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 damage. Choose one of the d8s. The number it rolled determines the type of damage, as shown below." + "\n\n" + toUni("d8") + "\t" + toUni("Damage Type") + "\n  1\tAcid" + "\n  2\tCold" + "\n  3\tFire" + "\n  4\tForce" + "\n  5\tLightning" + "\n  6\tPoison" + "\n  7\tPsychic" + "\n  8\tThunder" + "\n\n   " + "If you roll the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again." + "\n   " + "A creature can be targeted only once by this mass of chaotic energy." + AtHigherLevels + "When you cast this spell using a spell slot of 2nd level or higher, each target takes extra damage of the type rolled. The extra damage equals 1d6 for each slot level above 1st."
+		descriptionFull : "You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 damage. Choose one of the d8s. The number it rolled determines the type of damage, as shown below.\n\n" + toUni("d8") + "\t" + toUni("Damage Type") + "\n  1\tAcid\n  2\tCold\n  3\tFire\n  4\tForce\n  5\tLightning\n  6\tPoison\n  7\tPsychic\n  8\tThunder\n\n   If you roll the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again.\n   A creature can be targeted only once by this mass of chaotic energy." + AtHigherLevels + "When you cast this spell using a spell slot of 2nd level or higher, each target takes extra damage of the type rolled. The extra damage equals 1d6 for each slot level above 1st."
 	};
 	SpellsList["guiding hand"] = {
 		name : "Guiding Hand",
@@ -26431,7 +26470,7 @@ function importData() {
 		components : "V,S",
 		duration : "Conc, 8 h",
 		description : "Tiny incorporeal hand directs you to one major landmark you name that is on the same plane",
-		descriptionFull : "You create a Tiny incorporeal hand of shimmering light in an unoccupied space you can see within range. The hand exists for the duration, but it disappears if you teleport or you travel to a different plane of existence." + "\n   " + "When the hand appears, you name one major landmark, such as a city, mountain, castle, or battlefield on the same plane of existence as you. Someone in history must have visited the site and mapped it. If the landmark appears on no map in existence, the spell fails. Otherwise, whenever you move toward the hand, it moves away from you at the same speed you moved, and it moves in the direction of the landmark, always remaining 5 feet away from you." + "\n   " + "If you don't move toward the hand, it remains in place until you do and beckons for you to follow once every 1d4 minutes."
+		descriptionFull : "You create a Tiny incorporeal hand of shimmering light in an unoccupied space you can see within range. The hand exists for the duration, but it disappears if you teleport or you travel to a different plane of existence.\n   When the hand appears, you name one major landmark, such as a city, mountain, castle, or battlefield on the same plane of existence as you. Someone in history must have visited the site and mapped it. If the landmark appears on no map in existence, the spell fails. Otherwise, whenever you move toward the hand, it moves away from you at the same speed you moved, and it moves in the direction of the landmark, always remaining 5 feet away from you.\n   If you don't move toward the hand, it remains in place until you do and beckons for you to follow once every 1d4 minutes."
 	};
 	SpellsList["hand of radiance"] = {
 		name : "Hand of Radiance",
@@ -26446,7 +26485,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "Any creatures you see in 5-ft radius save or 1d6 Radiant damage; +1d6 damage at CL 5, 11, and 17",
-		descriptionFull : "You raise your hand, and burning radiance erupts from it. Each creature of your choice that you can see within 5 feet of you must succeed on a Constitution saving throw or take 1d6 radiant damage." + "\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You raise your hand, and burning radiance erupts from it. Each creature of your choice that you can see within 5 feet of you must succeed on a Constitution saving throw or take 1d6 radiant damage.\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["healing elixir"] = {
 		name : "Healing Elixir",
@@ -26461,7 +26500,7 @@ function importData() {
 		compMaterial : "Alchemist's supplies",
 		duration : "24 h",
 		description : "Make vial with alchemist's supplies; heals 2d4+2 hp as an action; if not used, disappears after 24 h",
-		descriptionFull : "You create a healing elixir in a simple vial that appears in your hand. The elixir retains its potency for the duration or until it's consumed, at which point the vial vanishes." + "\n   " + "As an action, a creature can drink the elixir or administer it to another creature. The drinker regains 2d4 + 2 hit points."
+		descriptionFull : "You create a healing elixir in a simple vial that appears in your hand. The elixir retains its potency for the duration or until it's consumed, at which point the vial vanishes.\n   As an action, a creature can drink the elixir or administer it to another creature. The drinker regains 2d4 + 2 hit points."
 	};
 	SpellsList["infestation"] = {
 		name : "Infestation",
@@ -26477,7 +26516,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Con",
 		description : "1 crea save or 1d6 Piercing damage and moved 5 ft in random direction; +1d6 at CL 5, 11, and 17",
-		descriptionFull : "You cause mites, fleas, and other parasites to appear momentarily on one creature you can see within range. The target must succeed on a Constitution saving throw or take 1d6 piercing damage. If the target takes any of that damage, the target moves 5 feet in a random direction. Roll a d8 for the direction:" + "\n\n" + toUni("d8") + "\t" + toUni("Direction") + "\n  1\tNorth" + "\n  2\tNortheast" + "\n  3\tEast" + "\n  4\tSoutheast" + "\n  5\tSouth" + "\n  6\tSouthwest" + "\n  7\tWest" + "\n  8\tNorthwest" + "\n\n   " + "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
+		descriptionFull : "You cause mites, fleas, and other parasites to appear momentarily on one creature you can see within range. The target must succeed on a Constitution saving throw or take 1d6 piercing damage. If the target takes any of that damage, the target moves 5 feet in a random direction. Roll a d8 for the direction:\n\n" + toUni("d8") + "\t" + toUni("Direction") + "\n  1\tNorth\n  2\tNortheast\n  3\tEast\n  4\tSoutheast\n  5\tSouth\n  6\tSouthwest\n  7\tWest\n  8\tNorthwest\n\n   The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6)."
 	};
 	SpellsList["primal savagery"] = {
 		name : "Primal Savagery",
@@ -26491,7 +26530,7 @@ function importData() {
 		components : "S",
 		duration : "Instantaneous",
 		description : "Melee spell attack deals 1d10 Piercing or Slashing dmg (your choice); +1d10 at CL 5, 11, and 17",
-		descriptionFull : "Your teeth or fingernails lengthen and sharpen. You choose which. Make a melee spell attack against one creature within 5 feet of you. On a hit, the target takes 1d10 piercing or slashing damage (your choice). After you make the attack, your teeth or fingernails return to normal." + "\n   " + "The spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
+		descriptionFull : "Your teeth or fingernails lengthen and sharpen. You choose which. Make a melee spell attack against one creature within 5 feet of you. On a hit, the target takes 1d10 piercing or slashing damage (your choice). After you make the attack, your teeth or fingernails return to normal.\n   The spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
 	};
 	SpellsList["puppet"] = {
 		name : "Puppet",
@@ -26536,7 +26575,7 @@ function importData() {
 		duration : "Dispel/trigger",
 		save : "Dex",
 		description : "5-ft rad magical trap; Int (Inv) to see; save or restrained upside down 3 ft in the air; save/rnd at dis",
-		descriptionFull : "While you cast this spell, you use the cord or rope to create a circle with a 5-foot radius on a flat surface within your reach. When you finish casting, the cord or rope disappears to become a magical trap." + "\n   " + "The trap is nearly invisible and requires a successful Intelligence (Investigation) check against your spell save DC to be found." + "\n   " + "The trap triggers when a Small creature or larger moves into the area protected by the spell. The triggering creature must succeed on a Dexterity saving throw or fall prone and be hoisted into the air until it hangs upside down 3 feet above the protected surface, where it is restrained." + "\n   " + "The restrained creature can make a Dexterity saving throw with disadvantage at the end of each of its turns and ends the restrained effect on a success. Alternatively, another creature that can reach the restrained creature can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect also ends."
+		descriptionFull : "While you cast this spell, you use the cord or rope to create a circle with a 5-foot radius on a flat surface within your reach. When you finish casting, the cord or rope disappears to become a magical trap.\n   The trap is nearly invisible and requires a successful Intelligence (Investigation) check against your spell save DC to be found.\n   The trap triggers when a Small creature or larger moves into the area protected by the spell. The triggering creature must succeed on a Dexterity saving throw or fall prone and be hoisted into the air until it hangs upside down 3 feet above the protected surface, where it is restrained.\n   The restrained creature can make a Dexterity saving throw with disadvantage at the end of each of its turns and ends the restrained effect on a success. Alternatively, another creature that can reach the restrained creature can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect also ends."
 	};
 	SpellsList["sudden awakening"] = {
 		name : "Sudden Awakening",
@@ -26565,7 +26604,7 @@ function importData() {
 		duration : "Instantaneous",
 		save : "Wis",
 		description : "1 crea save or 1d12 Necrotic damage (only 1d8 if at full hp); +1d12/+1d8 at CL 5, 11, and 17",
-		descriptionFull : "You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage." + "\n   " + "The spell's damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12)."
+		descriptionFull : "You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage.\n   The spell's damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12)."
 	};
 	SpellsList["unearthly chorus"] = {
 		name : "Unearthly Chorus",
@@ -26580,7 +26619,7 @@ function importData() {
 		duration : "Conc, 10 min",
 		save: "Cha",
 		description : "Use bns a to make 1 crea in range save or be friendly for 1 h; You adv on Cha (Performance) checks",
-		descriptionFull : "Music of a style you choose fills the air around you in a 30-foot radius. The music spreads around corners and can be heard from up to 100 feet away. The music moves with you, centered on you for the duration." + "\n   " + "Until the spell ends, you make Charisma (Performance) checks with advantage. In addition, you can use a bonus action on each of your turns to beguile one creature you choose within 30 feet of you that can see you and hear the music. The creature must make a Charisma saving throw. If you or your companions are attacking it, the creature automatically succeeds on the saving throw. On a failure, the creature becomes friendly to you for as long as it can hear the music and for 1 hour thereafter. You make Charisma (Deception) checks and Charisma (Persuasion) checks against creatures made friendly by this spell with advantage."
+		descriptionFull : "Music of a style you choose fills the air around you in a 30-foot radius. The music spreads around corners and can be heard from up to 100 feet away. The music moves with you, centered on you for the duration.\n   Until the spell ends, you make Charisma (Performance) checks with advantage. In addition, you can use a bonus action on each of your turns to beguile one creature you choose within 30 feet of you that can see you and hear the music. The creature must make a Charisma saving throw. If you or your companions are attacking it, the creature automatically succeeds on the saving throw. On a failure, the creature becomes friendly to you for as long as it can hear the music and for 1 hour thereafter. You make Charisma (Deception) checks and Charisma (Persuasion) checks against creatures made friendly by this spell with advantage."
 	};
 	SpellsList["virtue"] = {
 		name : "Virtue",
@@ -26608,7 +26647,7 @@ function importData() {
 		components : "V,S",
 		duration : "Instantaneous",
 		description : "Call spirits of nature to aid you with finding food/drink/tracks/shelter, or camping; see book",
-		descriptionFull : "You call out to the spirits of nature to aid you. When you cast this spell, choose one of the following effects:" + "\n  \u2022 " + "If there are any tracks on the ground within range, you know where they are, and you make Wisdom (Survival) checks to follow these tracks with advantage for 1 hour or until you cast this spell again." + "\n  \u2022 " + "If there is edible forage within range, you know it and where to find it." + "\n  \u2022 " + "If there is clean drinking water within range, you know it and where to find it." + "\n  \u2022 " + "If there is suitable shelter for you and your companions with range, you know it and where to find." + "\n  \u2022 " + "Send the spirits to bring back wood for a fire and to set up a campsite in the area using your supplies. The spirits build the fire in a circle of stones, put up tents, unroll bedrolls, and put out any rations and water for consumption." + "\n  \u2022 " + "Have the spirits instantly break down a campsite, which includes putting out a fire, taking down tents, packing up bags, and burying any rubbish."
+		descriptionFull : "You call out to the spirits of nature to aid you. When you cast this spell, choose one of the following effects:\n  \u2022 If there are any tracks on the ground within range, you know where they are, and you make Wisdom (Survival) checks to follow these tracks with advantage for 1 hour or until you cast this spell again.\n  \u2022 If there is edible forage within range, you know it and where to find it.\n  \u2022 If there is clean drinking water within range, you know it and where to find it.\n  \u2022 If there is suitable shelter for you and your companions with range, you know it and where to find.\n  \u2022 Send the spirits to bring back wood for a fire and to set up a campsite in the area using your supplies. The spirits build the fire in a circle of stones, put up tents, unroll bedrolls, and put out any rations and water for consumption.\n  \u2022 Have the spirits instantly break down a campsite, which includes putting out a fire, taking down tents, packing up bags, and burying any rubbish."
 	};
 	SpellsList["zephyr strike"] = { // clarification: https://twitter.com/JeremyECrawford/status/849302527069884416
 		name : "Zephyr Strike",
@@ -26622,7 +26661,7 @@ function importData() {
 		components : "V",
 		duration : "Conc, 1 min",
 		description : "Moving doesn't provoke opportunity atks; next wea atk has adv and gives +30 ft speed for that turn",
-		descriptionFull : "You move like the wind. For the duration, your movement doesn't provoke opportunity attacks." + "\n   " + "In addition, the first time you make a weapon attack on your turn before the spell ends, you make the attack roll with advantage, and your speed increases by 30 feet until the end of that turn."
+		descriptionFull : "You move like the wind. For the duration, your movement doesn't provoke opportunity attacks.\n   In addition, the first time you make a weapon attack on your turn before the spell ends, you make the attack roll with advantage, and your speed increases by 30 feet until the end of that turn."
 	};
 
 	// Weapons (attack cantrips)
@@ -27293,7 +27332,7 @@ function importData() {
 				name : "Consult the Spirits",
 				source : ["UA:RS", 1],
 				minlevel : 10,
-				description : "\n   " + "Through consulting my ancestral spirits, I can cast Clairvoyance without a spell slot",
+				description : "\n   Through consulting my ancestral spirits, I can cast Clairvoyance without a spell slot",
 				spellcastingBonus : {
 					name : "Consult the Spirits",
 					spells : ["clairvoyance"],
@@ -27307,7 +27346,7 @@ function importData() {
 				name : "Vengeful Ancestors",
 				source : ["UA:RS", 1],
 				minlevel : 14,
-				description : "\n   " + "Whenever I use Spirit Shield to reduce damage, the attacker takes the reduced damage"
+				description : "\n   Whenever I use Spirit Shield to reduce damage, the attacker takes the reduced damage"
 			}
 		}
 	});
@@ -27331,7 +27370,7 @@ function importData() {
 				name : "Fighting Style",
 				source : ["UA:RS", 2],
 				minlevel : 3,
-				description : "\n   " + "Select a Fighting Style for the college of swords using the \"Choose Feature\" button above",
+				description : "\n   Select a Fighting Style for the college of swords using the \"Choose Feature\" button above",
 				choices : ["Dueling", "Two-Weapon Fighting"],
 				"dueling" : FightingStyles.dueling,
 				"two-weapon fighting" : FightingStyles.two_weapon
@@ -27358,13 +27397,13 @@ function importData() {
 				name : "Cunning Flourish",
 				source : ["UA:RS", 2],
 				minlevel : 6,
-				description : "\n   " + "When I take the Blade Flourish action, I can attack twice, but still only use one flourish"
+				description : "\n   When I take the Blade Flourish action, I can attack twice, but still only use one flourish"
 			},
 			"subclassfeature14" : {
 				name : "Master Flourish",
 				source : ["UA:RS", 2],
 				minlevel : 14,
-				description : "\n   " + "When I do a Blade Flourish, I can use a d6 instead of expending a Bardic Inspiration die"
+				description : "\n   When I do a Blade Flourish, I can use a d6 instead of expending a Bardic Inspiration die"
 			}
 		}
 	});
@@ -27424,7 +27463,7 @@ function importData() {
 				"bursting arrow [evocation]" : {
 					name : "Bursting Arrow [Evocation]",
 					source : ["UA:RS", 3],
-					description : "\n   " + "The target, in addition to the shot, and all creatures within 10 ft of it take damage",
+					description : "\n   The target, in addition to the shot, and all creatures within 10 ft of it take damage",
 					additional : levels.map( function(n) { return n < 3 ? "" : "+" + (n < 18 ? 2 : 4) + "d6 force damage"; })
 				},
 				"grasping arrow [conjuration]" : {
@@ -27484,7 +27523,7 @@ function importData() {
 				name : "Arcane Archer's Lore",
 				source : ["UA:RS", 3],
 				minlevel : 3,
-				description : "\n   " + "I gain proficiency with either the Arcana or Nature skill",
+				description : "\n   I gain proficiency with either the Arcana or Nature skill",
 				skillstxt : "\n\n" + toUni("Arcane Archer") + ": Choose Arcana or Nature."
 			},
 			"subclassfeature7" : {
@@ -27501,7 +27540,7 @@ function importData() {
 				name : "Ever-Ready Shot",
 				source : ["UA:RS", 3],
 				minlevel : 15,
-				description : "\n   " + "I regain one use of Arcane Shot if I have no more remaining when I roll initiative"
+				description : "\n   I regain one use of Arcane Shot if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -27534,7 +27573,7 @@ function importData() {
 				name : "One with the Blade",
 				source : ["UA:RS", 5],
 				minlevel : 6,
-				description : "\n   " + "My unarmed strikes and kensei weapon attacks count as magical",
+				description : "\n   My unarmed strikes and kensei weapon attacks count as magical",
 				calcChanges : {
 					atkAdd : ["if (((/unarmed strike/i).test(WeaponName) || (WeaponText.toLowerCase().indexOf('kensei') !== -1  && theWea && !isSpell && (!(/heavy|special/i).test(fields.Description) || WeaponName === 'longbow'))) && fields.Description.indexOf('Counts as magical') === -1 && !thisWeapon[1]) {fields.Description += (fields.Description ? '; ' : '') + 'Counts as magical';}; ", "My unarmed strikes and any Kensei Weapons count as magical for overcoming resistances and immunities."]
 				},
@@ -27542,7 +27581,7 @@ function importData() {
 				"precise strike" : {
 					name : "Precise Strike",
 					source : ["UA:RS", 5],
-					description : "\n   " + "Once per turn when I hit with a kensei weapon, I can do a martial arts die extra damage",
+					description : "\n   Once per turn when I hit with a kensei weapon, I can do a martial arts die extra damage",
 					additional : "1 ki point"
 				},
 				eval : "ClassFeatureOptions(['monk', 'ki-empowered strikes', 'precise strike', 'extra']);",
@@ -27552,7 +27591,7 @@ function importData() {
 				name : "Unerring Accuracy",
 				source : ["UA:RS", 5],
 				minlevel : 17,
-				description : "\n   " + "Once per turn, if I miss a monk weapon attack on my turn, I can reroll the attack roll",
+				description : "\n   Once per turn, if I miss a monk weapon attack on my turn, I can reroll the attack roll",
 				extraname : "Way of the Kensei 11",
 				"sharpen the blade" : {
 					name : "Sharpen the Blade",
@@ -27596,7 +27635,7 @@ function importData() {
 				name : "Favored by the Gods",
 				source : ["UA:RS", 5],
 				minlevel : 1,
-				description : "\n   " + "If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
+				description : "\n   If I fail a saving throw or miss with an attack roll, I can add 2d4 to the total",
 				recovery : "short rest",
 				usages : 1
 			},
@@ -27705,11 +27744,11 @@ function importData() {
 					"As a bonus action, I can summon, or move, a spirit to a point I can see within 60 ft",
 					"The spirit is a Bear, Hawk, or Unicorn (see below), which has a 30-ft radius aura",
 					"It is incorporeal, immobile, doesn't counts as a creature or object, and persists for 1 min",
-					" - " + "Bear: my allies in the area and I instantly gain 5 + my druid level in temp HP",
-					"    " + "While in the aura, my allies and I gain advantage on Strength checks and saves",
-					" - " + "Hawk: As a reaction, I can grant advantage on an attack vs. a target in the aura",
-					" - " + "Unicorn: my allies and I gain advantage on ability checks to detect targets in the aura",
-					"    " + "If I cast a healing spell with a spell slot, allies in the aura heal my druid level in HP"
+					" - Bear: my allies in the area and I instantly gain 5 + my druid level in temp HP",
+					"    While in the aura, my allies and I gain advantage on Strength checks and saves",
+					" - Hawk: As a reaction, I can grant advantage on an attack vs. a target in the aura",
+					" - Unicorn: my allies and I gain advantage on ability checks to detect targets in the aura",
+					"    If I cast a healing spell with a spell slot, allies in the aura heal my druid level in HP"
 				]),
 				usages : 1,
 				recovery : "short rest",
@@ -27719,13 +27758,13 @@ function importData() {
 				name : "Mighty Summoner",
 				source : ["UA:RCO", 2],
 				minlevel : 6,
-				description : "\n   " + "Beasts or Fey I summon with spells get +2 HP per HD and their attacks count as magical"
+				description : "\n   Beasts or Fey I summon with spells get +2 HP per HD and their attacks count as magical"
 			},
 			"subclassfeature10" : {
 				name : "Guardian Spirit",
 				source : ["UA:RCO", 2],
 				minlevel : 10,
-				description : "\n   " + "When a Beast or Fey that I summoned ends its turn in my Spirit Totem aura, it heals",
+				description : "\n   When a Beast or Fey that I summoned ends its turn in my Spirit Totem aura, it heals",
 				additional : levels.map(function (n) {
 					if (n < 10) return "";
 					return "heals " + Math.floor(n / 2) + " HP";
@@ -27764,12 +27803,12 @@ function importData() {
 				choices : ["Language proficiency", "Skill proficiency: Animal Handling, History, Insight, Performance, or Persuasion"],
 				"language proficiency" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I learn one language of my choice",
+					description : "\n   I learn one language of my choice",
 					languageProfs : [1]
 				},
 				"skill proficiency: animal handling, history, insight, performance, or persuasion" : {
 					name : "Bonus Proficiency",
-					description : "\n   " + "I gain proficiency with Animal Handling, History, Insight, Performance, or Persuasion",
+					description : "\n   I gain proficiency with Animal Handling, History, Insight, Performance, or Persuasion",
 					skillstxt : "\n\n" + toUni("Cavalier") + ": Choose one from: Animal Handling, History, Insight, Performance, or Persuasion."
 				}
 			},
@@ -27821,13 +27860,13 @@ function importData() {
 				name : "Improved Combat Superiority",
 				source : ["UA:RCO", 3],
 				minlevel : 10,
-				description : "\n   " + "My superiority dice turn into d10s at 10th level and into d12s at 18th level"
+				description : "\n   My superiority dice turn into d10s at 10th level and into d12s at 18th level"
 			},
 			"subclassfeature15" : {
 				name : "Relentless",
 				source : ["UA:RCO", 3],
 				minlevel : 15,
-				description : "\n   " + "I regain one superiority die if I have no more remaining when I roll initiative"
+				description : "\n   I regain one superiority die if I have no more remaining when I roll initiative"
 			}
 		}
 	});
@@ -27851,7 +27890,7 @@ function importData() {
 				name : "Channel Divinity: Guided Strike",
 				source : ["UA:RCO", 4],
 				minlevel : 3,
-				description : "\n   " + "When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
+				description : "\n   When I make an attack roll, I can add a +10 bonus to the roll after seeing the d20 roll"
 			},
 			"subclassfeature7" : {
 				name : "Aura of Conquest",
@@ -27901,7 +27940,7 @@ function importData() {
 				name : "Bonus Cantrips",
 				source : ["UA:RCO", 5],
 				minlevel : 1,
-				description : "\n   " + "I know the Light and Sacred Flame cantrips",
+				description : "\n   I know the Light and Sacred Flame cantrips",
 				spellcastingBonus : [{
 					name : "Bonus Cantrips",
 					spells : ["light"],
@@ -27973,7 +28012,7 @@ function importData() {
 	// Add Warlock invocations, revised versions from previous Unearthed Arcana articles, and new ones
 	AddWarlockInvocation("Aspect of the Moon (prereq: Pact of the Tome)", {
 		name : "Aspect of the Moon",
-		description : "\n   " + "I don't need sleep nor can be forced to by any means; I can rest while doing light activity",
+		description : "\n   I don't need sleep nor can be forced to by any means; I can rest while doing light activity",
 		source : [["X", 56], ["UA:RCO", 5]],
 		prereqeval : "What('Class Features Remember').indexOf('warlock,pact boon,pact of the tome') !== -1",
 		savetxt : { text : ["Nothing can force me to sleep"] }
@@ -28045,13 +28084,13 @@ function importData() {
 	});
 	AddWarlockInvocation("Gift of the Ever-Living Ones (prereq: Pact of the Chain)", {
 		name : "Gift of the Ever-Living Ones",
-		description : "\n   " + "When I regain HP while my familiar is within 100 ft, I regain the max the dice can roll",
+		description : "\n   When I regain HP while my familiar is within 100 ft, I regain the max the dice can roll",
 		source : [["X", 57], ["UA:RCO", 6]],
 		prereqeval : "What('Class Features Remember').indexOf('warlock,pact boon,pact of the chain') !== -1"
 	});
 	AddWarlockInvocation("Grasp of Hadar (prereq: Eldritch Blast cantrip)", {
 		name : "Grasp of Hadar",
-		description : "\n   " + "When my Eldritch Blast hits a creature once or more, I can move it 10 ft closer to me",
+		description : "\n   When my Eldritch Blast hits a creature once or more, I can move it 10 ft closer to me",
 		source : [["X", 57], ["UA:RCO", 6]],
 		prereqeval : "hasEldritchBlast",
 		calcChanges : {
@@ -28102,7 +28141,7 @@ function importData() {
 	});
 	AddWarlockInvocation("Shroud of Shadow (prereq: level 15 warlock)", {
 		name : "Shroud of Shadow",
-		description : "\n   " + "I can cast Invisibility at will, without using spell slots (PHB 254)",
+		description : "\n   I can cast Invisibility at will, without using spell slots (PHB 254)",
 		source : [["X", 57], ["UA:RCO", 6]],
 		spellcastingBonus : {
 			name : "Shroud of Shadow",
@@ -28128,7 +28167,7 @@ function importData() {
 	});
 	AddWarlockInvocation("Trickster's Escape (prereq: level 7 warlock)", {
 		name : "Trickster's Escape",
-		description : "\n   " + "Once per long rest, I can cast Freedom of Movement on myself without using a spell slot",
+		description : "\n   Once per long rest, I can cast Freedom of Movement on myself without using a spell slot",
 		source : [["X", 57], ["UA:RCO", 7]],
 		spellcastingBonus : {
 			name : "Trickster's Escape",
@@ -29018,7 +29057,7 @@ function importData() {
 				name : "Halo of Spores",
 				source : ["UA:TS", 1],
 				minlevel : 2,
-				description : "\n   " + "As a reaction on my turn, I can do poison damage to one creature I can see within 10 ft",
+				description : "\n   As a reaction on my turn, I can do poison damage to one creature I can see within 10 ft",
 				additional : levels.map(function (n) { return n < 2 ? "" : (n < 6 ? 3 : n < 10 ? 6 : n < 14 ? 9 : 12) + " poison damage"; }),
 				action : ["reaction", " (on my turn)"]
 			},
@@ -29065,7 +29104,7 @@ function importData() {
 				name : "Fungal Body",
 				source : ["UA:TS", 2],
 				minlevel : 14,
-				description : "\n   " + "I'm immune to critical hits and to being blinded, deafened, frightened, and poisoned",
+				description : "\n   I'm immune to critical hits and to being blinded, deafened, frightened, and poisoned",
 				savetxt : { immune : ["blinded", "deafened", "frightened", "poisoned", "critical hits"] }
 			}
 		}
@@ -29080,7 +29119,7 @@ function importData() {
 				name : "Brute Force",
 				source : ["UA:TS", 2],
 				minlevel : 3,
-				description : "\n   " + "I do additional damage with weapons that I'm proficient with",
+				description : "\n   I do additional damage with weapons that I'm proficient with",
 				additional : levels.map(function (n) {
 					return n < 3 ? "" : "+1d" + (n < 10 ? 4 : n < 16 ? 6 : n < 20 ? 8 : 10) + " weapon damage";
 				}),
@@ -29103,14 +29142,14 @@ function importData() {
 				FSfea.name = "Additional Fighting Style";
 				FSfea.source = ["UA:TS", 2];
 				FSfea.minlevel = 10;
-				FSfea.description = "\n   " + "Choose an Additional Fighting Style using the \"Choose Feature\" button above ";
+				FSfea.description = "\n   Choose an Additional Fighting Style using the \"Choose Feature\" button above ";
 				return FSfea;
 			}(),
 			"subclassfeature15" : {
 				name : "Devastating Critical",
 				source : ["UA:TS", 2],
 				minlevel : 15,
-				description : "\n   " + "Whenever I score a critical hit with a weapon, I add my fighter level to the damage",
+				description : "\n   Whenever I score a critical hit with a weapon, I add my fighter level to the damage",
 				additional : levels.map(function (n) { return n < 15 ? "" : "+" + n + " damage on crit"; })
 			},
 			"subclassfeature18" : {
@@ -29134,7 +29173,7 @@ function importData() {
 				name : "Tools of the Inventor",
 				source : ["UA:TS", 3],
 				minlevel : 2,
-				description : "\n   " + "I gain proficiency with light armor and two tools of my choice",
+				description : "\n   I gain proficiency with light armor and two tools of my choice",
 				toolProfs : [["Any one tool", 2]],
 				armor : [true, false, false, false]
 			},
@@ -29217,7 +29256,7 @@ function importData() {
 				name : "Prodigious Inspiration",
 				source : ["UA:TS", 4],
 				minlevel : 10,
-				description : "\n   " + "As a bonus action, I can replace a prepared spell with another from my spellbook",
+				description : "\n   As a bonus action, I can replace a prepared spell with another from my spellbook",
 				usages : 1,
 				recovery : "short rest",
 				action : ["bonus action", ""]
@@ -29245,4 +29284,7 @@ function importData() {
 		strReq : 0,
 		invName : "Arcanomechanical armor"
 	};
+	processQueue(queue);
+  console.log(RaceList);
+
 }
